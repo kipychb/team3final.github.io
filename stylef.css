@@ -1,0 +1,166 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #eeebe2;
+    color: #3a3a3a;
+    font-family: 'Noto Serif TC', serif;
+    line-height: 1.6;
+}
+
+/* 導覽列 */
+.navbar {
+    display: flex; align-items: center;
+    padding: 15px 25px; background:#A3A69C; 
+    position: sticky; top: 0; z-index: 1000;
+}
+.nav-logo { font-weight: bold; font-size: 1.2rem; color:#eeebe2; 
+    flex: 1; text-align: center;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.nav-icon { font-size: 1.2rem; color: #eeebe2; margin: 0 10px; cursor: pointer; }
+
+/* Banner */
+.banner { 
+    width: 100%; 
+    min-height: 450px;
+    background-color: #d1d1d1; /* 暫時的背景，替換圖片 */
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.banner-img { 
+    width: 100%; 
+    display: block; 
+    object-fit: cover; 
+    max-height: 500px; 
+}
+
+.banner-dots {
+    position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+    display: flex; 
+    gap: 8px;
+}
+
+.banner-dots span { width: 8px; height: 8px; background: #705844; border-radius: 50%; opacity: 0.5; }
+
+.banner-dots span.active { opacity: 1; }
+
+/* 心理測驗 */
+.quiz-intro {
+    display: flex; padding: 60px 20px; gap: 40px; align-items: center;
+    max-width: 1000px; margin: 0 auto;
+}
+.quiz-card {
+    flex: 0 0 300px; border: 1.5px solid #705844; aspect-ratio: 1;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 15px;
+}
+.quiz-card img { width: 85%; height: auto; margin-bottom: 15px; }
+
+.quiz-enter {
+    margin-top: auto; 
+    background:#A3A69C ; color: #eeebe2; border: none; padding: 8px 30px; border-radius: 20px;
+    cursor: pointer; font-family: 'Noto Serif TC', serif;
+}
+.quiz-text { flex: 1; color: #3a3a3a; }
+
+.quiz-text h2 { color: #705844; margin-bottom: 10px; }
+
+/* 商品排版標題 */
+.section-title { text-align: center; margin: 50px 0; font-size: 1.4rem; color:#705844; position: relative; }
+.section-title::before, .section-title::after { content: ""; position: absolute; top: 50%; width: 20%; height: 1px; background:#3a3a3a; opacity:80; }
+.section-title::before { left: 10%; } .section-title::after { right: 10%; }
+
+/* Grid 設定 */
+.grid-3x3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 20px; max-width: 1000px; margin: 0 auto; }
+.grid-2x3 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 50px; padding: 0 20px; max-width: 850px; margin: 0 auto; }
+
+.item { text-align: left; }
+
+.img-box { width: 100%; aspect-ratio: 1; border: 1px solid #A3A69C; overflow: hidden; }
+.img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+/*商品資訊 */
+.item-info { 
+    margin-top: 10px; 
+    padding-left: 10px;
+}
+.info-top { display: flex; justify-content: space-between; align-items: center; }
+.tag { 
+    font-size: 1.05rem; 
+    color: #3a3a3a; 
+    font-weight: 500;
+}
+.item-actions {font-size: 1.05rem; display: flex; gap: 10px; color: #705844; cursor: pointer; padding-right: 5px; }
+.price { 
+    color: #c0a080; 
+    font-weight: bold; 
+    display: block; 
+    margin-top: 4px;
+    font-size: 1rem; 
+}
+
+.info-content{
+    color:#3a3a3a;
+    text-align: center;
+}
+
+/* 💡 About Us 區塊強化 */
+.about-us { 
+    flex: 1; 
+    display: flex;
+    flex-direction: column; /* 讓內容由上往下排 */
+    align-items: flex-start; /* 靠左對齊，若要置中可改 center */
+}
+
+/* 💡 About Us Logo 樣式 */
+.about-logo {
+    width: 200px; 
+    height: auto;
+    margin-bottom: 5px; 
+    object-fit: contain;
+    margin-left: 100px;
+}
+
+.about-link { 
+    font-size: 1.4rem; 
+    text-decoration: underline; 
+    color: #705844; 
+    display: block; 
+    margin-bottom: 10px; 
+    margin-left: 150px;
+    
+}
+
+
+
+/* 聯絡區塊 */
+.contact-section { padding: 60px 20px 0; }
+.social-icons { text-align: center; font-size: 1.8rem; margin-bottom: 30px; color: #705844; }
+.social-icons i { margin: 0 15px; cursor: pointer; }
+
+.contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
+.about-us { flex: 1; }
+.about-link { font-size: 1.4rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
+.map-box { flex: 1; border: 1px solid #705844; aspect-ratio: 1.6; background: #fff; }
+.map-placeholder { height: 100%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
+
+/* 表單背景區塊 */
+.form-wrapper {
+    background-color:#705844;opacity: 60%;
+    padding: 40px 30px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    border-radius: 10px;
+}
+.contact-form {align-items: center;  display: flex; flex-direction: column; gap: 12px; }
+.form-title { text-align: center; color:#fff; margin-bottom: 8px; font-size: 1.2rem; }
+input, textarea { padding: 10px; border: none; background: #eeebe2; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; width:100%; }
+.submit-btn { margin-top: 30px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.8rem; transition: 0.3s; border-radius: 10px; }
+.submit-btn:hover {color: #3a3a3a; }
+
+.footer-bottom { text-align: center; padding: 5px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
+
+@media (max-width: 768px) { .quiz-intro, .contact-top { flex-direction: column; } .grid-3x3 { grid-template-columns: repeat(2, 1fr); } }
