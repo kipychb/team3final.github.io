@@ -50,7 +50,7 @@ body {
 
 
 .main-img-box {
-    width: 100%; aspect-ratio: 1; background: #fff;
+    width: 100%; aspect-ratio: 1;
     position: relative; overflow: hidden;
 }
 .main-img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -108,7 +108,7 @@ body {
 
 .addon-item { display: flex; flex-direction: column; }
 .addon-img { 
-    width: 100%; aspect-ratio: 1; background: #fff; 
+    width: 100%; aspect-ratio: 1; 
     border: 1px solid #705844; margin-bottom: 10px; overflow: hidden;
 }
 
