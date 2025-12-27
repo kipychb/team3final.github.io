@@ -22,6 +22,7 @@ async function loadProductDetail() {
             // 更新網頁標題
             document.title = `${flower.name} | 花予祝願所`;
 
+            // --- 上半部資訊更新 ---
             let Container = document.querySelector('.product-info .info-group');
             if (Container) {
                 const nameEl = Container.querySelector('.name');
@@ -39,23 +40,46 @@ async function loadProductDetail() {
                 }
             }
 
+            // 更新庫存
             Container = document.querySelector('.product-info .action-bar .quantity');
             if (Container) {
                 const invenEl = Container.querySelector('.inventory');
                 if (invenEl) invenEl.textContent = "僅剩 " + flower.inventory + " 束";
             }
 
-            // 更新主圖 (主圖通常不在 info 容器內，所以維持原本寫法)
+            // --- 商品細項 (Bottom Details) 更新 ---
+            const detailContainer = document.querySelector('.bottom-details .notice .content-flex');
+            if (detailContainer) {
+                const leftBox = detailContainer.querySelector('.left-box');
+                const rightBox = detailContainer.querySelector('.right-box');
+
+                if (leftBox) {
+                    // 更新左側：尺寸、花材、鑑賞期
+                    leftBox.innerHTML = `
+                        <h3>▪️尺寸規格：</h3>
+                        <p>${flower.size}</p>
+                        <h3>▪️使用花材：</h3>
+                        <p>${flower.material}</p>
+                        <h3>▪️鑑賞期：</h3>
+                        <p>${flower.appreciation_period}</p>
+                    `;
+                }
+
+                if (rightBox) {
+                    // 更新右側：保存重點 (將陣列轉為 li)
+                    const methodsHtml = flower.save_methods.map(method => `<li>${method}</li>`).join('');
+                    rightBox.innerHTML = `
+                        <h3>▪️保存重點：</h3>
+                        <ol>${methodsHtml}</ol>
+                    `;
+                }
+            }
+
+            // 更新主圖
             const mainImg = document.querySelector('.main-img-box img');
             if (mainImg) {
                 mainImg.src = flower.image;
                 mainImg.alt = flower.name;
-            }
-
-            // 更新注意事項 (Notice)
-            const noticeText = document.querySelector('.text-block:last-child .content-text');
-            if (noticeText && flower.notice) {
-                noticeText.textContent = flower.notice;
             }
 
         } else {

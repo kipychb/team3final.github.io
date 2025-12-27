@@ -8,13 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="loader.js"></script>
 </head>
 
 <body>
     <header class="navbar">
         <div class="nav-left">
-            <i class="fa-solid fa-bars nav-icon"></i>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
             <i class="fa-solid fa-share-nodes nav-icon"></i>
         </div>
         <div class="nav-right">
@@ -22,8 +21,20 @@
         </div>
     </header>
 
+    <!-- 分類選單 -->
+    <div class="side-panel" id="side-menu">
+        <h3 style="margin-bottom: 20px; color: #705844;">分類選單</h3>
+        <ul class="catalog-list">
+            <li><a href="../index.html">Home / 首頁</a></li>
+            <li><a href="catalog/2x3/index.html">玫瑰系列</a></li>
+            <li><a href="catalog/3x3/index.html">鬱金香系列</a></li>
+        </ul>
+    </div>
+
+    <div id="menu-overlay" class="menu-overlay"></div>
+
     <main class="product-wrapper">
-        <div class="product-main-flex">
+        <section class="product-main-flex">
             <section class="product-visual">
                 <div class="main-img-box border-box">
                     <img src="" alt="商品主圖">
@@ -38,9 +49,9 @@
 
             <section class="product-info">
                 <div class="info-group">
-                    <h1 class="name">name</h1>
-                    <p class="series">series</p>
-                    <p class="price">price</p>
+                    <h1 class="name"></h1>
+                    <p class="series"></p>
+                    <p class="price"></p>
                     <p class="desc"></p>
                 </div>
 
@@ -61,10 +72,24 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </section>
+
+        <section class="bottom-details">
+            <div class="text-block notice">
+                <h3 class="line-title">商品細項</h3>
+                <div class="content-flex">
+                    <div class="left-box"></div>
+                    <div class="right-box"></div>
+                </div>
+            </div>
+            <div class="text-block comment">
+                <h3 class="line-title">評論</h3>
+                <p class="content">text</p>
+            </div>
+        </section>
 
         <section class="addon-section">
-            <h3 class="line-title">add-on</h3>
+            <h3 class="line-title">類似商品</h3>
             <div class="addon-grid">
                 <div class="addon-item">
                     <div class="addon-img border-box">
@@ -80,19 +105,8 @@
                 </div>
             </div>
         </section>
-
-        <section class="bottom-details">
-            <div class="text-block">
-                <h3 class="line-title">comment</h3>
-                <p class="content-text">text</p>
-            </div>
-            <div class="text-block">
-                <h3 class="line-title">noctice</h3>
-                <p class="content-text">text</p>
-            </div>
-        </section>
     </main>
-
+    <script src="loader.js"></script>
+    <script src="../sidebar.js"></script>
 </body>
-
 </html>
