@@ -7,15 +7,15 @@
     <title>花予祝願所 </title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="stylef.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <header class="navbar">
         <div class="nav-left">
-            <i class="fa-solid fa-bars nav-icon"></i>
-            <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
+            <i class="fa-solid fa-magnifying-glass nav-icon" id="search-trigger"></i>
         </div>
         <div class="nav-logo">花予祝願所</div>
         <div class="nav-right">
@@ -34,14 +34,18 @@
 
 
         <ul class="catalog-list">
-            <li><a href="index.html" style="text-decoration: none; color: inherit; display: block;">Home / 首頁</a></li>
-            <li>catelog</li>
-            <li>catelog</li>
-            <li>catelog</li>
-            <li>catelog</li>
-            <li>catelog</li>
-            <li>catelog</li>
+            <li><a href="index.html">Home / 首頁</a></li>
+            <li><a href="catalog/2x3/index.html">玫瑰系列</a></li>
+            <li><a href="catalog/3x3/index.html">鬱金香系列</a></li>
         </ul>
+    </div>
+
+    <div class="side-panel" id="side-search">
+        <div class="menu-search-bar">
+            <input type="text" id="searchInput" placeholder="搜尋花朵...">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <ul id="search-suggestions" class="suggestions-list"></ul>
     </div>
 
     <div class="menu-overlay" id="menu-overlay"></div>
@@ -80,8 +84,10 @@
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
                         <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
+                            <div class="item-actions">
+                                <i class="fa-regular fa-heart"></i>
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
                         </div>
                         <span class="price">price</span>
                     </div>
@@ -89,73 +95,97 @@
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
             </div>
@@ -176,55 +206,73 @@
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
                 <div class="item">
                     <div class="img-box"><img src=""></div>
                     <div class="item-info">
-                        <div class="info-top"><span class="tag">[tag] name</span>
-                            <div class="item-actions"><i class="fa-regular fa-heart"></i><i
-                                    class="fa-solid fa-plus"></i></div>
-                        </div> <span class="price">price</span>
+                        <div class="info-top">
+                            <span class="tag">[tag] name</span>
+                            <div class="item-actions"><i class="fa-regular fa-heart">
+                                </i><i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                        <span class="price">price</span>
                     </div>
                 </div>
             </div>
@@ -255,7 +303,7 @@
             <div class="contact-top">
                 <div class="about-us">
                     <img src="image/去背logo.png" alt="logo" class="about-logo">
-                    <a href="about.html" class="about-link">about us</a>
+                    <a href="about/index.html" class="about-link">about us</a>
                 </div>
                 <div class="map-box">
                     <div class="map-placeholder">中原大學 Map</div>
@@ -401,4 +449,7 @@
 
 
 
+
+    </div>
+    <script src="searchFlower.js"></script>
 </body>

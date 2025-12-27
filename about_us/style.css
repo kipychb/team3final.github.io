@@ -1,0 +1,177 @@
+/* --- 1. 基礎重置與背景質感 --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #eeebe2;
+    color: #3a3a3a;
+    font-family: 'Noto Serif TC', serif;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    line-height: 1.6;
+}
+
+/* --- 2. Navbar 對齊修正 (核心改動) --- */
+.navbar {
+    position: absolute; 
+    top: 0;
+    width: 100%; /* 寬度撐滿 */
+    background: transparent;
+    z-index: 1000;
+}
+
+.nav-container {
+    /* 💡 關鍵：將最大寬度設為與內容區塊一致 (900px) */
+    max-width: 1200px; 
+    margin: 0 auto;   /* 讓 Navbar 容器水平置中 */
+    padding: 20px 40px; /* 這裡的 40px padding 必須與下方一致 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #705844;
+    text-align: center;
+}
+
+.nav-pic{
+    color:#705844;
+    width: 50px;
+    height: 50px;
+
+}
+
+/* --- 3. 關於我們容器 --- */
+.about-container {
+    max-width: 900px; /* 💡 保持 900px */
+    margin: 65px auto; /* 增加 top margin，避免被 Navbar 擋住標題 */
+    padding: 0 40px;  /* 💡 保持 40px padding */
+}
+
+/* 標題設計 */
+.about-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.title-line {
+    flex: 1;
+    height: 0.8px;
+    background: #705844;
+    opacity: 0.5;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: #c0a080;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+/* 簡介文字 */
+.brand-intro {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.intro-text {
+    line-height: 2.2;
+    font-size: 1.1rem;
+    color: #5a5a5a;
+    letter-spacing: 1.5px;
+}
+
+/* --- 4. 團隊花園 --- */
+.team-garden {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.flower-member {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.flower-member.reverse {
+    flex-direction: row-reverse;
+}
+
+.flower-box {
+    flex: 0 0 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.floating-flower {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    transform-origin: bottom center;
+    animation: gentleBreeze 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+/* 💡 垂直金色粗線與文字對齊 */
+.member-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px 30px;
+    border-left: 5px solid #c0a080;
+    min-height: 80px;
+}
+
+.flower-member.reverse .member-detail {
+    border-left: none;
+    border-right: 5px solid #c0a080;
+    text-align: right;
+}
+
+.member-name {
+    font-size: 1.7rem;
+    color: #705844;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.part {
+    font-size: 1rem;
+    color: #A3A69C;
+    font-weight: 500;
+}
+
+/* --- 5. 動畫與響應式 --- */
+@keyframes gentleBreeze {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(3deg) scale(1.03); }
+}
+
+.footer-simple {
+    text-align: center;
+    padding: 60px 0;
+    opacity: 0.5;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .nav-container { padding: 20px 20px; }
+    .about-container { padding: 0 20px; margin-top: 40px; }
+    .flower-member, .flower-member.reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    .member-detail, .flower-member.reverse .member-detail {
+        border: none;
+        padding: 0;
+    }
+    .flower-box { flex: 0 0 160px; height: 160px; }
+}

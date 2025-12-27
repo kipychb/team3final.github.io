@@ -2,27 +2,64 @@
 
 body {
     background-color: #eeebe2;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
     color: #3a3a3a;
     font-family: 'Noto Serif TC', serif;
     line-height: 1.6;
 }
 
 /* --- 選單--- */
-.side-menu {
+/* 共用側邊欄樣式 */
+.side-panel {
     position: fixed;
+    left: -300px;
     top: 0;
-    left: -100%; 
-    width: 280px;
+    width: 300px;
     height: 100%;
-    background-color: #eeebe2;
-    z-index: 9999;
-    padding: 40px 20px;
-    transition: 0.4s ease; 
+    background: #f4f1de;
+    transition: 0.3s ease;
+    z-index: 2000;
+    padding: 30px 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
-/* JS 特效 組部分 */
+/* 啟動時滑入 */
+.side-panel.active {
+    left: 0;
+}
+
+/* 側邊欄初始狀態：藏在左側外 */
+.side-menu {
+    position: fixed;
+    left: -300px; /* 寬度多少就往左移多少 */
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de; /* 依照 Figma 淺色調 */
+    transition: 0.3s;
+    z-index: 2000;
+    padding: 20px;
+}
+
+/* 當側邊欄有 .active 類別時滑入 */
 .side-menu.active {
     left: 0;
+}
+
+/* 搜尋建議清單樣式 */
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.suggestions-list li {
+    border-bottom: 1px solid #705844;
+    padding: 10px 0px;
+}
+
+.suggestions-list li:hover {
+    background-color: #e9e4d4;
 }
 
 /* 搜尋框版型 */
@@ -55,20 +92,21 @@ body {
     padding: 15px 0;
     border-bottom: 1px solid #705844; 
     cursor: pointer;
-}
 
+    /* 動畫 */
+    transition: all 0.3s ease;
+}
 
 .catalog-list li a {
     text-decoration: none;
     color: inherit;
     display: block;
     width: 100%;
-    transition: 0.3s ease;
 }
 
 .catalog-list li:hover {
     color: #c0a080; 
-    padding-left: 10px; 
+    padding-left: 10px;
 }
 
 
@@ -81,17 +119,16 @@ body {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0;
+    /* background: rgba(0, 0, 0, 0.4);  把這一行刪掉或改成下面這樣 */
+    background: transparent; 
     visibility: hidden;
-    transition: 0.3s;
-    z-index: 9998;
-}
-.menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    z-index: 1500; /* 確保在 side-panel 之下，但在內容之上 */
 }
 
+.menu-overlay.active {
+    visibility: visible;
+    /* opacity: 1; 這行也可以刪掉，因為已經透明了 */
+}
 
 .main-content-blur {
     transition: 0.3s;
@@ -116,48 +153,58 @@ body {
 
 /* Banner */
 .banner { 
-   width: 100%; 
-    height: 500px; 
+    width: 100%; 
+    min-height: 450px;
+    background-color: #d1d1d1; /* 暫時的背景，替換圖片 */
     position: relative; 
-    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.banner-container {
-   display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s ease-in-out;
-}
-
 .banner-img { 
-   width: 100%; 
-    min-width: 100%; 
-    height: 100%;
-    flex-shrink: 0; 
+    width: 100%; 
     display: block; 
-    object-fit: cover;
+    object-fit: cover; 
+    max-height: 500px; 
 }
 
-.banner-dots {
+.dots {
+    display:flex;
+    gap: 8px;
     position: absolute; 
     bottom: 15px; 
     left: 50%; 
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
+}
+.section-dots {
     display: flex; 
     gap: 8px;
-    z-index: 10;
+    justify-content: center; 
+    align-items: center;
+    width: 100%;       
+    margin: 40px 0;   
+    padding: 10px 0;  
 }
 
-.banner-dots span { 
+.section-dots span { 
+    display: inline-block; 
+    width: 8px; 
+    height: 8px; 
+    background: #705844; 
+    border-radius: 50%; 
+    opacity: 0.3; 
+    cursor: pointer;
+}
+
+.dots span{ 
     width: 8px; 
     height: 8px; 
     background: #705844; 
     border-radius: 50%; 
     opacity: 0.5; 
-    cursor: pointer; 
 }
 
-.banner-dots span.active { 
+.dots span.active, .section-dots span.active { 
     opacity: 1; 
 }
 
@@ -283,63 +330,5 @@ input, textarea { padding: 10px; border: none; background: #eeebe2; font-family:
 .submit-btn:hover {color: #3a3a3a; }
 
 .footer-bottom { text-align: center; padding: 5px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
-
-
-/* 購物車側邊欄 */
-.cart-sidebar {
-    position: 
-    fixed; 
-    top: 0; 
-    right: -350px; 
-    width: 320px; 
-    height: 100%;
-    background: #eeebe2; 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    z-index: 2000; 
-    transition: 0.4s ease; 
-    padding: 25px; 
-    display: flex; 
-    flex-direction: column;
-}
-.cart-sidebar.active { 
-    right: 0; 
-}
-.cart-overlay { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.4); 
-    display: none; 
-    z-index: 1500; 
-}
-.cart-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 1px solid #A3A69C; 
-    padding-bottom: 15px; 
-    margin-bottom: 20px; 
-}
-.cart-items { flex: 1; 
-    overflow-y: auto; 
-}
-.cart-footer { 
-    border-top: 1px solid #A3A69C; 
-    padding-top: 15px; 
-    margin-top: 20px; 
-}
-.checkout-btn { 
-    width: 100%; 
-    background: #705844; 
-    color: white; 
-    border: none; 
-    padding: 12px; 
-    border-radius: 5px; 
-    cursor: pointer; 
-}
-
-
 
 @media (max-width: 768px) { .quiz-intro, .contact-top { flex-direction: column; } .grid-3x3 { grid-template-columns: repeat(2, 1fr); } }
