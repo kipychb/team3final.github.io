@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #eeebe2;
+    font-family: 'Noto Serif TC', serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://picsum.photos/1920/1080?grayscale&blur=2');
+    background-size: cover;
+}
+
+.login-container {
+    background-color: rgba(112, 88, 68, 0.85);
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #eeebe2;
+}
+
+.login-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #eeebe2;
+    font-family: inherit;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #c0a080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #a3866a;
+}
+
+.extra-links {
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+.extra-links a {
+    color: #eeebe2;
+    text-decoration: none;
+}
+
+.back-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #705844;
+    text-decoration: none;
+    font-size: 1rem;
+}
