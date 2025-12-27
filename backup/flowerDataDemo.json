@@ -1,0 +1,37 @@
+[
+    {
+        "name": "摯愛Love in Bloom",
+        "series": "For Lover",
+        "is_fresh": true,
+        "inventory": 50,
+        "price": 2000,
+        "size": "約 28(長)x24(寬) 公分",
+        "material": "紅玫瑰、白石竹、尤加利葉",
+        "appreciation_period": "鮮花保存約5~7天",
+        "save_methods": [
+            "避免陽光直射",
+            "避免大力碰撞",
+            "避免潮濕環境",
+            "放置通風涼爽處",
+            "澆水時避開花瓣避免水傷，如有水傷或乾枯泛黃可將花瓣剝除"
+        ],
+        "language": "熱烈的愛、永恆的承諾",
+        "idea": "內斂的情感透過這束花的盛放將贈予者炙熱的愛意傳遞給對方——「妳/你值得世界上最美好的事物。」"
+    },
+    {
+        "name": "半熟戀人Semi-Ripe Romance",
+        "series": "For Lover",
+        "is_fresh": false,
+        "inventory": 50,
+        "price": 1500,
+        "size": "約 30(長)x16(寬) 公分",
+        "material": "紅玫瑰、棉花、索拉花、尤加利葉、乾燥果實",
+        "appreciation_period": "乾燥/永生花良好保存1年以上",
+        "save_methods": [
+            "避免大力碰撞",
+            "避免潮濕環境"
+        ],
+        "language": "堅定、深沉且不凋零的愛",
+        "idea": "「半熟」象徵著彼此已經過了最初的羞澀與試探，擁有一定的默契與理解，但依然保有那種臉紅心跳的感覺，是種最舒服且迷人的狀態。"
+    }
+]
