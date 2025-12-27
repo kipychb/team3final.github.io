@@ -20,6 +20,72 @@ body {
     padding: 20px 5%;
 }
 
+/* 側邊欄初始狀態：藏在左側外 */
+#side-menu {
+    position: fixed;
+    left: -300px; /* 寬度多少就往左移多少 */
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de; /* 依照 Figma 淺色調 */
+    transition: 0.3s;
+    z-index: 2000;
+    padding: 20px;
+}
+
+/* 當側邊欄有 .active 類別時滑入 */
+#side-menu.active {
+    left: 0;
+}
+
+#menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    /* background: rgba(0, 0, 0, 0.4);  把這一行刪掉或改成下面這樣 */
+    background: transparent; 
+    visibility: hidden;
+    z-index: 1500; /* 確保在 side-panel 之下，但在內容之上 */
+}
+
+#menu-overlay.active {
+    visibility: visible;
+    /* opacity: 1; 這行也可以刪掉，因為已經透明了 */
+}
+
+/* Catelog 列表與分隔線 */
+.catalog-list {
+    list-style: none;
+}
+.catalog-list li {
+    font-size: 1.4rem;
+    color: #3a3a3a;
+    padding: 15px 0;
+    border-bottom: 1px solid #705844; 
+    cursor: pointer;
+
+    /* 動畫 */
+    transition: all 0.3s ease;
+}
+
+.catalog-list li a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.catalog-list li:hover {
+    color: #c0a080; 
+    padding-left: 10px;
+}
+
+
+.catalog-list li:first-child {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
 .border-box { border: 1px solid #705844; }
 
 
@@ -114,6 +180,44 @@ body {
 .line-title::before, .line-title::after { content: ''; flex: 1; border-bottom: 1px solid #705844; }
 .line-title::before { margin-right: 20px; } .line-title::after { margin-left: 20px; }
 
+/* 評論、注意事項 */
+.bottom-details {
+    .text-block { 
+        text-align: center; 
+        margin-bottom: 40px; 
+    }
+
+    /* 設定左右並排的容器 */
+    .content-flex {
+        display: flex;
+        justify-content: space-between;
+        margin: 0% 5%; /* 維持你原本的左右邊距 */
+        text-align: left; /* 文字改回左對齊比較好閱讀 */
+    }
+
+    .left-box {
+        flex: 0 0 50%;
+        padding: 0px 30px;
+        p {
+            padding: 10px 0px 20px 30px;
+            text-align: justify;
+        }
+    }
+
+    .right-box {
+        flex: 0 0 50%;
+        padding: 0px 30px;
+        border-left: 1px solid #705844; /* 可加一條細線分隔 */
+        ol {
+            padding: 0px 40px;
+            text-align: justify;
+            width: 400px;
+            li {
+                padding: 2.5px 10px;
+            }
+        }
+    }
+}
 
 .addon-grid { /*寫的人看數量多少自己加*/
     display: grid; 
@@ -138,7 +242,3 @@ body {
 .addon-name { font-size: 1rem; color: #3a3a3a; }
 .addon-price { color: #c0a080; font-weight: bold; font-size: 0.9rem; margin-top: 2px; }
 .plus-icon { color: #A3A69C; cursor: pointer; font-size: 1.1rem; }
-
-
-.text-block { text-align: center; margin-bottom: 40px; }
-.content-text { font-size: 1.2rem; }/*寫評論的人可以自己排版，看文字或圖片要怎麼排，不行的話再跟我說~~*/
