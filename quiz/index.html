@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花予祝願所 | 花卉測驗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="test-container">
+
+        <div id="coverPage" class="page-container">
+            <div class="cover-img-box">
+                <img src=" " alt="測驗封面">
+            </div>
+            <div class="cover-text">
+                <h2>尋找命定花語</h2>
+                <p>兩分鐘找出代表你的花卉</p>
+                <p>測試</p>
+            </div>
+            <button class="start-btn" onclick="startQuiz()">開始尋找！</button>
+        </div>
+
+        <div id="questionPage" class="page-container hidden">
+            <div class="progress-dots" id="dotsContainer"></div>
+            <div class="question-text" id="qText"></div>
+            <div class="options-list" id="optionsList"></div>
+        </div>
+
+        <div id="resultPage" class="result-page hidden">
+            <div class="result-header-text">您的推薦花卉是 ......</div>
+
+            <div class="result-flex">
+                <div class="border-box result-flower-img">
+                    <img id="rImage" src="">
+                </div>
+                <div class="result-flower-info">
+                    <div class="info-line"><span>花名：</span><span id="rName"></span></div>
+                    <div class="info-line"><span>花語：</span><span id="rLanguage"></span></div>
+                    <div class="info">
+                        <p id="rDesc"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="recommend-title">推薦商品</div>
+            <div class="recommend-flex">
+                <div class="border-box recommend-img">
+                    <img id="rProdImg" src="">
+                </div>
+                <div class="result-flower-info">
+                    <div class="info-line"><span>商品名稱：</span><br><span id="rProdName"></span></div>
+                    <div class="info-line"><span>商品價格：</span><br><span id="rProdPrice"></span></div>
+                    <a href="#" class="go-btn">前往購買</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                title: "Step 1: 收到一份不喜歡的禮物，你的反應是？",
+                options: [
+                    { text: "即使不喜歡，也會誇張地表示感謝和驚喜。", type: "A" },
+                    { text: "溫和地收下，但會默默收起來，不常使用。", type: "B" },
+                    { text: "仔細研究禮物的設計或功能，分析它的價值。", type: "C" },
+                    { text: "轉頭就將它送給另一個需要的朋友。", type: "D" },
+                    { text: "很快向送禮人表達，並誠實說出更喜歡的款式。", type: "E" }
+                ]
+            },
+            {
+                title: "Step 2: 週末早晨，你會如何開始這一天？",
+                options: [
+                    { text: "立即規劃一個戶外活動或約見朋友。", type: "A" },
+                    { text: "徹底清潔和整理房間，享受安靜時光。", type: "B" },
+                    { text: "泡一杯茶，坐在窗邊，戴上耳機專注閱讀。", type: "C" },
+                    { text: "聯絡所有朋友，詢問有沒有突發的有趣計畫。", type: "D" },
+                    { text: "準備一頓精緻早餐，決定去哪裡隨心探索。", type: "E" }
+                ]
+            },
+            {
+                title: "Step 3: 遇到一個新加入的團體，你會？",
+                options: [
+                    { text: "積極主動地向所有人介紹自己，並找話題。", type: "A" },
+                    { text: "觀察周圍，只對談吐沉穩的人表示好奇。", type: "B" },
+                    { text: "傾向於保持沉默，除非被點到名才發言。", type: "C" },
+                    { text: "找到笑點，用幽默感打破冰點。", type: "D" },
+                    { text: "默默關注，為那些比較孤單的人提供幫助。", type: "E" }
+                ]
+            },
+            {
+                title: "Step 4: 當你感到疲倦時，最能給你充電的是？",
+                options: [
+                    { text: "參加一場熱鬧的派對或音樂會。", type: "A" },
+                    { text: "在無人打擾的環境中，進行深度冥想或休息。", type: "B" },
+                    { text: "獨自散步，讓思緒隨著腳步慢慢沉澱。", type: "C" },
+                    { text: "成功解決一個難題後，聽到他人的讚美。", type: "D" },
+                    { text: "收到家人或伴侶的一個擁抱與肯定。", type: "E" }
+                ]
+            },
+            {
+                title: "Step 5: 在花店，你通常會被哪種花束吸引？",
+                options: [
+                    { text: "顏色鮮豔、造型大膽，視覺衝擊力強的。", type: "A" },
+                    { text: "單一花材、高雅簡約，只有白綠兩色的。", type: "B" },
+                    { text: "花瓣層次豐富、香氣柔和，結構線條分明的。", type: "C" },
+                    { text: "陽光感十足、造型活潑，能照亮空間的。", type: "D" },
+                    { text: "造型隨性、多種顏色混搭，帶著野外氣息的。", type: "E" }
+                ]
+            }
+        ];
+
+        const results = {
+
+            "A": { name: "紅玫瑰", language: "熱情、深愛、勇敢的告白", desc: "你擁抱著火焰般的熱烈與勇敢。你的心是直率且充滿愛意的，敢於行動。", image: "images/rose.jpg", prodName: "", prodPrice: "", prodImg: "images/prod-rose.jpg" },
+
+            "B": { name: "白百合", language: "純潔、高雅、心想事成", desc: "你的心境是一片沉靜的高雅淨土。你追求內心的平靜，總是以最簡約的姿態面對生活。", image: "images/lily.jpg", prodName: "", prodPrice: "", prodImg: "images/prod-lily.jpg" },
+
+            "C": { name: "鬱金香", language: "永恆、典雅、愛的告白", desc: "你擁有內斂而典雅的力量。你不急於展露鋒芒，但內心充滿堅定的原則與秩序感。", image: "images/tulip.jpg", prodName: "", prodPrice: "", prodImg: "images/prod-tulip.jpg" },
+
+            "D": { name: "黃色洋桔梗", language: "開朗、希望、活潑可愛", desc: "你散發著陽光般積極的光芒。你是天生的樂觀主義者，走到哪裡都能帶來歡笑。", image: "images/eustoma.jpg", prodName: "", prodPrice: "", prodImg: "images/prod-eustoma.jpg" },
+
+            "E": { name: "波斯菊", language: "和諧、自由、少女的真心", desc: "你的靈魂渴望自由。不喜歡被框架束縛，享受在自然中找到的獨特美好。", image: "images/cosmos.jpg", prodName: "", prodPrice: "", prodImg: "images/prod-cosmos.jpg" }
+
+        };
+
+        let step = 0;
+        let counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+
+        function startQuiz() {
+
+            document.getElementById('coverPage').classList.add('hidden');
+            document.getElementById('questionPage').classList.remove('hidden');
+            document.getElementById('questionPage').style.display = 'flex';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizData[step];
+            document.getElementById('qText').innerText = q.title;
+            const list = document.getElementById('optionsList');
+            list.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => { counts[opt.type]++; nextStep(); };
+                list.appendChild(btn);
+            });
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = document.getElementById('dotsContainer');
+            dots.innerHTML = '';
+            quizData.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.className = 'dot' + (i === step ? ' active' : '');
+                dots.appendChild(d);
+            });
+        }
+
+        function nextStep() {
+            step++;
+            if (step < quizData.length) showQuestion();
+            else showResult();
+        }
+
+        function showResult() {
+            document.getElementById('questionPage').classList.add('hidden');
+            document.getElementById('questionPage').style.display = 'none';
+            document.getElementById('resultPage').classList.remove('hidden');
+
+            const win = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            const res = results[win];
+            document.getElementById('rName').innerText = res.name;
+            document.getElementById('rLanguage').innerText = res.language;
+            document.getElementById('rDesc').innerText = res.desc;
+            document.getElementById('rImage').src = res.image;
+            document.getElementById('rProdName').innerText = res.prodName;
+            document.getElementById('rProdPrice').innerText = res.prodPrice;
+            document.getElementById('rProdImg').src = res.prodImg;
+        }
+    </script>
+</body>
+
+</html>

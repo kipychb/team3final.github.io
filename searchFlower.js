@@ -24,9 +24,9 @@ const suggestionsList = document.getElementById('search-suggestions');
 function showRecommendations() {
     suggestionsList.innerHTML = "<li style='font-size: 0.9rem; color: #705844; border: none; cursor: default;'>✨ 推薦商品：</li>";
 
-    // 從資料中隨機抓 3 筆
+    // 從資料中隨機抓 7 筆
     const shuffled = [...flowerData].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 3);
+    const selected = shuffled.slice(0, 7);
 
     selected.forEach(flower => {
         const li = document.createElement('li');
