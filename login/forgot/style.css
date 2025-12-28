@@ -69,7 +69,13 @@ body {
 .back-links a {
     color: #eeebe2;
     text-decoration: none;
+    margin: 0 10px;
     opacity: 0.8;
+}
+
+.back-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
 
 .back-home {

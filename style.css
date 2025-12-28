@@ -153,14 +153,22 @@ body {
 
 /* Banner */
 .banner { 
-   width: 100%; 
-    height: 500px; 
-    position: relative; 
-    overflow: hidden; 
+    width: 80%; 
+    height: 100%; 
+    position: relative;
+    overflow: hidden;
+    
+    /* 關鍵：水平置中 */
+    margin: 40px auto; 
+    
+    /* 增加「框框感」的建議樣式 */
+    border-radius: 30px; /* 圓角 */
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.25); /* 輕微陰影 */
+    border: 1px solid #705844; /* 配合你品牌的邊框顏色 */
 }
 
 .banner-container {
-   display: flex;
+    display: flex;
     width: 100%;
     height: 100%;
     transition: transform 0.6s ease-in-out;
@@ -198,10 +206,9 @@ body {
     opacity: 1; 
 }
 
-
 /* 心理測驗 */
 .quiz-intro {
-    display: flex; padding: 60px 20px; gap: 40px; align-items: center;
+    display: flex; padding: 40px 20px; gap: 40px; align-items: center;
     max-width: 1000px; margin: 0 auto;
 }
 .quiz-card {
@@ -215,8 +222,14 @@ body {
     margin-top: auto; 
     background:#A3A69C ; color: #eeebe2; border: none; padding: 8px 30px; border-radius: 20px;
     cursor: pointer; font-family: 'Noto Serif TC', serif;
+    transition: 0.3s ease;
 }
-.quiz-text { flex: 1; color: #3a3a3a; }
+.quiz-enter:hover {
+    color: #fad976;
+    transform: scale(1.05);
+}
+
+.quiz-text { flex: 1; color: #3a3a3a; text-align: justify; }
 
 .quiz-text h2 { color: #705844; margin-bottom: 10px; }
 

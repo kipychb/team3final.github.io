@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>花予祝願所 </title>
+    <title>花予祝願所</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -12,6 +12,7 @@
 
 <body>
 
+    <!-- 導覽列 -->
     <header class="navbar">
         <div class="nav-left">
             <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
@@ -19,7 +20,7 @@
         </div>
         <div class="nav-logo">花予祝願所</div>
         <div class="nav-right">
-            <a href="login/login.html" style="color: inherit; text-decoration: none;">
+            <a href="login/index.html" style="color: inherit; text-decoration: none;">
                 <i class="fa-solid fa-user nav-icon"></i>
             </a>
             <i class="fa-solid fa-cart-shopping nav-icon" onclick="toggleCart()"></i>
@@ -31,8 +32,10 @@
         <h3 style="margin-bottom: 20px; color: #705844;">分類選單</h3>
         <ul class="catalog-list">
             <li><a href="index.html">Home / 首頁</a></li>
-            <li><a href="catalog/2x3/index.html">玫瑰系列</a></li>
-            <li><a href="catalog/3x3/index.html">鬱金香系列</a></li>
+            <li><a href="2x4/index.html">For Lover系列</a></li>
+            <li><a href="2x4/index2.html">For Myself系列</a></li>
+            <li><a href="2x4/index3.html">For Friend系列</a></li>
+            <li><a href="2x4/index4.html">For Elders系列</a></li>
         </ul>
     </div>
 
@@ -47,6 +50,23 @@
 
     <div id="menu-overlay" class="menu-overlay"></div>
 
+    <!--購物車-->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>購物清單</h3>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <p class="empty-msg">購物車是空的</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total-price">總計: NT$ <span id="cartTotal">0</span></div>
+            <button class="checkout-btn">前往結帳</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- 主要內容 -->
     <div class="main-content-blur" id="main-content">
 
         <section class="banner">
@@ -66,11 +86,12 @@
         <section class="quiz-intro">
             <div class="quiz-card">
                 <img src="images/04.jpg" alt="測驗封面">
-                <button class="quiz-enter" onclick="location.href='test.html'">enter</button>
+                <button class="quiz-enter" onclick="location.href='quiz/index.html'">enter</button>
             </div>
             <div class="quiz-text">
                 <h2>尋找命定花語</h2>
-                <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花 ✿ 這不僅是一場測驗，更是一份給心靈的祝願!</p>
+                <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花 ✿</p>
+                <p>這不僅是一場測驗，更是一份給心靈的祝願！</p>
             </div>
         </section>
 
@@ -300,7 +321,7 @@
             <div class="contact-top">
                 <div class="about-us">
                     <img src="image/去背logo.png" alt="logo" class="about-logo">
-                    <a href="about/index.html" class="about-link">about us</a>
+                    <a href="about_us/index.html" class="about-link">about us</a>
                 </div>
                 <div class="map-box">
                     <div class="map-placeholder">中原大學 Map</div>
@@ -322,132 +343,9 @@
         </footer>
     </div>
 
-    <!--購物車-->
-    <div id="cartSidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <h3>購物清單</h3>
-            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
-        </div>
-        <div id="cartItems" class="cart-items">
-            <p class="empty-msg">購物車是空的</p>
-        </div>
-        <div class="cart-footer">
-            <div class="total-price">總計: NT$ <span id="cartTotal">0</span></div>
-            <button class="checkout-btn">前往結帳</button>
-        </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
-
+    <!-- Java Script 專區 -->
     <script src="banner.js"></script>
     <script src="shoppingCart.js"></script>
-    <script src="searchFlower.js"></script>
-    <script>
-        //購物車
-        let cart = [];
-
-        function toggleCart() {
-            const sidebar = document.getElementById('cartSidebar');
-            const overlay = document.getElementById('cartOverlay');
-            if (sidebar) sidebar.classList.toggle('active');
-            if (overlay) overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-        }
-
-
-        document.querySelectorAll('.fa-plus').forEach((btn) => {
-            btn.addEventListener('click', function () {
-                const itemInfo = this.closest('.item-info');
-                const name = itemInfo.querySelector('.tag').innerText;
-                const priceTxt = itemInfo.querySelector('.price').innerText;
-
-                const price = parseInt(priceTxt.replace(/[^0-9]/g, '')) || 0;
-
-                cart.push({ id: Date.now(), name: name, price: price });
-                updateCartUI();
-
-                this.style.transform = "scale(1.4)";
-                setTimeout(() => this.style.transform = "scale(1)", 200);
-            });
-        });
-
-        function updateCartUI() {
-            const list = document.getElementById('cartItems');
-            const totalSpan = document.getElementById('cartTotal');
-            list.innerHTML = '';
-            let total = 0;
-
-            if (cart.length === 0) {
-                list.innerHTML = '<p class="empty-msg">購物車是空的</p>';
-            } else {
-                cart.forEach((item, index) => {
-                    total += item.price;
-                    list.innerHTML += `
-                        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:0.9rem; border-bottom:1px solid #ddd; padding-bottom:5px;">
-                            <span>${item.name}</span>
-                            <span>NT$ ${item.price} <i class="fa-solid fa-trash" style="margin-left:10px; cursor:pointer;" onclick="removeItem(${index})"></i></span>
-                        </div>`;
-                });
-            }
-            totalSpan.innerText = total.toLocaleString();
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-
-        const revealElements = document.querySelectorAll('.collection, .quiz-intro, .contact-top');
-        revealElements.forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(30px)";
-            el.style.transition = "all 0.8s ease-out";
-        });
-
-        window.addEventListener('scroll', () => {
-            revealElements.forEach(el => {
-                const windowHeight = window.innerHeight;
-                const revealTop = el.getBoundingClientRect().top;
-                if (revealTop < windowHeight - 100) {
-                    el.style.opacity = "1";
-                    el.style.transform = "translateY(0)";
-                }
-            });
-        });
-
-        // 首頁輪播圖功能
-        let currentBanner = 0;
-        const bannerContainer = document.getElementById('bannerSlider');
-        const dots = document.querySelectorAll('#bannerDots .dot');
-        const totalBanners = dots.length;
-
-        function showBanner(index) {
-            bannerContainer.style.transform = `translateX(-${index * 100}%)`;
-
-            dots.forEach(dot => dot.classList.remove('active'));
-            if (dots[index]) dots[index].classList.add('active');
-
-            currentBanner = index;
-        }
-
-        function nextBanner() {
-            let next = (currentBanner + 1) % totalBanners;
-            showBanner(next);
-        }
-
-        let bannerTimer = setInterval(nextBanner, 5000);
-
-
-        dots.forEach((dot, i) => {
-            dot.onclick = () => {
-                clearInterval(bannerTimer);
-                showBanner(i);
-                bannerTimer = setInterval(nextBanner, 5000);
-            };
-        });
-
-    </script>
-
-    </div>
     <script src="search.js"></script>
     <script src="sidebar.js"></script>
 </body>

@@ -42,6 +42,90 @@ body {
 
 }
 
+/* ----- 選單 ----- */
+/* 共用側邊欄樣式 */
+.side-panel {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de;
+    transition: 0.3s ease;
+    z-index: 2000;
+    padding: 30px 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+/* 啟動時滑入 */
+.side-panel.active {
+    left: 0;
+}
+
+/* 側邊欄初始狀態：藏在左側外 */
+.side-menu {
+    position: fixed;
+    left: -300px; /* 寬度多少就往左移多少 */
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de; /* 依照 Figma 淺色調 */
+    transition: 0.3s;
+    z-index: 2000;
+    padding: 20px;
+}
+
+/* 當側邊欄有 .active 類別時滑入 */
+.side-menu.active {
+    left: 0;
+}
+
+/* Catelog 列表與分隔線 */
+.catalog-list {
+    list-style: none;
+}
+.catalog-list li {
+    font-size: 1.4rem;
+    color: #3a3a3a;
+    padding: 15px 0;
+    border-bottom: 1px solid #705844; 
+    cursor: pointer;
+
+    /* 動畫 */
+    transition: all 0.3s ease;
+}
+
+.catalog-list li a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.catalog-list li:hover {
+    color: #c0a080; 
+    padding-left: 10px;
+}
+
+
+.catalog-list li:first-child {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent; 
+    visibility: hidden;
+    z-index: 1500;
+}
+
+.menu-overlay.active {
+    visibility: visible;
+}
+
 /* --- 3. 關於我們容器 --- */
 .about-container {
     max-width: 900px; /* 💡 保持 900px */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>花予祝願所 | 關於我們</title>
+    <title>關於我們 | 花予祝願所</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
     <header class="navbar">
         <div class="nav-container">
             <div class="nav-pic">
-                <i class="fa-solid fa-bars nav-icon" id="menu-btn"></i>
+                <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
             </div>
             <div class="nav-logo">花予祝願所</div>
             <div class="nav-pic">
@@ -21,6 +21,18 @@
             </div>
         </div>
     </header>
+
+    <!-- 分類選單 -->
+    <div class="side-panel" id="side-menu">
+        <h3 style="margin-bottom: 20px; color: #705844;">分類選單</h3>
+        <ul class="catalog-list">
+            <li><a href="../index.html">Home / 首頁</a></li>
+            <li><a href="../2x4/index.html">For Lover系列</a></li>
+            <li><a href="../2x4/index2.html">For Myself系列</a></li>
+            <li><a href="../2x4/index3.html">For Friend系列</a></li>
+            <li><a href="../2x4/index4.html">For Elders系列</a></li>
+        </ul>
+    </div>
 
     <main class="about-container">
         <section class="about-header">
@@ -81,9 +93,12 @@
         </section>
     </main>
 
+    <div id="menu-overlay" class="menu-overlay"></div>
+
     <footer class="footer-simple">
         <p>© 2025 花予祝願所. All Rights Reserved.</p>
     </footer>
 
+    <script src="../sidebar.js"></script>
 </body>
 </html>
