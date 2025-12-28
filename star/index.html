@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="productReviewModal" class="review-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeReviewModal()">&times;</span>
+            <h3 id="targetProductName" style="color:#705844;">評價商品</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">為這份祝願點亮星星</p>
+
+            <div class="star-rating">
+                <i class="fa-solid fa-star" data-value="5"></i>
+                <i class="fa-solid fa-star" data-value="4"></i>
+                <i class="fa-solid fa-star" data-value="3"></i>
+                <i class="fa-solid fa-star" data-value="2"></i>
+                <i class="fa-solid fa-star" data-value="1"></i>
+            </div>
+
+            <textarea id="reviewText" placeholder="寫下您的評價內容..." rows="4"
+                style="width: 100%; margin-top: 10px;"></textarea>
+            <button class="submit-btn" style="width: 100%; margin-top: 15px;"
+                onclick="submitProductReview()">提交評價</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedScore = 0;
+        let currentProductName = "";
+
+        // 開啟評價視窗
+        function openProductReview(name) {
+            currentProductName = name;
+            document.getElementById('targetProductName').innerText = name;
+            document.getElementById('productReviewModal').style.display = 'block';
+
+            // 重置星星與文字
+            selectedScore = 0;
+            document.getElementById('reviewText').value = "";
+            document.querySelectorAll('.star-rating i').forEach(s => s.classList.remove('selected'));
+        }
+
+        // 關閉評價視窗
+        function closeReviewModal() {
+            document.getElementById('productReviewModal').style.display = 'none';
+        }
+
+        // 監聽星星點擊
+        document.querySelectorAll('.star-rating i').forEach(star => {
+            star.addEventListener('click', function () {
+                selectedScore = this.getAttribute('data-value');
+
+                // 先移除所有選取狀態
+                const allStars = document.querySelectorAll('.star-rating i');
+                allStars.forEach(s => s.classList.remove('selected'));
+
+                // 給目前點擊的星星加上選取類別
+                this.classList.add('selected');
+            });
+        });
+
+        // 送出評價
+        function submitProductReview() {
+            if (selectedScore === 0) {
+                alert("請先點選星等評分 ✿");
+                return;
+            }
+
+            const comment = document.getElementById('reviewText').value;
+            alert(`【花予祝願所 評價成功】\n\n商品：${currentProductName}\n評分：${selectedScore} 顆星\n您的留言：${comment || '無'}\n\n感謝您的分享！`);
+
+            closeReviewModal();
+        }
+
+        // 點擊彈窗外部也可關閉
+        window.onclick = function (event) {
+            const modal = document.getElementById('productReviewModal');
+            if (event.target == modal) {
+                closeReviewModal();
+            }
+        }
+
+
+    </script>
+
+
+</body>
+</html>
