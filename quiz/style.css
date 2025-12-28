@@ -1,0 +1,184 @@
+/* 全域基礎設定  */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #EEEBE2; 
+    font-family: 'Noto Serif TC', serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.test-container {
+    width: 100%;
+    max-width: 500px;
+    background: #877566; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container {
+    padding: 25px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; 
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 封面頁 */
+
+.cover-img-box {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.cover-img-box img {
+    width: 100%;
+    height: auto;
+}
+
+.cover-text {
+    color: #EEEBE2;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.cover-text p {
+    padding-top: 10px;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.start-btn {
+    margin-top: auto; margin-bottom: 30px; width: 60%;
+    background-color: #C0A080; color: #EEEBE2; border: none;
+    padding: 10px; border-radius: 30px; font-size: 1.1rem;
+    cursor: pointer;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: bold;
+    transform: 0.1s;
+}
+
+.start-btn:hover{
+    opacity: 70%;
+}
+
+.start-btn:active{
+    transform: scale(0.95);
+}
+
+/* 題目頁 */
+
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 30px;
+    width: 100%;
+    position: relative;
+    padding: 15px 0;
+}
+.dot {
+    width: 8px; height: 8px;
+    border: 1px solid rgba(238, 235, 226, 0.5);
+    border-radius: 50%;
+    position: relative;
+    z-index: 5;
+}
+.dot.active {
+    background: #A3A69C;
+    border-color:#EEEBE2;
+}
+.progress-dots::before {
+    content: " ";
+    position: absolute; top: 50%; left: 10%; right: 10%;
+    height: 1px; background: rgba(238, 235, 226, 0.2); z-index: 1;
+}
+.dot.active::after {
+    content: "☀"; color: #EEEBE2;
+    position: absolute; top: -20px; left: -2px; font-size: 12px;
+}
+.question-text {
+    font-size: 1.2rem; line-height: 1.6; color: #EEEBE2;
+    text-align: center; width: 100%; margin-bottom: 20px;
+    font-family: 'Noto Serif TC', serif;
+}
+
+.options-list {
+    margin-top: auto; margin-bottom: 30px; width: 100%;
+}
+
+.option-btn {
+    width: 100%; background-color: #C0A080; color: #EEEBE2;
+    border: none; padding: 15px; border-radius: 30px;
+    margin-bottom: 15px; text-align: center; font-size: 1rem;
+    font-family: 'Noto Serif TC', serif;
+    cursor: pointer;
+}
+
+/* 結果頁*/
+
+.result-page {
+    width: 100%; max-width: 500px;
+    background-color: #877566; color: #EEEBE2;
+    padding: 20px 20px; min-height: 100vh;
+}
+.result-header-text {
+    font-family:'Noto Serif TC', serif;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color:#C0A080;
+    font-size: 1.2rem;
+}
+.result-flex, .recommend-flex { 
+    display: flex; gap: 15px; margin-bottom: 15px; 
+}
+.border-box { 
+    border: 1px solid #EEEBE2; overflow: hidden; 
+}
+.result-flower-img { width: 45%; aspect-ratio: 1; }
+
+.result-flower-img img, .recommend-img img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+.result-flower-info {
+    font-weight: bold; font-size: 0.8rem; width: 45%; text-align: left;  
+}
+
+.info-line { 
+    border-bottom: 1px solid #EEEBE2; padding: 5px 0; margin-bottom: 10px; font-size: 0.85rem; 
+}
+
+.divider { 
+    border-top: 1.5px #A3A69C double; margin: 20px 0; 
+}
+
+.recommend-title {
+    font-weight: bold; margin-bottom: 15px; text-align: left; color:#C0A080;font-size: 1.2rem;
+}
+
+.recommend-img { width: 45%; aspect-ratio: 1; }
+
+.go-btn {
+    display: block; width: 100%; border: 2px solid #A3A69C;
+    font-size: 12px;
+    text-align: center; padding: 8px 0; border-radius: 20px; 
+    color: #EEEBE2; text-decoration: none; margin-top: 100px;
+}
+
+.go-btn:hover{
+    background-color: #A3A69C;
+    cursor: pointer;
+}
+
+.go-btn:active{
+    transform: scale(0.95)
+}

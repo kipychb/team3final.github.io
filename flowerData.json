@@ -1,11 +1,12 @@
 [
     {
+        "id": "love_in_bloom",
         "name": "摯愛Love in Bloom",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約 28(長)x24(寬) 公分",
+        "size": "約 28（長）x24（寬）公分",
         "material": "紅玫瑰、白石竹、尤加利葉",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -19,12 +20,13 @@
         "idea": "內斂的情感透過這束花的盛放將贈予者炙熱的愛意傳遞給對方——「妳/你值得世界上最美好的事物。」"
     },
     {
+        "id": "semi_ripe_romance",
         "name": "半熟戀人Semi-Ripe Romance",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 1500,
-        "size": "約 30(長)x16(寬) 公分",
+        "size": "約 30（長）x16（寬）公分",
         "material": "紅玫瑰、棉花、索拉花、尤加利葉、乾燥果實",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -35,12 +37,13 @@
         "idea": "「半熟」象徵著彼此已經過了最初的羞澀與試探，擁有一定的默契與理解，但依然保有那種臉紅心跳的感覺，是種最舒服且迷人的狀態。"
     },
     {
+        "id": "soft_blush",
         "name": "悸動Soft blush",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約 28(長)x24(寬) 公分",
+        "size": "約 28（長）x24（寬）公分",
         "material": "粉玫瑰、白石竹、尤加利葉",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -54,6 +57,7 @@
         "idea": "柔和的淡粉色花瓣象徵愛戀的羞澀與臉頰的紅潤，那份純粹的悸動輕輕牽引著兩顆逐漸靠近的真心。"
     },
     {
+        "id": "golden_glow",
         "name": "如沐陽光Golden Glow",
         "series": "For Lover",
         "is_fresh": true,
@@ -70,12 +74,13 @@
         "idea": "這束花代表著祈願親愛的你/妳始終身處光譜的中心，被生命中所有的美好圍繞，你/妳是我生命中最明亮的存在。"
     },
     {
+        "id": "twilight_fantasy",
         "name": "暮光夢境Twilight Fantasy",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約 28(長)x24(寬) 公分",
+        "size": "約 28（長）x24（寬）公分",
         "material": "紫玫瑰、星辰花、尤加利葉",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -89,12 +94,13 @@
         "idea": "薰衣草色的玫瑰是暮光中獨有的夢境，願這份愛如同這片刻的柔光，永遠將你/妳溫柔擁抱。"
     },
     {
+        "id": "the_only",
         "name": "唯一The Only",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約30（長）x16(寬)公分",
+        "size": "約30（長）x16（寬）公分",
         "material": "紫玫瑰、羽毛、兔尾草、乾燥細枝、尤加利葉、卡斯比亞",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -105,12 +111,13 @@
         "idea": "視覺上的絕對唯一傳遞著極致的偏愛，以最堅定的姿態，在時光的長河中靜靜盛開。"
     },
     {
+        "id": "apricot_ember",
         "name": "日暮頌歌Apricot Ember",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約 28(長)x24(寬) 公分",
+        "size": "約 28（長）x24（寬）公分",
         "material": "蜜桃色玫瑰、白石竹、尤加利葉",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -124,12 +131,13 @@
         "idea": "玫瑰的顏色如同夕陽西下時的餘暉，溫暖而莊嚴的讚歌，表達贈予者誠摯的謝意。"
     },
     {
+        "id": "soulful_attachment",
         "name": "靈魂眷戀Soulful Attachment",
         "series": "For Lover",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約30（長）x16(寬)公分",
+        "size": "約30（長）x16（寬）公分",
         "material": "康乃馨、乾燥酸漿果、索拉花、米花、紫薊花、棉花、情人草",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -140,6 +148,7 @@
         "idea": "這束花使用帶有灰調的莫蘭迪紫代表了心靈上的契合與安寧，適合送給生命中難得可貴的靈魂伴侶。"
     },
     {
+        "id": "glimmering_verse",
         "name": "微光詩意Glimmering Verse",
         "series": "For Myself",
         "is_fresh": true,
@@ -159,6 +168,7 @@
         "idea": "這束花採用低飽和度的粉與白為主調，如同純粹的心緒與未盡的溫柔，其中穿插的優雅紫意，它似一首安靜的詩，獻給懂得在喧囂中保持溫柔與自我的你。"
     },
     {
+        "id": "the_sea_of_stars",
         "name": "星辰大海The Sea of Stars",
         "series": "For Myself",
         "is_fresh": true,
@@ -175,12 +185,13 @@
         "idea": "這束花象徵著「自我」的多面性——可以堅強理智，也可以柔軟感性，始終有個地方接納所有情緒的自己。"
     },
     {
+        "id": "midsummer_gleam",
         "name": "仲夏時光 Midsummer Gleam",
         "series": "For Myself",
         "is_fresh": true,
         "inventory": 50,
         "price": 2500,
-        "size": "約 28(長)x24(寬) 公分",
+        "size": "約 28（長）x24（寬）公分",
         "material": "繡球花、玫瑰、太陽花",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -194,12 +205,13 @@
         "idea": "這束花呈現積極向上、充滿療癒的風格，提醒著自己值得被愛、值得擁有所有的晴朗。請像花束般，熱烈而溫柔地向陽而生。"
     },
     {
+        "id": "garden",
         "name": "花園Garden",
         "series": "For Myself",
         "is_fresh": true,
         "inventory": 50,
         "price": 2300,
-        "size": "約 22(長)x25(寬) 公分",
+        "size": "約 22（長）x25（寬）公分",
         "material": "永生康乃馨、永生繡球、迷你玫瑰、尤加利葉、桉樹果、水晶花、滿天星、千日紅",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -210,12 +222,13 @@
         "idea": "這束花獻給那個努力灌溉心靈的自己，在這座『花園』裡隨時都能找回平靜與力量。親愛的，請繼續在自己的節奏裡，優雅盛開。"
     },
     {
+        "id": "afternoon_solace",
         "name": "午後淺眠Afternoon Solace",
         "series": "For Myself",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約 21(長)x18(寬) 公分",
+        "size": "約 21（長）x18（寬）公分",
         "material": "蜜桃色玫瑰、小蒼蘭、香檳色康乃馨、尤加利葉",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -229,6 +242,7 @@
         "idea": "這束花象徵著從日常的奔波中抽離出來，給予自己一段不受打擾、充滿溫馨感的休憩時間。獻給在不斷前進中，懂得停下來，溫柔對待自己的你/妳，願你/妳始終安靜而有力地生活著。"
     },
     {
+        "id": "inner_monologue",
         "name": "內心獨白Inner monologue",
         "series": "For Myself",
         "is_fresh": true,
@@ -245,12 +259,13 @@
         "idea": "這束花設計給「懂得與自己獨處」的人，送給自己這束花是在向世界宣示：我不需要別人的掌聲，我就是自己最優雅的觀眾。"
     },
     {
+        "id": "moment_of_stillness",
         "name": "留白時刻Moment of Stillness",
         "series": "For Myself",
         "is_fresh": true,
         "inventory": 50,
         "price": 2100,
-        "size": "約 21(長)x18(寬) 公分",
+        "size": "約 21（長）x18（寬）公分",
         "material": "白向日葵、白玫瑰、洋桔梗、雪柳、尤加利葉、白百合",
         "appreciation_period": "鮮花保存約5~7天",
         "save_methods": [
@@ -264,12 +279,13 @@
         "idea": "這束花象徵著刻意放慢腳步，在忙碌的生活中，為自己創造出一片沒有雜訊的「空白時間」。它代表洗淨鉛華，讓心靈擁有喘息的空白頁。"
     },
     {
+        "id": "wish",
         "name": "祝願Wish",
         "series": "For Myself",
         "is_fresh": true,
         "inventory": 50,
         "price": 2800,
-        "size": "約 42(長)x21(寬) 公分",
+        "size": "約 42（長）x21（寬）公分",
         "material": "玫瑰、小雛菊、尤加利葉、兔尾草、小星花、棉花",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -280,6 +296,7 @@
         "idea": "我們習慣於把祝福送給他人，卻忘了自己也需要被溫柔以待。看著這束花，我才發現生命本該如此豐盈。祝願自己一切都好，像這簇花叢綻放成斑斕、絢爛的樣子。"
     },
     {
+        "id": "light_along_the_way",
         "name": "沿途拾光Light Along the Way",
         "series": "For Friend",
         "is_fresh": true,
@@ -299,12 +316,13 @@
         "idea": "這束花象徵著真摯、不變的友誼，並感謝朋友在人生旅途中給予的陪伴、鼓勵與希望。它代表的是一種穩定、溫暖且充滿活力的支持力量。"
     },
     {
+        "id": "shimmering",
         "name": "波光粼粼Shimmering",
         "series": "For Friend",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約高30*寬16公分",
+        "size": "約30（高）*16（寬）公分",
         "material": "白玫瑰、松果、棉花、兔尾草、尤加利葉、木質乾燥材",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -315,6 +333,7 @@
         "idea": "這束花選用白、銀、大地色系的花材，是為了實踐：「無論外界如何更迭，你依舊是那個清澈如初、閃耀如星、滿懷希望的自己。」的理念"
     },
     {
+        "id": "amber_glow",
         "name": "橘色暖流Amber Glow",
         "series": "For Friend",
         "is_fresh": true,
@@ -334,12 +353,13 @@
         "idea": "這束花象徵著堅定、溫暖且充滿希望的情誼。它代表著支持朋友去追求夢想，並在疲憊時，永遠能從這份友誼中獲得如陽光般的能量。"
     },
     {
+        "id": "sunny_soulmate",
         "name": "煦日知己Sunny Soulmate",
         "series": "For Friend",
         "is_fresh": true,
         "inventory": 50,
         "price": 1300,
-        "size": "約高20*寬12公分",
+        "size": "約20（高）*12（寬）公分",
         "material": "星辰、滿天星、鹿角草、松果、黑種草",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -350,6 +370,7 @@
         "idea": "選擇大地色與鵝黃色的結合反映了友情的真諦：在對方沮喪時給予支撐，在對方快樂時分享光亮。"
     },
     {
+        "id": "summer_breeze_letter",
         "name": "微風信箋Summer Breeze Letter",
         "series": "For Friend",
         "is_fresh": true,
@@ -369,12 +390,13 @@
         "idea": "這束花象徵著一種如微風般輕柔卻無處不在的陪伴。它代表對朋友最純粹的祝福，感謝對方的存在，讓彼此的生活變得更加清澈與平靜。"
     },
     {
+        "id": "crimson_horizon",
         "name": "緋光之境Crimson Horizon",
         "series": "For Friend",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約高30*寬16公分",
+        "size": "約30（高）*16（寬）公分",
         "material": "玫瑰、繡球花、兔尾草、棉花、尤加利葉",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -385,6 +407,7 @@
         "idea": "這束花表達著生命本質的紅艷與光彩因沉澱而顯得更加瑰麗且動人。"
     },
     {
+        "id": "morning_whispers",
         "name": "晨曦絮語Morning Whispers",
         "series": "For Friend",
         "is_fresh": true,
@@ -404,12 +427,13 @@
         "idea": "這束花象徵著友誼中細膩的陪伴與理解，它像清晨陽光下的低語，始終給人溫柔與安寧。"
     },
     {
+        "id": "azure",
         "name": "蔚藍Azure",
         "series": "For Friend",
         "is_fresh": true,
         "inventory": 50,
         "price": 2000,
-        "size": "約高30*寬16公分",
+        "size": "約30（高）*16（寬）公分",
         "material": "康乃馨、玫瑰、棉花、兔尾草、星辰花、尤加利葉",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -420,6 +444,7 @@
         "idea": "這束花為傳達贈予者的祝願——「願這抹藍能成為你/妳心中的一片清澈海域，不被世俗所抹滅。」"
     },
     {
+        "id": "timeless_grace",
         "name": "歲月靜好Timeless Grace",
         "series": "For Elders",
         "is_fresh": true,
@@ -439,12 +464,13 @@
         "idea": "這束花選用了飽和度較高的紫色調，代表著長輩如沉香般深厚而內斂的生命質感。深色康乃馨與淺色玫瑰的交織，如同長輩溫暖的叮嚀與我們心中永恆的敬意。"
     },
     {
+        "id": "slow_time",
         "name": "慢時Slow Time",
         "series": "For Elders",
         "is_fresh": true,
         "inventory": 50,
         "price": 1500,
-        "size": "約 22(長)x25(寬) 公分",
+        "size": "約 22（長）x25（寬）公分",
         "material": "永生康乃馨、永生繡球、乾燥玫瑰、旱雪蓮、尤加利葉、星辰花、水晶花、兔尾草",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -455,6 +481,7 @@
         "idea": "以莫蘭迪色系與永生花材為主，刻意營造一種「停格」的美感，永生花傳達一種長久的陪伴。"
     },
     {
+        "id": "glowing_epoch",
         "name": "錦時映照 Glowing Epoch",
         "series": "For Elders",
         "is_fresh": true,
@@ -474,12 +501,13 @@
         "idea": "這束花象徵著長輩豐富的人生閱歷與豁達的心境。康乃馨的溫厚與鬱金香的高雅並存，展現出長輩在家庭中既是避風港，也是典範的雙重意象。"
     },
     {
+        "id": "texture_of_love",
         "name": "織心Texture of Love",
         "series": "For Elders",
         "is_fresh": true,
         "inventory": 50,
         "price": 2500,
-        "size": "約42(長)x21(寬) 公分",
+        "size": "約42（長）x21（寬）公分",
         "material": "永生康乃馨、永生繡球、乾燥玫瑰、旱雪蓮、尤加利葉、星辰花、水晶花、兔尾草",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -490,6 +518,7 @@
         "idea": "經時間淬煉的乾燥玫瑰相互堆疊，好似歲月的優雅與深度；點綴其間的兔尾草與星辰花，則帶出生命中柔軟而綿長的情感支撐。"
     },
     {
+        "id": "moonlight_keepsake",
         "name": "月光拾遺Moonlight Keepsake",
         "series": "For Elders",
         "is_fresh": true,
@@ -509,12 +538,13 @@
         "idea": "紫色與綠色的和諧交織，象徵著一種如月光般安靜而強大的守護，代表我們對長輩健康長壽、心境永保青春的真摯祝願。"
     },
     {
+        "id": "crimson_grace",
         "name": "綻紅Crimson Grace",
         "series": "For Elders",
         "is_fresh": true,
         "inventory": 50,
         "price": 1800,
-        "size": "約30(長)x16(寬) 公分",
+        "size": "約30（長）x16（寬）公分",
         "material": "乾燥玫瑰、兔尾草、尤加利葉、旱雪蓮、水晶花、星辰花、繡球花、金色葉材、木棉花",
         "appreciation_period": "乾燥/永生花良好保存1年以上",
         "save_methods": [
@@ -525,6 +555,7 @@
         "idea": "紅色的深淺變化，映襯出生命的豐富層次，這束花代表著祈願受贈者喜樂安康。"
     },
     {
+        "id": "serene_bloom",
         "name": "恬靜時光Serene Bloom",
         "series": "For Elders",
         "is_fresh": true,
@@ -544,6 +575,7 @@
         "idea": "明亮的黃與靜謐的紫交織，象徵對長輩生活豐盛、內心平靜的深深祝願，代表著我們心中那份如午後陽光般，溫暖而長久的敬愛與感謝。"
     },
     {
+        "id": "virtue_grace",
         "name": "德馨知遇Virtue & Grace",
         "series": "For Elders",
         "is_fresh": true,
