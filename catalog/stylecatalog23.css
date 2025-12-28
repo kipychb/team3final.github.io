@@ -6,14 +6,13 @@ body {
     font-family: 'Noto Serif TC', serif;
 }
 
-/* 導覽列 */
+
 .navbar {
     display: flex; align-items: center;
     padding: 15px 25px; background:#A3A69C; 
     position: sticky; top: 0; z-index: 1000;
 }
 
-/* 修正：確保標題絕對置中 */
 .nav-left, .nav-right {
     display: flex;
     align-items: center;
@@ -47,7 +46,7 @@ body {
 
 /* 標題 */
 .section-title { text-align: center; margin: 30px 0; font-size: 1.5rem; color:#705844; position: relative; }
-.section-title::before, .section-title::after { content: ""; position: absolute; top: 50%; width: 30%; height: 0.8px; background:#c0a080;  }
+.section-title::before, .section-title::after { content: ""; position: absolute; top: 50%; width: 30%; height: 0.8px; background-color: #c0a080;}
 .section-title::before { left: 0%; } .section-title::after { right: 0%; }
 
 
@@ -69,16 +68,17 @@ body {
 
 .text-group { display: flex; flex-direction: column; width: 100%; }
 
+/* 修正資訊佈局，對齊第一行標籤 */
 .name-with-plus {
     display: flex;
     justify-content: space-between; 
-    align-items: flex-start; 
+    align-items: flex-start; /* 改為頂部對應 */
     width: 100%;
 }
 
 .prod-tag-name { font-size: 1.05rem; color: #3a3a3a; line-height: 1.2; }
 
-
+/* 💡 統一圓圈按鈕樣式 (與主頁一致的綠色系) */
 .item-actions {
     display: flex;
     gap: 8px;
@@ -89,15 +89,15 @@ body {
     background-color: transparent;
     border: 1px solid #A3A69C; 
     color: #A3A69C;            
-    width: 23px;               
-    height: 23px;
+    width: 22px;               /* 縮小一點更精緻 */
+    height: 22px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     outline: none;
-    transform: translateY(2px); 
+    transform: translateY(2px); /* 視覺對齊微調 */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

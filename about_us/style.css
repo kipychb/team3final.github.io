@@ -1,4 +1,3 @@
-/* --- 1. 基礎重置與背景質感 --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -9,20 +8,18 @@ body {
     line-height: 1.6;
 }
 
-/* --- 2. Navbar 對齊修正 (核心改動) --- */
 .navbar {
     position: absolute; 
     top: 0;
-    width: 100%; /* 寬度撐滿 */
+    width: 100%;
     background: transparent;
     z-index: 1000;
 }
 
 .nav-container {
-    /* 💡 關鍵：將最大寬度設為與內容區塊一致 (900px) */
     max-width: 1200px; 
-    margin: 0 auto;   /* 讓 Navbar 容器水平置中 */
-    padding: 20px 40px; /* 這裡的 40px padding 必須與下方一致 */
+    margin: 0 auto;  
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -128,12 +125,11 @@ body {
 
 /* --- 3. 關於我們容器 --- */
 .about-container {
-    max-width: 900px; /* 💡 保持 900px */
-    margin: 65px auto; /* 增加 top margin，避免被 Navbar 擋住標題 */
-    padding: 0 40px;  /* 💡 保持 40px padding */
+    max-width: 900px; 
+    margin: 65px auto; 
+    padding: 0 40px; 
 }
 
-/* 標題設計 */
 .about-header {
     display: flex;
     align-items: center;
@@ -156,7 +152,6 @@ body {
     text-transform: uppercase;
 }
 
-/* 簡介文字 */
 .brand-intro {
     text-align: center;
     margin-bottom: 70px;
@@ -169,7 +164,6 @@ body {
     letter-spacing: 1.5px;
 }
 
-/* --- 4. 團隊花園 --- */
 .team-garden {
     display: flex;
     flex-direction: column;
@@ -203,7 +197,6 @@ body {
     animation: gentleBreeze 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
 }
 
-/* 💡 垂直金色粗線與文字對齊 */
 .member-detail {
     display: flex;
     flex-direction: column;
@@ -232,7 +225,7 @@ body {
     font-weight: 500;
 }
 
-/* --- 5. 動畫與響應式 --- */
+/*動畫與響應式 --- */
 @keyframes gentleBreeze {
     0%, 100% { transform: rotate(-2deg); }
     50% { transform: rotate(3deg) scale(1.03); }
