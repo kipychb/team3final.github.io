@@ -100,8 +100,34 @@
                 </div>
             </div>
             <div class="text-block comment">
-                <h3 class="line-title">評論</h3>
-                <p class="content">text</p>
+                <h3 class="line-title">顧客評價</h3>
+                <div class="rating-container">
+                    <div class="average-rating">
+                        <span id="rating-score">4.8</span>
+                        <div class="stars-display" id="main-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="user-rate-box">
+                        <p>為這份祝願評分：</p>
+                        <div class="star-rating-input">
+                            <i class="fa-solid fa-star" data-value="5"></i>
+                            <i class="fa-solid fa-star" data-value="4"></i>
+                            <i class="fa-solid fa-star" data-value="3"></i>
+                            <i class="fa-solid fa-star" data-value="2"></i>
+                            <i class="fa-solid fa-star" data-value="1"></i>
+                        </div>
+                        <div class="user-rate-box">
+                            <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
+                            <button class="submit-btn" onclick="submitReview()">送出評論</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
