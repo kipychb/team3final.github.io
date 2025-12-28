@@ -88,7 +88,7 @@ body {
 
 .border-box { border: 1px solid #705844; }
 
-
+/* 產品圖片 */
 .product-main-flex {
     display: flex;
     flex-direction: column; 
@@ -114,15 +114,14 @@ body {
     }
 }
 
-
 .main-img-box {
     width: 100%; aspect-ratio: 1;
     position: relative; overflow: hidden;
 }
-.main-img-box img { width: 100%; height: 100%; object-fit: cover; }
-.img-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
-.img-dots span { width: 6px; height: 6px; background: #705844; border-radius: 50%; opacity: 0.3; }
-.img-dots span.active { opacity: 1; }
+.main-img-box img { width: 100%; height: 100%; object-fit: cover;}
+.img-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; background-color: #7063447d; padding: 10px 10px; border-radius: 20px;}
+.img-dots span { width: 10px; height: 10px; background: #7f6448; border-radius: 50%; }
+.img-dots span.active { background: #b39c78;}
 
 
 .info-group { 

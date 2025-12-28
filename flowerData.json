@@ -1,6 +1,7 @@
 [
     {
         "id": "love_in_bloom",
+        "image_path": "fresh/1",
         "name": "摯愛Love in Bloom",
         "series": "For Lover",
         "is_fresh": true,
@@ -21,6 +22,7 @@
     },
     {
         "id": "semi_ripe_romance",
+        "image_path": "dried/1",
         "name": "半熟戀人Semi-Ripe Romance",
         "series": "For Lover",
         "is_fresh": false,
@@ -38,6 +40,7 @@
     },
     {
         "id": "soft_blush",
+        "image_path": "fresh/2",
         "name": "悸動Soft blush",
         "series": "For Lover",
         "is_fresh": true,
@@ -58,6 +61,7 @@
     },
     {
         "id": "golden_glow",
+        "image_path": "dried/2",
         "name": "如沐陽光Golden Glow",
         "series": "For Lover",
         "is_fresh": false,
@@ -75,6 +79,7 @@
     },
     {
         "id": "twilight_fantasy",
+        "image_path": "fresh/3",
         "name": "暮光夢境Twilight Fantasy",
         "series": "For Lover",
         "is_fresh": true,
@@ -95,6 +100,7 @@
     },
     {
         "id": "the_only",
+        "image_path": "dried/3",
         "name": "唯一The Only",
         "series": "For Lover",
         "is_fresh": false,
@@ -112,6 +118,7 @@
     },
     {
         "id": "apricot_ember",
+        "image_path": "fresh/4",
         "name": "日暮頌歌Apricot Ember",
         "series": "For Lover",
         "is_fresh": true,
@@ -132,6 +139,7 @@
     },
     {
         "id": "soulful_attachment",
+        "image_path": "dried/4",
         "name": "靈魂眷戀Soulful Attachment",
         "series": "For Lover",
         "is_fresh": false,
@@ -149,6 +157,7 @@
     },
     {
         "id": "glimmering_verse",
+        "image_path": "fresh/5",
         "name": "微光詩意Glimmering Verse",
         "series": "For Myself",
         "is_fresh": true,
@@ -169,6 +178,7 @@
     },
     {
         "id": "the_sea_of_stars",
+        "image_path": "dried/5",
         "name": "星辰大海The Sea of Stars",
         "series": "For Myself",
         "is_fresh": false,
@@ -186,6 +196,7 @@
     },
     {
         "id": "midsummer_gleam",
+        "image_path": "fresh/6",
         "name": "仲夏時光 Midsummer Gleam",
         "series": "For Myself",
         "is_fresh": true,
@@ -206,6 +217,7 @@
     },
     {
         "id": "garden",
+        "image_path": "dried/6",
         "name": "花園Garden",
         "series": "For Myself",
         "is_fresh": false,
@@ -223,6 +235,7 @@
     },
     {
         "id": "afternoon_solace",
+        "image_path": "fresh/7",
         "name": "午後淺眠Afternoon Solace",
         "series": "For Myself",
         "is_fresh": true,
@@ -243,6 +256,7 @@
     },
     {
         "id": "inner_monologue",
+        "image_path": "dried/7",
         "name": "內心獨白Inner monologue",
         "series": "For Myself",
         "is_fresh": false,
@@ -260,6 +274,7 @@
     },
     {
         "id": "moment_of_stillness",
+        "image_path": "fresh/8",
         "name": "留白時刻Moment of Stillness",
         "series": "For Myself",
         "is_fresh": true,
@@ -280,6 +295,7 @@
     },
     {
         "id": "wish",
+        "image_path": "dried/8",
         "name": "祝願Wish",
         "series": "For Myself",
         "is_fresh": false,
@@ -297,6 +313,7 @@
     },
     {
         "id": "light_along_the_way",
+        "image_path": "fresh/9",
         "name": "沿途拾光Light Along the Way",
         "series": "For Friend",
         "is_fresh": true,
@@ -317,6 +334,7 @@
     },
     {
         "id": "shimmering",
+        "image_path": "dried/9",
         "name": "波光粼粼Shimmering",
         "series": "For Friend",
         "is_fresh": false,
@@ -334,6 +352,7 @@
     },
     {
         "id": "amber_glow",
+        "image_path": "fresh/10",
         "name": "橘色暖流Amber Glow",
         "series": "For Friend",
         "is_fresh": true,
@@ -354,6 +373,7 @@
     },
     {
         "id": "sunny_soulmate",
+        "image_path": "dried/10",
         "name": "煦日知己Sunny Soulmate",
         "series": "For Friend",
         "is_fresh": false,
@@ -371,6 +391,7 @@
     },
     {
         "id": "summer_breeze_letter",
+        "image_path": "fresh/11",
         "name": "微風信箋Summer Breeze Letter",
         "series": "For Friend",
         "is_fresh": true,
@@ -391,6 +412,7 @@
     },
     {
         "id": "crimson_horizon",
+        "image_path": "dried/11",
         "name": "緋光之境Crimson Horizon",
         "series": "For Friend",
         "is_fresh": false,
@@ -408,6 +430,7 @@
     },
     {
         "id": "morning_whispers",
+        "image_path": "fresh/12",
         "name": "晨曦絮語Morning Whispers",
         "series": "For Friend",
         "is_fresh": true,
@@ -428,6 +451,7 @@
     },
     {
         "id": "azure",
+        "image_path": "dried/12",
         "name": "蔚藍Azure",
         "series": "For Friend",
         "is_fresh": false,
@@ -445,6 +469,7 @@
     },
     {
         "id": "timeless_grace",
+        "image_path": "fresh/13",
         "name": "歲月靜好Timeless Grace",
         "series": "For Elders",
         "is_fresh": true,
@@ -465,6 +490,7 @@
     },
     {
         "id": "slow_time",
+        "image_path": "dried/13",
         "name": "慢時Slow Time",
         "series": "For Elders",
         "is_fresh": false,
@@ -482,6 +508,7 @@
     },
     {
         "id": "glowing_epoch",
+        "image_path": "fresh/14",
         "name": "錦時映照 Glowing Epoch",
         "series": "For Elders",
         "is_fresh": true,
@@ -502,6 +529,7 @@
     },
     {
         "id": "texture_of_love",
+        "image_path": "dried/14",
         "name": "織心Texture of Love",
         "series": "For Elders",
         "is_fresh": false,
@@ -519,6 +547,7 @@
     },
     {
         "id": "moonlight_keepsake",
+        "image_path": "fresh/15",
         "name": "月光拾遺Moonlight Keepsake",
         "series": "For Elders",
         "is_fresh": true,
@@ -539,6 +568,7 @@
     },
     {
         "id": "crimson_grace",
+        "image_path": "dried/15",
         "name": "綻紅Crimson Grace",
         "series": "For Elders",
         "is_fresh": false,
@@ -556,6 +586,7 @@
     },
     {
         "id": "serene_bloom",
+        "image_path": "fresh/16",
         "name": "恬靜時光Serene Bloom",
         "series": "For Elders",
         "is_fresh": true,
@@ -576,6 +607,7 @@
     },
     {
         "id": "virtue_grace",
+        "image_path": "dried/16",
         "name": "德馨知遇Virtue & Grace",
         "series": "For Elders",
         "is_fresh": false,
