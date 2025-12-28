@@ -154,7 +154,7 @@ body {
 
 .brand-intro {
     text-align: center;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
 }
 
 .intro-text {
@@ -167,7 +167,7 @@ body {
 .team-garden {
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 80px;
 }
 
 .flower-member {
