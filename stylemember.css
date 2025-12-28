@@ -1,0 +1,75 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3a3a3a; line-height: 1.6; }
+
+/* Navbar */
+.navbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 40px; background:#A3A69C; position: sticky; top: 0; z-index: 1000;
+}
+.nav-logo { color: #eeebe2; font-weight: bold; font-size: 1.4rem; flex: 1; text-align: center; }
+.nav-icon { color: #eeebe2; font-size: 1.2rem; cursor: pointer; margin: 0 10px; }
+.home-link { text-decoration: none; }
+
+.member-wrapper { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.flower-nav { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; height: 130px; }
+.flower-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; width: 22%; transition: 0.5s ease; }
+
+.flower-icon-box {
+    width: 65px; height: 65px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.flower-img { width: 100%; filter: grayscale(100%) opacity(0.4); transition: 0.6s; }
+.flower-label { margin-top: 12px; font-size: 0.9rem; color: #705844; opacity: 0.5; transition: 0.3s; }
+
+
+.flower-item.active .flower-icon-box { transform: scale(1.6) rotate(8deg); }
+.flower-item.active .flower-img { 
+    filter: grayscale(0%) opacity(1) drop-shadow(0 8px 20px rgba(112, 88, 68, 0.2)); 
+}
+.flower-item.active .flower-label { opacity: 1; font-weight: bold; transform: translateY(5px); }
+
+
+.content-display {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid #705844;
+    padding: 40px;
+    min-height: 450px;
+    box-shadow: inset 0 0 15px rgba(112, 88, 68, 0.05);
+}
+.section-block { display: none; animation: fadeIn 0.8s ease; }
+.section-block.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.block-title { font-size: 1.4rem; color: #705844; margin-bottom: 20px; border-bottom: 1.5px solid #c0a080; padding-bottom: 5px; display: inline-block; }
+
+/* 1. 使用者資訊細項 */
+.info-row { border-bottom: 1px dashed rgba(112, 88, 68, 0.3); padding: 12px 0; display: flex; justify-content: space-between; }
+.info-label { color: #3a3a3a; font-size: 1rem; font-weight: 300;}
+.info-value {font-size: 0.9rem;color: #705844;}
+.status-tag { background: #d1d1d1; padding: 2px 12px; border-radius: 20px; font-size: 0.8rem; }
+.status-tag.highlight { background: #A3A69C; color: #fff; }
+
+/* 2. 訂單紀錄細項 */
+.order-card { border: 1px solid rgba(112, 88, 68, 0.2); padding: 20px; margin-bottom: 15px; background: rgba(255,255,255,0.3); }
+.order-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
+
+/* 3. 願望清單細項 */
+.wish-item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(112,88,68,0.1); }
+.wish-name { font-weight: 500; }
+.wish-price { color: #c0a080; font-size: 0.9rem; }
+.mini-add-btn { background: none; border: 1px solid #A3A69C; color: #A3A69C; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+.mini-add-btn:hover { background: #A3A69C; color: #fff; }
+
+/* 4. 花語查詢細項 */
+.search-bar-member { display: flex; gap: 10px; margin-bottom: 30px; }
+.search-bar-member input { flex: 1; padding: 10px; border: 1px solid #705844; background: transparent; outline: none; }
+.go-btn { background: #705844; color: #fff; border: none; padding: 0 20px; cursor: pointer; }
+.today-tip { color: #c0a080; padding: 20px; border-radius: 4px; }
+.today-tip h4 { color: #705844; margin-bottom: 5px; }
+
+.action-btn {color: #705844; border: 1px solid #705844; padding: 10px 25px; margin-top: 20px; cursor: pointer; font-family: inherit;border-radius: 5px; }
+.action-btn:hover{
+    color:#eeebe2;
+    background-color: #705844;
+}
+.hint-text { margin-top: 30px; font-size: 0.85rem; color: #A3A69C; font-style: italic; }
