@@ -1,113 +1,97 @@
-/**
- * 測驗邏輯控制
- * 功能：完成測驗後自動跳轉至對應產品頁面
- */
 
+let flowerData = [];
 let quizData = [];
 
-// 測驗結果對應的產品 ID (請確保這些 ID 與 flowerData.json 中的 id 一致)
-const resultsMap = {
-    "A": { name: "紅玫瑰", product_id: "love_in_bloom" },
-    "B": { name: "白百合", product_id: "love_in_bloom" },
-    "C": { name: "鬱金香", product_id: "love_in_bloom" },
-    "D": { name: "向日葵", product_id: "love_in_bloom" },
-    "E": { name: "滿天星", product_id: "love_in_bloom" }
-};
-
-let currentStep = 0;
-let scoreCounts = { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0 };
-
 // 導入資料
-async function initQuiz() {
+async function initSearchData() {
+    try {
+        const response = await fetch('../flowerData.json');
+        flowerData = await response.json();
+    } catch (error) {
+        console.error("搜尋資料載入失敗，請檢查 flowerData.json 是否存在:", error);
+    }
+
     try {
         const response = await fetch('quizData.json');
         quizData = await response.json();
-        console.log("測驗資料載入成功");
     } catch (error) {
-        console.error("載入 quizData.json 失敗:", error);
+        console.error("搜尋資料載入失敗，請檢查 quizData.json 是否存在:", error);
     }
 }
 
-// 開始測驗
+const results = {
+
+    "A": { name: "紅玫瑰", language: "熱情、深愛、勇敢的告白", desc: "你擁抱著火焰般的熱烈與勇敢。你的心是直率且充滿愛意的，敢於行動。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+
+    "B": { name: "白百合", language: "純潔、高雅、心想事成", desc: "你的心境是一片沉靜的高雅淨土。你追求內心的平靜，總是以最簡約的姿態面對生活。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+
+    "C": { name: "鬱金香", language: "永恆、典雅、愛的告白", desc: "你擁有內斂而典雅的力量。你不急於展露鋒芒，但內心充滿堅定的原則與秩序感。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+
+    "D": { name: "黃色洋桔梗", language: "開朗、希望、活潑可愛", desc: "你散發著陽光般積極的光芒。你是天生的樂觀主義者，走到哪裡都能帶來歡笑。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+
+    "E": { name: "波斯菊", language: "和諧、自由、少女的真心", desc: "你的靈魂渴望自由。不喜歡被框架束縛，享受在自然中找到的獨特美好。", image: "image/placeholder.png", product_id: "love_in_bloom" }
+
+};
+
+let step = 0;
+let counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+
 function startQuiz() {
-    if (quizData.length === 0) {
-        console.error("資料尚未載入完成");
-        return;
-    }
+
     document.getElementById('coverPage').classList.add('hidden');
     document.getElementById('questionPage').classList.remove('hidden');
+    document.getElementById('questionPage').style.display = 'flex';
     showQuestion();
 }
 
-// 顯示題目
 function showQuestion() {
-    const q = quizData[currentStep];
-    const qText = document.getElementById('qText');
-    const optionsList = document.getElementById('optionsList');
-
-    if (!qText || !optionsList) return;
-
-    qText.innerText = q.title;
-    optionsList.innerHTML = '';
-
+    const q = quizData[step];
+    document.getElementById('qText').innerText = q.title;
+    const list = document.getElementById('optionsList');
+    list.innerHTML = '';
     q.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = opt.text;
-        btn.onclick = () => {
-            scoreCounts[opt.type]++;
-            nextStep();
-        };
-        optionsList.appendChild(btn);
+        btn.onclick = () => { counts[opt.type]++; nextStep(); };
+        list.appendChild(btn);
     });
     updateDots();
 }
 
-// 更新進度條
 function updateDots() {
-    const dotsContainer = document.getElementById('dotsContainer');
-    if (!dotsContainer) return;
-
-    dotsContainer.innerHTML = '';
+    const dots = document.getElementById('dotsContainer');
+    dots.innerHTML = '';
     quizData.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === currentStep ? ' active' : '');
-        dotsContainer.appendChild(dot);
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === step ? ' active' : '');
+        dots.appendChild(d);
     });
 }
 
-// 下一步
 function nextStep() {
-    currentStep++;
-    if (currentStep < quizData.length) {
-        showQuestion();
-    } else {
-        handleFinalResult();
-    }
+    step++;
+    if (step < quizData.length) showQuestion();
+    else showResult();
 }
 
-/**
- * 處理最終結果並跳轉
- */
-function handleFinalResult() {
-    // 找出得分最高的類型
-    const winnerType = Object.keys(scoreCounts).reduce((a, b) =>
-        scoreCounts[a] > scoreCounts[b] ? a : b
-    );
+function showResult() {
+    document.getElementById('questionPage').classList.add('hidden');
+    document.getElementById('questionPage').style.display = 'none';
+    document.getElementById('resultPage').classList.remove('hidden');
 
-    const resultData = resultsMap[winnerType];
-
-    if (resultData && resultData.product_id) {
-        // 跳轉路徑：../ 代表跳出 quiz 資料夾，進入 product 資料夾
-        const targetUrl = `../product/index.html?id=${resultData.product_id}`;
-        console.log("準備跳轉至:", targetUrl);
-        window.location.href = targetUrl;
-    } else {
-        console.error("找不到對應的產品 ID");
-        // 備用方案：如果跳轉失敗，至少顯示個訊息
-        alert("測驗完成！即將為您跳轉。");
-    }
+    const win = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+    const res = results[win];
+    const recommendFlower = flowerData.find(item => item.id === res.product_id);
+    document.getElementById('rName').innerText = res.name;
+    document.getElementById('rLanguage').innerText = res.language;
+    document.getElementById('rDesc').innerText = res.desc;
+    document.getElementById('rImage').src = res.image;
+    document.getElementById('rProdImg').src = "../image/flower/" + recommendFlower.image_path + "-2.jpg";
+    document.getElementById('rProdName').innerText = recommendFlower.name;
+    document.getElementById('rProdPrice').innerText = "$" + recommendFlower.price;
+    document.getElementById('rProdLink').href = "../product/index.html?id=" + res.product_id;
 }
 
-// 確保頁面載入後才初始化
-window.addEventListener('DOMContentLoaded', initQuiz);
+// 初始化
+initSearchData();

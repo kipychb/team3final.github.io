@@ -160,7 +160,7 @@ body {
 }
 
 .info-line { 
-    border-bottom: 1px solid #EEEBE2; padding: 5px 0; margin-bottom: 10px; font-size: 0.85rem; 
+    border-bottom: 1px solid #EEEBE2; padding: 5px 0px; margin-bottom: 10px; font-size: 0.85rem; 
 }
 
 .divider { 
@@ -171,13 +171,14 @@ body {
     font-weight: bold; margin-bottom: 15px; text-align: left; color:#C0A080;font-size: 1.2rem;
 }
 
-.recommend-img { width: 45%; aspect-ratio: 1; }
+.recommend-img { width: 45%; height: auto; aspect-ratio: 1; }
 
 .go-btn {
     display: block; width: 100%; border: 2px solid #A3A69C;
     font-size: 12px;
     text-align: center; padding: 8px 0; border-radius: 20px; 
     color: #EEEBE2; text-decoration: none; margin-top: 100px;
+    transition: 0.3s ease-out;
 }
 
 .go-btn:hover{
@@ -187,4 +188,20 @@ body {
 
 .go-btn:active{
     transform: scale(0.95)
+}
+
+.back-home {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+
+    color: #826250;
+    text-decoration: none;
+    font-size: 1.2rem;
+
+    transition: 0.3s ease;
+}
+
+.back-home:hover {
+    color: #baab8b;
 }
