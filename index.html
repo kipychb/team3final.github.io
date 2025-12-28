@@ -26,13 +26,6 @@
         </div>
     </header>
 
-    <div class="side-menu" id="side-menu">
-        <div class="menu-search-bar">
-            <input type="text" placeholder="找商品">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-
-
     <!-- 分類選單 -->
     <div class="side-panel" id="side-menu">
         <h3 style="margin-bottom: 20px; color: #705844;">分類選單</h3>
@@ -58,9 +51,9 @@
 
         <section class="banner">
             <div class="banner-container" id="bannerSlider">
-                <img src="https://picsum.photos/1200/500?random=1" alt="廣告 1" class="banner-img">
-                <img src="https://picsum.photos/1200/500?random=1" alt="廣告 2" class="banner-img">
-                <img src="https://picsum.photos/1200/500?random=1" alt="廣告 3" class="banner-img">
+                <img src="images/01.jpg" alt="廣告 1" class="banner-img">
+                <img src="images/02.jpg" alt="廣告 2" class="banner-img">
+                <img src="images/03.jpg" alt="廣告 3" class="banner-img">
             </div>
 
             <div class="banner-dots" id="bannerDots">
@@ -72,7 +65,7 @@
 
         <section class="quiz-intro">
             <div class="quiz-card">
-                <img src="" alt="測驗封面">
+                <img src="images/04.jpg" alt="測驗封面">
                 <button class="quiz-enter" onclick="location.href='test.html'">enter</button>
             </div>
             <div class="quiz-text">
@@ -82,7 +75,7 @@
         </section>
 
         <section class="collection">
-            <h3 class="section-title">collection</h3>
+            <h3 class="section-title">推薦</h3>
             <div class="grid-3x3">
                 <div class="item">
                     <div class="img-box"><img src=""></div>
@@ -348,4 +341,113 @@
     <script src="/banner/banner.js"></script>
     <script src="/shoppingCart/shoppingCart.js"></script>
     <script src="searchFlower.js"></script>
+    <script>
+        //購物車
+        let cart = [];
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            if (sidebar) sidebar.classList.toggle('active');
+            if (overlay) overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+        }
+
+
+        document.querySelectorAll('.fa-plus').forEach((btn) => {
+            btn.addEventListener('click', function () {
+                const itemInfo = this.closest('.item-info');
+                const name = itemInfo.querySelector('.tag').innerText;
+                const priceTxt = itemInfo.querySelector('.price').innerText;
+
+                const price = parseInt(priceTxt.replace(/[^0-9]/g, '')) || 0;
+
+                cart.push({ id: Date.now(), name: name, price: price });
+                updateCartUI();
+
+                this.style.transform = "scale(1.4)";
+                setTimeout(() => this.style.transform = "scale(1)", 200);
+            });
+        });
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItems');
+            const totalSpan = document.getElementById('cartTotal');
+            list.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="empty-msg">購物車是空的</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    list.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-size:0.9rem; border-bottom:1px solid #ddd; padding-bottom:5px;">
+                            <span>${item.name}</span>
+                            <span>NT$ ${item.price} <i class="fa-solid fa-trash" style="margin-left:10px; cursor:pointer;" onclick="removeItem(${index})"></i></span>
+                        </div>`;
+                });
+            }
+            totalSpan.innerText = total.toLocaleString();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+
+        const revealElements = document.querySelectorAll('.collection, .quiz-intro, .contact-top');
+        revealElements.forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = "all 0.8s ease-out";
+        });
+
+        window.addEventListener('scroll', () => {
+            revealElements.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const revealTop = el.getBoundingClientRect().top;
+                if (revealTop < windowHeight - 100) {
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
+                }
+            });
+        });
+
+        // 首頁輪播圖功能
+        let currentBanner = 0;
+        const bannerContainer = document.getElementById('bannerSlider');
+        const dots = document.querySelectorAll('#bannerDots .dot');
+        const totalBanners = dots.length;
+
+        function showBanner(index) {
+            bannerContainer.style.transform = `translateX(-${index * 100}%)`;
+
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[index]) dots[index].classList.add('active');
+
+            currentBanner = index;
+        }
+
+        function nextBanner() {
+            let next = (currentBanner + 1) % totalBanners;
+            showBanner(next);
+        }
+
+        let bannerTimer = setInterval(nextBanner, 5000);
+
+
+        dots.forEach((dot, i) => {
+            dot.onclick = () => {
+                clearInterval(bannerTimer);
+                showBanner(i);
+                bannerTimer = setInterval(nextBanner, 5000);
+            };
+        });
+
+    </script>
+
+    </div>
+    <script src="search.js"></script>
+    <script src="sidebar.js"></script>
 </body>
