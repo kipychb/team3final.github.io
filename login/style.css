@@ -128,8 +128,15 @@ body {
 .back-home {
     position: absolute;
     top: 20px;
-    left: 20px;
-    color: #705844;
+    left: 30px;
+
+    color: #826250;
     text-decoration: none;
     font-size: 1.2rem;
+
+    transition: 0.3s ease;
+}
+
+.back-home:hover {
+    color: #baab8b;
 }
