@@ -53,7 +53,9 @@ body {
 }
 
 .suggestions-list li {
-    border-bottom: 1px solid #705844; opacity:0.8;
+    font-size: 15px;
+    border-bottom: 1px solid #705844;
+    opacity:0.8;
     padding: 10px 0px;
 }
 
@@ -139,7 +141,7 @@ body {
 /* 導覽列 */
 .navbar {
     display: flex; align-items: center;
-    padding: 15px 25px; background:#A3A69C; 
+    padding: 15px 25px; background-color:#A3A69C; 
     position: sticky; top: 0; z-index: 1000;
 }
 
@@ -244,11 +246,6 @@ body {
     color: #eeebe2;
     transform: translateY(2px);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transition: 0.3s ease;
-}
-.quiz-enter:hover {
-    color: #fad976;
-    transform: scale(1.05);
 }
 
 .quiz-text { flex: 1; color: #3a3a3a; text-align: justify; }
