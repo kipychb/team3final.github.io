@@ -36,11 +36,17 @@ body {
 .cover-img-box {
     margin-top: 40px;
     width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cover-img-box img {
-    width: 100%;
+    width: 70%;
     height: auto;
+    display: block;
+    border-radius: 50px;
 }
 
 .cover-text {
