@@ -4,8 +4,8 @@
 
 const menuTrigger = document.getElementById('menu-trigger');
 const sideMenu = document.getElementById('side-menu');
-const sideSearch = document.getElementById('side-search');
 const overlay = document.getElementById('menu-overlay');
+const sideSearch = document.getElementById('side-search');
 
 if (menuTrigger && sideMenu && overlay) {
     menuTrigger.addEventListener('click', (e) => {

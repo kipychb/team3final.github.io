@@ -73,7 +73,7 @@ if (searchInput) {
                 filtered.forEach(f => {
                     const li = document.createElement('li');
                     li.textContent = f.name;
-                    li.onclick = () => window.location.href = f.link;
+                    li.onclick = () => window.location.href = "product/index.html?id=" + f.id;
                     suggestionsList.appendChild(li);
                 });
             } else {

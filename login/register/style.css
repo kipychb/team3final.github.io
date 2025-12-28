@@ -17,9 +17,9 @@ body {
 
 .login-container {
     background-color: rgba(112, 88, 68, 0.85);
-    padding: 40px;
+    padding: 30px 40px;
     border-radius: 15px;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -29,24 +29,24 @@ body {
 .login-logo {
     font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     letter-spacing: 2px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     font-size: 0.9rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     background: #eeebe2;
@@ -70,19 +70,19 @@ body {
     background-color: #a3866a;
 }
 
-.extra-links {
+.back-links {
     margin-top: 20px;
     font-size: 0.85rem;
 }
 
-.extra-links a {
+.back-links a {
     color: #eeebe2;
     text-decoration: none;
     margin: 0 10px;
     opacity: 0.8;
 }
 
-.extra-links a:hover {
+.back-links a:hover {
     opacity: 1;
     text-decoration: underline;
 }
