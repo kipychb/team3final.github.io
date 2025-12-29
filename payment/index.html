@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花予祝願所 | 結帳頁面</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="javascript:history.back()" class="home-link">
+                <i class="fa-solid fa-chevron-left nav-icon"></i>
+            </a>
+        </div>
+        <div class="nav-logo"></div>
+        <div class="nav-right" style="width: 40px;"></div>
+    </header>
+
+    <main class="checkout-wrapper">
+        <h2 class="page-title">結帳資料確認</h2>
+
+        <section class="checkout-card">
+            <div class="product-list">
+                <div class="product-item">
+                    <div class="prod-img border-box"><img src="images/flower1.png"></div>
+                    <div class="prod-details">
+                        <p class="name"></p>
+                        <p class="price">NT$ </p>
+                    </div>
+                    <span class="quantity">X1</span>
+                </div>
+                <div class="product-item">
+                    <div class="prod-img border-box"><img src="images/flower2.png"></div>
+                    <div class="prod-details">
+                        <p class="name"></p>
+                        <p class="price">NT$ </p>
+                    </div>
+                    <span class="quantity">X1</span>
+                </div>
+            </div>
+            <div class="subtotal-row">小計：<span class="amount"></span></div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-subtitle">顧客資料</h3>
+            <div class="input-group">
+                <input type="text" placeholder="請輸入姓名" required>
+                <input type="tel" placeholder="聯絡資訊 (手機)" required>
+                <textarea placeholder="訂單備註" rows="2"></textarea>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-subtitle">送貨地址及付款方式</h3>
+            <div class="input-group">
+                <div class="date-input-wrapper">
+                    <input type="text" placeholder="請指定送達日期 (當日送達加收100元)">
+                    <i class="fa-regular fa-calendar-check calendar-icon"></i>
+                </div>
+                <input type="text" placeholder="請輸入地址" required>
+                <select required>
+                    <option value="" disabled selected>付款方式 (請選擇)</option>
+                    <option value="credit">信用卡 / 金融卡線上支付</option>
+                    <option value="linepay">LINE Pay 快速結帳</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-subtitle">訂單資訊</h3>
+            <div class="summary-list">
+                <div class="summary-row"><span>商品總額：</span><span>$</span></div>
+                <div class="summary-row"><span>運費總額：</span><span>$</span></div>
+                <div class="summary-row total"><span>訂單總額：</span><span>$</span></div>
+            </div>
+        </section>
+
+        <div class="submit-area">
+            <button class="checkout-btn" onclick="submitOrder()">
+                <span>送出訂單</span>
+            </button>
+        </div>
+    </main>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <h2 class="card-title">訂單已送出</h2>
+            <div class="card-content">
+                <p>親愛的顧客，您的訂單 <strong>#ORD-20251229</strong> 已建立。</p>
+                <p>我們將細心包裝，確保這份祝福完美送達☆</p>
+            </div>
+            <button class="back-home-btn" onclick="location.href='index.html'">回到首頁</button>
+            <p class="card-footer">花予祝願所 感謝您的信任</p>
+        </div>
+    </div>
+
+    <script>
+        function submitOrder() {
+
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.add('active');
+        }
+    </script>
+</body>
+</html
