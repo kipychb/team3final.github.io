@@ -350,3 +350,46 @@ body {
     border-color: #705844;
     box-shadow: 0 0 5px rgba(112, 88, 68, 0.2);
 }
+
+/* 購物車側邊欄 (Cart Sidebar) */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* 初始隱藏在右側 */
+    width: 320px;
+    height: 100%;
+    background: #eeebe2; /* 與 body 同色 */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 3000;
+    transition: 0.4s ease;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.active {
+    right: 0; /* 啟動時滑入 */
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #705844;
+    padding-bottom: 10px;
+}
+
+.cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.cart-footer {
+    padding-top: 15px;
+    border-top: 1px solid #705844;
+}
+
+.checkout-btn:hover {
+    background-color: #5d4a39 !important;
+}

@@ -17,7 +17,7 @@
             <i class="fa-solid fa-share-nodes nav-icon"></i>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-cart-shopping nav-icon"></i>
+            <i class="fa-solid fa-cart-shopping nav-icon" onclick="toggleCart()"></i>
         </div>
     </header>
 
@@ -32,6 +32,23 @@
             <li><a href="../2x4/index4.html">For Elders系列</a></li>
         </ul>
     </div>
+
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3 style="color: #705844;">購物清單</h3>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()" style="cursor:pointer;"></i>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <p class="empty-msg">購物車是空的</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total-price" style="margin-bottom: 15px; font-weight: bold;">
+                總計: NT$ <span id="cartTotal">0</span>
+            </div>
+            <button class="checkout-btn" style="width: 100%; background: #705844; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">前往結帳</button>
+        </div>
+    </div>
+
 
     <div id="menu-overlay" class="menu-overlay"></div>
 
@@ -70,7 +87,7 @@
                     </div>
 
                     <div class="btn-group">
-                        <button class="add-cart-btn">加入購物車</button>
+                        <button class="add-cart-btn plus-icon">加入購物車</button>
                         <button class="buy-now-btn">立即購買</button>
                     </div>
                 </div>
@@ -151,5 +168,6 @@
     </main>
     <script src="loader.js"></script>
     <script src="../sidebar.js"></script>
+    <script src="../shoppingCart.js"></script>
 </body>
 </html>

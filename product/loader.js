@@ -1,6 +1,6 @@
 /**
  * 產品頁面自動載入器
- * 功能：根據 URL 參數載入 JSON 中對應的花朵資料，並處理圖片切換
+ * 功能：根據 URL 參數載入 JSON 中對應的花朵資料，並處理購物車連動與圖片切換
 */
 
 async function loadProductDetail() {
@@ -20,7 +20,7 @@ async function loadProductDetail() {
         if (flower) {
             document.title = `${flower.name} | 花予祝願所`;
 
-            // 1. 更新文字資訊
+            // 1. 更新文字資訊與綁定購物車按鈕
             updateTextContent(flower);
 
             // 2. 更新圖片路徑與輪播功能
@@ -34,47 +34,9 @@ async function loadProductDetail() {
     }
 }
 
-<<<<<<< HEAD
-// 頁面載入完成後執行
-window.onload = loadProductDetail;
-
-// --- 評分系統互動邏輯 ---
-
-let userScore = 0;
-
-// 監聽星星點擊
-document.querySelectorAll('.star-rating-input i').forEach(star => {
-    star.addEventListener('click', function() {
-        userScore = this.getAttribute('data-value');
-        
-        // 移除所有選取狀態並重新設定
-        const allStars = document.querySelectorAll('.star-rating-input i');
-        allStars.forEach(s => s.classList.remove('selected'));
-        this.classList.add('selected');
-        
-        console.log("用戶評分：", userScore);
-    });
-});
-
-// 送出評論函數
-function submitReview() {
-    const comment = document.getElementById('comment-input').value;
-    
-    if (userScore === 0) {
-        alert("請先點選星等評分 ✿");
-        return;
-    }
-
-    // 這裡模擬送出資料，實際開發可連結至後端資料庫
-    alert(`感謝您的評論！\n評分：${userScore} 顆星\n內容：${comment || '無'}`);
-    
-    // 清空輸入
-    document.getElementById('comment-input').value = "";
-    document.querySelectorAll('.star-rating-input i').forEach(s => s.classList.remove('selected'));
-    userScore = 0;
-}
-=======
-// 更新文字內容的函式
+/**
+ * 更新頁面文字內容並綁定「加入購物車」按鈕
+ */
 function updateTextContent(flower) {
     let container = document.querySelector('.product-info .info-group');
     if (container) {
@@ -92,13 +54,14 @@ function updateTextContent(flower) {
         }
     }
 
-    container = document.querySelector('.product-info .action-bar .quantity');
-    if (container) {
-        const invenEl = container.querySelector('.inventory');
+    // 更新庫存顯示
+    const actionContainer = document.querySelector('.product-info .action-bar .quantity');
+    if (actionContainer) {
+        const invenEl = actionContainer.querySelector('.inventory');
         if (invenEl) invenEl.textContent = "僅剩 " + flower.inventory + " 束";
     }
 
-    // 商品細項
+    // 商品細項 (尺寸、花材、保存方法)
     const detailContainer = document.querySelector('.bottom-details .notice .content-flex');
     if (detailContainer) {
         const leftBox = detailContainer.querySelector('.left-box');
@@ -111,9 +74,28 @@ function updateTextContent(flower) {
             rightBox.innerHTML = `<h3>▪️保存重點：</h3><ol>${methodsHtml}</ol>`;
         }
     }
+
+    // --- 修正處：綁定加入購物車按鈕 ---
+    // 根據您的 HTML，按鈕 class 為 .add-cart-btn
+    const productAddBtn = document.querySelector('.add-cart-btn'); 
+    if (productAddBtn) {
+        // 移除 HTML 標籤上的 onclick="toggleCart()" 以免衝突
+        productAddBtn.removeAttribute('onclick'); 
+        
+        productAddBtn.onclick = function() {
+            if (typeof addToCart === "function") {
+                // 執行加入動作
+                addToCart(flower.name, flower.price);
+            } else {
+                console.error("未偵測到 addToCart 函數");
+            }
+        };
+    }
 }
 
-// 初始化圖片輪播與路徑
+/**
+ * 初始化圖片輪播與路徑
+ */
 function initImageCarousel(flower) {
     const imgBox = document.querySelector('.main-img-box');
     if (!imgBox) return;
@@ -121,28 +103,39 @@ function initImageCarousel(flower) {
     const images = imgBox.querySelectorAll('img');
     const dots = imgBox.querySelectorAll('.img-dots span');
 
-    // 自動設定圖片路徑
     images.forEach((img, index) => {
-        img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
-        img.alt = `${flower.name}-${index + 1}`;
-        // 初始狀態：第一張顯示，其他隱藏
-        img.style.display = (index === 0) ? 'block' : 'none';
+        if(img) {
+            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
+            img.alt = `${flower.name}-${index + 1}`;
+            img.style.display = (index === 0) ? 'block' : 'none';
+        }
     });
 
-    // 綁定圓點點擊事件
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            // 1. 切換圖片顯示
+        dot.onclick = () => {
             images.forEach((img, i) => {
-                img.style.display = (i === index) ? 'block' : 'none';
+                if(img) img.style.display = (i === index) ? 'block' : 'none';
             });
-
-            // 2. 切換圓點 active 狀態
             dots.forEach(d => d.classList.remove('active'));
             dot.classList.add('active');
-        });
+        };
     });
 }
 
+// --- 評分系統 ---
+let userScore = 0;
+document.querySelectorAll('.star-rating-input i').forEach(star => {
+    star.addEventListener('click', function() {
+        userScore = this.getAttribute('data-value');
+        document.querySelectorAll('.star-rating-input i').forEach(s => s.classList.remove('selected'));
+        this.classList.add('selected');
+        // 同時點亮前面的星星 (可選)
+    });
+});
+
+function submitReview() {
+    if (userScore === 0) { alert("請先評分"); return; }
+    alert("感謝您的評論！");
+}
+
 window.onload = loadProductDetail;
->>>>>>> 9478968a09b7a633542326cc6e0135e51c211c19

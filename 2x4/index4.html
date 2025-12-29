@@ -15,7 +15,7 @@
             <i class="fa-solid fa-bars nav-icon"></i>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-cart-shopping nav-icon"></i>
+            <i class="fa-solid fa-cart-shopping nav-icon" onclick="toggleCart()"></i>
         </div>
     </header>
 
@@ -48,5 +48,25 @@
      
     </main>
 
+    <!-- 購物車 -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>購物清單</h3>
+            <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer;"></i>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+            <div>總計: NT$ <span id="cartTotal">0</span></div>
+            <button class="checkout-btn" style="width:100%">前往結帳</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()" style="display:none;"></div>
+    
+    <script>
+        // 確保導覽列按鈕能開關
+        document.querySelector('.fa-cart-shopping').setAttribute('onclick', 'toggleCart()');
+    </script>
+    
+    <script src="../shoppingCart.js"></script>
 </body>
 </html>
