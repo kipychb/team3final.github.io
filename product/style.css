@@ -203,41 +203,114 @@ body {
 
 /* 評論、注意事項 */
 .bottom-details {
-    .text-block { 
-        text-align: center; 
-        margin-bottom: 40px; 
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+
+    .text-block {
+        text-align: center;
+        margin-bottom: 40px;
     }
 
-    /* 設定左右並排的容器 */
-    .content-flex {
+    .tab-menu {
         display: flex;
-        justify-content: space-between;
-        margin: 0% 5%; /* 維持你原本的左右邊距 */
-        text-align: left; /* 文字改回左對齊比較好閱讀 */
-    }
+        justify-content: center;
+        gap: 40px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 30px;
+        list-style: none;
+        padding: 0;
 
-    .left-box {
-        flex: 0 0 50%;
-        padding: 5px 30px;
-        p {
-            padding: 10px 0px 50px 30px;
-            text-align: justify;
-        }
-    }
+        .tab-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+            transition: all 0.3s ease;
+            position: relative;
 
-    .right-box {
-        flex: 0 0 50%;
-        padding: 0px 30px;
-        border-left: 1px solid #705844; /* 可加一條細線分隔 */
-        ul {
-            padding: 10px 0px 20px 45px;
-            text-align: justify;
-            width: 350px;
-            li {
-                padding: 0px 10px 20px 5px;
+            &:hover {
+                color: #705844;
+            }
+
+            &.active {
+                color: #705844;
+                font-weight: bold;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background-color: #705844;
+                }
             }
         }
     }
+
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.5s ease;
+
+        &.active {
+            display: block; /* 改為 block 讓裡面的內容可以根據需求決定 layout */
+        }
+    }
+
+    /* 原本的雙欄結構 */
+    .content-flex {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        width: 100%;
+
+        .left-box {
+            flex: 0 0 50%;
+            padding: 5px 30px;
+            p {
+                padding: 10px 0px 20px 30px;
+                text-align: justify;
+            }
+        }
+
+        .right-box {
+            flex: 0 0 50%;
+            padding: 0px 30px;
+            border-left: 1px solid #705844;
+            ul {
+                padding: 10px 0px 20px 50px;
+                text-align: justify;
+                li { padding: 0px 0px 15px 0px; }
+            }
+        }
+    }
+
+    /* 新增：滿版單欄結構 (用於訂購/配送說明) */
+    .full-box {
+        text-align: left;
+        padding: 10px 5% 40px 5%;
+        
+        .content-text {
+            white-space: pre-line; /* 關鍵：保留換行 */
+            text-align: justify;
+            line-height: 1.8;
+            color: #3a3a3a;
+            
+            /* 如果裡面有小標題可以用 b 或 strong */
+            strong {
+                display: block;
+                margin-top: 15px;
+                color: #705844;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .addon-grid { /*寫的人看數量多少自己加*/
@@ -262,7 +335,6 @@ body {
 .text-group { display: flex; flex-direction: column; align-items: flex-start; }
 .addon-name { font-size: 1rem; color: #3a3a3a; }
 .addon-price { color: #c0a080; font-weight: bold; font-size: 0.9rem; margin-top: 2px; }
-.plus-icon { color: #A3A69C; cursor: pointer; font-size: 1.1rem; }
 
 
 /* 評分區塊樣式 */
