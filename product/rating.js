@@ -25,7 +25,26 @@ document.querySelectorAll('.star-rating-input i').forEach(star => {
     });
 });
 
+// --- 評分系統互動邏輯 ---
+function initStarRating() {
+    const stars = document.querySelectorAll('.star-rating-input i');
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            userScore = parseInt(this.getAttribute('data-value'));
 
+            // 修正：點擊時讓目前分度以下的星星都亮起
+            stars.forEach(s => {
+                const val = parseInt(s.getAttribute('data-value'));
+                if (val <= userScore) {
+                    s.classList.add('selected');
+                } else {
+                    s.classList.remove('selected');
+                }
+            });
+            console.log("用戶評分：", userScore);
+        });
+    });
+}
 
 // 送出評論函數
 function submitReview() {
@@ -43,9 +62,4 @@ function submitReview() {
     document.getElementById('comment-input').value = "";
     document.querySelectorAll('.star-rating-input i').forEach(s => s.classList.remove('selected'));
     userScore = 0;
-}
-
-function submitReview() {
-    if (userScore === 0) { alert("請先評分"); return; }
-    alert("感謝您的評論！");
 }
