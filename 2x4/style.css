@@ -11,6 +11,7 @@ body {
     display: flex; align-items: center;
     padding: 15px 25px; background:#A3A69C; 
     position: sticky; top: 0; z-index: 1000;
+    justify-content: space-between; /* 新增這一行：讓左右元素分開 */
 }
 
 /* 修正：確保標題絕對置中 */
@@ -125,6 +126,100 @@ body {
 .page-num { cursor: pointer; }
 .page-num.active { text-decoration: underline; font-weight: bold; }
 .page-info { font-size: 0.8rem; color: #A3A69C; margin-top: 10px; }
+
+
+/* --- 購物車側邊欄專用樣式 (新增至 2X4/style.css) --- */
+
+/* 側邊欄主體 */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* 平時隱藏在右側 */
+    width: 320px;
+    height: 100%;
+    background-color: #eeebe2; /* 配合你原本的背景色 */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.4s ease; /* 滑動動畫 */
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-left: 1px solid #A3A69C;
+}
+
+/* 啟用時滑入 */
+.cart-sidebar.active {
+    right: 0;
+}
+
+/* 購物車標題 */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #A3A69C;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    color: #705844;
+}
+
+/* 商品列表區域 */
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* 底部總計與按鈕 */
+.cart-footer {
+    border-top: 2px solid #A3A69C;
+    padding-top: 15px;
+}
+
+.cart-footer div {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-btn {
+    background-color: #A3A69C;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.checkout-btn:hover {
+    background-color: #705844;
+}
+
+/* 黑色遮罩層 */
+#cartOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none; /* 預設隱藏 */
+    z-index: 1500;
+}
+
+/* 針對垃圾桶圖示的微調 */
+.fa-trash {
+    transition: color 0.2s;
+}
+.fa-trash:hover {
+    color: #705844 !important;
+}
+
+
 
 /* 響應式佈局 */
 @media (max-width: 600px) { 

@@ -14,10 +14,13 @@
     <header class="navbar">
         <div class="nav-left">
             <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
-            <i class="fa-solid fa-share-nodes nav-icon"></i>
+            <div style="position: relative; display: inline-block;">
+                <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
+                <span class="copy-tooltip" id="copy-toast">複製成功！</span>
+            </div>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-cart-shopping nav-icon"></i>
+            <i class="fa-solid fa-cart-shopping nav-icon" onclick="toggleCart()"></i>
         </div>
     </header>
 
@@ -32,6 +35,23 @@
             <li><a href="../2x4/index4.html">For Elders系列</a></li>
         </ul>
     </div>
+
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3 style="color: #705844;">購物清單</h3>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()" style="cursor:pointer;"></i>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <p class="empty-msg">購物車是空的</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total-price" style="margin-bottom: 15px; font-weight: bold;">
+                總計: NT$ <span id="cartTotal">0</span>
+            </div>
+            <button class="checkout-btn" style="width: 100%; background: #705844; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">前往結帳</button>
+        </div>
+    </div>
+
 
     <div id="menu-overlay" class="menu-overlay"></div>
 
@@ -50,12 +70,10 @@
 
             <section class="product-info">
                 <div class="info-group">
-                    <h1 class="name">摯愛Love in Bloom</h1>
-                    <p class="series">For Lover系列</p>
-                    <p class="price">$2000</p>
-                    <p class="desc">花語：熱烈的愛、永恆的承諾<br>
-                        商品理念：內斂的情感透過這束花的盛放將贈予者炙熱的愛意傳遞給對方——「妳/你值得世界上最美好的事物。」
-                        </p>
+                    <h1 class="name"></h1>
+                    <p class="series"></p>
+                    <p class="price"></p>
+                    <p class="desc"></p>
                 </div>
 
                 <div class="action-bar">
@@ -70,7 +88,7 @@
                     </div>
 
                     <div class="btn-group">
-                        <button class="add-cart-btn">加入購物車</button>
+                        <button class="add-cart-btn plus-icon">加入購物車</button>
                         <button class="buy-now-btn">立即購買</button>
                     </div>
                 </div>
@@ -81,22 +99,9 @@
             <div class="text-block notice">
                 <h3 class="line-title">商品細項</h3>
                 <div class="content-flex">
-                    <div class="left-box">
-                        <ul>
-                            <li><strong>使用花材：</strong>紅玫瑰、白石竹、尤加利葉</li>
-                            <li><strong>鑑賞期：</strong>鮮花保存約 5~7 天</li>
-                            <li><strong>保存重點：</strong>
-                                <ol style="margin-top: 5px;">
-                                    <li>避免陽光直射</li>
-                                    <li>避免大力碰撞</li>
-                                    <li>避免潮濕環境</li>
-                                    <li>放置通風涼爽處</li>
-                                    <li>澆水時避開花瓣避免水傷，如有水傷或乾枯泛黃可將花瓣剝除</li>
-                                </ol>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="right-box">配送方式、訂購須知</div>
+                    <!-- 這邊是用js自動導入 -->
+                    <div class="left-box"></div>
+                    <div class="right-box"></div>
                 </div>
             </div>
             <div class="text-block comment">
@@ -150,6 +155,8 @@
         </section>
     </main>
     <script src="loader.js"></script>
+    <script src="share.js"></script>
     <script src="../sidebar.js"></script>
+    <script src="../shoppingCart.js"></script>
 </body>
 </html>
