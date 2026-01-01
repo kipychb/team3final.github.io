@@ -1,218 +1,133 @@
-/* 全域基礎設定  */
+/* 全域基礎設定 */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
+body, html {
+    height: 100%;
+    width: 100%;
     background-color: #EEEBE2; 
     font-family: 'Noto Serif TC', serif;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    overflow: hidden; /* 防止出現滾動條 */
 }
 
 .test-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 500px; /* 模擬手機寬度 */
+    height: 100vh;
     background: #877566; 
-    min-height: 100vh;
+    margin: 0 auto;
+    position: relative;
     display: flex;
     flex-direction: column;
 }
 
 .page-container {
-    padding: 25px 25px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex: 1; 
-    min-height: 100vh;
+    position: relative;
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
-/* 封面頁 */
-
-.cover-img-box {
-    margin-top: 40px;
+/* 💡 滿版圖片核心設定 */
+.full-screen-img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    position: relative; 
+    height: 100%;
+    z-index: 1;
+}
+
+.full-screen-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 💡 關鍵：圖片會自動充滿容器且不變形 */
+    display: block;
+}
+
+/* 💡 文字遮罩層：確保圖片上的文字清晰 */
+.cover-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.35); /* 壓暗圖片 */
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.cover-img-box img {
-    width: 100%;
-    height: auto;
-    display: block;
-    
-    filter: brightness(0.8); 
 }
 
 .cover-text {
-    position: absolute; 
-    top: 50%;           
-    left: 50%;       
-    transform: translate(-50%, -50%); 
-    
     color: #EEEBE2;
     text-align: center;
-    width: 90%;         
-    z-index: 10;
-    
-    
-    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5); 
+    padding: 20px;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.6);
 }
 
-.cover-text p {
-    padding-top: 10px;
-    opacity: 0.9;
-    font-size: 1rem;    
-    letter-spacing: 1px;
-}
+.cover-text h1 { font-size: 2rem; margin-bottom: 15px; }
+.cover-text p { font-size: 1.1rem; line-height: 1.6; opacity: 0.9; }
 
+/* 💡 開始按鈕：浮在圖片最上方 */
 .start-btn {
-    margin-top: auto; margin-bottom: 30px; width: 60%;
-    background-color: #C0A080; color: #EEEBE2; border: none;
-    padding: 10px; border-radius: 30px; font-size: 1.1rem;
-    cursor: pointer;
-    font-family: 'Noto Serif TC', serif;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 80%;
+    background-color: #C0A080; 
+    color: #EEEBE2; 
+    border: none;
+    padding: 16px; 
+    border-radius: 40px; 
+    font-size: 1.1rem;
     font-weight: bold;
-    transform: 0.1s;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.start-btn:hover{
-    opacity: 70%;
+/* 💡 題目頁排版一致性 */
+#question-page {
+    padding: 40px 25px;
+    justify-content: flex-start;
 }
 
-.start-btn:active{
-    transform: scale(0.95);
-}
+.progress-bar-area { width: 100%; margin-bottom: 50px; }
 
-/* 題目頁 */
-
-.progress-dots {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    margin-bottom: 30px;
-    width: 100%;
-    position: relative;
-    padding: 15px 0;
-}
-.dot {
-    width: 8px; height: 8px;
-    border: 1px solid rgba(238, 235, 226, 0.5);
-    border-radius: 50%;
-    position: relative;
-    z-index: 5;
-}
-.dot.active {
-    background: #A3A69C;
-    border-color:#EEEBE2;
-}
-.progress-dots::before {
-    content: " ";
-    position: absolute; top: 50%; left: 10%; right: 10%;
-    height: 1px; background: rgba(238, 235, 226, 0.2); z-index: 1;
-}
-.dot.active::after {
-    content: "☀"; color: #EEEBE2;
-    position: absolute; top: -20px; left: -2px; font-size: 12px;
-}
 .question-text {
-    font-size: 1.2rem; line-height: 1.6; color: #EEEBE2;
-    text-align: center; width: 100%; margin-bottom: 20px;
-    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    text-align: center;
+    color: #EEEBE2;
+    margin-bottom: auto; /* 將按鈕推到底部 */
 }
 
 .options-list {
-    margin-top: auto; margin-bottom: 30px; width: 100%;
+    width: 100%;
+    padding-bottom: 40px;
 }
 
 .option-btn {
-    width: 100%; background-color: #C0A080; color: #EEEBE2;
-    border: none; padding: 15px; border-radius: 30px;
-    margin-bottom: 15px; text-align: center; font-size: 1rem;
-    font-family: 'Noto Serif TC', serif;
-    cursor: pointer;
-}
-
-/* 結果頁*/
-
-.result-page {
-    width: 100%; max-width: 500px;
-    background-color: #877566; color: #EEEBE2;
-    padding: 20px 20px; min-height: 100vh;
-}
-.result-header-text {
-    font-family:'Noto Serif TC', serif;
-    font-weight: bold;
+    width: 100%;
+    background: rgba(238, 235, 226, 0.1);
+    border: 1px solid #EEEBE2;
+    color: #EEEBE2;
+    padding: 18px;
     margin-bottom: 15px;
-    color:#C0A080;
-    font-size: 1.2rem;
-}
-.result-flex, .recommend-flex { 
-    display: flex; gap: 15px; margin-bottom: 15px; 
-}
-.border-box { 
-    overflow: hidden; 
-}
-.result-flower-img { width: 45%; aspect-ratio: 1; }
-
-.result-flower-img img, .recommend-img img {
-    width: 100%; height: 100%; object-fit: cover;
-}
-
-.result-flower-info {
-    font-weight: bold; font-size: 0.8rem; width: 45%; text-align: left;  
-}
-
-.info-line { 
-    border-bottom: 1px solid #EEEBE2; padding: 5px 0px; margin-bottom: 10px; font-size: 0.85rem; 
-}
-
-.divider { 
-    border-top: 1.5px #A3A69C double; margin: 20px 0; 
-}
-
-.recommend-title {
-    font-weight: bold; margin-bottom: 15px; text-align: left; color:#C0A080;font-size: 1.2rem;
-}
-
-.recommend-img { width: 45%; height: auto; aspect-ratio: 1; }
-
-.go-btn {
-    display: block; width: 100%; border: 2px solid #A3A69C;
-    font-size: 12px;
-    text-align: center; padding: 8px 0; border-radius: 20px; 
-    color: #EEEBE2; text-decoration: none; margin-top: 100px;
-    transition: 0.3s ease-out;
-}
-
-.go-btn:hover{
-    background-color: #A3A69C;
+    border-radius: 40px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.go-btn:active{
-    transform: scale(0.95)
-}
+.option-btn:hover { background: #C0A080; border-color: #C0A080; }
 
+/* 💡 返回首頁圖示 */
 .back-home {
     position: absolute;
     top: 20px;
-    left: 30px;
-
-    color: #826250;
-    text-decoration: none;
-    font-size: 1.2rem;
-
-    transition: 0.3s ease;
-}
-
-.back-home:hover {
-    color: #baab8b;
+    left: 20px;
+    color: #EEEBE2;
+    font-size: 1.5rem;
+    z-index: 100;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
