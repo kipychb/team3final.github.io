@@ -509,7 +509,7 @@
     {
         "id": "glowing_epoch",
         "image_path": "fresh/14",
-        "name": "錦時映照 Glowing Epoch",
+        "name": "錦時映照Glowing Epoch",
         "series": "For Elders",
         "is_fresh": true,
         "inventory": 50,
