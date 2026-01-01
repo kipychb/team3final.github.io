@@ -21,15 +21,15 @@ async function initSearchData() {
 
 const results = {
 
-    "A": { name: "紅玫瑰", language: "熱情、深愛、勇敢的告白", desc: "你擁抱著火焰般的熱烈與勇敢。你的心是直率且充滿愛意的，敢於行動。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+    "A": { name: "紅玫瑰", language: "熱情、深愛、勇敢的告白", desc: "你擁抱著火焰般的熱烈與勇敢。你的心是直率且充滿愛意的，敢於行動。", image: "image/玫瑰.png", product_id: "love_in_bloom" },
 
-    "B": { name: "白百合", language: "純潔、高雅、心想事成", desc: "你的心境是一片沉靜的高雅淨土。你追求內心的平靜，總是以最簡約的姿態面對生活。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+    "B": { name: "白百合", language: "純潔、高雅、心想事成", desc: "你的心境是一片沉靜的高雅淨土。你追求內心的平靜，總是以最簡約的姿態面對生活。", image: "image/百合花.png", product_id: "love_in_bloom" },
 
-    "C": { name: "鬱金香", language: "永恆、典雅、愛的告白", desc: "你擁有內斂而典雅的力量。你不急於展露鋒芒，但內心充滿堅定的原則與秩序感。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+    "C": { name: "鬱金香", language: "永恆、典雅、愛的告白", desc: "你擁有內斂而典雅的力量。你不急於展露鋒芒，但內心充滿堅定的原則與秩序感。", image: "image/鬱金香.png", product_id: "love_in_bloom" },
 
-    "D": { name: "黃色洋桔梗", language: "開朗、希望、活潑可愛", desc: "你散發著陽光般積極的光芒。你是天生的樂觀主義者，走到哪裡都能帶來歡笑。", image: "image/placeholder.png", product_id: "love_in_bloom" },
+    "D": { name: "黃色洋桔梗", language: "開朗、希望、活潑可愛", desc: "你散發著陽光般積極的光芒。你是天生的樂觀主義者，走到哪裡都能帶來歡笑。", image: "image/桔梗.png.png", product_id: "love_in_bloom" },
 
-    "E": { name: "波斯菊", language: "和諧、自由、少女的真心", desc: "你的靈魂渴望自由。不喜歡被框架束縛，享受在自然中找到的獨特美好。", image: "image/placeholder.png", product_id: "love_in_bloom" }
+    "E": { name: "波斯菊", language: "和諧、自由、少女的真心", desc: "你的靈魂渴望自由。不喜歡被框架束縛，享受在自然中找到的獨特美好。", image: "image/玻斯菊.png", product_id: "love_in_bloom" }
 
 };
 

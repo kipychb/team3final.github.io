@@ -221,7 +221,7 @@ body {
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 15px;
 }
-.quiz-card img { width: 85%; height: auto; margin-bottom: 15px; }
+.quiz-card img { width: 100%; height: auto; margin-bottom: 15px; }
 
 .quiz-enter {
     margin-top: auto; 

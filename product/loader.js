@@ -20,6 +20,20 @@ async function loadProductDetail() {
             document.title = `${flower.name} | 花予祝願所`;
             updateTextContent(flower);
             initImageCarousel(flower);
+
+            // --- 核心修正：綁定加入購物車功能 ---
+            const addCartBtn = document.querySelector('.add-cart-btn');
+            if (addCartBtn) {
+                addCartBtn.onclick = function() {
+                    // 檢查 shoppingCart.js 是否已載入並提供函數
+                    if (typeof addToCart === "function") {
+                        // 傳入當前商品的名稱與價格
+                        addToCart(flower.name, flower.price);
+                    } else {
+                        console.error("找不到 addToCart 函數，請檢查 shoppingCart.js 是否正確載入");
+                    }
+                };
+            }
         } else {
             console.error("找不到該花朵資料");
         }
@@ -38,8 +52,9 @@ function initImageCarousel(flower) {
 
     images.forEach((img, index) => {
         if (img) {
-            img.src = `../image/flower/${flower.image_path}-2.jpg`;
-            img.alt = `${flower.name}-2`;
+            // 修正圖片路徑邏輯，確保能抓到對應編號的圖片
+            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
+            img.alt = `${flower.name}-${index + 1}`;
             img.style.display = (index === 0) ? 'block' : 'none';
         }
     });
@@ -61,7 +76,7 @@ function updateTextContent(flower) {
     if (container) {
         container.querySelector('.name').textContent = flower.name;
         container.querySelector('.series').textContent = "【" + flower.series + "系列】";
-        container.querySelector('.price').textContent = "$" + flower.price;
+        container.querySelector('.price').textContent = "NT$ " + flower.price.toLocaleString();
         const descEl = container.querySelector('.desc');
         if (descEl) {
             descEl.style.whiteSpace = "pre-line";
