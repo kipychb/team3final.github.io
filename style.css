@@ -28,7 +28,7 @@ body {
         color: #705844;
         font-size: 1.5rem;
         margin-bottom: 20px;
-        border-bottom: 1px solid rgba(112, 88, 68, 0.2);
+        border-bottom:0.8px solid #705844;
         padding-bottom: 10px;
     }
 
@@ -37,10 +37,10 @@ body {
         padding: 0;
 
         li {
-            font-size: 1.25rem;
+            font-size: 1rem;
             color: #3a3a3a;
             padding: 15px 0;
-            border-bottom: 1px solid #705844; 
+            border-bottom: 1px solid rgba(112, 88, 68, 0.2) ; 
             cursor: pointer;
             transition: all 0.3s ease;
 
@@ -56,7 +56,6 @@ body {
                 padding-left: 10px;
             }
 
-            /* 第一個項目的特殊樣式 */
             &:first-child {
                 font-weight: 700;
                 letter-spacing: 1px;
@@ -190,20 +189,21 @@ body {
     transform: translateX(-50%); 
     display: flex; 
     gap: 8px;
-    z-index: 10;
+    z-index: 100;
 }
 
 .banner-dots span { 
     width: 8px; 
     height: 8px; 
     background: #705844; 
+    opacity: 1;
     border-radius: 50%; 
-    opacity: 0.5; 
+    border:1px solid #eeebe2;
     cursor: pointer; 
 }
 
 .banner-dots span.active { 
-    opacity: 1; 
+    opacity: 0.5; 
 }
 
 /* 心理測驗 */
@@ -433,21 +433,22 @@ body {
 .contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
 .about-us { flex: 1; }
 .about-link { font-size: 1.4rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
-.map-box { flex: 1; border: 1px solid #705844; aspect-ratio: 1.6; background: #fff; }
-.map-placeholder { height: 100%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
+.map-box { flex: 1; border: 1px solid #c0a080; aspect-ratio: 1.5; background: #eeebe2; }
+.map-placeholder { height: 90%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
 
 /* 表單背景區塊 */
 .form-wrapper {
-    background-color:#705844;opacity: 0.8;
-    padding: 40px 30px;
+    background-color:#705844; opacity: 0.8;
+    padding: 30px 30px;
     max-width: 600px;
+    max-height: 400px;
     margin: 0 auto ;
     border-radius: 10px;
 }
 .contact-form {align-items: center;  display: flex; flex-direction: column; gap: 12px; }
-.form-title { text-align: center; color:#fff; margin-bottom: 8px; font-size: 1.4rem; }
+.form-title { text-align: center; color:#fff; margin-bottom: 15px; font-size: 1.4rem; }
 input, textarea { padding: 10px; border: none; background: #eeebe2; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; width:100%; }
-.submit-btn { margin-top: 30px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.8rem; transition: 0.3s; border-radius: 10px; }
+.submit-btn { margin-top: 20px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.8rem; transition: 0.3s; border-radius: 10px; }
 .submit-btn:hover {color: #3a3a3a; }
 
 .footer-bottom { text-align: center; padding: 20px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
