@@ -148,8 +148,14 @@ body {
 .main-img-box img { width: 100%; height: 100%; object-fit: cover;}
 
 .img-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; padding: 10px 10px; border-radius: 5px;}
+<<<<<<< HEAD
 .img-dots span { width: 6px; height: 6px; background:#c0a080; border-radius: 50%; transition: 0.3s ease; border: 1.5px solid #eeebe2; } /* 💡 修正原本錯誤的 border 寫法 */
 .img-dots span:hover, .img-dots span.active { opacity: 0.7; }
+=======
+.img-dots span { width: 6px; height: 6px; background:#c0a080; border-radius: 50%; transition: 0.3s ease; border: 5px solid #eeebe2}
+.img-dots span:hover,.img-dots span.active { opacity: 0.7;}
+
+>>>>>>> 9883529e2f4b3495419c1a591935ebe99e06f3ad
 
 /* 產品資訊 */
 .info-group { 
@@ -169,18 +175,53 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+<<<<<<< HEAD
 }
 .action-bar .quantity {
     display: flex;
     align-items: center;
     gap: 20px;
+=======
+
+    .quantity {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        
+        .heart-btn {
+            background: none;
+            border: none;
+            padding: 5px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            outline: none;
+        
+            i {
+                font-size: 1.4rem; /* 稍微大一點點比較好看 */
+                color: #A3A69C;
+                transition: color 0.3s ease;
+            }
+        
+            &:hover {
+                transform: scale(1.2);
+                i {
+                    color: #c0a080;
+                }
+            }
+        }
+    }
+>>>>>>> 9883529e2f4b3495419c1a591935ebe99e06f3ad
 }
 
 .selector { display: flex; align-items: center; }
 .qty-btn { background: #A3A69C; color: #fff; border: none; padding: 10px 15px; cursor: pointer; }
 .qty-input { width: 80px; text-align: center; border: none; background: transparent; font-size: 1rem; }
 
-.fav-icon { font-size: 1.8rem; color: #705844; cursor: pointer; }
+.heart-btn { font-size: 1.8rem; color: #705844; cursor: pointer; }
 
 .btn-group { display: flex; gap: 10px; width: 100%; }
 .add-cart-btn, .buy-now-btn {
