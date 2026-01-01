@@ -1,7 +1,8 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* --- 1. 全域與背景設定 --- */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
 }
 
 body {
@@ -11,88 +12,76 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-    }
+    background-size: auto; 
+    padding: 20px; 
+}
 
-
+/* 2. 登入容器優化  */
 .login-container {
-    background-color: rgba(112, 88, 68, 0.85);
-    padding: 40px;
+    background-color: rgba(112, 88, 68, 0.9);
+    padding: 35px 30px;
     border-radius: 15px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;          
+    max-width: 380px;   
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: #eeebe2;
+    transition: transform 0.3s ease;
 }
 
 .login-logo {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     letter-spacing: 2px;
 }
 
-
+/*  3. 表單元件  */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 12px;
+    padding: 10px 12px; 
     border: none;
     border-radius: 5px;
     background: #eeebe2;
     font-family: inherit;
+    font-size: 0.95rem;
 }
 
 .login-btn {
     width: 100%;
-    padding: 12px;
+    padding: 11px;
     background-color: #c0a080;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
+    font-family: 'Noto Serif TC', serif;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .login-btn:hover {
     background-color: #a3866a;
+    transform: translateY(-1px); 
 }
 
-/* --- 底部連結修正 --- */
+/*  4. 底部連結 */
 .extra-links {
     margin-top: 20px;
-    font-size: 0.85rem;
-    display: flex;             /* 使用 Flex 佈局 */
-    justify-content: center;   /* 水平居中 */
-    align-items: center;       /* 垂直居中 */
-    gap: 10px;                 /* 統一間隔，取代原本的 margin */
-}
-
-.extra-links a {
-    color: #eeebe2;
-    text-decoration: none;
-    opacity: 0.8;
-    transition: opacity 0.3s;
-}
-
-/* --- 底部連結修正：確保分隔線絕對置中 --- */
-.extra-links {
-    margin-top: 20px;
-    font-size: 0.85rem;
+    font-size: 0.8rem; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,41 +91,29 @@ body {
     color: #eeebe2;
     text-decoration: none;
     opacity: 0.8;
-    transition: opacity 0.3s;
-    width: 80px; 
+    transition: 0.3s;
+    width: 70px; 
 }
 
-.extra-links a:first-child {
-    text-align: right;
-}
+.extra-links a:first-child { text-align: right; }
+.extra-links a:last-child { text-align: left; }
+.extra-links a:hover { opacity: 1; text-decoration: underline; }
+.extra-links span { color: #eeebe2; opacity: 0.5; margin: 0 5px; }
 
-.extra-links a:last-child {
-    text-align: left;
-}
-
-.extra-links a:hover {
-    opacity: 1;
-    text-decoration: underline;
-}
-
-.extra-links span {
-    color: #eeebe2;
-    opacity: 0.5;
-    margin: 0 5px;
-}
-
+/*  5. 返回按鈕  */
 .back-home {
     position: absolute;
-    top: 20px;
-    left: 30px;
-
+    top: 25px;
+    left: 25px;
     color: #826250;
     text-decoration: none;
-    font-size: 1.2rem;
-
+    font-size: 1.1rem;
+    font-family: 'Noto Serif TC', serif;
     transition: 0.3s ease;
+    z-index: 1000;
 }
 
 .back-home:hover {
     color: #baab8b;
+    transform: translateX(-3px);
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="stylemember.css">
 </head>
+
 <body>
 
     <header class="navbar">
@@ -24,40 +26,43 @@
         <nav class="flower-nav">
             <div class="flower-item active" onclick="switchSection('user-info', this)">
                 <div class="flower-icon-box">
-                    <img src="image/薰衣草.png" alt="使用者資訊" class="flower-img">
+                    <img src="image/波斯菊.png" alt="使用者資訊" class="flower-img">
                 </div>
                 <span class="flower-label">會員資訊</span>
             </div>
             <div class="flower-item" onclick="switchSection('orders', this)">
                 <div class="flower-icon-box">
-                    <img src="images/flower2.png" alt="訂單紀錄" class="flower-img">
+                    <img src="image/鈴蘭花.png" alt="訂單紀錄" class="flower-img">
                 </div>
                 <span class="flower-label">訂單與紀錄</span>
             </div>
             <div class="flower-item" onclick="switchSection('wishlist', this)">
                 <div class="flower-icon-box">
-                    <img src="images/flower3.png" alt="願望清單" class="flower-img">
+                    <img src="image/玫瑰.png" alt="願望清單" class="flower-img">
                 </div>
                 <span class="flower-label">願望清單</span>
             </div>
             <div class="flower-item" onclick="switchSection('flower-search', this)">
                 <div class="flower-icon-box">
-                    <img src="images/flower4.png" alt="花語查詢" class="flower-img">
+                    <img src="image/罌粟花.png" alt="花語查詢" class="flower-img">
                 </div>
                 <span class="flower-label">花語查詢</span>
             </div>
         </nav>
 
         <div class="content-display">
-            
+
             <div id="user-info" class="section-block active">
                 <h3 class="block-title">會員資訊</h3>
                 <div class="info-list">
-                    <div class="info-row"><span class="info-label">會員等級</span><span class="status-tag highlight">盛放會員</span></div>
+                    <div class="info-row"><span class="info-label">會員等級</span><span
+                            class="status-tag highlight">盛放會員</span></div>
                     <div class="info-row"><span class="info-label">真實姓名</span><span class="info-value"></span></div>
-                    <div class="info-row"><span class="info-label">出生日期</span><span class="info-value">05 / 20 </span></div>
+                    <div class="info-row"><span class="info-label">出生日期</span><span class="info-value">05 / 20 </span>
+                    </div>
                     <div class="info-row"><span class="info-label">聯絡信箱</span><span class="info-value"></span></div>
-                    <div class="info-row"><span class="info-label">手機號碼</span><span class="info-value">0912-345-678</span></div>
+                    <div class="info-row"><span class="info-label">手機號碼</span><span
+                            class="info-value">0912-345-678</span></div>
                 </div>
                 <button class="action-btn">修改個人資料</button>
             </div>
@@ -135,4 +140,5 @@
         }
     </script>
 </body>
+
 </html>

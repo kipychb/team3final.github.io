@@ -182,7 +182,7 @@ body {
 .team-garden {
     display: flex;
     flex-direction: column;
-    gap: 80px;
+    gap: 30px;
 }
 
 .flower-member {

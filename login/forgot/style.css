@@ -11,7 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;
+    background-size: auto;
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
 }
 
@@ -54,6 +54,8 @@ body {
 .login-btn {
     width: 100%;
     padding: 12px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem;
     background-color: #c0a080;
     color: white;
     border: none;

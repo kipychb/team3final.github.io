@@ -165,11 +165,6 @@ body {
     
     /* 關鍵：水平置中 */
     margin: 40px auto; 
-    
-    /* 增加「框框感」的建議樣式 */
-    border-radius: 30px; /* 圓角 */
-    box-shadow: 4px 4px 15px rgba(0,0,0,0.25); /* 輕微陰影 */
-    border: 1px solid #705844; /* 配合你品牌的邊框顏色 */
 }
 
 .banner-container {
@@ -217,11 +212,11 @@ body {
     max-width: 1000px; margin: 0 auto;
 }
 .quiz-card {
-    flex: 0 0 300px; border: 1.5px solid #705844; aspect-ratio: 1;
+    flex: 0 0 300px;aspect-ratio: 1;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 15px;
 }
-.quiz-card img { width: 100%; height: auto; margin-bottom: 15px; }
+.quiz-card img { width: 100%; height: auto; margin-bottom: 15px;border: 1px solid #705844;}
 
 .quiz-enter {
     margin-top: auto; 

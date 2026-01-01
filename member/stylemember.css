@@ -4,10 +4,10 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
 /* Navbar */
 .navbar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 15px 40px; background:#A3A69C; position: sticky; top: 0; z-index: 1000;
+    padding: 15px 40px; background:#EEEBE2; position: sticky; top: 0; z-index: 1000;
 }
-.nav-logo { color: #eeebe2; font-weight: bold; font-size: 1.4rem; flex: 1; text-align: center; }
-.nav-icon { color: #eeebe2; font-size: 1.2rem; cursor: pointer; margin: 0 10px; }
+.nav-logo { color: #705844; font-weight: bold; font-size: 1.4rem; flex: 1; text-align: center; }
+.nav-icon { color:#705844; font-size: 1.2rem; cursor: pointer; margin: 0 10px; }
 .home-link { text-decoration: none; }
 
 .member-wrapper { max-width: 900px; margin: 40px auto; padding: 0 20px; }
@@ -19,7 +19,7 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .flower-img { width: 100%; filter: grayscale(100%) opacity(0.4); transition: 0.6s; }
-.flower-label { margin-top: 12px; font-size: 0.9rem; color: #705844; opacity: 0.5; transition: 0.3s; }
+.flower-label { margin-top: 20px; font-size: 0.9rem; color: #705844; opacity: 0.5; transition: 0.3s; }
 
 
 .flower-item.active .flower-icon-box { transform: scale(1.6) rotate(8deg); }
