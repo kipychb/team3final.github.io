@@ -1,0 +1,342 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #eeebe2;
+    color: #3a3a3a;
+    font-family: 'Noto Serif TC', serif;
+}
+
+/* ---- 導覽列 ---- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: transparent;
+
+    .icon {
+        font-size: 1.3rem;
+        color: #705844;
+        cursor: pointer;
+        margin: 0 10px;
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* --- 側邊選單 Side Panel --- */
+.side-panel {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de;
+    transition: 0.3s ease;
+    z-index: 2000;
+    padding: 30px 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    &.active {
+        left: 0;
+    }
+
+    h2 {
+        color: #705844;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(112, 88, 68, 0.2);
+        padding-bottom: 10px;
+    }
+
+    .catalog-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            font-size: 1.25rem;
+            color: #3a3a3a;
+            padding: 15px 0;
+            border-bottom: 1px solid #705844; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            a {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+                width: 100%;
+            }
+
+            &:hover {
+                color: #c0a080; 
+                padding-left: 10px;
+            }
+
+            &:first-child {
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+        }
+    }
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent; 
+    visibility: hidden;
+    z-index: 1500;
+    transition: 0.3s ease;
+}
+
+.menu-overlay.active {
+    visibility: visible;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* 初始隱藏 */
+    width: 320px;
+    height: 100%;
+    background: #eeebe2;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 3000;
+    transition: 0.4s ease;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    /* 啟用狀態 */
+    &.active {
+        right: 0;
+    }
+
+    /* 頭部 */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #705844;
+        padding-bottom: 10px;
+
+        h3 {
+            color: #705844;
+            margin: 0;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+    }
+
+    /* 中間列表 */
+    .items {
+        flex-grow: 1;
+        overflow-y: auto;
+
+        .empty-msg {
+            text-align: center;
+            color: #888;
+            margin-top: 50px;
+        }
+    }
+
+    /* 底部 */
+    .footer {
+        padding-top: 15px;
+        border-top: 1px solid #705844;
+
+        .total-info {
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #705844;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover {
+                background-color: #5d4a39;
+            }
+        }
+    }
+}
+
+/* ---- 商品們！集合囉 ---- */
+.wishlist-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 5%;
+
+    /* 標題樣式 (含兩側裝飾線) */
+    .title {
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0 50px 0;
+        font-size: 1.6rem;
+        color: #705844;
+        position: relative;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 25%;
+            height: 1px;
+            background: #c0a080;
+        }
+        &::before { left: 0; }
+        &::after { right: 0; }
+    }
+
+    /* 網格佈局 */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px 25px;
+    }
+
+    /* 單一項目 */
+    .item {
+        &:hover { transform: translateY(-5px); }
+        transition: 0.3s ease;
+
+        .img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid #A3A69C;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                cursor: pointer;
+                transition: transform 0.3s;
+            }
+
+            .remove-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: rgba(255,255,255,0.8);
+                border: none;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                cursor: pointer;
+                color: #705844;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 5;
+                &:hover { background: #fff; color: #3a3a3a; }
+            }
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0 5px;
+            margin-top: 12px;
+
+            .main-text {
+                display: flex;
+                flex-direction: column;
+                .tag { font-size: 0.95rem; color: #3a3a3a; margin-bottom: 2px; }
+                .price { font-size: 0.9rem; color: #c0a080; font-weight: bold; }
+            }
+
+            /* 按鈕群組 */
+            .item-actions {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            /* 統一分享按鈕與新增按鈕的樣式 */
+            .share-btn-inner, .add-btn {
+                background-color: transparent;
+                border: 1px solid #A3A69C;
+                color: #A3A69C;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                outline: none;
+
+                i { font-size: 0.7rem; }
+
+                &:hover {
+                    background-color: #A3A69C;
+                    color: #eeebe2;
+                    transform: scale(1.1);
+                }
+            }
+
+            .add-btn:hover { transform: scale(1.1) rotate(90deg); }
+
+            /* Tooltip 提示 */
+            .share-wrapper {
+                position: relative;
+                .tooltip {
+                    position: absolute;
+                    bottom: 130%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 0.65rem;
+                    white-space: nowrap;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    z-index: 100;
+                    &.show { opacity: 1; }
+                }
+            }
+        }
+    }
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .wishlist-container {
+        .grid { grid-template-columns: repeat(2, 1fr); }
+        .title {
+            font-size: 1.3rem;
+            margin: 15px 0 30px 0;
+            &::before, &::after { width: 20%; }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
