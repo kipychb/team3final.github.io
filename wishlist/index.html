@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏清單 | 花予祝願所</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 導覽列區域 -->
+    <header class="navbar">
+        <div class="left">
+            <i class="fa-solid fa-bars icon" id="menu-trigger"></i>
+        </div>
+        <div class="right">
+            <i class="fa-solid fa-cart-shopping icon" onclick="toggleCart()"></i>
+        </div>
+    </header>
+
+    <!-- 分類選單 -->
+    <div class="side-panel" id="side-menu">
+        <h2>分類選單</h2>
+        <ul class="catalog-list">
+            <li><a href="../index.html">Home / 首頁</a></li>
+            <li><a href="../2x4/index.html">For Lover 系列</a></li>
+            <li><a href="../2x4/index2.html">For Myself 系列</a></li>
+            <li><a href="../2x4/index3.html">For Friend 系列</a></li>
+            <li><a href="../2x4/index4.html">For Elders 系列</a></li>
+        </ul>
+    </div>
+
+    <div id="cartSidebar" class="cart-sidebar">
+        <!-- 頭部區域 -->
+        <div class="header">
+            <h3>購物清單</h3>
+            <i class="fa-solid fa-xmark close-btn" onclick="toggleCart()"></i>
+        </div>
+    
+        <!-- 列表區域 -->
+        <div id="cartItems" class="items">
+            <p class="empty-msg">購物車是空的</p>
+        </div>
+    
+        <!-- 底部區域 -->
+        <div class="footer">
+            <div class="total-info">
+                總計: NT$ <span id="cartTotal">0</span>
+            </div>
+            <button class="checkout-btn">前往結帳</button>
+        </div>
+    </div>
+    
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <main class="wishlist-container">
+        <section class="title">收藏清單</section>
+    
+        <div class="grid">
+            <div class="item">
+                <div class="img-box border-box">
+                    <img src="" alt="商品圖">
+                    <button class="remove-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="info">
+                    <div class="main-text">
+                        <span class="tag">[花禮] 晨曦之詩</span>
+                        <span class="price">NT$ 1,200</span>
+                    </div>
+                    <button class="add-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+
+    <!-- Java Script 存放區 -->
+    <script src="wishlist.js"></script>
+    <script src="../shareCurrentLink.js"></script>
+    <script src="../sidebar.js"></script>
+    <script src="../shoppingCart.js"></script>
+</body>
+</html>

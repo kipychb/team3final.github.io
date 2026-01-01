@@ -35,7 +35,7 @@ function renderFlowerGrid(list, selector, count) {
         html += `
             <div class="item">
                 <div class="img-box">
-                    <a href="index.html?id=${flower.id}">
+                    <a href="product/index.html?id=${flower.id}">
                         <img src="${imagePath}" alt="${flower.name}" onerror="this.src='../image/default.jpg'">
                     </a>
                 </div>
