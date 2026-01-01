@@ -42,70 +42,77 @@ body {
     padding: 20px 5%;
 }
 
-/* 側邊欄初始狀態：藏在左側外 */
-#side-menu {
+/* --- 側邊選單 Side Panel --- */
+.side-panel {
     position: fixed;
-    left: -300px; /* 寬度多少就往左移多少 */
+    left: -300px;
     top: 0;
     width: 300px;
     height: 100%;
-    background: #f4f1de; /* 依照 Figma 淺色調 */
-    transition: 0.3s;
+    background: #f4f1de;
+    transition: 0.3s ease;
     z-index: 2000;
-    padding: 20px;
+    padding: 30px 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    &.active {
+        left: 0;
+    }
+
+    h2 {
+        color: #705844;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(112, 88, 68, 0.2);
+        padding-bottom: 10px;
+    }
+
+    .catalog-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            font-size: 1.25rem;
+            color: #3a3a3a;
+            padding: 15px 0;
+            border-bottom: 1px solid #705844; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            a {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+                width: 100%;
+            }
+
+            &:hover {
+                color: #c0a080; 
+                padding-left: 10px;
+            }
+
+            /* 第一個項目的特殊樣式 */
+            &:first-child {
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+        }
+    }
 }
 
-/* 當側邊欄有 .active 類別時滑入 */
-#side-menu.active {
-    left: 0;
-}
-
-#menu-overlay {
+.menu-overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    /* background: rgba(0, 0, 0, 0.4);  把這一行刪掉或改成下面這樣 */
     background: transparent; 
     visibility: hidden;
-    z-index: 1500; /* 確保在 side-panel 之下，但在內容之上 */
+    z-index: 1500;
+    transition: 0.3s ease;
 }
 
-#menu-overlay.active {
+.menu-overlay.active {
     visibility: visible;
-    /* opacity: 1; 這行也可以刪掉，因為已經透明了 */
-}
-
-/* Catelog 列表與分隔線 */
-.catalog-list {
-    list-style: none;
-}
-.catalog-list li {
-    font-size: 1.4rem;
-    color: #3a3a3a;
-    padding: 15px 0;
-    border-bottom: 1px solid #705844; 
-    cursor: pointer;
-
-    /* 動畫 */
-    transition: all 0.3s ease;
-}
-
-.catalog-list li a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-}
-
-.catalog-list li:hover {
-    color: #c0a080; 
-    padding-left: 10px;
-}
-
-
-.catalog-list li:first-child {
-    font-weight: 700;
-    letter-spacing: 1px;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .border-box { border: 1px solid #705844; }
@@ -209,7 +216,7 @@ body {
 
     .text-block {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 0px;
     }
 
     .tab-menu {
@@ -290,19 +297,30 @@ body {
     /* 新增：滿版單欄結構 (用於訂購/配送說明) */
     .full-box {
         text-align: left;
-        padding: 10px 5% 40px 5%;
+        padding: 0px 5%;
         
         .content-text {
-            white-space: pre-line; /* 關鍵：保留換行 */
             text-align: justify;
             line-height: 1.8;
             color: #3a3a3a;
+
+            li {
+                padding-bottom: 10px;
+            }
             
             /* 如果裡面有小標題可以用 b 或 strong */
             strong {
                 display: block;
                 margin-top: 15px;
+                font-size: 20px;
                 color: #705844;
+            }
+
+            .shipping-limit {
+                padding-left: 30px;
+                li {
+                    padding-bottom: 0px;
+                }
             }
         }
     }
@@ -313,28 +331,64 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-.addon-grid { /*寫的人看數量多少自己加*/
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
+/* ---- 推薦商品 ---- */
+.addon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 商品少時也會置中 */
     gap: 20px;
-    max-width: 900px; 
+    max-width: 900px;
     margin: 0 auto;
-}
 
-.addon-item { display: flex; flex-direction: column; }
-.addon-img { 
-    width: 100%; aspect-ratio: 1; 
-    border: 1px solid #705844; margin-bottom: 10px; overflow: hidden;
-}
+    /* 這裡開始是內部的簡單命名 */
+    .item {
+        display: flex;
+        flex-direction: column;
+        width: calc(25% - 15px); /* 四欄寬度 */
+        min-width: 180px;
 
+        .img {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid #705844;
+            margin-bottom: 10px;
+            overflow: hidden;
 
-.addon-info-row {
-    display: flex; justify-content: space-between; 
-    width: 100%; padding: 0 5px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 5px;
+            box-sizing: border-box;
+
+            .text-group {
+                display: flex;
+                flex-direction: column;
+                width: 100%; /* 與圖片寬度齊平 */
+
+                .name {
+                    font-size: 1rem;
+                    color: #3a3a3a;
+                }
+
+                .price {
+                    color: #c0a080;
+                    font-weight: bold;
+                    font-size: 0.9rem;
+                    margin-top: 2px;
+                }
+            }
+        }
+    }
 }
-.text-group { display: flex; flex-direction: column; align-items: flex-start; }
-.addon-name { font-size: 1rem; color: #3a3a3a; }
-.addon-price { color: #c0a080; font-weight: bold; font-size: 0.9rem; margin-top: 2px; }
 
 
 /* 評分區塊樣式 */

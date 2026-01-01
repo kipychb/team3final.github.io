@@ -14,6 +14,8 @@ body {
     width: 100%;
     background: transparent;
     z-index: 1000;
+    /* 增加下方間距，防止跟 About Us 貼太近 */
+    padding-bottom: 30px; 
 }
 
 .nav-container {
@@ -25,18 +27,31 @@ body {
     align-items: center;
 }
 
+/* 左側 Icon 容器與變大效果 */
+.nav-pic {
+    color: #705844;
+    width: 40px;  /* 縮小容器寬度 */
+    display: flex;
+    align-items: center;
+}
+
+.nav-icon {
+    font-size: 1.5rem; /* 讓選單 icon 變大 (原本約 1rem) */
+    cursor: pointer;
+}
+
+/* 中間標題 */
 .nav-logo {
+    flex: 1; /* 讓 logo 佔據中間剩餘空間 */
     font-weight: bold;
     font-size: 1.4rem;
     color: #705844;
     text-align: center;
 }
 
-.nav-pic{
-    color:#705844;
-    width: 50px;
-    height: 50px;
-
+/* 右側佔位符，寬度與左側 nav-pic 一樣，確保 logo 是物理意義上的正中間 */
+.nav-placeholder {
+    width: 40px; 
 }
 
 /* ----- 選單 ----- */
@@ -239,7 +254,7 @@ body {
 }
 
 @media (max-width: 768px) {
-    .nav-container { padding: 20px 20px; }
+    .nav-container { padding: 20px 20px;}
     .about-container { padding: 0 20px; margin-top: 40px; }
     .flower-member, .flower-member.reverse {
         flex-direction: column;
