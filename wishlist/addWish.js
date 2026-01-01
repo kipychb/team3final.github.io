@@ -1,92 +1,77 @@
 /**
  * addWish.js
- * 功能：點擊愛心按鈕將商品加入收藏清單 (myWishlist)
+ * 功能：點擊愛心按鈕，僅將產品 ID 存入 localStorage (myWishlist)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 監聽全域點擊事件
+    // 頁面載入時，先根據 localStorage 初始化愛心狀態
+    updateHeartIconsStatus();
+
     document.addEventListener('click', function (e) {
-        // 檢查是否點擊到愛心按鈕或其圖示
         const heartBtn = e.target.closest('.heart-btn');
+        if (!heartBtn) return;
 
-        if (heartBtn) {
-            const itemElement = heartBtn.closest('.item');
-            if (!itemElement) return;
+        let productId = "";
 
-            // 1. 抓取商品資訊
-            // 根據你提供的結構：.tag 內含 "名稱<br>[系列]"
-            const tagEl = itemElement.querySelector('.tag');
-            const priceEl = itemElement.querySelector('.price');
-            const imgEl = itemElement.querySelector('.img-box img');
-            const linkEl = itemElement.querySelector('.img-box a');
-
-            // 處理名稱與系列 (分離文字)
-            const tagHtml = tagEl.innerHTML; // 例如 "慢時Slow Time<br>[For Elders]"
-            const name = tagHtml.split('<br>')[0].trim();
-            const series = tagHtml.includes('[') ? tagHtml.match(/\[(.*?)\]/)[1] : '';
-
-            // 處理價格 (轉為純數字)
-            const price = parseInt(priceEl.innerText.replace(/[^0-9]/g, '')) || 0;
-
-            // 處理圖片路徑與 ID
-            // 圖片 src 通常是 "../image/flower/dried/13-2.jpg" -> 我們要存 "dried/13"
-            const src = imgEl.getAttribute('src');
-            const imagePath = src.replace('../image/flower/', '').replace('-2.jpg', '');
-
-            // 從連結抓取 ID (href="product/index.html?id=slow_time")
+        // 判斷當前是列表頁還是產品詳情頁來抓取 ID
+        const itemElement = heartBtn.closest('.item');
+        if (itemElement) {
+            // 列表頁：從連結抓取 id
+            const linkEl = itemElement.querySelector('.img-box a') || itemElement.querySelector('a');
             const href = linkEl.getAttribute('href');
-            const id = new URLSearchParams(href.split('?')[1]).get('id');
+            productId = new URLSearchParams(href.split('?')[1]).get('id');
+        } else {
+            // 產品詳情頁：從網址抓取 id
+            const urlParams = new URLSearchParams(window.location.search);
+            productId = urlParams.get('id');
+        }
 
-            // 2. 建立商品物件
-            const flowerObj = {
-                id: id,
-                name: name,
-                series: series,
-                price: price,
-                image_path: imagePath
-            };
-
-            // 3. 儲存至 localStorage
-            addToWishlist(flowerObj, heartBtn);
+        if (productId) {
+            toggleWishlist(productId, heartBtn);
         }
     });
 });
 
 /**
- * 將物件存入 localStorage
+ * 切換收藏狀態
  */
-function addToWishlist(flower, btn) {
+function toggleWishlist(id, btn) {
     let wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
+    const index = wishlist.indexOf(id);
 
-    // 檢查是否已存在
-    const isExist = wishlist.find(item => item.id === flower.id);
-
-    if (!isExist) {
-        wishlist.push(flower);
-        localStorage.setItem('myWishlist', JSON.stringify(wishlist));
-
-        // 成功動畫與回饋
+    if (index === -1) {
+        // 不在清單中 -> 新增
+        wishlist.push(id);
         showHeartFeedback(btn, true);
     } else {
-        // 如果已經有了，可以視為取消收藏或提示已存在
+        // 已在清單中 -> 移除
+        wishlist.splice(index, 1);
         showHeartFeedback(btn, false);
     }
+
+    localStorage.setItem('myWishlist', JSON.stringify(wishlist));
 }
 
 /**
- * 按鈕回饋動畫
+ * 載入頁面時同步愛心顏色
  */
+function updateHeartIconsStatus() {
+    const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
+    // 這裡可以根據頁面上的 id 元素來預設愛心是否為實心，
+    // 但因為產品頁通常是動態載入，建議在 loader.js 載入完後再呼叫此函數。
+}
+
 function showHeartFeedback(btn, isAdded) {
     const icon = btn.querySelector('i');
-
-    // 簡單的縮放動畫
-    btn.style.transform = "scale(1.4)";
+    btn.style.transform = "scale(1.3)";
     setTimeout(() => {
         btn.style.transform = "scale(1)";
         if (isAdded) {
-            icon.classList.remove('fa-regular');
-            icon.classList.add('fa-solid');
-            icon.style.color = "#c0a080"; // 變成主題金色
+            icon.classList.replace('fa-regular', 'fa-solid');
+            icon.style.color = "#c0a080";
+        } else {
+            icon.classList.replace('fa-solid', 'fa-regular');
+            icon.style.color = "";
         }
     }, 200);
 }
