@@ -14,7 +14,6 @@ body {
     width: 100%;
     background: transparent;
     z-index: 1000;
-    /* 增加下方間距，防止跟 About Us 貼太近 */
     padding-bottom: 30px; 
 }
 
@@ -27,29 +26,28 @@ body {
     align-items: center;
 }
 
-/* 左側 Icon 容器與變大效果 */
+
 .nav-pic {
     color: #705844;
-    width: 40px;  /* 縮小容器寬度 */
+    width: 40px;  
     display: flex;
     align-items: center;
 }
 
 .nav-icon {
-    font-size: 1.5rem; /* 讓選單 icon 變大 (原本約 1rem) */
+    font-size: 1.5rem; 
     cursor: pointer;
 }
 
 /* 中間標題 */
 .nav-logo {
-    flex: 1; /* 讓 logo 佔據中間剩餘空間 */
+    flex: 1; 
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: #705844;
     text-align: center;
 }
 
-/* 右側佔位符，寬度與左側 nav-pic 一樣，確保 logo 是物理意義上的正中間 */
 .nav-placeholder {
     width: 40px; 
 }
@@ -149,7 +147,7 @@ body {
 }
 
 .section-title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: #c0a080;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -216,7 +214,7 @@ body {
 }
 
 .member-name {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     color: #705844;
     line-height: 1.2;
     margin-bottom: 8px;
