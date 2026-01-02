@@ -8,6 +8,7 @@ let allDried = [];
 let currentFreshPage = 1;
 let currentDriedPage = 1;
 const itemsPerPage = 6;
+const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
 window.addEventListener('load', function () {
     fetch('flowerData.json')
@@ -40,22 +41,23 @@ function renderPage(selector, dataList, page) {
     setTimeout(() => {
         let html = '';
         pageData.forEach(flower => {
-            // 根據你在根目錄還是子目錄，這裡的路徑可能需要調整
-            // 假設這是根目錄的 index.html 使用
             const imagePath = `image/flower/${flower.image_path}-2.jpg`;
+            const isFavorited = wishlist.includes(flower.id);
+            const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
+            const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
             html += `
                 <div class="item">
                     <div class="img-box">
                         <a href="product/index.html?id=${flower.id}">
-                            <img src="${imagePath}" alt="${flower.name}" onerror="this.src='image/default.jpg'">
+                            <img src="${imagePath}" alt="${flower.name}" onerror="this.src=''">
                         </a>
                     </div>
                     <div class="item-info">
                         <div class="info-top">
                             <span class="tag">${flower.name}<br>[${flower.series}]</span>
                             <div class="item-actions">
-                                <button class="action-btn-circle heart-btn" data-id="${flower.id}"><i class="fa-regular fa-heart"></i></button>
-                                <button class="add-btn-circle" onclick="handleAddToCart('${flower.name}', ${flower.price})"><i class="fa-solid fa-plus"></i></button>
+                                <button class="action-btn-circle heart-btn" data-id="${flower.id}"><i class="${heartIconClass} fa-heart" ${heartIconStyle}></i></button>
+                                <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.name}', ${flower.price})"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
                         <span class="price">NT$ ${flower.price.toLocaleString()}</span>
@@ -65,8 +67,6 @@ function renderPage(selector, dataList, page) {
         });
         container.innerHTML = html;
         container.classList.remove('fade-out');
-
-        // 渲染完後重新同步愛心顏色 (如果有對應函式)
         if (typeof syncHeartIcons === 'function') syncHeartIcons();
     }, 300);
 }
@@ -113,8 +113,12 @@ function setupPaginationEvents() {
     });
 }
 
-function handleAddToCart(name, price) {
+function handleAddToCart(event, name, price) {
+    // 1. 阻止事件冒泡，防止 shoppingCart.js 的 document.click 又跑一次
+    if (event) event.stopPropagation();
+
+    // 2. 呼叫 shoppingCart.js 的功能
     if (typeof addToCart === "function") {
-        addToCart(name, `NT$ ${price}`);
+        addToCart(name, price);
     }
 }

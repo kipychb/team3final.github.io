@@ -1,0 +1,371 @@
+/* --- 1. 全域基礎設定 --- */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    background-color: #eeebe2;
+    color: #3a3a3a;
+    font-family: 'Noto Serif TC', serif;
+}
+
+/* --- 2. 導覽列 (Nested) --- */
+.navbar {
+    display: flex; 
+    align-items: center;
+    padding: 15px 25px; 
+    background-color: #A3A69C; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+
+    /* 左右兩側固定寬度，確保 Logo 絕對置中 */
+    .left, .right {
+        display: flex;
+        align-items: center;
+        width: 120px; 
+    }
+
+    .right {
+        justify-content: flex-end;
+    }
+
+    .logo { 
+        font-weight: bold; 
+        font-size: 1.4rem; 
+        color: #eeebe2; 
+        flex: 1; 
+        text-align: center;
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+
+    .icon { 
+        font-size: 1.2rem; 
+        color: #eeebe2; 
+        margin: 0 10px; 
+        cursor: pointer; 
+    }
+
+    .link { 
+        color: inherit; 
+        text-decoration: none; 
+        display: flex; 
+        align-items: center; 
+    }
+}
+
+/* --- 側邊面板 (分類與搜尋) --- */
+.side-panel {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #f4f1de;
+    transition: 0.3s ease;
+    z-index: 2000;
+    padding: 30px 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    &.active {
+        left: 0;
+    }
+
+    h2 {
+        color: #705844;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        border-bottom: 0.8px solid #705844;
+        padding-bottom: 10px;
+    }
+
+    /* 分類列表 */
+    .list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            font-size: 1rem;
+            color: #3a3a3a;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(112, 88, 68, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            a {
+                text-decoration: none;
+                color: inherit;
+                display: block;
+                width: 100%;
+            }
+
+            &:hover {
+                color: #c0a080;
+                padding-left: 10px;
+            }
+
+            &:first-child {
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    /* 搜尋框樣式 */
+    .search-bar {
+        display: flex;
+        align-items: center;
+        border: 1px solid #705844;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-bottom: 30px;
+
+        input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        i {
+            color: #705844;
+        }
+    }
+
+    /* 搜尋建議清單 */
+    .suggestions {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+
+        li {
+            font-size: 15px;
+            border-bottom: 1px solid #705844;
+            opacity: 0.8;
+            padding: 10px 0px;
+
+            &:hover {
+                background-color: #e9e4d4;
+            }
+        }
+    }
+}
+
+/* --- 遮罩層 --- */
+.menu-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent;
+    visibility: hidden;
+    z-index: 1500;
+    transition: 0.3s ease;
+
+    &.active {
+        visibility: visible;
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* --- 購物車側邊欄 --- */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 320px;
+    height: 100%;
+    background: #eeebe2;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    transition: 0.4s ease;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+
+    &.active {
+        right: 0;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #A3A69C;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .items {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .footer {
+        border-top: 1px solid #A3A69C;
+        padding-top: 15px;
+        margin-top: 20px;
+
+        .total-row {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #705844;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+
+            &:hover {
+                background: #5a4636;
+            }
+        }
+    }
+}
+
+.cart-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 1500;
+}
+
+/* --- 3. 容器佈局 --- */
+.category-wrapper {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 5%;
+
+    .section-title { 
+        text-align: center; 
+        margin: 30px 0; 
+        font-size: 1.5rem; 
+        color: #705844; 
+        position: relative; 
+
+        &::before, &::after { 
+            content: ""; 
+            position: absolute; 
+            top: 50%; 
+            width: 30%; 
+            height: 0.8px; 
+            background: #c0a080;  
+        }
+        &::before { left: 0%; } 
+        &::after { right: 0%; }
+    }
+}
+
+/* --- 4. 商品網格與按鈕修復 --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 40px 30px; 
+
+    .item { 
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+
+        .img-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid #A3A69C;
+            overflow: hidden;
+            
+            display: flex;
+            justify-content: center;
+            
+            margin-bottom: 15px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .item-info { 
+            display: flex; 
+            flex-direction: column; 
+            width: 100%;
+            padding: 0 5px;
+
+            .info-top {
+                display: flex;
+                justify-content: space-between; 
+                align-items: flex-start; /* 考慮到 tag 有換行，置頂對齊較美觀 */
+                width: 100%;
+            }
+
+            .tag { 
+                font-size: 1rem; 
+                color: #3a3a3a; 
+                font-weight: 500;
+                line-height: 1.4;
+            }
+
+            /* 按鈕群組 */
+            .item-actions {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+
+                .action-btn-circle, .add-btn-circle {
+                    background-color: transparent;
+                    border: 1px solid #A3A69C; 
+                    color: #A3A69C;            
+                    width: 26px;               
+                    height: 26px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+                    i { font-size: 0.75rem; }
+
+                    &:hover {
+                        background-color: #A3A69C;
+                        color: #eeebe2;
+                        transform: scale(1.1); 
+                    }
+                }
+
+                .add-btn-circle:hover {
+                    transform: scale(1.1) rotate(90deg); 
+                }
+            }
+
+            .price { 
+                font-size: 0.95rem; 
+                color: #c0a080; 
+                font-weight: bold; 
+                margin-top: 5px; 
+            }
+        }
+    }
+}
+
+/* --- 6. 響應式佈局 --- */
+@media (max-width: 600px) { 
+    .product-grid { gap: 30px 20px; } 
+    .category-wrapper .section-title {
+        &::before, &::after { display: none; }
+    }
+}

@@ -2,36 +2,26 @@
 let cart = JSON.parse(localStorage.getItem('myCart')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateCartUI(); // 頁面載入時同步畫面
-    initReveal();   // 初始化原本的捲動動畫
+    updateCartUI();
+    initReveal();
 
-    // --- 2. 監聽全站點擊事件 ---
+    // --- 2. 監聽點擊事件 (用於處理靜態 HTML 裡的按鈕) ---
     document.addEventListener('click', function (e) {
-        // 判斷是否點擊了「加號」按鈕 (首頁的 .fa-plus 或 分頁的 .add-btn)
-        if (e.target.classList.contains('fa-plus') || e.target.classList.contains('add-btn')) {
-            const btn = e.target;
+        const isPlusIcon = e.target.classList.contains('fa-plus');
+        const isAddBtn = e.target.classList.contains('add-btn');
+
+        if (isPlusIcon || isAddBtn) {
+            // 檢查是否已經由 onclick 處理過了
+            const parentBtn = e.target.closest('button');
+            if (parentBtn && parentBtn.hasAttribute('onclick')) return;
+
             let name, priceTxt;
-
-            if (btn.classList.contains('add-btn')) {
-                // 【2X4資料夾內的分頁結構】
-                const productItem = btn.closest('.product-item');
-                name = productItem.querySelector('.prod-tag-name').innerText;
-                priceTxt = productItem.querySelector('.prod-price').innerText;
-            } else {
-                // 【根目錄首頁結構】
-                const itemInfo = btn.closest('.item-info');
-                if (itemInfo) {
-                    name = itemInfo.querySelector('.tag').innerText;
-                    priceTxt = itemInfo.querySelector('.price').innerText;
-                }
-            }
-
-            if (name && priceTxt) {
-                addToCart(name, priceTxt);
-                // 按鈕縮放小動畫
-                btn.style.transition = "transform 0.2s";
-                btn.style.transform = "scale(1.4)";
-                setTimeout(() => btn.style.transform = "scale(1)", 200);
+            // 處理非動態生成的產品（例如手寫在 HTML 裡的）
+            const itemInfo = e.target.closest('.item-info');
+            if (itemInfo) {
+                name = itemInfo.querySelector('.tag')?.innerText;
+                priceTxt = itemInfo.querySelector('.price')?.innerText;
+                if (name && priceTxt) addToCart(name, priceTxt);
             }
         }
     });
@@ -39,36 +29,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- 3. 核心功能函數 ---
 
-function addToCart(name, priceTxt) {
-    // 價格處理
-    const price = parseInt(priceTxt.toString().replace(/[^0-9]/g, '')) || 0;
-    
-    // 存入陣列並更新 LocalStorage
+// 統一接收名稱與價格
+function addToCart(name, priceInput) {
+    let price = 0;
+    // 自動判斷傳入的是數字還是字串
+    if (typeof priceInput === 'number') {
+        price = priceInput;
+    } else if (typeof priceInput === 'string') {
+        price = parseInt(priceInput.replace(/[^0-9]/g, '')) || 0;
+    }
+
     cart.push({ id: Date.now(), name: name, price: price });
     localStorage.setItem('myCart', JSON.stringify(cart));
-    
+
     updateCartUI();
-    
-    // 【關鍵修改】加入後直接開啟側邊欄
-    openCartSidebar(); 
-}
-
-// 強制開啟側邊欄
-function openCartSidebar() {
-    const sidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('cartOverlay');
-    if (sidebar) sidebar.classList.add('active');
-    if (overlay) overlay.style.display = 'block';
-}
-
-// 原本的開關切換 (供導覽列圖示使用)
-function toggleCart() {
-    const sidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('cartOverlay');
-    if (sidebar) {
-        const isActive = sidebar.classList.toggle('active');
-        if (overlay) overlay.style.display = isActive ? 'block' : 'none';
-    }
+    openCartSidebar();
 }
 
 function updateCartUI() {
@@ -97,13 +72,25 @@ function updateCartUI() {
     totalSpan.innerText = total.toLocaleString();
 }
 
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    if (sidebar) {
+        const isActive = sidebar.classList.toggle('active');
+        if (overlay) overlay.style.display = isActive ? 'block' : 'none';
+    }
+}
+function openCartSidebar() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    if (sidebar) sidebar.classList.add('active');
+    if (overlay) overlay.style.display = 'block';
+}
 function removeItem(index) {
     cart.splice(index, 1);
     localStorage.setItem('myCart', JSON.stringify(cart));
     updateCartUI();
 }
-
-// --- 4. 捲動揭幕動畫 ---
 function initReveal() {
     const revealElements = document.querySelectorAll('.collection, .quiz-intro, .contact-top');
     revealElements.forEach(el => {
@@ -111,7 +98,6 @@ function initReveal() {
         el.style.transform = "translateY(30px)";
         el.style.transition = "all 0.8s ease-out";
     });
-
     window.addEventListener('scroll', () => {
         revealElements.forEach(el => {
             const windowHeight = window.innerHeight;

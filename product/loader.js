@@ -43,24 +43,6 @@ async function loadProductDetail() {
     }
 }
 
-// 檢查 localStorage 並更新愛心 UI
-function syncHeartStatus(id) {
-    const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
-    const heartBtn = document.querySelector('.heart-btn');
-
-    if (heartBtn) {
-        const icon = heartBtn.querySelector('i');
-        // 如果 ID 已在收藏清單中
-        if (wishlist.includes(id)) {
-            icon.classList.replace('fa-regular', 'fa-solid');
-            icon.style.color = "#c0a080"; // 設為你設定的主題金色
-        } else {
-            icon.classList.replace('fa-solid', 'fa-regular');
-            icon.style.color = ""; // 恢復原色
-        }
-    }
-}
-
 // 初始化商品圖片
 function initImageCarousel(flower) {
     const imgBox = document.querySelector('.main-img-box');
