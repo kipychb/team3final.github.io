@@ -26,12 +26,12 @@ async function loadProductDetail() {
             const addCartBtn = document.querySelector('.add-cart-btn');
             if (addCartBtn) {
                 addCartBtn.onclick = function () {
-                    // 檢查 shoppingCart.js 是否已載入並提供函數
+                    // 檢查 utils/cart/main.js 是否已載入並提供函數
                     if (typeof addToCart === "function") {
                         // 傳入當前商品的名稱與價格
                         addToCart(flower.name, flower.price);
                     } else {
-                        console.error("找不到 addToCart 函數，請檢查 shoppingCart.js 是否正確載入");
+                        console.error("找不到 addToCart 函數，請檢查 utils/cart/main.js 是否正確載入");
                     }
                 };
             }
@@ -40,24 +40,6 @@ async function loadProductDetail() {
         }
     } catch (error) {
         console.error("載入產品失敗:", error);
-    }
-}
-
-// 檢查 localStorage 並更新愛心 UI
-function syncHeartStatus(id) {
-    const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
-    const heartBtn = document.querySelector('.heart-btn');
-
-    if (heartBtn) {
-        const icon = heartBtn.querySelector('i');
-        // 如果 ID 已在收藏清單中
-        if (wishlist.includes(id)) {
-            icon.classList.replace('fa-regular', 'fa-solid');
-            icon.style.color = "#c0a080"; // 設為你設定的主題金色
-        } else {
-            icon.classList.replace('fa-solid', 'fa-regular');
-            icon.style.color = ""; // 恢復原色
-        }
     }
 }
 

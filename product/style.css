@@ -41,78 +41,6 @@ body {
     padding: 20px 5%;
 }
 
-/* --- 側邊選單 Side Panel */
-.side-panel {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background: #f4f1de;
-    transition: 0.3s ease;
-    z-index: 2000;
-    padding: 30px 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.side-panel.active {
-    left: 0;
-}
-
-.side-panel h2 {
-    color: #705844;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    border-bottom: 0.8px solid #705844;
-    padding-bottom: 10px;
-}
-
-.side-panel .catalog-list {
-    list-style: none;
-    padding: 0;
-}
-
-.side-panel .catalog-list li {
-    font-size: 1rem;
-    color: #3a3a3a;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(112, 88, 68, 0.2); 
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.side-panel .catalog-list li a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-}
-
-.side-panel .catalog-list li:hover {
-    color: #c0a080; 
-    padding-left: 10px;
-}
-
-.side-panel .catalog-list li:first-child {
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.menu-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: transparent; 
-    visibility: hidden;
-    z-index: 1500;
-    transition: 0.3s ease;
-}
-
-.menu-overlay.active {
-    visibility: visible;
-    background: rgba(0, 0, 0, 0.5);
-}
-
 .border-box { border: 1px solid #705844; }
 
 /* 產品圖片佈局 */
@@ -148,8 +76,14 @@ body {
 .main-img-box img { width: 100%; height: 100%; object-fit: cover;}
 
 .img-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; padding: 10px 10px; border-radius: 5px;}
+<<<<<<< HEAD
 .img-dots span { width: 6px; height: 6px; background:#c0a080; border-radius: 50%; transition: 0.3s ease; border: 1.5px solid #eeebe2; } /* 💡 修正原本錯誤的 border 寫法 */
 .img-dots span:hover, .img-dots span.active { opacity: 0.7; }
+=======
+.img-dots span { width: 6px; height: 6px; background:#c0a080; border-radius: 50%; transition: 0.3s ease; border: 5px solid #eeebe2; }
+.img-dots span:hover,.img-dots span.active { opacity: 0.7;}
+
+>>>>>>> 2518ea2a77f689bf682fb5c77e7466eb5491edec
 
 /* 產品資訊 */
 .info-group { 
@@ -169,26 +103,108 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+<<<<<<< HEAD
 }
 .action-bar .quantity {
     display: flex;
     align-items: center;
     gap: 20px;
+=======
+
+    /* 數量選擇與收藏愛心那一排 */
+    .quantity-row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        /* 數字加減器 */
+        .selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #705844; /* 原 border-box 樣式 */
+
+            .btn {
+                background: #A3A69C;
+                color: #fff;
+                border: none;
+                padding: 10px 15px;
+                cursor: pointer;
+                transition: background 0.3s;
+
+                &:hover { background: #8e9287; }
+            }
+
+            .input {
+                width: 50px;
+                text-align: center;
+                border: none;
+                background: transparent;
+                font-size: 1rem;
+                outline: none;
+            }
+        }
+
+        .inventory {
+            font-size: 0.9rem;
+            color: #000000;
+        }
+
+        /* 收藏按鈕 */
+        .heart-btn {
+            background: none;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            outline: none;
+
+            i {
+                font-size: 1.6rem;
+                color: #A3A69C;
+                transition: color 0.3s ease;
+            }
+
+            &:hover {
+                transform: scale(1.2);
+                i { color: #c0a080; }
+            }
+        }
+    }
+
+    /* 下方大按鈕群組 */
+    .btn-group {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+
+        .cart-btn, .buy-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Noto Serif TC', serif;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+
+            &:hover { opacity: 0.9; }
+        }
+
+        .cart-btn {
+            background: #a3b3b2;
+            color: #fff;
+        }
+
+        .buy-btn {
+            background: #A3A69C;
+            color: #fff;
+        }
+    }
+>>>>>>> 2518ea2a77f689bf682fb5c77e7466eb5491edec
 }
-
-.selector { display: flex; align-items: center; }
-.qty-btn { background: #A3A69C; color: #fff; border: none; padding: 10px 15px; cursor: pointer; }
-.qty-input { width: 80px; text-align: center; border: none; background: transparent; font-size: 1rem; }
-
-.heart-btn { font-size: 1.8rem; color: #705844; cursor: pointer; }
-
-.btn-group { display: flex; gap: 10px; width: 100%; }
-.add-cart-btn, .buy-now-btn {
-    flex: 1; padding: 12px; border: none; border-radius: 5px; 
-    font-family: 'Noto Serif TC', serif; cursor: pointer; font-size: 0.9rem;
-}
-.add-cart-btn { background: #a3b3b2; color: #fff; }
-.buy-now-btn { background: #A3A69C; color: #fff; }
 
 .line-title {
     display: flex; align-items: center; color: #705844; margin: 50px 0 20px;font-size: 1.5rem;
@@ -419,31 +435,3 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
-/* 購物車側邊欄 */
-.cart-sidebar {
-    position: fixed;
-    top: 0;
-    right: -350px;
-    width: 320px;
-    height: 100%;
-    background: #eeebe2;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    z-index: 3000;
-    transition: 0.4s ease;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-}
-.cart-sidebar.active { right: 0; }
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #705844;
-    padding-bottom: 10px;
-}
-.cart-items { flex-grow: 1; overflow-y: auto; }
-.cart-footer { padding-top: 15px; border-top: 1px solid #705844; }
-.checkout-btn:hover { background-color: #5d4a39 !important; }

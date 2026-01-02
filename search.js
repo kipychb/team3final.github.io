@@ -4,6 +4,7 @@
  */
 
 let flowerData = [];
+let hrefPrefix = "";
 const searchTrigger = document.getElementById('search-trigger');
 const searchInput = document.getElementById('searchInput');
 const suggestionsList = document.getElementById('search-suggestions');
@@ -11,11 +12,16 @@ const suggestionsList = document.getElementById('search-suggestions');
 // 1. 導入資料
 async function initSearchData() {
     try {
-        // 檢查路徑是否正確 (flowerData.json 是否在同一個資料夾)
         const response = await fetch('flowerData.json');
         flowerData = await response.json();
     } catch (error) {
-        console.error("搜尋資料載入失敗，請檢查 flowerData.json 是否存在:", error);
+        try {
+            hrefPrefix = "../";
+            const response = await fetch('../flowerData.json');
+            flowerData = await response.json();
+        } catch (error) {
+            console.error("搜尋資料載入失敗，請檢查 flowerData.json 是否存在:", error);
+        }
     }
 }
 
@@ -36,7 +42,7 @@ function showRecommendations() {
     selected.forEach(flower => {
         const li = document.createElement('li');
         li.textContent = flower.name;
-        li.onclick = () => window.location.href = "product/index.html?id=" + flower.id;
+        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.id;
         suggestionsList.appendChild(li);
     });
 }
@@ -73,7 +79,7 @@ if (searchInput) {
                 filtered.forEach(f => {
                     const li = document.createElement('li');
                     li.textContent = f.name;
-                    li.onclick = () => window.location.href = "product/index.html?id=" + f.id;
+                    li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.id;
                     suggestionsList.appendChild(li);
                 });
             } else {

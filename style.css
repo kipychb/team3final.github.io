@@ -7,116 +7,6 @@ body {
     line-height: 1.6;
 }
 
-/* --- 側邊選單 Side Panel --- */
-.side-panel {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background: #f4f1de;
-    transition: 0.3s ease;
-    z-index: 2000;
-    padding: 30px 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
-    &.active {
-        left: 0;
-    }
-
-    h2 {
-        color: #705844;
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        border-bottom:0.8px solid #705844;
-        padding-bottom: 10px;
-    }
-
-    .catalog-list {
-        list-style: none;
-        padding: 0;
-
-        li {
-            font-size: 1rem;
-            color: #3a3a3a;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(112, 88, 68, 0.2) ; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-
-            a {
-                text-decoration: none;
-                color: inherit;
-                display: block;
-                width: 100%;
-            }
-
-            &:hover {
-                color: #c0a080; 
-                padding-left: 10px;
-            }
-
-            &:first-child {
-                font-weight: 700;
-                letter-spacing: 1px;
-            }
-        }
-    }
-}
-
-/* 搜尋建議清單樣式 */
-.suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
-
-.suggestions-list li {
-    font-size: 15px;
-    border-bottom: 1px solid #705844;
-    opacity:0.8;
-    padding: 10px 0px;
-}
-
-.suggestions-list li:hover {
-    background-color: #e9e4d4;
-}
-
-/* 搜尋框版型 */
-.menu-search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #705844;
-    border-radius: 20px;
-    padding: 8px 15px;
-    margin-bottom: 30px;
-}
-.menu-search-bar input {
-    border: none;
-    background: transparent;
-    width: 100%;
-    outline: none;
-    font-family: 'Noto Serif TC', serif;
-}
-.menu-search-bar i {
-    color: #705844;
-}
-
-.menu-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: transparent; 
-    visibility: hidden;
-    z-index: 1500;
-    transition: 0.3s ease;
-}
-
-.menu-overlay.active {
-    visibility: visible;
-    background: rgba(0, 0, 0, 0.5);
-}
-
 .main-content-blur {
     transition: 0.3s;
 }
@@ -127,6 +17,7 @@ body {
 
 /* 導覽列 */
 .navbar {
+<<<<<<< HEAD
     display: flex; align-items: center;
     padding: 15px 25px; background-color:#A3A69C; 
     position: sticky; top: 0; z-index: 1000;
@@ -147,11 +38,17 @@ body {
     color:#eeebe2; 
     flex: 1; 
     text-align: center;
+=======
+>>>>>>> 2518ea2a77f689bf682fb5c77e7466eb5491edec
     display: flex; 
-    justify-content: center; 
     align-items: center;
-}
+    padding: 15px 25px; 
+    background-color: #A3A69C; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
 
+<<<<<<< HEAD
 .nav-logo a,
 .nav-logo a:visited, 
 .nav-logo a:active, 
@@ -164,6 +61,44 @@ body {
 
 .nav-icon { font-size: 1.2rem; color: #eeebe2; margin: 0 10px; cursor: pointer; }
 .nav-link-icon { text-decoration: none; display: flex; align-items: center; }
+=======
+    /* 左右兩側固定寬度，確保 Logo 絕對置中 */
+    .left, .right {
+        display: flex;
+        align-items: center;
+        width: 120px; 
+    }
+
+    .right {
+        justify-content: flex-end;
+    }
+
+    .logo { 
+        font-weight: bold; 
+        font-size: 1.4rem; 
+        color: #eeebe2; 
+        flex: 1; 
+        text-align: center;
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+
+    .icon { 
+        font-size: 1.2rem; 
+        color: #eeebe2; 
+        margin: 0 10px; 
+        cursor: pointer; 
+    }
+
+    .link { 
+        color: inherit; 
+        text-decoration: none; 
+        display: flex; 
+        align-items: center; 
+    }
+}
+>>>>>>> 2518ea2a77f689bf682fb5c77e7466eb5491edec
 
 /* Banner */
 .banner { 
@@ -171,7 +106,14 @@ body {
     height: 100%; 
     position: relative;
     overflow: hidden;
+<<<<<<< HEAD
     margin: 10px auto; 
+=======
+    border: 1.5px solid #705844;
+    
+    /* 關鍵：水平置中 */
+    margin: 40px auto; 
+>>>>>>> 2518ea2a77f689bf682fb5c77e7466eb5491edec
 }
 
 .banner-container {
@@ -182,7 +124,7 @@ body {
 }
 
 .banner-img { 
-   width: 100%; 
+    width: 100%; 
     min-width: 100%; 
     height: 100%;
     flex-shrink: 0; 
@@ -245,9 +187,8 @@ body {
 
 /* --- 產品集合區塊 Collection --- */
 .collection {
-    padding: 60px 0;
+    padding: 0px 0; /* 不要排太開，每個collection都已經會用divider區分了，不用再多一個空白區域區分 */
 
-    /* 商品排版標題 */
     .section-title {
         text-align: center;
         margin: 0 0 50px 0;
@@ -270,8 +211,8 @@ body {
 
     /* Grid 設定 */
     .grid-3x2, .grid-2x3 {
-        display: grid;
         gap: 20px;
+        display: grid;
         padding: 0 20px;
         margin: 0 auto;
     }
@@ -383,6 +324,15 @@ body {
             gap: 20px;
             color: #705844;
 
+            .page-arrow {
+                transition: 0.3s ease;
+                padding: 5px;
+                &:hover {
+                    color: #a67a41;
+                }
+                
+            }
+
             .page-num {
                 cursor: pointer;
                 &.active {
@@ -460,62 +410,5 @@ input, textarea { padding: 10px; border: none; background: #eeebe2; font-family:
 .submit-btn:hover {color: #3a3a3a; }
 
 .footer-bottom { text-align: center; padding: 20px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
-
-
-/* 購物車側邊欄 */
-.cart-sidebar {
-    position: 
-    fixed; 
-    top: 0; 
-    right: -350px; 
-    width: 320px; 
-    height: 100%;
-    background: #eeebe2; 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    z-index: 2000; 
-    transition: 0.4s ease; 
-    padding: 25px; 
-    display: flex; 
-    flex-direction: column;
-}
-.cart-sidebar.active { 
-    right: 0; 
-}
-.cart-overlay { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.4); 
-    display: none; 
-    z-index: 1500; 
-}
-.cart-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 1px solid #A3A69C; 
-    padding-bottom: 15px; 
-    margin-bottom: 20px; 
-}
-.cart-items { flex: 1; 
-    overflow-y: auto; 
-}
-.cart-footer { 
-    border-top: 1px solid #A3A69C; 
-    padding-top: 15px; 
-    margin-top: 20px; 
-}
-.checkout-btn { 
-    width: 100%; 
-    background: #705844; 
-    color: white; 
-    border: none; 
-    padding: 12px; 
-    border-radius: 5px; 
-    cursor: pointer; 
-}
-
 
 @media (max-width: 768px) { .quiz-intro, .contact-top { flex-direction: column; } .grid-3x2 { grid-template-columns: repeat(2, 1fr); } }
