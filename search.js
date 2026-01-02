@@ -4,7 +4,7 @@
  */
 
 let flowerData = [];
-let prefix = "";
+let hrefPrefix = "";
 const searchTrigger = document.getElementById('search-trigger');
 const searchInput = document.getElementById('searchInput');
 const suggestionsList = document.getElementById('search-suggestions');
@@ -16,7 +16,7 @@ async function initSearchData() {
         flowerData = await response.json();
     } catch (error) {
         try {
-            is_sub = "../";
+            hrefPrefix = "../";
             const response = await fetch('../flowerData.json');
             flowerData = await response.json();
         } catch (error) {
@@ -42,7 +42,7 @@ function showRecommendations() {
     selected.forEach(flower => {
         const li = document.createElement('li');
         li.textContent = flower.name;
-        li.onclick = () => window.location.href = is_sub + "product/index.html?id=" + flower.id;
+        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.id;
         suggestionsList.appendChild(li);
     });
 }
@@ -79,7 +79,7 @@ if (searchInput) {
                 filtered.forEach(f => {
                     const li = document.createElement('li');
                     li.textContent = f.name;
-                    li.onclick = () => window.location.href = is_sub + "product/index.html?id=" + f.id;
+                    li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.id;
                     suggestionsList.appendChild(li);
                 });
             } else {

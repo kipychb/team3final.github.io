@@ -114,10 +114,10 @@ function setupPaginationEvents() {
 }
 
 function handleAddToCart(event, name, price) {
-    // 1. 阻止事件冒泡，防止 shoppingCart.js 的 document.click 又跑一次
+    // 1. 阻止事件冒泡，防止 utils/cart/main.js 的 document.click 又跑一次
     if (event) event.stopPropagation();
 
-    // 2. 呼叫 shoppingCart.js 的功能
+    // 2. 呼叫 utils/cart/main.js 的功能
     if (typeof addToCart === "function") {
         addToCart(name, price);
     }

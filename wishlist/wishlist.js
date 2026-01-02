@@ -38,7 +38,7 @@ async function renderWishlist() {
                 <div class="item">
                     <div class="img-box border-box">
                         <a href="${productUrl}">
-                            <img src="${imagePath}" alt="${item.name}" onerror="this.src='../image/default.jpg'">
+                            <img src="${imagePath}" alt="${item.name}" onerror="this.src=''">
                         </a>
                         <button class="remove-btn" onclick="removeFromWishlist('${item.id}')">
                             <i class="fa-solid fa-xmark"></i>
@@ -46,7 +46,7 @@ async function renderWishlist() {
                     </div>
                     <div class="info">
                         <div class="main-text">
-                            <span class="tag">[${item.series}] ${item.name}</span>
+                            <span class="tag">${item.name}<br>[${item.series}]</span>
                             <span class="price">NT$ ${item.price.toLocaleString()}</span>
                         </div>
                         <div class="item-actions" style="display: flex; gap: 8px; align-items: center;">
@@ -99,7 +99,7 @@ function copyProductLink(url, btnElement) {
 }
 
 /**
- * 橋接購物車功能 (連動 shoppingCart.js)
+ * 橋接購物車功能 (連動 utils/cart/main.js)
  */
 function handleWishlistAddToCart(name, price) {
     if (typeof addToCart === "function") {
