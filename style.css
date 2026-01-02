@@ -17,9 +17,12 @@ body {
 
 /* 導覽列 */
 .navbar {
-    display: flex; align-items: center;
-    padding: 15px 25px; background-color:#A3A69C; 
-    position: sticky; top: 0; z-index: 1000;
+    display: flex; 
+    align-items: center;
+    padding: 15px 25px;
+     background-color:#A3A69C; 
+    position: sticky; 
+    top: 0; z-index: 1000;
 }
 
 .nav-left, .nav-right {
@@ -35,15 +38,11 @@ body {
     font-weight: bold; 
     font-size: 1.5rem; 
     color:#eeebe2; 
-    flex: 1; 
-    text-align: center;
     display: flex; 
+    flex: 1; 
+    justify-content: center;
     align-items: center;
-    padding: 15px 25px; 
-    background-color: #A3A69C; 
-    position: sticky; 
-    top: 0; 
-    z-index: 1000;
+}
 
 .nav-logo a,
 .nav-logo a:visited, 
@@ -298,6 +297,7 @@ body {
 .info-content{
     color:#3a3a3a;
     text-align: center;
+    margin-bottom: 25px;
 }
 
 .about-us { 
@@ -336,7 +336,7 @@ body {
 
 .social-icons { 
     text-align: center; font-size: 1.8rem; margin-bottom: 50px;
-    a { margin: 0 15px; cursor: pointer; color: #705844; }
+    a { margin: 0 30px; cursor: pointer; color: #705844; }
 }
 
 .contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
@@ -357,7 +357,7 @@ body {
 .contact-form {align-items: center;  display: flex; flex-direction: column; gap: 12px; }
 .form-title { text-align: center; color:#fff; margin-bottom: 15px; font-size: 1.4rem; }
 input, textarea { padding: 10px; border: none; background: #eeebe2; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; width:100%; }
-.submit-btn { margin-top: 20px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.8rem; transition: 0.3s; border-radius: 10px; }
+.submit-btn { margin-top: 20px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; transition: 0.3s; border-radius: 10px; }
 .submit-btn:hover {color: #3a3a3a; }
 
 .footer-bottom { text-align: center; padding: 20px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }

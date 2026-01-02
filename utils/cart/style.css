@@ -21,7 +21,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid #A3A69C;
+        font-size: 1.1rem;
+        border-bottom: 1.5px solid #A3A69C;
         padding-bottom: 15px;
         margin-bottom: 20px;
     }
@@ -32,7 +33,7 @@
     }
 
     .footer {
-        border-top: 1px solid #A3A69C;
+        border-top: 1.5px solid #A3A69C;
         padding-top: 15px;
         margin-top: 20px;
 

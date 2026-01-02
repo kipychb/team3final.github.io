@@ -26,7 +26,6 @@
         </div>
     </header>
 
-    <!-- 分類選單 -->
     <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
@@ -39,7 +38,6 @@
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
 
-    <!-- 購物車 -->
     <div id="cartSidebar" class="cart-sidebar">
         <div class="header">
             <h3>購物清單</h3>
@@ -57,8 +55,7 @@
         <section class="product-main-flex">
             <section class="product-visual">
                 <div class="main-img-box border-box">
-                    <img src="" alt="">
-                    <img src="" alt="">
+                    <img src="" alt="" id="product-main-image">
                     <div class="img-dots">
                         <span class="active"></span>
                         <span></span>
@@ -75,26 +72,21 @@
                 </div>
 
                 <div class="action-bar">
-                    <!-- 數量與收藏區塊 -->
                     <div class="quantity-row">
                         <div class="selector border-box">
-                            <button class="btn" onclick="modifyQuantity(event, -1)">-</button>
-                            <input class="input" type="number" value="1" min="1">
-                            <button class="btn" onclick="modifyQuantity(event, 1)">+</button>
+                            <button class="qty-btn" onclick="modifyQuantity(event, -1)">-</button>
+                            <input class="qty-input" type="number" value="1" min="1">
+                            <button class="qty-btn" onclick="modifyQuantity(event, 1)">+</button>
                         </div>
                         <div class="inventory">僅剩 30 束</div>
                         <button class="heart-btn">
-                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-solid fa-heart"></i>
                         </button>
                     </div>
-                
-                    <!-- 按鈕群組 -->
                     <div class="btn-group">
-                        <button class="cart-btn">加入購物車</button>
+                        <button class="cart-btn" onclick="addToCart()">加入購物車</button>
                         <button class="buy-btn">立即購買</button>
                     </div>
-                </div>
-                
             </section>
         </section>
 
@@ -108,22 +100,19 @@
                     <li class="tab-btn" onclick="openTab(event, 'shipping')">配送說明</li>
                 </ul>
 
-                <!-- 1. 商品資料 (維持雙欄) -->
                 <div id="info" class="tab-content active">
                     <div class="content-flex">
                         <div class="left-box">
-                            <p>商品描述內容...</p>
+                            <p id="tab-description">正在載入商品描述內容...</p>
                         </div>
                         <div class="right-box">
-                            <ul>
-                                <li>項目 A</li>
-                                <li>項目 B</li>
+                            <ul id="tab-specs">
+                                <li>正在載入細項...</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. 訂購說明 (使用滿版單欄 + 自動換行) -->
                 <div id="order" class="tab-content">
                     <div class="full-box">
                         <div class="content-text">
@@ -138,7 +127,6 @@
                     </div>
                 </div>
 
-                <!-- 3. 配送說明 (使用滿版單欄 + 自動換行) -->
                 <div id="shipping" class="tab-content">
                     <div class="full-box">
                         <div class="content-text">
@@ -148,12 +136,12 @@
                                 <li>特殊節慶將可能無法指定上午/下午時段送達，我們將另行公告並於下訂後以信件通知。</li>
                             </ul>
 
-                            <strong>1. 專人送達</strong>
+                            <strong>1. 專人送達</strong><br>
                             可選擇配送時段為：全日9-17時、13時前、下午13-17時。<br>
                             台北地區滿2500元免運，未滿2500則需加收部份運費 (北投區除外)<br>
                             新北市、北投區及外縣市地區 ，任消費金額可折抵該區部分運費。(運費詳見配送須知)<br>
-
-                            <strong>2. 宅配送達</strong>
+                            <br>
+                            <strong>2. 宅配送達</strong><br>
                             無論地區每件宅配費用350元。<br>
                             配合廠商為黑貓宅急便，鮮花低溫冷藏。<br>
                             <br>
@@ -170,7 +158,6 @@
                 </div>
             </div>
 
-            <!-- 顧客評價 -->
             <div class="text-block comment">
                 <h3 class="line-title">顧客評價</h3>
                 <div class="rating-container">
@@ -194,10 +181,8 @@
                             <i class="fa-solid fa-star" data-value="2"></i>
                             <i class="fa-solid fa-star" data-value="1"></i>
                         </div>
-                        <div class="user-rate-box">
-                            <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
-                            <button class="submit-btn" onclick="submitReview()">送出評論</button>
-                        </div>
+                        <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
+                        <button class="submit-btn" onclick="submitReview()">送出評論</button>
                     </div>
                 </div>
             </div>
@@ -211,7 +196,6 @@
         </section>
     </main>
 
-    <!-- Java Script 存放區 -->
     <script src="loader.js"></script>
     <script src="addon.js"></script>
     <script src="rating.js"></script>
