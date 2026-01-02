@@ -78,21 +78,26 @@
                 </div>
 
                 <div class="action-bar">
-                    <div class="quantity">
+                    <!-- 數量與收藏區塊 -->
+                    <div class="quantity-row">
                         <div class="selector border-box">
-                            <button class="qty-btn">-</button>
-                            <input type="number" value="1" class="qty-input">
-                            <button class="qty-btn">+</button>
+                            <button class="btn" onclick="modifyQuantity(event, -1)">-</button>
+                            <input class="input" type="number" value="1" min="1">
+                            <button class="btn" onclick="modifyQuantity(event, 1)">+</button>
                         </div>
                         <div class="inventory">僅剩 30 束</div>
-                        <button class="action-btn-circle heart-btn"><i class="fa-regular fa-heart"></i></button>
+                        <button class="heart-btn">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
                     </div>
-
+                
+                    <!-- 按鈕群組 -->
                     <div class="btn-group">
-                        <button class="add-cart-btn">加入購物車</button>
-                        <button class="buy-now-btn">立即購買</button>
+                        <button class="cart-btn">加入購物車</button>
+                        <button class="buy-btn">立即購買</button>
                     </div>
                 </div>
+                
             </section>
         </section>
 
@@ -213,8 +218,9 @@
     <script src="loader.js"></script>
     <script src="addon.js"></script>
     <script src="rating.js"></script>
-    <script src="details.js"></script>
     <script src="share.js"></script>
+    <script src="actionbar.js"></script>
+    <script src="miscellaneous.js"></script>
     <script src="../wishlist/addWish.js"></script>
     <script src="../sidebar.js"></script>
     <script src="../shoppingCart.js"></script>
