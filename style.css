@@ -297,10 +297,11 @@ body {
 }
 
 .info-content{
-    color:#c0a080;
-    font-size :1.1em;
-    text-align: center;
-    margin-bottom: 25px;
+    color: #c0a080;
+    font-size: 1rem;
+    display: flex;         
+    align-items: center;    
+    justify-content: center;
 }
 
 .about-us { 
@@ -332,7 +333,7 @@ body {
 
 /* 聯絡區塊 */
 .contact-section { 
-    padding: 60px 20px 0; 
+    padding: 40px 20px 0; 
     margin-top: 30px; 
     scroll-margin-top: 60px; 
 }
