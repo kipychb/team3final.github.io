@@ -28,7 +28,7 @@ async function initSearchData() {
 // 2. 隨機推薦邏輯
 function showRecommendations() {
     if (!suggestionsList) return;
-    suggestionsList.innerHTML = "<li style='font-size: 0.9rem; color: #705844; border: none; cursor: default;'>✨ 推薦商品：</li>";
+    suggestionsList.innerHTML = "<li style='font-size: 1rem; color: #705844; border: none; cursor: default;'>推薦商品：</li>";
 
     // 確保有資料才進行推薦
     if (flowerData.length === 0) {

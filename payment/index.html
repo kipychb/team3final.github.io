@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,71 +8,106 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../utils/side-menu/style.css">
 </head>
+
 <body>
 
     <header class="navbar">
-        <div class="left">
-            <i class="fa-solid fa-chevron-left nav-icon" onclick="history.back()"></i>
-        </div>
-        <div class="logo">結帳資料確認</div>
-        <div class="right">
-            <a href="../index.html" class="home-link">
-                <i class="fa-solid fa-house nav-icon"></i>
+        <div class="nav-left">
+            <a href="javascript:history.back()" class="home-link">
+                <i class="fa-solid fa-chevron-left nav-icon"></i>
             </a>
         </div>
+        <div class="nav-logo"></div>
+        <div class="nav-right" style="width: 40px;"></div>
     </header>
 
-    <div class="checkout-wrapper">
-        <div class="order-summary">
-            <div class="section-title">您的祝願清單</div>
+    <main class="checkout-wrapper">
+        <h2 class="page-title">結帳資料確認</h2>
+
+        <section class="checkout-card">
             <div class="product-list">
+                <div class="product-item">
+                    <div class="prod-img border-box"><img src="images/flower1.png"></div>
+                    <div class="prod-details">
+                        <p class="name">晨霧薰衣草花束</p>
+                        <p class="price">NT$ 1,280</p>
+                    </div>
+                    <span class="quantity">X1</span>
                 </div>
-            
-            <div class="price-details">
-                <div class="price-row subtotal-row">
-                    <span>小計</span>
-                    <span class="amount">NT$ 0</span>
-                </div>
-                <div class="price-row total-row">
-                    <span>應付總額</span>
-                    <span class="amount">NT$ 0</span>
+                <div class="product-item">
+                    <div class="prod-img border-box"><img src="images/flower2.png"></div>
+                    <div class="prod-details">
+                        <p class="name">莫內花園 - 油畫感花束</p>
+                        <p class="price">NT$ 2,500</p>
+                    </div>
+                    <span class="quantity">X1</span>
                 </div>
             </div>
-        </div>
-        </div>
+            <div class="product-list">
+            </div>
+            <div class="subtotal-row">小計：<span class="amount" id="list-subtotal">NT$ 0</span></div>
+        </section>
 
-        <div class="form-section">
-            <div class="section-title">收件人資訊</div>
+        <section class="form-section">
+            <h3 class="section-subtitle">顧客資料</h3>
             <div class="input-group">
-                <label>收件人姓名 *</label>
                 <input type="text" id="order-name" placeholder="請輸入姓名" required>
+                <input type="tel" id="order-phone" placeholder="聯絡資訊 (手機)" required>
+                <textarea id="order-note" placeholder="訂單備註" rows="2"></textarea>
             </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-subtitle">送貨地址及付款方式</h3>
             <div class="input-group">
-                <label>聯絡電話 *</label>
-                <input type="tel" id="order-phone" placeholder="請輸入手機號碼" required>
+                <div class="date-input-wrapper">
+                    <input type="text" placeholder="請指定送達日期 (當日請直接連絡我們)">
+                    <i class="fa-regular fa-calendar-check calendar-icon"></i>
+                </div>
+                <input type="text" placeholder="請輸入地址" required>
+                <select required>
+                    <option value="" disabled selected>付款方式 (請選擇)</option>
+                    <option value="credit">信用卡 / 金融卡線上支付</option>
+                    <option value="transfer">銀行轉帳 (自動對帳)</option>
+                    <option value="linepay">LINE Pay 快速結帳</option>
+                </select>
             </div>
-            <div class="input-group">
-                <label>收件地址 / 備註</label>
-                <textarea id="order-note" rows="3" placeholder="若需卡片代寫或特殊需求請在此註明..."></textarea>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-subtitle">訂單資訊</h3>
+            <div class="summary-list">
+                <div class="summary-row"><span>商品總額：</span><span id="subtotal-val">$0</span></div>
+                <div class="summary-row"><span>運費總額：</span><span>$120</span></div>
+                <div class="summary-row total"><span>總額：</span><span id="total-val">$0</span></div>
             </div>
+        </section>
+
+        <div class="submit-area">
+            <button class="checkout-btn" onclick="submitOrder()">
+                <span>送出訂單</span>
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
         </div>
 
-        <button class="submit-btn" onclick="submitOrder()">確認送出訂單</button>
-    </div>
-
-    <div class="success-overlay">
-        <div class="success-card">
-            <div class="card-title">祝願已送出 ✿</div>
-            <div class="card-content">
-                我們已收到您的訂單，<br>
-                花藝師將開始為您準備這份心意。
+        <div class="success-overlay" id="successOverlay">
+            <div class="success-card">
+                <div class="card-flower"><img src="images/flower_wish.png" alt="祝願之花"></div>
+                <h2 class="card-title">祝願已送出</h2>
+                <div class="card-content">
+                    <p>親愛的顧客，您的訂單 <strong>
+                            <div id="ORD-20261229"></div>
+                        </strong> 已建立。</p>
+                    <p>每一朵花都承載著您的心意，我們將細心包裝，確保這份祝福完美送達。</p>
+                </div>
+                <button class="back-home-btn" onclick="location.href='../index.html'">回到首頁</button>
+                <p class="card-footer">花予祝願所 ❁ 感謝您的信任</p>
             </div>
-            <button class="back-home-btn" onclick="location.href='../index.html'">回到首頁</button>
         </div>
-    </div>
+    </main>
 
     <script src="submit.js"></script>
 </body>
+
 </html>

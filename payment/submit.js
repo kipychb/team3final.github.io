@@ -3,38 +3,37 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function renderCheckout() {
-    // 1. 讀取購物車資料
     const cartData = JSON.parse(localStorage.getItem('myCart')) || [];
     const productList = document.querySelector('.product-list');
-    const subtotalAmount = document.querySelector('.subtotal-row .amount');
-    const totalAmount = document.querySelector('.total-row .amount');
+    
+    // 💡 抓取所有需要更新金額的標籤
+    const listSubtotal = document.getElementById('list-subtotal'); // 購物清單下方小計
+    const subtotalDisplay = document.getElementById('subtotal-val'); // 訂單資訊商品總額
+    const totalDisplay = document.getElementById('total-val');       // 最終總額
 
     if (!productList) return;
 
+    // 💡 修正變數名稱錯誤
     if (cartData.length === 0) {
         productList.innerHTML = '<p style="text-align:center; padding:30px; color:#999;">購物車內目前沒有商品</p>';
-        if (subtotalAmount) subtotalAmount.innerText = `NT$ 0`;
-        if (totalAmount) totalAmount.innerText = `NT$ 0`;
+        if (listSubtotal) listSubtotal.innerText = `NT$ 0`;
+        if (subtotalDisplay) subtotalDisplay.innerText = `NT$ 0`;
+        if (totalDisplay) totalDisplay.innerText = `NT$ 0`;
         return;
     }
 
-    // --- 新增：取得 flowerData.json 以獲取圖片路徑 ---
     let flowerData = [];
     try {
-        // 假設 flowerData.json 在上一層目錄，請依實際路徑調整 (例如 ./flowerData.json)
         const response = await fetch('../flowerData.json');
         flowerData = await response.json();
     } catch (error) {
         console.error("無法載入商品資料庫:", error);
     }
 
-    // 2. 統計商品數量並比對圖片
     const summary = cartData.reduce((acc, item) => {
         if (!acc[item.name]) {
-            // 從 JSON 中搜尋同名的商品
             const productInfo = flowerData.find(f => f.name === item.name);
-            // 組合圖片路徑，若沒找到則給予預設圖 (假設圖片皆為 .jpg)
-            const imgPath = productInfo ? `../assets/images/${productInfo.image_path}.jpg` : '../assets/images/default.jpg';
+            const imgPath = productInfo ? `../assets/images/${productInfo.image_path}.jpg` : 'images/flower1.png';
             
             acc[item.name] = { 
                 price: item.price, 
@@ -46,7 +45,6 @@ async function renderCheckout() {
         return acc;
     }, {});
 
-    // 3. 渲染頁面
     productList.innerHTML = ''; 
     let total = 0;
     
@@ -55,45 +53,53 @@ async function renderCheckout() {
         const itemTotal = item.price * item.qty;
         total += itemTotal;
         
-        // 渲染結構：包含圖片容器
         productList.innerHTML += `
             <div class="product-item">
-                <div class="item-info">
-                    <img src="${item.image}" alt="${name}" class="checkout-img">
-                    <div class="prod-details">
-                        <p class="name">${name}</p>
-                        <p class="price">NT$ ${item.price.toLocaleString()}</p>
-                    </div>
+                <div class="prod-img">
+                    <img src="${item.image}" alt="${name}">
+                </div>
+                <div class="prod-details">
+                    <p class="name">${name}</p>
+                    <p class="price">NT$ ${item.price.toLocaleString()}</p>
                 </div>
                 <span class="quantity">X${item.qty}</span>
             </div>`;
     }
     
-    // 更新金額顯示
-    const formattedTotal = `NT$ ${total.toLocaleString()}`;
-    if (subtotalAmount) subtotalAmount.innerText = formattedTotal;
-    if (totalAmount) totalAmount.innerText = formattedTotal;
+    // 💡 同步更新所有金額顯示
+    const formattedSubtotal = `NT$ ${total.toLocaleString()}`;
+    const formattedTotal = `NT$ ${(total + 120).toLocaleString()}`; // 加上 120 運費
+
+    if (listSubtotal) listSubtotal.innerText = formattedSubtotal;
+    if (subtotalDisplay) subtotalDisplay.innerText = formattedSubtotal;
+    if (totalDisplay) totalDisplay.innerText = formattedTotal;
 }
 
-// 送出訂單按鈕功能
+// 💡 修正 submitOrder 函式重複定義的問題
 function submitOrder() {
-    const cartData = JSON.parse(localStorage.getItem('myCart')) || [];
-    if (cartData.length === 0) {
-        alert("您的購物車是空的，無法送出訂單。");
-        return;
-    }
-
-    const name = document.getElementById('order-name').value.trim();
-    const phone = document.getElementById('order-phone').value.trim();
+    const nameInput = document.getElementById('order-name');
+    const phoneInput = document.getElementById('order-phone');
+    
+    const name = nameInput ? nameInput.value.trim() : "";
+    const phone = phoneInput ? phoneInput.value.trim() : "";
 
     if (!name || !phone) {
-        alert("請完整填寫收件人姓名與電話 ✿");
+        alert("請完整填寫收件人資訊 ✿");
         return;
     }
 
-    const overlay = document.querySelector('.success-overlay');
+    const overlay = document.getElementById('successOverlay');
     if (overlay) {
         overlay.classList.add('active');
+
+        // 清空購物車
         localStorage.removeItem('myCart');
+
+        // 點擊背景關閉邏輯
+        overlay.onclick = function(e) {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        }
     }
 }

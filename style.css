@@ -297,7 +297,8 @@ body {
 }
 
 .info-content{
-    color:#3a3a3a;
+    color:#c0a080;
+    font-size :1.1em;
     text-align: center;
     margin-bottom: 25px;
 }
