@@ -5,6 +5,8 @@ body {
     color: #3a3a3a;
     font-family: 'Noto Serif TC', serif;
     line-height: 1.6;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto; 
 }
 
 .main-content-blur {
@@ -84,7 +86,7 @@ body {
 
 .banner-dots {
     position: absolute; 
-    bottom: 25px; 
+    bottom: 15px; 
     left: 50%; 
     transform: translateX(-50%); 
     display: flex; 

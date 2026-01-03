@@ -9,6 +9,8 @@ body {
     background-color: #eeebe2;
     color: #3a3a3a;
     font-family: 'Noto Serif TC', serif;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto; 
 }
 
 /* --- 2. 導覽列 (Nested) --- */

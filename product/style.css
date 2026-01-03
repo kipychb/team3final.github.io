@@ -5,6 +5,8 @@ body {
     background-color: #eeebe2;
     color: #3a3a3a;
     font-family: 'Noto Serif TC', serif;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto; 
 }
 
 /* 導覽列 */
@@ -130,6 +132,7 @@ body {
 /* 💡 愛心按鈕配色 */
 .heart-btn {
     background: transparent; 
+    color:#705844;
     background-color: #eeebe2;
     border:1px solid #705844;
     width: 50px;

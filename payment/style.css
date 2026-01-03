@@ -4,6 +4,8 @@ body {
     color: #3a3a3a;
     font-family: 'Noto Serif TC', serif;
     line-height: 1.6;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto; 
 }
 
 /* 導覽列 */
