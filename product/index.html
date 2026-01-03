@@ -84,7 +84,7 @@
                         </button>
                     </div>
                     <div class="btn-group">
-                        <button class="cart-btn" onclick="addToCart()">加入購物車</button>
+                        <button class="add-cart-btn">加入購物車</button>
                         <button class="buy-btn">立即購買</button>
                     </div>
             </section>
@@ -205,6 +205,23 @@
     <script src="../wishlist/addWish.js"></script>
     <script src="../utils/side-menu/main.js"></script>
     <script src="../utils/cart/main.js"></script>
+
+    <script>
+        window.onload = function() {
+            // 確保 loader.js 和 addon.js 的功能被執行
+            if (typeof loadProductDetail === 'function') {
+                loadProductDetail();
+            }
+            if (typeof loadAddonDetails === 'function') {
+                loadAddonDetails();
+            }
+            // 如果 rating.js 有初始化功能也可以在此執行
+            if (typeof initStarRating === 'function') {
+                initStarRating();
+            }
+        };
+    </script>
+
 </body>
 
 </html>

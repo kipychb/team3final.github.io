@@ -153,17 +153,17 @@ body {
 /* 💡 加入購物車與購買按鈕對應 */
 .btn-group { display: flex; gap: 10px; width: 100%; }
 
-.cart-btn, .buy-btn {
+.add-cart-btn, .buy-btn {
     flex: 1; padding: 12px; border: none; border-radius: 5px; 
     font-family: 'Noto Serif TC', serif; cursor: pointer; font-size: 0.95rem;
     transition: 0.3s;
 }
 
-.cart-btn { 
+.add-cart-btn { 
     background: #a3b3b2; 
     color: #fff; 
 }
-.cart-btn:hover { background: #8e9e9d; }
+.add-cart-btn:hover { background: #8e9e9d; }
 
 .buy-btn { 
     background: #705844;
