@@ -100,23 +100,9 @@
 
             <div id="wishlist" class="section-block">
                 <h3 class="block-title">願望清單</h3>
-                <div class="list-container">
-                    <div class="wish-item-row">
-                        <div class="wish-text">
-                            <p class="wish-name"></p>
-                            <p class="wish-price"></p>
-                        </div>
-                        <button class="mini-add-btn"><i class="fa-solid fa-plus"></i></button>
-                    </div>
-                    <div class="wish-item-row">
-                        <div class="wish-text">
-                            <p class="wish-name"></p>
-                            <p class="wish-price"></p>
-                        </div>
-                        <button class="mini-add-btn"><i class="fa-solid fa-plus"></i></button>
-                    </div>
+                <div class="list-container" id="simple-wishlist-container">
+                    <p class="empty-msg">您的收藏清單空空如也...</p>
                 </div>
-                <p class="hint-text">願望清單滿 3 樣，下次結帳自動折抵金額。</p>
             </div>
 
             <div id="flower-search" class="section-block">
@@ -167,6 +153,7 @@
     <script src="../utils/side-menu/main.js"></script>
     <script src="main.js"></script>
     <script src="search.js"></script>
+    <script src="wishlist.js"></script>
 </body>
 
 </html>

@@ -54,11 +54,111 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
 .order-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
 
 /* 3. 願望清單細項 */
-.wish-item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(112,88,68,0.1); }
-.wish-name { font-weight: 500; }
-.wish-price { color: #c0a080; font-size: 0.9rem; }
-.mini-add-btn { background: none; border: 1px solid #A3A69C; color: #A3A69C; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-.mini-add-btn:hover { background: #A3A69C; color: #fff; }
+#wishlist {
+    /* 如果有針對 .section-block 或 .block-title 的樣式可在此巢狀撰寫 */
+
+    .list-container {
+
+        .empty-msg { 
+            font-size: 0.85rem; 
+            text-align: center;
+            margin-top: 30px;
+            color: #A3A69C;
+        }
+
+        /* 單個願望項目列 */
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed #ccc;
+
+            /* 左側內容區域 (圖片+文字) */
+            .content {
+                display: flex;
+                align-items: center;
+
+                img {
+                    display: flex;
+                    align-self: center;
+                    width: 60px;
+                    height: 60px;
+                    flex-shrink: 0;
+                    overflow: hidden;
+                    object-fit: cover;
+                    border: 2px solid #A3A69C;
+                    margin-right: 15px;
+                }
+
+                .text {
+                    display: flex;
+                    flex-direction: column;
+
+                    .name {
+                        font-weight: 500;
+                        margin: 0;
+                        font-size: 0.95rem;
+                    }
+
+                    .price {
+                        color: #c0a080;
+                        font-size: 0.85rem;
+                        margin: 2px 0 0 0;
+                    }
+                }
+            }
+
+            /* 右側按鈕區域 */
+            .actions {
+                display: flex;
+                gap: 10px;
+
+                .mini-btn {
+                    background: none;
+                    border: 1px solid #A3A69C;
+                    color: #A3A69C;
+                    width: 28px;
+                    height: 28px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.75rem;
+                    transition: 0.3s;
+
+                    &:hover {
+                        background: #A3A69C;
+                        color: #fff;
+                    }
+                }
+
+                .share-wrapper { 
+                    position: relative; 
+                    
+                    .tooltip {
+                        position: absolute;
+                        bottom: 110%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: rgba(0,0,0,0.7);
+                        color: #fff;
+                        padding: 2px 6px;
+                        border-radius: 4px;
+                        font-size: 10px;
+                        opacity: 0;
+                        transition: 0.3s;
+                        white-space: nowrap;
+                        pointer-events: none;
+
+                        &.show { opacity: 1; }
+                    }
+                }
+            }
+        }
+    }
+}
 
 /* 4. 花語查詢細項 */
 .search-bar-member { display: flex; gap: 10px; margin-bottom: 30px; }
@@ -79,4 +179,3 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
     color:#eeebe2;
     background-color: #705844;
 }
-.hint-text { margin-top: 30px; font-size: 0.85rem; color: #A3A69C; font-style: italic; }
