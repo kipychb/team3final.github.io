@@ -71,11 +71,10 @@ body {
     cursor: pointer;
     transition: 0.3s;
     margin-top: 5px;
-}
-
-.login-btn:hover {
-    background-color: #a3866a;
-    transform: translateY(-1px); 
+    &:hover {
+        background-color: #a3866a;
+        transform: translateY(-2px); 
+    }
 }
 
 /*  4. 底部連結 */

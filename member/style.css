@@ -7,7 +7,7 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
     padding: 15px 40px; background:#EEEBE2; position: sticky; top: 0; z-index: 1000;
 }
 .nav-logo { color: #705844; font-weight: bold; font-size: 1.4rem; flex: 1; text-align: center; }
-.nav-icon { color:#705844; font-size: 1.2rem; cursor: pointer; margin: 0 10px; }
+.nav-icon { color:#705844; font-size: 1.2rem; cursor: pointer; margin: 0 10px; text-decoration: none;}
 .home-link { text-decoration: none; }
 
 .member-wrapper { max-width: 900px; margin: 40px auto; padding: 0 20px; }
@@ -64,8 +64,15 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
 .search-bar-member { display: flex; gap: 10px; margin-bottom: 30px; }
 .search-bar-member input { flex: 1; padding: 10px; border: 1px solid #705844; background: transparent; outline: none; }
 .go-btn { background: #705844; color: #fff; border: none; padding: 0 20px; cursor: pointer; }
-.today-tip { color: #c0a080; padding: 20px; border-radius: 4px; }
-.today-tip h4 { color: #705844; margin-bottom: 5px; }
+.today-tip {
+    color: #c0a080; padding: 20px; border-radius: 4px;
+    h4 { color: #705844; margin-bottom: 5px; }
+    .result-item {
+        margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px;
+        display: flex;
+        img {display: flex; align-self: center; width: 60px; height: 60px; overflow: hidden; object-fit: cover; border: 2px solid #A3A69C; margin-right: 10px;}
+    }
+}
 
 .action-btn {color: #705844; border: 1px solid #705844; padding: 10px 25px; margin-top: 20px; cursor: pointer; font-family: inherit;border-radius: 5px; }
 .action-btn:hover{

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function renderCheckout() {
     const cartData = JSON.parse(localStorage.getItem('myCart')) || [];
     const productList = document.querySelector('.product-list');
-    
+
     // 💡 抓取所有需要更新金額的標籤
     const listSubtotal = document.getElementById('list-subtotal'); // 購物清單下方小計
     const subtotalDisplay = document.getElementById('subtotal-val'); // 訂單資訊商品總額
@@ -33,26 +33,26 @@ async function renderCheckout() {
     const summary = cartData.reduce((acc, item) => {
         if (!acc[item.name]) {
             const productInfo = flowerData.find(f => f.name === item.name);
-            const imgPath = productInfo ? `../assets/images/${productInfo.image_path}.jpg` : 'images/flower1.png';
-            
-            acc[item.name] = { 
-                price: item.price, 
+            const imgPath = productInfo ? `../image/flower/${productInfo.image_path}-2.jpg` : '';
+
+            acc[item.name] = {
+                price: item.price,
                 qty: 0,
-                image: imgPath 
+                image: imgPath
             };
         }
         acc[item.name].qty += 1;
         return acc;
     }, {});
 
-    productList.innerHTML = ''; 
+    productList.innerHTML = '';
     let total = 0;
-    
+
     for (const name in summary) {
         const item = summary[name];
         const itemTotal = item.price * item.qty;
         total += itemTotal;
-        
+
         productList.innerHTML += `
             <div class="product-item">
                 <div class="prod-img">
@@ -65,7 +65,7 @@ async function renderCheckout() {
                 <span class="quantity">X${item.qty}</span>
             </div>`;
     }
-    
+
     // 💡 同步更新所有金額顯示
     const formattedSubtotal = `NT$ ${total.toLocaleString()}`;
     const formattedTotal = `NT$ ${(total + 120).toLocaleString()}`; // 加上 120 運費
@@ -79,7 +79,7 @@ async function renderCheckout() {
 function submitOrder() {
     const nameInput = document.getElementById('order-name');
     const phoneInput = document.getElementById('order-phone');
-    
+
     const name = nameInput ? nameInput.value.trim() : "";
     const phone = phoneInput ? phoneInput.value.trim() : "";
 
@@ -96,7 +96,7 @@ function submitOrder() {
         localStorage.removeItem('myCart');
 
         // 點擊背景關閉邏輯
-        overlay.onclick = function(e) {
+        overlay.onclick = function (e) {
             if (e.target === overlay) {
                 overlay.classList.remove('active');
             }

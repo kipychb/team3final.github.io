@@ -8,17 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../utils/cart/style.css">
+    <link rel="stylesheet" href="../utils/side-menu/style.css">
 </head>
 
 <body>
 
     <header class="navbar">
         <div class="nav-left">
-            <a href="index.html" class="home-link"><i class="fa-solid fa-house-chimney nav-icon"></i></a>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
         </div>
         <div class="nav-logo">會員中心</div>
         <div class="nav-right">
-            <i class="fa-solid fa-basket-shopping nav-icon"></i>
+            <a href="../wishlist/index.html" class="nav-icon">
+                <i class="fa-solid fa-heart "></i>
+            </a>
+            <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
         </div>
     </header>
 
@@ -26,25 +31,25 @@
         <nav class="flower-nav">
             <div class="flower-item active" onclick="switchSection('user-info', this)">
                 <div class="flower-icon-box">
-                    <img src="image/波斯菊.png" alt="使用者資訊" class="flower-img">
+                    <img src="image/1.png" alt="使用者資訊" class="flower-img">
                 </div>
                 <span class="flower-label">會員資訊</span>
             </div>
             <div class="flower-item" onclick="switchSection('orders', this)">
                 <div class="flower-icon-box">
-                    <img src="image/鈴蘭花.png" alt="訂單紀錄" class="flower-img">
+                    <img src="image/2.png" alt="訂單紀錄" class="flower-img">
                 </div>
                 <span class="flower-label">訂單與紀錄</span>
             </div>
             <div class="flower-item" onclick="switchSection('wishlist', this)">
                 <div class="flower-icon-box">
-                    <img src="image/玫瑰.png" alt="願望清單" class="flower-img">
+                    <img src="image/3.png" alt="願望清單" class="flower-img">
                 </div>
                 <span class="flower-label">願望清單</span>
             </div>
             <div class="flower-item" onclick="switchSection('flower-search', this)">
                 <div class="flower-icon-box">
-                    <img src="image/罌粟花.png" alt="花語查詢" class="flower-img">
+                    <img src="image/4.png" alt="花語查詢" class="flower-img">
                 </div>
                 <span class="flower-label">花語查詢</span>
             </div>
@@ -118,12 +123,11 @@
                 <h3 class="block-title">尋找花語</h3>
                 <div class="search-area">
                     <div class="search-bar-member">
-                        <input type="text" placeholder="搜尋花卉名稱或輸入日期(如0520)...">
-                        <button class="go-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" placeholder="搜尋花卉名稱(e.g. 摯愛)...">
                     </div>
                     <div class="today-tip">
                         <h4>今日祝願花：鬱金香</h4>
-                        <p>花語：永恆的愛與祝願。提醒我們，愛是生活中最溫柔的支撐。</p>
+                        <p>花語：永恆的愛與祝願。提醒我們，愛是生活中最溫柔的支撐</p>
                     </div>
                 </div>
             </div>
@@ -131,14 +135,38 @@
         </div>
     </main>
 
-    <script>
-        function switchSection(id, element) {
-            document.querySelectorAll('.flower-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-            document.querySelectorAll('.section-block').forEach(block => block.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-    </script>
+     <!-- 主菜單 -->
+     <div class="side-panel" id="side-menu">
+        <h2>分類選單</h2>
+        <ul class="list">
+            <li><a href="../index.html">Home / 首頁</a></li>
+            <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
+            <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
+            <li><a href="series/index.html?series=friend">For Friend 系列</a></li>
+            <li><a href="series/index.html?series=elder">For Elders 系列</a></li>
+        </ul>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <!-- 購物車 -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="header">
+            <h3>購物清單</h3>
+            <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer;"></i>
+        </div>
+        <div id="cartItems" class="items"></div>
+        <div class="footer">
+            <div class="total-row">總計: NT$&nbsp;<span id="cartTotal">0</span></div>
+            <button class="checkout-btn">前往結帳</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Java Script 存放區 -->
+    <script src="../utils/cart/main.js"></script>
+    <script src="../utils/side-menu/main.js"></script>
+    <script src="main.js"></script>
+    <script src="search.js"></script>
 </body>
 
 </html>
