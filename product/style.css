@@ -405,3 +405,105 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
+@media (max-width: 768px) {
+    /* 1. 調整產品頁面整體邊距 */
+    .product-wrapper {
+        padding: 10px 15px !important;
+    }
+
+    /* 2. 讓圖片與資訊垂直堆疊 */
+    .product-main-flex {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    /* 3. 縮小圖片盒子的大小，避免手機一進去只看到大圖 */
+    .product-visual {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .main-img-box {
+        aspect-ratio: 1 / 1; /* 保持正方形 */
+        max-height: 350px; /* 限制最高度，方便看下面的價格資訊 */
+    }
+
+    /* 4. 產品名稱與價格置中 */
+    .product-info {
+        text-align: center !important;
+    }
+
+    .info-group .name, 
+    .info-group .price {
+        font-size: 1.3rem !important; /* 稍微縮小字體 */
+        display: block;
+        text-align: center !important;
+    }
+
+    /* 5. 描述文字調整：移除過大的 padding */
+    .info-group .desc {
+        padding-top: 1rem !important;
+        padding-bottom: 1.5rem !important;
+        text-align: justify;
+        font-size: 0.95rem;
+    }
+
+    /* 6. 操作按鈕區塊優化 (數量與愛心) */
+    .quantity-row {
+        justify-content: center !important; /* 數量控制置中 */
+        width: 100%;
+    }
+
+    .action-bar {
+        align-items: center !important;
+    }
+
+    /* 7. 按鈕群組：手機版通常改為垂直排列更好按，或是保持並排但字縮小 */
+    .btn-group {
+        flex-direction: column !important; /* 手機版按鈕疊起來比較好點擊 */
+        gap: 12px !important;
+    }
+
+    .add-cart-btn, .buy-btn {
+        width: 100% !important;
+        padding: 15px !important; /* 增大點擊面積 */
+    }
+
+    /* 8. 下方 Tab 標籤切換：解決並排太擠的問題 */
+    .bottom-details .tab-menu {
+        gap: 15px !important;
+        overflow-x: auto; /* 如果標籤太多可以滑動 */
+        justify-content: flex-start !important;
+        padding-bottom: 10px;
+    }
+
+    .bottom-details .tab-menu .tab-btn {
+        font-size: 16px !important;
+        white-space: nowrap; /* 防止文字斷行 */
+    }
+
+    /* 9. 內容區塊修正：將 50%/50% 分欄改為 100% */
+    .content-flex {
+        flex-direction: column !important;
+    }
+
+    .content-flex .left-box, 
+    .content-flex .right-box {
+        flex: 0 0 100% !important;
+        padding: 15px !important;
+        border-left: none !important; /* 移除垂直分割線 */
+        border-bottom: 1px dashed #705844; /* 改用底部虛線 */
+    }
+
+    /* 10. 推薦商品網格：2 欄排列 */
+    .addon-grid .item {
+        width: calc(50% - 10px) !important;
+        min-width: auto !important;
+    }
+
+    /* 11. 評分區塊置中 */
+    #rating-score {
+        font-size: 2rem !important;
+    }
+}

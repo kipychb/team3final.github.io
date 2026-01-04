@@ -34,14 +34,6 @@ body {
 }
 
 
-
-@media (max-width: 480px) {
-    .nav-icon {
-        margin: 0 5px; /* 手機版間距縮小 */
-        font-size: 1.1rem;
-    }
-}
-
 .nav-logo { 
     font-weight: bold; 
     font-size: 1.5rem; 
@@ -371,40 +363,96 @@ input, textarea { padding: 10px; border: none; background: #eeebe2; font-family:
 
 .footer-bottom { text-align: center; padding: 20px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
 
-@media (max-width: 768px) { .quiz-intro, .contact-top { flex-direction: column; } .grid-3x2 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) {
+    /* --- 1. 導覽列*/
+    .navbar {
+        padding: 10px !important;
+        justify-content: space-between !important; 
+    }
 
-/* 1. 提示卡片的基地：固定在右上角 */
-.toast-container {
-    position: fixed;
-    top: 30px;
-    right: 20px;
-    z-index: 999999; /* 確保在所有東西的最前面 */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    pointer-events: none; /* 避免擋住下層點擊 */
-}
+    .nav-left, .nav-right {
+        width: auto !important; 
+        flex: 0 0 auto !important;
+        gap: 0px !important; 
+    }
 
-/* 2. 提示卡片本人樣式 */
-.toast-card {
-    background: #ffffff;
-    border-left: 5px solid #A3A69C; /* 你祝願所的森林綠 */
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    color: #3a3a3a;
-    font-family: 'Noto Serif TC', serif;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 250px;
-    pointer-events: auto;
-    
-    /* 滑入動畫 */
-    animation: alertSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
+    .nav-logo {
+        flex: 1 !important; /* 讓 Logo 佔據剩餘空間並置中 */
+        font-size: 1.3rem !important;
+        text-align: center !important;
+        margin: 0 10px !important;
+    }
 
-@keyframes alertSlideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    /* --- 2. 圖片比例修復 */
+    .banner {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important; 
+        margin: 0 !important;
+        aspect-ratio: 16 / 9; 
+    }
+
+    .banner-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; 
+    }
+
+    /* --- 3. 修正心理測驗圖片與文字 --- */
+    .quiz-intro {
+        flex-direction: column !important; 
+        align-items: center !important;
+        padding: 20px 20px !important;
+        gap: 0 !important; 
+    }
+    .quiz-card {
+        width: 100% !important;
+        max-width: 250px !important;
+        margin-bottom: 20px !important; 
+    }
+    .quiz-card img {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+    }
+    .quiz-text {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .quiz-text h2 {
+        margin-top: 10px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .contact-top {
+        flex-direction: column !important;
+        gap: 50px !important; /* 增加關於我們跟地圖之間的距離 */
+        margin-bottom: 50px !important;
+    }
+    .map-box {
+        width: 100% !important;
+        height: 250px !important;
+    }
+
+    /* --- 4. 關於我們- */
+    .about-us {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .about-logo {
+        margin: 0 auto 20px !important; 
+        max-width: 160px !important;
+    }
+    .about-link {
+        margin: 0 auto !important; 
+        padding: 10px 0 !important;
+    }
+    /* --- 5. 商品網格改為 2 欄 --- */
+    .grid-3x2, .grid-2x3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
 }
