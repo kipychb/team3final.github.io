@@ -15,120 +15,47 @@ body {
     background: transparent;
     z-index: 1000;
     padding-bottom: 30px; 
-}
 
-.nav-container {
-    max-width: 1200px; 
-    margin: 0 auto;  
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-.nav-pic {
-    color: #705844;
-    width: 40px;  
-    display: flex;
-    align-items: center;
-}
-
-.nav-icon {
-    font-size: 1.5rem; 
-    cursor: pointer;
-}
-
-/* 中間標題 */
-.nav-logo {
-    flex: 1; 
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: #705844;
-    text-align: center;
-}
-
-.nav-placeholder {
-    width: 40px; 
-}
-
-/* ----- 選單 ----- */
-.side-panel {
-    position: fixed;
-    left: -300px;
-    top: 0;
-    width: 300px;
-    height: 100%;
-    background: #f4f1de;
-    transition: 0.3s ease;
-    z-index: 2000;
-    padding: 30px 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-
-    &.active {
-        left: 0;
-    }
-
-    h2 {
-        color: #705844;
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-        border-bottom:0.8px solid #705844;
-        padding-bottom: 10px;
-    }
-
-    .catalog-list {
-        list-style: none;
-        padding: 0;
-
-        li {
-            font-size: 1rem;
-            color: #3a3a3a;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(112, 88, 68, 0.2) ; 
+    .nav-container {
+        margin: 0 auto;  
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* background-color: red; */
+    
+        .nav-pic {
+            color: #705844;
+            width: 40px;  
+            display: flex;
+            align-self: left;
+        }
+        
+        .nav-icon {
+            font-size: 1.5rem; 
             cursor: pointer;
-            transition: all 0.3s ease;
-
-            a {
-                text-decoration: none;
-                color: inherit;
-                display: block;
-                width: 100%;
-            }
-
-            &:hover {
-                color: #c0a080; 
-                padding-left: 10px;
-            }
-
-            &:first-child {
-                font-weight: 700;
-                letter-spacing: 1px;
-            }
+        }
+        
+        /* 中間標題 */
+        .nav-logo {
+            flex: 1; 
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #705844;
+            text-align: center;
+        }
+        
+        .nav-placeholder {
+            width: 40px; 
         }
     }
 }
 
-.menu-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: transparent; 
-    visibility: hidden;
-    z-index: 1500;
-    transition: 0.3s ease;
-}
-
-.menu-overlay.active {
-    visibility: visible;
-    background: rgba(0, 0, 0, 0.5);
-}
-
 /* --- 3. 關於我們容器 --- */
 .about-container {
-    max-width: 900px; 
+    max-width: 900px;
     margin: 60px auto; 
-    padding: 0 30px; 
+    padding: 20px 30px; 
 }
 
 .about-header {
