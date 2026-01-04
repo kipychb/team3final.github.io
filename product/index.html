@@ -33,7 +33,8 @@
         <section class="product-main-flex">
             <section class="product-visual">
                 <div class="main-img-box border-box">
-                    <img src="" alt="" id="product-main-image">
+                    <img class="product-main-image">
+                    <img class="product-main-image">
                     <div class="img-dots">
                         <span class="active"></span>
                         <span></span>
@@ -170,9 +171,9 @@
                 <p>載入中...</p>
             </div>
         </section>
-        
     </main>
 
+    <!-- 側邊選單 -->
     <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
@@ -185,6 +186,7 @@
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
 
+    <!-- 購物清單 -->
     <div id="cartSidebar" class="cart-sidebar">
         <div class="header">
             <h3>購物清單</h3>
@@ -198,15 +200,16 @@
     </div>
     <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
+    <!-- Java Script 存放區 -->
+    <script src="../wishlist/addWish.js"></script>
+    <script src="../utils/side-menu/main.js"></script>
+    <script src="../utils/cart/main.js"></script>
     <script src="loader.js"></script>
     <script src="addon.js"></script>
     <script src="rating.js"></script>
     <script src="share.js"></script>
     <script src="actionbar.js"></script>
     <script src="miscellaneous.js"></script>
-    <script src="../wishlist/addWish.js"></script>
-    <script src="../utils/side-menu/main.js"></script>
-    <script src="../utils/cart/main.js"></script>
 </body>
 
 </html>

@@ -22,7 +22,6 @@ async function loadProductDetail() {
             initImageCarousel(flower);
             syncHeartStatus(flowerId);
 
-            // --- 核心修正：綁定加入購物車功能 ---
             const addCartBtn = document.querySelector('.add-cart-btn');
             if (addCartBtn) {
                 addCartBtn.onclick = function () {
@@ -35,7 +34,8 @@ async function loadProductDetail() {
                     }
                 };
             }
-            //立即購買按鈕
+
+            // 立即購買按鈕
             const buyNowBtn = document.querySelector('.buy-btn');
             if (buyNowBtn) {
                 buyNowBtn.onclick = function () {
@@ -43,10 +43,10 @@ async function loadProductDetail() {
                     if (typeof addToCart === "function") {
                         addToCart(flower.name, flower.price);
                     }
-                    
+
                     // 執行跳轉到 payment 資料夾下的檔案
                     // 假設您的目錄結構是 product/index.html 與 payment/ 併列
-                    window.location.href = '../payment/index.html'; 
+                    window.location.href = '../payment/index.html';
                 };
             }
 
