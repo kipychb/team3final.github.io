@@ -19,18 +19,18 @@
     <div class="login-container">
         <div class="login-logo">花予祝願所</div>
 
-        <form action="#">
+        <div class="login-form">
             <div class="form-group">
                 <label>帳號 / 電子郵件</label>
-                <input type="text" placeholder="請輸入帳號" required>
+                <input type="text" id="account" placeholder="請輸入帳號" required>
             </div>
             <div class="form-group">
                 <label>密碼</label>
-                <input type="password" placeholder="請輸入密碼" required>
+                <input type="password" id="password" placeholder="請輸入密碼" required>
             </div>
 
-            <button type="submit" class="login-btn" onclick="location.href='../index.html'">登入</button>
-        </form>
+            <button type="button" class="login-btn" onclick="loginSubmit()">登入</button>
+        </div>
 
         <div class="extra-links">
             <a href="forgot/index.html">忘記密碼？</a>
@@ -38,6 +38,8 @@
             <a href="register/index.html">註冊會員</a>
         </div>
     </div>
+
+    <script src="login.js"></script>
 </body>
 
 </html>

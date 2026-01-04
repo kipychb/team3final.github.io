@@ -98,7 +98,10 @@
                     </div>
                 </div>
 
-                <button class="action-btn" id="edit-btn" onclick="toggleEditMode()">修改個人資料</button>
+                <div class="action-group">
+                    <button class="action-btn" id="edit-btn" onclick="toggleEditMode()">修改個人資料</button>
+                    <button class="action-btn logout-btn" onclick="logout()">登出帳號</button>
+                </div>
             </div>
             <div id="orders" class="section-block">
                 <h3 class="block-title">訂單與紀錄</h3>
@@ -188,6 +191,8 @@
     <script src="main.js"></script>
     <script src="search.js"></script>
     <script src="wishlist.js"></script>
+    <script src="login/login.js"></script>
+
 </body>
 
 </html>

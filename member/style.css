@@ -61,6 +61,7 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
     outline: none;
     font-size: 0.9rem;
     width: 150px;
+    gap:20px;
 }
 
 .value-group {
@@ -68,11 +69,13 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
     align-items: center;
 }
 
-.action-btn.save-mode {
-    background-color: #A3A69C;
+.action-btn,.save-mode,.logout-btn{
+    background-color: #EEEBE2;
     color: #fff;
     border-color: #A3A69C;
 }
+
+
 
 /* 2. 訂單紀錄細項 */
 .order-card { border: 1px solid rgba(112, 88, 68, 0.2); padding: 20px; margin-bottom: 15px; background: rgba(255,255,255,0.3); }
@@ -107,8 +110,6 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
 
 /* 3. 願望清單細項 */
 #wishlist {
-    /* 如果有針對 .section-block 或 .block-title 的樣式可在此巢狀撰寫 */
-
     .list-container {
 
         .empty-msg { 
@@ -230,4 +231,40 @@ body { background-color: #eeebe2; font-family: 'Noto Serif TC', serif; color: #3
 .action-btn:hover{
     color:#eeebe2;
     background-color: #705844;
+}
+
+/* 1. 提示卡片的基地：固定在右上角 */
+.toast-container {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    z-index: 999999; /* 確保在所有東西的最前面 */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* 避免擋住下層點擊 */
+}
+
+/* 2. 提示卡片本人樣式 */
+.toast-card {
+    background: #ffffff;
+    border-left: 5px solid #A3A69C; /* 你祝願所的森林綠 */
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #3a3a3a;
+    font-family: 'Noto Serif TC', serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 250px;
+    pointer-events: auto;
+    
+    /* 滑入動畫 */
+    animation: alertSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes alertSlideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }

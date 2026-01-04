@@ -1,4 +1,4 @@
-// --- 1. 初始化設定 ---
+//  1. 初始化設定 
 document.addEventListener('DOMContentLoaded', () => {
     // 讀取已儲存的會員資料
     const fields = ['name', 'birth', 'email', 'phone'];
@@ -10,13 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 如果預設是願望清單，先渲染一次
     if (document.getElementById('wishlist').classList.contains('active')) {
         renderMemberWishlist();
     }
 });
 
-// --- 2. 切換分頁邏輯 ---
+//  2. 切換分頁邏輯 
 function switchSection(id, element) {
     // 切換選單按鈕樣式
     document.querySelectorAll('.flower-item').forEach(item => item.classList.remove('active'));
@@ -29,13 +28,13 @@ function switchSection(id, element) {
         targetBlock.classList.add('active');
     }
 
-    // 如果切換到願望清單，動態渲染
+    
     if (id === 'wishlist') {
         renderMemberWishlist();
     }
 }
 
-// --- 3. 願望清單渲染 ---
+//  3. 願望清單渲染 
 function renderMemberWishlist() {
     const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
     const container = document.querySelector('#wishlist .list-container');
@@ -60,7 +59,7 @@ function renderMemberWishlist() {
     `).join('');
 }
 
-// --- 4. 加入購物車功能 ---
+// 4. 加入購物車功能 
 function addToCartFromWishlist(name, price, image) {
     let cart = JSON.parse(localStorage.getItem('myCart')) || [];
     const existingItem = cart.find(item => item.name === name);
@@ -79,7 +78,7 @@ function addToCartFromWishlist(name, price, image) {
     }
 }
 
-// --- 5. 會員資料修改模式 ---
+//  5. 會員資料修改模式 
 let isEditMode = false;
 function toggleEditMode() {
     const editBtn = document.getElementById('edit-btn');
@@ -119,11 +118,11 @@ function toggleEditMode() {
                 localStorage.setItem(`member-${field.id}`, inputField.value);
             }
         });
-        alert("已為您更新會員資料 ✿");
+        alert("已為您更新會員資料!");
     }
 }
 
-// --- 6. 訂單卡片點擊監聽 (最穩定的事件委託法) ---
+// 6. 訂單卡片點擊監聽 
 document.addEventListener('click', (e) => {
     const card = e.target.closest('.order-card');
     if (card) {
@@ -134,3 +133,22 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+//7.登入導向
+(function checkLogin() {
+    const loginStatus = localStorage.getItem('isLoggedIn');
+    if (loginStatus !== 'true') {
+        window.location.href = "login/index.html"; 
+    }
+})();
+
+// --- 8. 登出功能 ---
+function logout() {
+    if (confirm("確定要登出花予祝願所嗎？ ")) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('member-name'); 
+        alert("您已登出。");
+        window.location.href = "../index.html";
+    }
+}
+
+
