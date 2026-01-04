@@ -63,3 +63,8 @@ function submitReview() {
     document.querySelectorAll('.star-rating-input i').forEach(s => s.classList.remove('selected'));
     userScore = 0;
 }
+
+// 使用監聽器避免與其他 JS 衝突
+window.addEventListener('load', () => {
+    initStarRating();
+});

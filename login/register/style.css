@@ -78,27 +78,25 @@ body {
 /* --- 4. 底部連結與返回首頁 --- */
 .back-links {
     margin-top: 15px;
-    font-size: 0.8rem;   
+    font-size: 0.8rem;
+    a {
+        color: #eeebe2;
+        text-decoration: none;
+        margin: 0 8px;
+        opacity: 0.8;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
-.back-links a {
-    color: #eeebe2;
-    text-decoration: none;
-    margin: 0 8px;
-    opacity: 0.8;
-}
-
+/* 返回連結 */
 .back-home {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    color: #705844;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-
-.back-home:hover {
-    color: #baab8b;
-    transform: translateX(-3px);
+    position: absolute; top: 25px; left: 25px;
+    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
+    transition: 0.3s ease;
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
 }

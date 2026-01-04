@@ -100,20 +100,13 @@ body {
 .extra-links a:hover { opacity: 1; text-decoration: underline; }
 .extra-links span { color: #eeebe2; opacity: 0.5; margin: 0 5px; }
 
-/*  5. 返回按鈕  */
+/* 返回連結 */
 .back-home {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    color: #826250;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-family: 'Noto Serif TC', serif;
+    position: absolute; top: 25px; left: 25px;
+    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
     transition: 0.3s ease;
-    z-index: 1000;
-}
-
-.back-home:hover {
-    color: #baab8b;
-    transform: translateX(-3px);
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
 }

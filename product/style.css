@@ -113,41 +113,46 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-}
 
-.selector { display: flex; align-items: center; border: 1px solid #705844; }
+    .btn { 
+        background: #A3A69C; color: #fff; border: none; 
+        padding: 8px 15px; cursor: pointer; transition: 0.3s ease;
+        font-size: 1rem;
+        &:hover { background: #705844; }
+    }
 
-.qty-btn { 
-    background: #A3A69C; color: #fff; border: none; 
-    padding: 8px 15px; cursor: pointer; transition: 0.3s;
-    font-size: 1rem;
-}
-.qty-btn:hover { background: #705844; }
+    .input { 
+        width: 60px; text-align: center; border: none; 
+        background: transparent; font-size: 1rem; color: #705844;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
 
-.qty-input { 
-    width: 60px; text-align: center; border: none; 
-    background: transparent; font-size: 1rem; color: #705844;
+    .selector { display: flex; align-items: center; border: 1px solid #705844; }
 }
 
 /* 💡 愛心按鈕配色 */
 .heart-btn {
-    background: transparent; 
     color:#705844;
-    background-color: #eeebe2;
-    border:1px solid #705844;
     width: 50px;
     height: 50px;
     cursor: pointer;
-    transition: all 0.6s ease;
+    font-size: 1.5rem;
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    
     border: none; 
-}
+    background-color: transparent;
+    opacity: 0.75;
 
-.heart-btn:hover{
-    color: #705844;
+    &:hover{
+        opacity: 1;
+    }
 }
 
 /* 💡 加入購物車與購買按鈕對應 */

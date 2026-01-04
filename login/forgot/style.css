@@ -80,11 +80,13 @@ body {
     text-decoration: underline;
 }
 
+/* 返回連結 */
 .back-home {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: #705844;
-    text-decoration: none;
+    position: absolute; top: 25px; left: 25px;
+    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
+    transition: 0.3s ease;
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
 }
-

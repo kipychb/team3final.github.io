@@ -177,9 +177,9 @@ body {
 
 .divider { border-top: 1.5px #A3A69C double; margin: 15px 0; }
 
-.recommend-title { font-weight: bold; margin-bottom: 15px; text-align: left; color:#C0A080; font-size: 1.1rem; }
+.recommend-title { font-weight: bold; margin-bottom: 15px; text-align: left; color:#C0A080; font-size: 1.2rem; }
 .recommend-flex { display: flex; gap: 15px; align-items: center; }
-.recommend-img { width: 40%; border: 1px solid #A3A69C; overflow: hidden; }
+.recommend-img { width: 40%; height: 100%; border: 1px solid #A3A69C; overflow: hidden; }
 .recommend-img img { width: 100%; height: 100%; object-fit: cover; }
 
 .go-btn {
@@ -194,6 +194,11 @@ body {
 
 /* 返回連結 */
 .back-home {
-    position: absolute; top: 15px; left: 20px;
-    color: #877566; text-decoration: none; font-size: 1.3rem; z-index: 1000;
+    position: absolute; top: 25px; left: 25px;
+    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
+    transition: 0.3s ease;
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
 }
