@@ -297,10 +297,11 @@ body {
 
 .info-content{
     color: #c0a080;
-    font-size: 1rem;
+    font-size: 1.1rem;
     display: flex;         
     align-items: center;    
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .about-us { 
