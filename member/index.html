@@ -60,18 +60,46 @@
             <div id="user-info" class="section-block active">
                 <h3 class="block-title">會員資訊</h3>
                 <div class="info-list">
-                    <div class="info-row"><span class="info-label">會員等級</span><span
-                            class="status-tag highlight">盛放會員</span></div>
-                    <div class="info-row"><span class="info-label">真實姓名</span><span class="info-value"></span></div>
-                    <div class="info-row"><span class="info-label">出生日期</span><span class="info-value">05 / 20 </span>
+                    <div class="info-row">
+                        <span class="info-label">會員等級</span>
+                        <span class="status-tag highlight">盛放會員</span>
                     </div>
-                    <div class="info-row"><span class="info-label">聯絡信箱</span><span class="info-value"></span></div>
-                    <div class="info-row"><span class="info-label">手機號碼</span><span
-                            class="info-value">0912-345-678</span></div>
-                </div>
-                <button class="action-btn">修改個人資料</button>
-            </div>
 
+                    <div class="info-row">
+                        <span class="info-label">真實姓名</span>
+                        <div class="value-group">
+                            <span class="info-value" id="display-name">花小姐</span>
+                            <input type="text" id="edit-name" class="edit-input" style="display:none;">
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">出生日期</span>
+                        <div class="value-group">
+                            <span class="info-value" id="display-birth">05 / 20</span>
+                            <input type="text" id="edit-birth" class="edit-input" style="display:none;">
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">聯絡信箱</span>
+                        <div class="value-group">
+                            <span class="info-value" id="display-email">flower@example.com</span>
+                            <input type="email" id="edit-email" class="edit-input" style="display:none;">
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">手機號碼</span>
+                        <div class="value-group">
+                            <span class="info-value" id="display-phone">0912-345-678</span>
+                            <input type="tel" id="edit-phone" class="edit-input" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="action-btn" id="edit-btn" onclick="toggleEditMode()">修改個人資料</button>
+            </div>
             <div id="orders" class="section-block">
                 <h3 class="block-title">訂單與紀錄</h3>
                 <div class="list-container">
@@ -81,39 +109,49 @@
                             <span class="status-tag highlight">配送中</span>
                         </div>
                         <div class="order-body">
-                            <p>品項：x 1</p>
-                            <p>金額：NT$ 1,280</p>
+                            <p class="order-item-link">
+                                品項：<a href="../product/index.html?id=love_in_bloom" class="item-name">摯愛Love in Bloom
+                                    [For Lover]</a> x 1
+                            </p>
+                            <p>金額：NT$ 2000</p>
                         </div>
                     </div>
+
                     <div class="order-card">
                         <div class="order-header">
                             <span class="order-id">#ORD-20251105</span>
                             <span class="status-tag">已完成</span>
                         </div>
                         <div class="order-body">
-                            <p>品項：</p>
+                            <p class="order-item-link">
+                                品項：<a href="../product/index.html?id=slow_time" class="item-name">慢時Slow Time [For
+                                    Elders]</a> x 1
+                            </p>
                             <p>金額：NT$ 1,800</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div id="wishlist" class="section-block">
                 <h3 class="block-title">願望清單</h3>
                 <div class="list-container">
                     <div class="wish-item-row">
                         <div class="wish-text">
-                            <p class="wish-name"></p>
-                            <p class="wish-price"></p>
+                            <p class="wish-name">悸動Soft blush [For Lover]</p>
+                            <p class="wish-price">NT$ 2,000</p>
                         </div>
-                        <button class="mini-add-btn"><i class="fa-solid fa-plus"></i></button>
+                        <button class="mini-add-btn" onclick="addToCartFromWishlist('悸動', 2000, )">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                     <div class="wish-item-row">
                         <div class="wish-text">
-                            <p class="wish-name"></p>
-                            <p class="wish-price"></p>
+                            <p class="wish-name">靈魂眷戀Soulful Attachment [For Lover]</p>
+                            <p class="wish-price">NT$ 2,000</p>
                         </div>
-                        <button class="mini-add-btn"><i class="fa-solid fa-plus"></i></button>
+                        <button class="mini-add-btn" onclick="addToCartFromWishlist('靈魂眷戀', 2000)">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 </div>
                 <p class="hint-text">願望清單滿 3 樣，下次結帳自動折抵金額。</p>
@@ -135,8 +173,8 @@
         </div>
     </main>
 
-     <!-- 主菜單 -->
-     <div class="side-panel" id="side-menu">
+    <!-- 主菜單 -->
+    <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
             <li><a href="../index.html">Home / 首頁</a></li>
