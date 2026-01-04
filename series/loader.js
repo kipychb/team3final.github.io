@@ -47,7 +47,7 @@ function renderSeriesProducts(flowers) {
         return;
     }
 
-    // 先取得收藏清單，避免在 map 迴圈內重複讀取 localStorage
+    // 先取得願望清單，避免在 map 迴圈內重複讀取 localStorage
     const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
     productGrid.innerHTML = flowers.map(flower => {

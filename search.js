@@ -92,4 +92,6 @@ if (searchInput) {
 }
 
 // 初始化
-initSearchData();
+window.addEventListener('load', function () {
+    initSearchData();
+});

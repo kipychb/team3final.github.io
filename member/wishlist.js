@@ -9,7 +9,7 @@ async function renderSimpleWishlist() {
     const wishlistIds = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
     if (wishlistIds.length === 0) {
-        container.innerHTML = '<p class="empty-msg">您的收藏清單空空如也...</p>';
+        container.innerHTML = '<p class="empty-msg">您的願望清單空空如也...</p>';
         return;
     }
 

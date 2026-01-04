@@ -102,7 +102,7 @@ function syncHeartStatus(id) {
 
     if (heartBtn) {
         const icon = heartBtn.querySelector('i');
-        // 如果 ID 已在收藏清單中
+        // 如果 ID 已在願望清單中
         if (wishlist.includes(id)) {
             icon.classList.replace('fa-regular', 'fa-solid');
             icon.style.color = "#c0a080"; // 設為你設定的主題金色

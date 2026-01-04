@@ -15,7 +15,7 @@ async function renderWishlist() {
     const wishlistIds = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
     if (wishlistIds.length === 0) {
-        gridContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:100px 20px; color:#A3A69C; font-size:0.9rem;">您的收藏清單空空如也...</p>';
+        gridContainer.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:100px 20px; color:#A3A69C; font-size:0.9rem;">您的願望清單空空如也...</p>';
         return;
     }
 
@@ -24,7 +24,7 @@ async function renderWishlist() {
         const response = await fetch('../flowerData.json');
         const allFlowers = await response.json();
 
-        // 3. 篩選出 ID 存在於收藏清單中的花朵資料
+        // 3. 篩選出 ID 存在於願望清單中的花朵資料
         const wishlistedItems = allFlowers.filter(f => wishlistIds.includes(f.id));
 
         gridContainer.innerHTML = '';
@@ -65,7 +65,7 @@ async function renderWishlist() {
             `;
         });
     } catch (error) {
-        console.error("載入收藏清單失敗:", error);
+        console.error("載入願望清單失敗:", error);
     }
 }
 
