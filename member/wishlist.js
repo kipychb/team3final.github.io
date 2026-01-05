@@ -21,7 +21,7 @@ async function renderSimpleWishlist() {
         container.innerHTML = '';
 
         wishlistedItems.forEach(item => {
-            const productUrl = `product/index.html?id=${item.id}`;
+            const productUrl = `team3final.github.io/product/index.html?id=${item.id}`;
             // 圖片路徑使用 image_path 並加上後綴
             const imagePath = `../image/flower/${item.image_path}-2.jpg`;
 
