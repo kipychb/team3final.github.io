@@ -32,7 +32,7 @@ async function renderWishlist() {
         wishlistedItems.forEach((item) => {
             // 圖片路徑規則：../image/flower/{image_path}-2.jpg
             const imagePath = `../image/flower/${item.image_path}-2.jpg`;
-            const productUrl = `../product/index.html?id=${item.id}`;
+            const productUrl = `product/index.html?id=${item.id}`;
 
             gridContainer.innerHTML += `
                 <div class="item">
