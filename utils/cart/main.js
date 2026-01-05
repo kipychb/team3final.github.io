@@ -1,18 +1,19 @@
 // utils/cart/main.js
 let cart = JSON.parse(localStorage.getItem('myCart')) || [];
+let linkLayer = '../';
 
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 
     const checkoutBtn = document.querySelector('#cartSidebar .checkout-btn');
     if (checkoutBtn) {
-        checkoutBtn.onclick = function() {
+        checkoutBtn.onclick = function () {
             if (cart.length === 0) {
                 alert("購物車是空的喔！");
                 return;
             }
             // 從 product 頁面跳轉到 payment 頁面
-            window.location.href = '../payment/index.html';
+            window.location.href = linkLayer + 'payment/index.html';
         };
     }
 });
@@ -21,7 +22,7 @@ function addToCart(name, priceValue) {
     const price = typeof priceValue === 'number' ? priceValue : parseInt(priceValue.replace(/[^0-9]/g, '')) || 0;
     cart.push({ id: Date.now(), name: name, price: price });
     localStorage.setItem('myCart', JSON.stringify(cart));
-    
+
     updateCartUI();
     toggleCart(true); // 開啟側邊欄
 }
@@ -45,8 +46,8 @@ function updateCartUI() {
     const totalSpan = document.getElementById('cartTotal');
     if (!list || !totalSpan) return;
 
-    list.innerHTML = cart.length === 0 
-        ? '<p style="text-align:center; padding:30px; color:#999;">購物車是空的</p>' 
+    list.innerHTML = cart.length === 0
+        ? '<p style="text-align:center; padding:30px; color:#999;">購物車是空的</p>'
         : '';
 
     let total = 0;
