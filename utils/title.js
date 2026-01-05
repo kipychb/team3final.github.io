@@ -11,16 +11,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
-function handleMemberClick() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-    if (isLoggedIn === 'true') {
-        // 已登入：直接去會員中心
-        window.location.href = "member/index.html";
-    } else {
-        // 未登入：去登入頁面
-        window.location.href = "member/login/index.html";
-    }
-}
-

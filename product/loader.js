@@ -22,16 +22,22 @@ async function loadProductDetail() {
             initImageCarousel(flower);
             syncHeartStatus(flowerId);
 
+            // 加入購物車按鈕
             const addCartBtn = document.querySelector('.add-cart-btn');
             if (addCartBtn) {
                 addCartBtn.onclick = function () {
-                    // 檢查 utils/cart/main.js 是否已載入並提供函數
-                    if (typeof addToCart === "function") {
-                        // 傳入當前商品的名稱與價格
-                        addToCart(flower.name, flower.price);
-                    } else {
-                        console.error("找不到 addToCart 函數，請檢查 utils/cart/main.js 是否正確載入");
+                    // 1. 獲取數量輸入框的值
+                    const quantityInput = document.querySelector('.quantity-row .input');
+                    const count = parseInt(quantityInput.value) || 1; // 確保至少為 1
+
+                    if (count > flower.inventory) {
+                        alert("你把花買光了，最多" + flower.inventory + "，不要就拉倒。");
+                    } else if (typeof addToCart === "function") {
+                        for (let i = 0; i < count; i++) {
+                            addToCart(flower.name, flower.price);
+                        }
                     }
+
                 };
             }
 
@@ -39,18 +45,20 @@ async function loadProductDetail() {
             const buyNowBtn = document.querySelector('.buy-btn');
             if (buyNowBtn) {
                 buyNowBtn.onclick = function () {
-                    // 先加入購物車，確保結帳頁抓得到資料
-                    if (typeof addToCart === "function") {
-                        addToCart(flower.name, flower.price);
+                    const quantityInput = document.querySelector('.quantity-row .input');
+                    const count = parseInt(quantityInput.value) || 1;
+
+                    if (count > flower.inventory) {
+                        alert("你把花買光了，最多" + flower.inventory + "，不要就拉倒。");
+                    } else if (typeof addToCart === "function") {
+                        for (let i = 0; i < count; i++) {
+                            addToCart(flower.name, flower.price);
+                        }
+                        window.location.href = '../payment/index.html';
                     }
 
-                    // 執行跳轉到 payment 資料夾下的檔案
-                    // 假設您的目錄結構是 product/index.html 與 payment/ 併列
-                    window.location.href = '../payment/index.html';
                 };
             }
-
-
         } else {
             console.error("找不到該花朵資料");
         }
