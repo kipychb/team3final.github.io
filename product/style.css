@@ -280,7 +280,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- 推薦商品 */
+/* ---- 推薦商品 ---- */
 .addon-grid {
     display: flex;
     flex-wrap: wrap;
@@ -331,7 +331,7 @@ body {
     margin-top: 2px;
 }
 
-/* 評分區塊 */
+/* ---- 評分區塊 ---- */
 .rating-container {
     display: flex;
     flex-direction: column;
@@ -404,6 +404,70 @@ body {
     background-color: #5d4a39;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 新增評價列表樣式 */
+.reviews-display-section {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    text-align: left; /* 讓留言內容靠左對齊較好閱讀 */
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    color: #705844;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reviews-list {
+    max-height: 280px; /* 關鍵：限制高度以容納約兩篇留言 */
+    overflow-y: auto;  /* 關鍵：垂直捲動 */
+    padding-right: 10px;
+}
+
+/* 自定義捲軸樣式 (讓它看起來更精緻) */
+.reviews-list::-webkit-scrollbar {
+    width: 6px;
+}
+.reviews-list::-webkit-scrollbar-thumb {
+    background: #705844;
+    border-radius: 5px;
+}
+.reviews-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.review-item {
+    background: #fdfaf7;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.reviewer-name {
+    font-weight: bold;
+    color: #555;
+}
+
+.review-stars {
+    color: #c0a080;
+    font-size: 0.9rem;
+}
+
+.review-text {
+    color: #666;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin: 0;
 }
 
 @media (max-width: 768px) {

@@ -22,7 +22,7 @@ body {
     display: flex; 
     align-items: center;
     padding: 15px 25px;
-     background-color:#A3A69C; 
+    background-color:#A3A69C; 
     position: sticky; 
     top: 0; z-index: 1000;
 }
