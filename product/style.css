@@ -427,7 +427,6 @@ body {
     padding-right: 10px;
 }
 
-/* 自定義捲軸樣式 (讓它看起來更精緻) */
 .reviews-list::-webkit-scrollbar {
     width: 6px;
 }
