@@ -1,3 +1,4 @@
+/* --- 1. 基礎與導覽列置中 --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -9,53 +10,46 @@ body {
 }
 
 .navbar {
-    position: absolute; 
-    top: 0;
     width: 100%;
     background: transparent;
-    z-index: 1000;
-    padding-bottom: 30px; 
-
-    .nav-container {
-        margin: 0 auto;  
-        padding: 20px 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        /* background-color: red; */
-    
-        .nav-pic {
-            color: #705844;
-            width: 40px;  
-            display: flex;
-            align-self: left;
-        }
-        
-        .nav-icon {
-            font-size: 1.5rem; 
-            cursor: pointer;
-        }
-        
-        /* 中間標題 */
-        .nav-logo {
-            flex: 1; 
-            font-weight: bold;
-            font-size: 1.6rem;
-            color: #705844;
-            text-align: center;
-        }
-        
-        .nav-placeholder {
-            width: 40px; 
-        }
-    }
 }
 
-/* --- 3. 關於我們容器 --- */
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 40px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #705844;
+    white-space: nowrap;
+}
+
+.nav-pic, .nav-placeholder {
+    width: 40px;
+    z-index: 10;
+}
+
+.nav-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #705844;
+}
+
+/* --- 2. ABOUT US  */
 .about-container {
-    max-width: 900px;
-    margin: 60px auto; 
-    padding: 20px 30px; 
+    max-width: 1000px;
+    margin: 5px auto 40px; 
+    padding: 0 20px;
 }
 
 .about-header {
@@ -63,164 +57,172 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .title-line {
     flex: 1;
-    height: 0.8px;
+    height: 1px;
     background: #705844;
-    opacity: 0.5;
+    opacity: 0.3;
 }
+
 
 .section-title {
     font-size: 1.4rem;
     color: #c0a080;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    letter-spacing: 5px;
+    white-space: nowrap;
+    text-align: center;
 }
 
-/* --- 品牌理念區塊樣式 --- */
+/* --- 3. 品牌理念 --- */
 .brand-vision {
     text-align: center;
     margin-bottom: 60px;
-    padding: 0 20px;
 }
 
 .brand-logo-main {
-    width: 150px; 
-    margin: 0 auto 20px;
-    filter: drop-shadow(0 5px 15px rgba(112, 88, 68, 0.2));
+    width: 160px;
+    margin: 0 auto 0px;
 }
 
-.brand-logo-main img {
-    width: 100%;
-    height: auto;
-}
+.brand-logo-main img { width: 100%; }
 
 .vision-title {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     color: #705844;
-    margin-bottom: 5px;
-    position: relative;
-    display: inline-block;
-}
-
-.vision-content .intro-text {
-    
-    line-height: 2.2;
-    color: #5a5a5a;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* 響應式調整 */
-@media (max-width: 768px) {
-    .vision-title {
-        font-size: 1.3rem;
-    }
-    .brand-logo-main {
-        width: 100px;
-    }
-}
-
-.brand-intro {
-    text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .intro-text {
+    font-size: 1rem;
     line-height: 2.2;
-    font-size: 1.1rem;
     color: #5a5a5a;
-    letter-spacing: 1.5px;
+    max-width: 600px;
+    margin: 0 auto;
+    letter-spacing: 0.5px;
+    text-align: justify; 
+    text-justify:auto;
 }
 
+/* --- 4. 團隊花園 */
 .team-garden {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 70px;
 }
 
 .flower-member {
     display: flex;
-    align-items: center;
-    gap: 60px;
+    align-items: center; 
+    gap: 50px;
 }
 
 .flower-member.reverse {
     flex-direction: row-reverse;
 }
 
+
+.flower-info-box {
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .flower-box {
-    flex: 0 0 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .floating-flower {
     width: 100%;
-    height: auto;
-    max-height: 100%;
-    object-fit: contain;
-    transform-origin: bottom center;
-    animation: gentleBreeze 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    animation: gentleBreeze 6s infinite ease-in-out;
 }
 
-.member-detail {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5px 30px;
-    border-left: 5px solid #c0a080;
-    min-height: 80px;
-}
-
-.flower-member.reverse .member-detail {
-    border-left: none;
-    border-right: 5px solid #c0a080;
-    text-align: right;
+.name-tag {
+    margin-top: 5px;
 }
 
 .member-name {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #705844;
-    line-height: 1.2;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .part {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #A3A69C;
-    font-weight: 500;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
-/*動畫與響應式 --- */
+/* --- 5. 心得區塊樣式 --- */
+.member-detail {
+    flex: 1;
+}
+
+.member-thought {
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border-left: 4px solid #c0a080;
+    box-shadow: 2px 4px 15px rgba(0,0,0,0.03);
+}
+
+.flower-member.reverse .member-thought {
+    border-left: none;
+    border-right: 4px solid #c0a080;
+}
+
+.thought-icon {
+    color: #c0a080;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.member-thought p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+    text-align: justify; 
+    text-justify: inter-character;
+}
+
+/* --- 6. RWD 響應式 --- */
+@media (max-width: 768px) {
+    .nav-container,.brand-vision { padding: 15px 20px; }
+    .nav-logo { font-size: 1.3rem; }
+    
+    .flower-member, .flower-member.reverse {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .member-thought, .flower-member.reverse .member-thought {
+        border-left: none;
+        border-right: none;
+        border-top: 4px solid #c0a080;
+        text-align: justify;
+    }
+}
+
 @keyframes gentleBreeze {
-    0%, 100% { transform: rotate(-2deg); }
+    0%, 100% { transform: rotate(-3deg); }
     50% { transform: rotate(3deg) scale(1.03); }
 }
 
 .footer-simple {
     text-align: center;
     padding: 60px 0;
-    opacity: 0.5;
     font-size: 0.8rem;
-}
-
-@media (max-width: 768px) {
-    .nav-container { padding: 20px 20px;}
-    .about-container { padding: 0 20px; margin-top: 40px; }
-    .flower-member, .flower-member.reverse {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
-    .member-detail, .flower-member.reverse .member-detail {
-        border: none;
-        padding: 0;
-    }
-    .flower-box { flex: 0 0 160px; height: 160px; }
+    color: #999;
 }

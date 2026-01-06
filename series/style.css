@@ -180,7 +180,25 @@ body {
 }
 
 /* --- 6. 響應式佈局 --- */
-@media (max-width: 600px) { 
+@media (max-width: 650px) { 
+    .navbar {
+        padding: 9px !important;
+        justify-content: space-between !important; 
+    }
+
+    .nav-left, .nav-right {
+        width: auto !important; 
+        flex: 0 0 auto !important;
+        gap: 0px !important; 
+    }
+
+    .logo {
+        flex: 1 !important; /* 讓 Logo 佔據剩餘空間並置中 */
+        font-size: 1.2rem !important;
+        text-align: center !important;
+        margin: 0 10px !important;
+    }
+
     .product-grid { gap: 30px 20px; } 
     .category-wrapper .section-title {
         &::before, &::after { display: none; }
