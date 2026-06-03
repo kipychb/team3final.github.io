@@ -300,12 +300,10 @@ body {
     }
 }
 
-.info-content{
+.info-content {
     color: #c0a080;
     font-size: 1.1rem;
-    display: flex;         
-    align-items: center;    
-    justify-content: center;
+    text-align: center;
     margin-bottom: 10px;
 }
 

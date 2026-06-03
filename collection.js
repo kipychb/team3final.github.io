@@ -1,6 +1,6 @@
 /**
  * collection.js
- * 功能：實作 18 筆隨機推薦、分頁切換、左右箭頭功能
+ * 功能：從 JSP 載入資料庫商品，實作 18 筆隨機推薦、分頁切換、左右箭頭功能
  */
 
 let allFresh = [];
@@ -11,21 +11,36 @@ const itemsPerPage = 6;
 const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
 window.addEventListener('load', function () {
-    fetch('flowerData.json')
+    // 改為向 get_products.jsp 請求即時資料庫資料
+    fetch('get_products.jsp')
         .then(response => response.json())
         .then(data => {
-            // 隨機挑選 12 筆 (或是全部，若不足 12)
-            allFresh = data.filter(f => f.is_fresh === true).sort(() => 0.5 - Math.random()).slice(0, 12);
-            allDried = data.filter(f => f.is_fresh === false).sort(() => 0.5 - Math.random()).slice(0, 12);
+            let freshCount = 0;
+            let driedCount = 0;
 
-            // 初始渲染
+            // 1. 在隨機打亂前，先依據原始順序為每一筆資料動態賦予正確的圖片路徑
+            data.forEach(flower => {
+                if (flower.Category === 'fresh') {
+                    freshCount++;
+                    flower.imagePath = `image/flower/fresh/${freshCount}-2.jpg`;
+                } else {
+                    driedCount++;
+                    flower.imagePath = `image/flower/dried/${driedCount}-2.jpg`;
+                }
+            });
+
+            // 2. 分類篩選、隨機打亂、挑選 12 筆推薦
+            allFresh = data.filter(f => f.Category === 'fresh').sort(() => 0.5 - Math.random()).slice(0, 12);
+            allDried = data.filter(f => f.Category === 'dried').sort(() => 0.5 - Math.random()).slice(0, 12);
+
+            // 3. 初始渲染
             renderPage('.fresh-flower', allFresh, 1);
             renderPage('.dried-flower', allDried, 1);
 
-            // 綁定事件
+            // 4. 綁定分頁與切換事件
             setupPaginationEvents();
         })
-        .catch(err => console.error("資料載入失敗:", err));
+        .catch(err => console.error("資料庫載入失敗:", err));
 });
 
 function renderPage(selector, dataList, page) {
@@ -41,26 +56,31 @@ function renderPage(selector, dataList, page) {
     setTimeout(() => {
         let html = '';
         pageData.forEach(flower => {
-            const imagePath = `image/flower/${flower.image_path}-2.jpg`;
-            const isFavorited = wishlist.includes(flower.id);
+            // 檢查該商品是否已被加入收藏 (將 ID 轉為字串進行比對)
+            const isFavorited = wishlist.includes(flower.ProductID.toString()) || wishlist.includes(flower.ProductID);
             const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
             const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
+
             html += `
                 <div class="item">
                     <div class="img-box">
-                        <a href="product/index.html?id=${flower.id}">
-                            <img src="${imagePath}" alt="${flower.name}" onerror="this.src=''">
+                        <a href="product/index.html?id=${flower.ProductID}">
+                            <img src="${flower.imagePath}" alt="${flower.ProductName}" onerror="this.src=''">
                         </a>
                     </div>
                     <div class="item-info">
                         <div class="info-top">
-                            <span class="tag">${flower.name}<br>[${flower.series}]</span>
+                            <span class="tag">${flower.ProductName}<br>[${flower.Series}]</span>
                             <div class="item-actions">
-                                <button class="action-btn-circle heart-btn" data-id="${flower.id}"><i class="${heartIconClass} fa-heart" ${heartIconStyle}></i></button>
-                                <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.name}', ${flower.price})"><i class="fa-solid fa-plus"></i></button>
+                                <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
+                                    <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
+                                </button>
+                                <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.ProductName}', ${flower.Price})">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
                             </div>
                         </div>
-                        <span class="price">NT$ ${flower.price.toLocaleString()}</span>
+                        <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
                     </div>
                 </div>
             `;
@@ -72,7 +92,6 @@ function renderPage(selector, dataList, page) {
 }
 
 function setupPaginationEvents() {
-    // 獲取所有 collection 區塊
     const collections = document.querySelectorAll('.collection');
 
     collections.forEach(section => {
@@ -114,10 +133,7 @@ function setupPaginationEvents() {
 }
 
 function handleAddToCart(event, name, price) {
-    // 1. 阻止事件冒泡，防止 utils/cart/main.js 的 document.click 又跑一次
     if (event) event.stopPropagation();
-
-    // 2. 呼叫 utils/cart/main.js 的功能
     if (typeof addToCart === "function") {
         addToCart(name, price);
     }

@@ -452,11 +452,6 @@ body {
     margin-bottom: 8px;
 }
 
-.reviewer-name {
-    font-weight: bold;
-    color: #555;
-}
-
 .review-stars {
     color: #c0a080;
     font-size: 0.9rem;
@@ -468,6 +463,27 @@ body {
     font-size: 0.95rem;
     margin: 0;
 }
+
+/* 新增：包裹日期與名字的容器，讓它們水平置中並排，並空出間距 */
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .review-date {
+        font-size: 0.85rem;
+        color: #a0a0a0;
+        font-weight: normal;
+    }
+
+    .reviewer-name {
+        font-weight: bold;
+        color: #555;
+    }
+}
+
+
+
 
 @media (max-width: 768px) {
     /* 1. 調整產品頁面整體邊距 */

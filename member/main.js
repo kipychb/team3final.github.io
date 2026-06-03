@@ -1,20 +1,3 @@
-//  1. 初始化設定 
-document.addEventListener('DOMContentLoaded', () => {
-    // 讀取已儲存的會員資料
-    const fields = ['name', 'birth', 'email', 'phone'];
-    fields.forEach(field => {
-        const savedValue = localStorage.getItem(`member-${field}`);
-        if (savedValue) {
-            const displaySpan = document.getElementById(`display-${field}`);
-            if (displaySpan) displaySpan.innerText = savedValue;
-        }
-    });
-
-    if (document.getElementById('wishlist').classList.contains('active')) {
-        renderMemberWishlist();
-    }
-});
-
 //  2. 切換分頁邏輯 
 function switchSection(id, element) {
     // 切換選單按鈕樣式
@@ -28,7 +11,7 @@ function switchSection(id, element) {
         targetBlock.classList.add('active');
     }
 
-    
+
     if (id === 'wishlist') {
         renderMemberWishlist();
     }
@@ -78,7 +61,7 @@ function addToCartFromWishlist(name, price, image) {
     }
 }
 
-//  5. 會員資料修改模式 
+//  5. 會員資料修改模式
 let isEditMode = false;
 function toggleEditMode() {
     const editBtn = document.getElementById('edit-btn');
@@ -98,27 +81,54 @@ function toggleEditMode() {
             const displaySpan = document.getElementById(field.display);
             const inputField = document.getElementById(field.input);
             if (displaySpan && inputField) {
-                inputField.value = displaySpan.innerText;
+                inputField.value = displaySpan.innerText.trim();
                 displaySpan.style.display = 'none';
                 inputField.style.display = 'inline-block';
             }
         });
     } else {
-        isEditMode = false;
-        editBtn.innerText = "修改個人資料";
-        editBtn.classList.remove('save-mode');
+        // 抓取各輸入欄位最新的值
+        const nameVal = document.getElementById('edit-name').value;
+        const birthVal = document.getElementById('edit-birth').value;
+        const emailVal = document.getElementById('edit-email').value;
+        const phoneVal = document.getElementById('edit-phone').value;
 
-        fields.forEach(field => {
-            const displaySpan = document.getElementById(field.display);
-            const inputField = document.getElementById(field.input);
-            if (displaySpan && inputField) {
-                displaySpan.innerText = inputField.value;
-                displaySpan.style.display = 'inline-block';
-                inputField.style.display = 'none';
-                localStorage.setItem(`member-${field.id}`, inputField.value);
-            }
-        });
-        alert("已為您更新會員資料!");
+        // 使用 fetch 送出 POST 請求至後端 update_profile.jsp
+        fetch('update_profile.jsp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `name=${encodeURIComponent(nameVal)}&birth=${encodeURIComponent(birthVal)}&email=${encodeURIComponent(emailVal)}&phone=${encodeURIComponent(phoneVal)}`
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result.trim() === 'success') {
+                    isEditMode = false;
+                    editBtn.innerText = "修改個人資料";
+                    editBtn.classList.remove('save-mode');
+
+                    // 更新前端畫面上的顯示文字
+                    fields.forEach(field => {
+                        const displaySpan = document.getElementById(field.display);
+                        const inputField = document.getElementById(field.input);
+                        if (displaySpan && inputField) {
+                            displaySpan.innerText = inputField.value;
+                            displaySpan.style.display = 'inline-block';
+                            inputField.style.display = 'none';
+                        }
+                    });
+                    alert("已為您更新會員資料!");
+                } else if (result.trim() === 'nologin') {
+                    alert("登入逾時，請重新登入！");
+                } else {
+                    alert("資料更新失敗，請檢查輸入內容是否正確！");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("網路異常，無法與伺服器取得連線！");
+            });
     }
 }
 
@@ -133,22 +143,8 @@ document.addEventListener('click', (e) => {
         }
     }
 });
-//7.登入導向
-(function checkLogin() {
-    const loginStatus = localStorage.getItem('isLoggedIn');
-    if (loginStatus !== 'true') {
-        window.location.href = "login/index.html"; 
-    }
-})();
 
-// --- 8. 登出功能 ---
+// 7. 登出帳號功能
 function logout() {
-    if (confirm("確定要登出花予祝願所嗎？ ")) {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('member-name'); 
-        alert("您已登出。");
-        window.location.href = "../index.html";
-    }
+    window.location.href = 'logout.jsp';
 }
-
-
