@@ -13,7 +13,7 @@
 
     <body>
 
-        <a href="../../index.html" class="back-home">
+        <a href="../../index.jsp" class="back-home">
             <i class="fa-solid fa-arrow-left"></i> 返回首頁
         </a>
 
@@ -41,9 +41,9 @@
             </form>
 
             <div class="extra-links">
-                <a href="forgot/index.html">忘記密碼？</a>
+                <a href="forgot/index.jsp">忘記密碼？</a>
                 <span>|</span>
-                <a href="register/index.html">註冊會員</a>
+                <a href="register/index.jsp">註冊會員</a>
             </div>
         </div>
 

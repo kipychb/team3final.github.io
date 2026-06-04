@@ -15,6 +15,7 @@ body {
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
 }
 
+/* 巢狀結構開始 */
 .login-container {
     background-color: rgba(112, 88, 68, 0.9);
     padding: 40px;
@@ -24,67 +25,88 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: #eeebe2;
-}
 
-.login-logo {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
+    .login-logo {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
 
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
+    /* 新增：重設密碼驗證信箱的描述文字樣式 */
+    .login-desc {
+        width: 85%;
+        margin: 0 auto 25px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #c9ad96;
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
+        /* 已驗證的信箱名稱 */
+        .reset-email {
+            color: #eeebe2;
+            font-weight: bold;
+        }
+    }
 
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    background: #eeebe2;
-}
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
 
-.login-btn {
-    width: 100%;
-    padding: 12px;
-    font-family: 'Noto Serif TC', serif;
-    font-size: 0.9rem;
-    background-color: #c0a080;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
 
-.back-links {
-    margin-top: 20px;
-    font-size: 0.85rem;
-}
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eeebe2;
+        }
+    }
 
-.back-links a {
-    color: #eeebe2;
-    text-decoration: none;
-    margin: 0 10px;
-    opacity: 0.8;
-}
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 0.9rem;
+        background-color: #c0a080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-.back-links a:hover {
-    opacity: 1;
-    text-decoration: underline;
+    .back-links {
+        margin-top: 20px;
+        font-size: 0.85rem;
+
+        a {
+            color: #eeebe2;
+            text-decoration: none;
+            margin: 0 10px;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 /* 返回連結 */
 .back-home {
-    position: absolute; top: 25px; left: 25px;
-    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
+    position: absolute; 
+    top: 25px; 
+    left: 25px;
+    color: #877566; 
+    text-decoration: none; 
+    font-size: 20px; 
+    z-index: 1000;
     transition: 0.3s ease;
+    
     &:hover {
         color: #9d8768;
         left: 27.5px;

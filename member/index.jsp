@@ -52,12 +52,12 @@
                 </div>
                 <span class="flower-label">訂單與紀錄</span>
             </div>
-            <div class="flower-item" onclick="switchSection('wishlist', this)">
+            <%-- <div class="flower-item" onclick="switchSection('wishlist', this)">
                 <div class="flower-icon-box">
                     <img src="image/3.png" alt="願望清單" class="flower-img">
                 </div>
                 <span class="flower-label">願望清單</span>
-            </div>
+            </div> --%>
             <div class="flower-item" onclick="switchSection('flower-search', this)">
                 <div class="flower-icon-box">
                     <img src="image/4.png" alt="花語查詢" class="flower-img">
@@ -88,7 +88,6 @@
                         <span class="info-label">出生日期</span>
                         <div class="value-group">
                             <span class="info-value" id="display-birth"><%=rs.getDate("BirthDay")%></span>
-                            <!-- 已改為瀏覽器內建行事曆 input type="date" -->
                             <input type="date" id="edit-birth" class="edit-input" style="display:none;">
                         </div>
                     </div>

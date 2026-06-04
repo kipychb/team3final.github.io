@@ -39,13 +39,13 @@
 
             <section class="banner">
                 <div class="banner-container" id="bannerSlider">
-                    <a href="product/index.html?id=love_in_bloom">
+                    <a href="product/index.html?id=1">
                         <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                     </a>
-                    <a href="product/index.html?id=semi_ripe_romance">
+                    <a href="product/index.html?id=2">
                         <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                     </a>
-                    <a href="product/index.html?id=soft_blush">
+                    <a href="product/index.html?id=3">
                         <img src="image/banner/3.jpg" alt="廣告 3" class="banner-img">
                     </a>
                 </div>
@@ -131,10 +131,10 @@
             <div class="form-wrapper">
                 <div class="contact-form">
                     <h4 class="form-title">聯絡我們</h4>
-                    <input type="text" placeholder="姓名">
-                    <input type="text" placeholder="聯絡方式">
-                    <textarea placeholder="留言內容" rows="4"></textarea>
-                    <form action="mailto:chenpoyu0109@example.com" method="post" enctype="text/plain">
+                    <form action="submit_contact.jsp" method="post">
+                        <input type="text" name="name" placeholder="姓名" required>
+                        <input type="text" name="contact_method" placeholder="聯絡方式" required>
+                        <textarea name="contents" placeholder="留言內容" rows="4" required></textarea>
                         <button type="submit" class="submit-btn">發送訊息</button>
                     </form>
                 </div>
@@ -149,7 +149,7 @@
     <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
-            <li><a href="index.html">Home / 首頁</a></li>
+            <li><a href="index.jsp">Home / 首頁</a></li>
             <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
             <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
             <li><a href="series/index.html?series=friend">For Friend 系列</a></li>
@@ -190,7 +190,6 @@
     <script src="banner.js"></script>
     <script src="collection.js"></script>
     <script src="search.js"></script>
-    <script>linkLayer = '';</script>
 </body>
 
 </html>

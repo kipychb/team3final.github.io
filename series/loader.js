@@ -1,3 +1,11 @@
+/**
+ * loader.js (series/loader.js)
+ * 功能：系列商品頁面自動載入器 - SQL 資料庫對接版
+ * 說明：從 JSP 載入商品，與資料庫的願望清單、購物車進行即時連動，支援 4 種系列分類
+ */
+
+dbWishlist = []; // 儲存自資料庫載入的已收藏 ProductID
+
 window.addEventListener('load', function () {
     // 1. 取得網址參數 ?series=
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,14 +29,19 @@ window.addEventListener('load', function () {
         document.getElementsByClassName("section-title")[0].innerHTML = "［" + targetSeriesName + "系列］";
     }
 
-    // 3. 抓取 JSP 即時資料庫資料
-    fetch('../get_products.jsp')
-        .then(response => response.json())
-        .then(data => {
+    // 3. 同時獲取商品清單與資料庫願望清單 (大幅縮短載入時間與解決生命週期時間差)
+    Promise.all([
+        fetch('../get_products.jsp').then(res => res.json()),
+        fetch('../wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => []) // 若未登入，則寬容回傳空陣列
+    ])
+        .then(([products, wishlistIds]) => {
+            // 確保將所有的 ID 都轉成數值型態以便後續比對
+            dbWishlist = wishlistIds.map(Number);
+
             // 在篩選與裁剪前，先依據資料庫原始順序動態計算每筆商品的 relativeIndex，確保圖片路徑精準無誤
             let freshCount = 0;
             let driedCount = 0;
-            data.forEach(flower => {
+            products.forEach(flower => {
                 if (flower.Category === 'fresh') {
                     freshCount++;
                     flower.relativeIndex = freshCount;
@@ -38,8 +51,8 @@ window.addEventListener('load', function () {
                 }
             });
 
-            // 篩選出該系列的所有產品 (注意對齊資料庫新欄位 Series)
-            const seriesFlowers = data.filter(flower => flower.Series === targetSeriesName);
+            // 篩選出該系列的所有產品
+            const seriesFlowers = products.filter(flower => flower.Series === targetSeriesName);
 
             // 執行渲染 (每個系列取前 8 朵)
             renderSeriesProducts(seriesFlowers.slice(0, 8));
@@ -48,7 +61,7 @@ window.addEventListener('load', function () {
 });
 
 /**
- * 將篩選後的資料渲染至 HTML (已對齊 SQL 資料庫欄位)
+ * 將篩選後的資料渲染至 HTML (已對齊 SQL 資料庫欄位與無 CartID 機制)
  * @param {Array} flowers 
  */
 function renderSeriesProducts(flowers) {
@@ -60,12 +73,9 @@ function renderSeriesProducts(flowers) {
         return;
     }
 
-    // 先取得願望清單，避免在 map 迴圈內重複讀取 localStorage
-    const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
-
     productGrid.innerHTML = flowers.map(flower => {
-        // 判斷該商品是否已被收藏 (將 ProductID 轉為字串進行比對防錯)
-        const isFavorited = wishlist.includes(flower.ProductID.toString()) || wishlist.includes(flower.ProductID);
+        // 與資料庫中已收藏的 ProductID 陣列進行精準比對
+        const isFavorited = dbWishlist.includes(Number(flower.ProductID));
         const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
         const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
 
@@ -86,7 +96,7 @@ function renderSeriesProducts(flowers) {
                             <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
                                 <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
                             </button>
-                            <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.ProductName}', ${flower.Price})">
+                            <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
@@ -96,4 +106,22 @@ function renderSeriesProducts(flowers) {
             </div>
         `;
     }).join('');
+
+    // 【修正】動態 HTML 生成完畢後，立刻通知 addWish.js 更新愛心點擊監聽與樣式
+    if (typeof updateHeartIconsStatus === 'function') {
+        updateHeartIconsStatus();
+    }
+}
+
+/**
+ * 中間接管函式：點擊加號按鈕，傳遞 ProductID 給 utils/cart/main.js
+ */
+function handleAddToCart(event, productId) {
+    if (event) event.stopPropagation();
+    if (typeof addToCart === "function") {
+        // 直接傳入 ProductID 進行 SQL 寫入 (預設數量為 1)
+        addToCart(productId, 1);
+    } else {
+        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
+    }
 }

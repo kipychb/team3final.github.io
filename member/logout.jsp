@@ -4,5 +4,5 @@
     session.invalidate();
     
     // 導向首頁
-    response.sendRedirect("../index.html");
+    response.sendRedirect("../index.jsp");
 %>

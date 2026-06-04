@@ -352,22 +352,173 @@ body {
 .map-box { flex: 1; border: 1px solid #c0a080; aspect-ratio: 1.5; background: #eeebe2; }
 .map-placeholder { height: 90%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
 
-/* 表單背景區塊 */
+.login-container {
+    background-color: rgba(112, 88, 68, 0.9);
+    padding: 30px 35px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 380px; /* 完美契合多個填寫欄位寬度 */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #eeebe2;
+
+    .login-logo {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 統一的描述文字樣式 (重設密碼與註冊皆適用) */
+    .login-desc {
+        width: 85%;
+        margin: 0 auto 20px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #c9ad96;
+
+        /* 已驗證的信箱名稱 (密碼重設用) */
+        .reset-email {
+            color: #eeebe2;
+            font-weight: bold;
+        }
+    }
+
+    /* 後端回傳錯誤訊息樣式 */
+    .error-msg {
+        color: #d87f7f;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+
+            /* 必填欄位的紅色星號 */
+            .required {
+                color: #d87f7f;
+                margin-left: 2px;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eeebe2;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 0.95rem;
+        background-color: #c0a080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: #a3866a;
+            transform: translateY(-1px);
+        }
+    }
+
+    .back-links {
+        margin-top: 15px;
+        font-size: 0.8rem;
+
+        a {
+            color: #eeebe2;
+            text-decoration: none;
+            margin: 0 8px;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* 聯絡我們：表單背景區塊（巢狀寫法） */
 .form-wrapper {
-    background-color:#705844; opacity: 0.8;
-    padding: 30px 30px;
+    background-color: #705844; 
+    opacity: 0.8;
+    padding: 30px;
     max-width: 600px;
     max-height: 400px;
-    margin: 0 auto ;
+    margin: 0 auto;
     border-radius: 10px;
-}
-.contact-form {align-items: center;  display: flex; flex-direction: column; gap: 12px; }
-.form-title { text-align: center; color:#fff; margin-bottom: 15px; font-size: 1.4rem; }
-input, textarea { padding: 10px; border: none; background: #eeebe2; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; width:100%; }
-.submit-btn { margin-top: 20px; width: 120px; background: #c0a080; color: #fff; border: none; padding: 12px; cursor: pointer; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; transition: 0.3s; border-radius: 10px; }
-.submit-btn:hover {color: #3a3a3a; }
 
-.footer-bottom { text-align: center; padding: 20px 0; font-size: 0.75rem; opacity: 0.5; color: #3a3a3a; }
+    /* 將排版與限制套用在聯絡我們表單上 */
+    .contact-form {
+        form {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 12px;
+            width: 100%;
+        }
+
+        .form-title { 
+            text-align: center; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            font-size: 1.4rem; 
+        }
+
+        input, textarea { 
+            padding: 10px; 
+            border: none; 
+            background: #eeebe2; 
+            font-family: 'Noto Serif TC', serif; 
+            font-size: 0.9rem; 
+            width: 100%; 
+        }
+
+        .submit-btn { 
+            margin-top: 20px; 
+            width: 120px; 
+            background: #c0a080; 
+            color: #fff; 
+            border: none; 
+            padding: 12px; 
+            cursor: pointer; 
+            font-family: 'Noto Serif TC', serif; 
+            font-size: 0.9rem; 
+            transition: 0.3s; 
+            border-radius: 10px; 
+
+            &:hover {
+                color: #3a3a3a; 
+            }
+        }
+    }
+}
+
+/* 頁腳底部 */
+.footer-bottom { 
+    text-align: center; 
+    padding: 20px 0; 
+    font-size: 0.75rem; 
+    opacity: 0.5; 
+    color: #3a3a3a; 
+}
 
 @media (max-width: 768px) {
     /* --- 1. 導覽列*/

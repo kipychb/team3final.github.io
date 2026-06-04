@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     updateHeartIconsStatus();
 
+    // 全域代理監聽點擊，能完美捕捉動態生成的商品元素
     document.addEventListener('click', function (e) {
         const heartBtn = e.target.closest('.heart-btn');
         if (!heartBtn) return;
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 自訂非阻斷式 Toast 提示 (共用防錯)
+// 自訂非阻斷式 Toast 提示
 function showToastMessage(message) {
     let toast = document.getElementById('custom-toast');
     if (!toast) {
@@ -77,27 +78,40 @@ function showToastMessage(message) {
  * 切換收藏狀態 (與資料庫對接)
  */
 function toggleWishlist(id, btn) {
-    // 偵測目前所在的目錄深度，以調整 API 訪問路徑
-    let basePath = "";
+    // 【修正】修正根目錄（首頁）路徑抓取不到的問題。若不在子資料夾內，則路徑應指向 wishlist/
+    let basePath = "wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
         basePath = "../wishlist/";
     } else if (window.location.pathname.includes('/member/')) {
         basePath = "../wishlist/";
+    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "";
     }
 
     fetch(`${basePath}toggle_wishlist.jsp?product_id=${id}`)
         .then(response => response.text())
         .then(result => {
             const res = result.trim();
+            const numId = Number(id);
+
             if (res === 'added') {
                 showHeartFeedback(btn, true);
                 showToastMessage("已加入願望清單 ✿");
+
+                // 【即時渲染】同步更新記憶體中的 dbWishlist 變數，避免分頁切換後狀態跑掉
+                if (typeof dbWishlist !== 'undefined' && !dbWishlist.includes(numId)) {
+                    dbWishlist.push(numId);
+                }
             } else if (res === 'removed') {
                 showHeartFeedback(btn, false);
                 showToastMessage("已從願望清單移除 ✿");
+
+                // 【即時渲染】從記憶體中移除
+                if (typeof dbWishlist !== 'undefined') {
+                    dbWishlist = dbWishlist.filter(item => item !== numId);
+                }
             } else if (res === 'nologin') {
                 showToastMessage("此功能僅限會員使用，請先登入帳號 ✿");
-                // 延遲跳轉至登入頁
                 setTimeout(() => {
                     let loginPath = "member/login/index.jsp";
                     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/') || window.location.pathname.includes('/wishlist/')) {
@@ -111,25 +125,28 @@ function toggleWishlist(id, btn) {
 }
 
 /**
- * 載入頁面時同步愛心顏色 (從 check_wishlist.jsp 取得已收藏列表)
+ * 載入頁面時同步愛心顏色
  */
 function updateHeartIconsStatus() {
-    let basePath = "";
+    let basePath = "wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
         basePath = "../wishlist/";
     } else if (window.location.pathname.includes('/member/')) {
         basePath = "../wishlist/";
+    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "";
     }
 
     fetch(`${basePath}check_wishlist.jsp`)
         .then(response => response.json())
         .then(wishlistIds => {
             const allHearts = document.querySelectorAll('.heart-btn');
+            const favoritedIds = wishlistIds.map(Number);
+
             allHearts.forEach(btn => {
                 const id = btn.getAttribute('data-id');
                 const icon = btn.querySelector('i');
-                // 比對資料庫中已收藏的 ProductID
-                if (id && wishlistIds.map(Number).includes(Number(id))) {
+                if (id && favoritedIds.includes(Number(id))) {
                     icon.classList.replace('fa-regular', 'fa-solid');
                     icon.style.color = "#c0a080";
                 } else {
@@ -143,6 +160,8 @@ function updateHeartIconsStatus() {
 
 function showHeartFeedback(btn, isAdded) {
     const icon = btn.querySelector('i');
+    if (!icon) return;
+
     btn.style.transition = "transform 0.2s";
     btn.style.transform = "scale(1.3)";
 
@@ -158,11 +177,12 @@ function showHeartFeedback(btn, isAdded) {
     }, 200);
 }
 
-// 檢查資料庫並同步更新特定愛心狀態 (產品詳細頁面用)
 function syncHeartStatus(id) {
-    let basePath = "";
+    let basePath = "wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
         basePath = "../wishlist/";
+    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "";
     }
 
     fetch(`${basePath}check_wishlist.jsp`)

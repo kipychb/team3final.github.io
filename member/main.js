@@ -1,4 +1,6 @@
-//  2. 切換分頁邏輯 
+// member/main.js
+
+// 2. 切換分頁邏輯 
 function switchSection(id, element) {
     // 切換選單按鈕樣式
     document.querySelectorAll('.flower-item').forEach(item => item.classList.remove('active'));
@@ -11,13 +13,101 @@ function switchSection(id, element) {
         targetBlock.classList.add('active');
     }
 
-
     if (id === 'wishlist') {
         renderMemberWishlist();
+    } else if (id === 'orders') {
+        loadMemberOrders();
     }
 }
 
-//  3. 願望清單渲染 
+/**
+ * 【新功能】非同步向後端獲取會員專屬訂單紀錄並渲染
+ */
+async function loadMemberOrders() {
+    const container = document.querySelector('#orders .list-container');
+    if (!container) return;
+
+    container.innerHTML = '<p style="text-align:center; padding:30px; color:#999; font-family:\'Noto Serif TC\', serif;">正在讀取您的訂單紀錄... ✿</p>';
+
+    try {
+        const response = await fetch('get_member_orders.jsp');
+        const orders = await response.json();
+
+        if (orders.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px; color:#999; font-family:\'Noto Serif TC\', serif;">目前沒有任何訂單紀錄 ✿</p>';
+            return;
+        }
+
+        container.innerHTML = orders.map(order => {
+            // 付款方式轉換顯示
+            const paymentMap = {
+                'credit': '信用卡線上支付',
+                'transfer': '銀行轉帳 (自動對帳)',
+                'linepay': 'LINE Pay 快速結帳'
+            };
+            const displayPayment = paymentMap[order.OrderType] || order.OrderType;
+
+            // 狀態顏色標籤處理
+            let statusClass = "status-tag";
+            if (order.OrderStatus === '已付款') {
+                statusClass += " highlight";
+            } else if (order.OrderStatus === '已出貨') {
+                statusClass += " shipped"; // 可自行於 CSS 擴充樣式
+            } else if (order.OrderStatus === '完成') {
+                statusClass += " completed";
+            }
+
+            // 渲染商品詳情細項
+            const detailsHtml = order.Details.map(detail => {
+                const imgPath = `../image/flower/${detail.Category}/${detail.relativeIndex}-1.jpg`;
+                return `
+                    <div class="order-product-row" style="display: flex; gap: 15px; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 12px;">
+                        <img src="${imgPath}" alt="${detail.ProductName}" onerror="this.src='../image/default.jpg'" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                        <div style="flex: 1;">
+                            <p style="font-weight: bold; color: #705844; margin: 0;">${detail.ProductName}</p>
+                            <p style="font-size: 0.85rem; color: #888; margin: 4px 0 0 0;">NT$ ${detail.Price.toLocaleString()} &times; ${detail.Quantity}</p>
+                        </div>
+                        <span style="font-weight: bold; color: #705844;">NT$ ${detail.Subtotal.toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="order-card" style="background: #fff; border: 1px solid #eae1d8; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(112, 88, 68, 0.05); font-family: 'Noto Serif TC', serif;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eae1d8; padding-bottom: 10px; margin-bottom: 15px;">
+                        <div>
+                            <span style="font-size: 0.85rem; color: #888;">訂單編號：</span>
+                            <span style="font-weight: bold; color: #705844;">${order.OrderNumber}</span>
+                        </div>
+                        <span class="${statusClass}" style="padding: 4px 10px; border-radius: 20px; font-size: 0.85rem;">${order.OrderStatus}</span>
+                    </div>
+                    
+                    <!-- 商品明細列表 -->
+                    <div class="order-products">
+                        ${detailsHtml}
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; font-size: 0.9rem; color: #666;">
+                        <div>
+                            <p style="margin: 0;">訂購日期：${order.OrderDate}</p>
+                            <p style="margin: 4px 0 0 0;">付款方式：${displayPayment}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 0.85rem; color: #888;">總金額 (含運費)：</span>
+                            <span style="font-size: 1.2rem; font-weight: bold; color: #705844;">NT$ ${order.TotalAmount.toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error("載入訂單失敗:", error);
+        container.innerHTML = '<p style="text-align:center; padding:30px; color:#f00; font-family:\'Noto Serif TC\', serif;">載入訂單失敗，請稍後再試。✿</p>';
+    }
+}
+
+// 3. 願望清單渲染 
 function renderMemberWishlist() {
     const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
     const container = document.querySelector('#wishlist .list-container');
@@ -61,7 +151,7 @@ function addToCartFromWishlist(name, price, image) {
     }
 }
 
-//  5. 會員資料修改模式
+// 5. 會員資料修改模式
 let isEditMode = false;
 function toggleEditMode() {
     const editBtn = document.getElementById('edit-btn');
@@ -87,13 +177,11 @@ function toggleEditMode() {
             }
         });
     } else {
-        // 抓取各輸入欄位最新的值
         const nameVal = document.getElementById('edit-name').value;
         const birthVal = document.getElementById('edit-birth').value;
         const emailVal = document.getElementById('edit-email').value;
         const phoneVal = document.getElementById('edit-phone').value;
 
-        // 使用 fetch 送出 POST 請求至後端 update_profile.jsp
         fetch('update_profile.jsp', {
             method: 'POST',
             headers: {
@@ -108,7 +196,6 @@ function toggleEditMode() {
                     editBtn.innerText = "修改個人資料";
                     editBtn.classList.remove('save-mode');
 
-                    // 更新前端畫面上的顯示文字
                     fields.forEach(field => {
                         const displaySpan = document.getElementById(field.display);
                         const inputField = document.getElementById(field.input);
@@ -132,7 +219,7 @@ function toggleEditMode() {
     }
 }
 
-// 6. 訂單卡片點擊監聽 
+// 6. 訂單卡片點擊監聽 (保持不變)
 document.addEventListener('click', (e) => {
     const card = e.target.closest('.order-card');
     if (card) {

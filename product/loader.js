@@ -1,5 +1,7 @@
 /**
- * 產品頁面自動載入器 - SQL資料庫新版
+ * loader.js
+ * 功能：產品頁面自動載入器 - SQL 資料庫對接版
+ * 說明：串接 get_product_detail.jsp 載入商品，並對接 SQL 購物車與願望清單
  */
 
 async function loadProductDetail() {
@@ -12,7 +14,7 @@ async function loadProductDetail() {
     }
 
     try {
-        // 從新寫好的 get_product_detail.jsp 撈取該特定商品資料
+        // 從 get_product_detail.jsp 撈取特定商品資料
         const response = await fetch(`get_product_detail.jsp?id=${productId}`);
         const flower = await response.json();
 
@@ -20,11 +22,17 @@ async function loadProductDetail() {
             document.title = `${flower.ProductName} | 花予祝願所`;
             updateTextContent(flower);
             initImageCarousel(flower);
+
+            // 【愛心同步優化】為詳情頁的愛心按鈕設定 data-id，並同步資料庫收藏狀態
+            const heartBtn = document.querySelector('.heart-btn');
+            if (heartBtn) {
+                heartBtn.setAttribute('data-id', flower.ProductID);
+            }
             if (typeof syncHeartStatus === "function") {
-                syncHeartStatus(productId);
+                syncHeartStatus(flower.ProductID);
             }
 
-            // 加入購物車按鈕
+            // 綁定「加入購物車」按鈕事件
             const addCartBtn = document.querySelector('.add-cart-btn');
             if (addCartBtn) {
                 addCartBtn.onclick = function () {
@@ -32,16 +40,17 @@ async function loadProductDetail() {
                     const count = parseInt(quantityInput.value) || 1; // 確保至少為 1
 
                     if (count > flower.Quantity) {
-                        alert("你把花買光了，最多" + flower.Quantity + "，不要就拉倒。");
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
                     } else if (typeof addToCart === "function") {
-                        for (let i = 0; i < count; i++) {
-                            addToCart(flower.ProductName, flower.Price);
-                        }
+                        // 【SQL驅動優化】直接呼叫一次 addToCart 並帶入 ProductID 與 選擇數量，不需再跑迴圈
+                        addToCart(flower.ProductID, count);
+                    } else {
+                        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
                     }
                 };
             }
 
-            // 立即購買按鈕
+            // 綁定「立即購買」按鈕事件
             const buyNowBtn = document.querySelector('.buy-btn');
             if (buyNowBtn) {
                 buyNowBtn.onclick = function () {
@@ -49,12 +58,16 @@ async function loadProductDetail() {
                     const count = parseInt(quantityInput.value) || 1;
 
                     if (count > flower.Quantity) {
-                        alert("你把花買光了，最多" + flower.Quantity + "，不要就拉倒。");
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
                     } else if (typeof addToCart === "function") {
-                        for (let i = 0; i < count; i++) {
-                            addToCart(flower.ProductName, flower.Price);
-                        }
-                        window.location.href = '../payment/index.html';
+                        // 1. 同樣改為直接帶入 ID 與數量傳給資料庫
+                        addToCart(flower.ProductID, count);
+                        // 2. 稍作延遲待購物車更新完畢後跳轉到結帳頁面
+                        setTimeout(() => {
+                            window.location.href = '../payment/index.jsp';
+                        }, 300);
+                    } else {
+                        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
                     }
                 };
             }
@@ -104,7 +117,7 @@ function updateTextContent(flower) {
         const descEl = container.querySelector('.desc');
         if (descEl) {
             descEl.style.whiteSpace = "pre-line";
-            descEl.textContent = "🕊️花語：" + flower.Language + "\n🕊️商品理念：" + flower.Idea;
+            descEl.textContent = "🕊️花語：" + flower.Language + "\n\n🕊️商品理念：" + flower.Idea;
         }
     }
 
@@ -115,7 +128,6 @@ function updateTextContent(flower) {
     const leftBox = document.querySelector('.left-box');
     const rightBox = document.querySelector('.right-box');
 
-    const isFresh = (flower.Category === 'fresh');
     let appreciationPeriod = flower.AppreciationPeriod;
 
     // 將後端解析出的陣列轉換成條列清單項目

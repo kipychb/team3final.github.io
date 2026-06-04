@@ -1,11 +1,9 @@
 <%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*"%>
 <%@include file="../utils/config.jsp" %>
 <%
-    // 設定編碼防中文亂碼，設定純文字回傳格式
     request.setCharacterEncoding("UTF-8");
     response.setContentType("text/plain;charset=UTF-8");
 
-    // 從 Session 內檢驗並獲取會員帳號 mid
     Object midObj = session.getAttribute("mid");
     if (midObj == null) {
         out.print("nologin");
