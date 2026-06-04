@@ -1,3 +1,12 @@
+<%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*"%>
+<%
+    // 防禦未登入使用者：如果 Session 沒有 mid，則引導回登入頁
+    Object midObj = session.getAttribute("mid");
+    if (midObj == null) {
+        response.sendRedirect("../member/login/index.jsp");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -52,26 +61,9 @@
         <section class="title">願望清單</section>
     
         <div class="grid">
-            <div class="item">
-                <div class="img-box border-box">
-                    <img src="" alt="商品圖">
-                    <button class="remove-btn">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="info">
-                    <div class="main-text">
-                        <span class="tag">[花禮] 晨曦之詩</span>
-                        <span class="price">NT$ 1,200</span>
-                    </div>
-                    <button class="add-btn">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- 這裡會由 JS 動態填充 -->
         </div>
     </main>
-    
 
     <!-- Java Script 存放區 -->
     <script src="../utils/side-menu/main.js"></script>

@@ -26,7 +26,7 @@
                 <a href="about_us/index.html">花予祝願所</a>
             </div>
             <div class="nav-right">
-                <a href="wishlist/index.html">
+                <a href="wishlist/index.jsp">
                     <i class="fa-solid fa-heart nav-icon"></i>
                 </a>
                 <i class="fa-solid fa-user nav-icon" id="member-icon" onclick="handleMemberClick()"></i>

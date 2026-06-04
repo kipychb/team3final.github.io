@@ -78,7 +78,7 @@ function loadAndRenderReviews(productId) {
                 mainStarsEl.innerHTML = mainStarsHtml;
             }
 
-            reviewsList.innerHTML = ""; // 清空現有內容
+            reviewsList.innerHTML = "";
 
             if (data.reviews.length === 0) {
                 reviewsList.innerHTML = "<p class='empty-msg' style='text-align:center;color:#999;padding:20px;'>此商品目前還沒有評價，歡迎留下您的第一則評論 ✿</p>";

@@ -31,7 +31,7 @@
         </div>
         <div class="nav-logo">會員中心</div>
         <div class="nav-right">
-            <a href="../wishlist/index.html" class="nav-icon">
+            <a href="../wishlist/index.jsp" class="nav-icon">
                 <i class="fa-solid fa-heart "></i>
             </a>
             <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>

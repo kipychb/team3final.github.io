@@ -21,21 +21,34 @@ window.addEventListener('load', function () {
         document.getElementsByClassName("section-title")[0].innerHTML = "［" + targetSeriesName + "系列］";
     }
 
-    // 3. 抓取 JSON 資料
-    fetch('../flowerData.json')
+    // 3. 抓取 JSP 即時資料庫資料
+    fetch('../get_products.jsp')
         .then(response => response.json())
         .then(data => {
-            // 篩選出該系列的所有產品
-            const seriesFlowers = data.filter(flower => flower.series === targetSeriesName);
+            // 在篩選與裁剪前，先依據資料庫原始順序動態計算每筆商品的 relativeIndex，確保圖片路徑精準無誤
+            let freshCount = 0;
+            let driedCount = 0;
+            data.forEach(flower => {
+                if (flower.Category === 'fresh') {
+                    freshCount++;
+                    flower.relativeIndex = freshCount;
+                } else {
+                    driedCount++;
+                    flower.relativeIndex = driedCount;
+                }
+            });
 
-            // 執行渲染 (假設每個系列取前 8 朵)
+            // 篩選出該系列的所有產品 (注意對齊資料庫新欄位 Series)
+            const seriesFlowers = data.filter(flower => flower.Series === targetSeriesName);
+
+            // 執行渲染 (每個系列取前 8 朵)
             renderSeriesProducts(seriesFlowers.slice(0, 8));
         })
         .catch(err => console.error("資料載入失敗:", err));
 });
 
 /**
- * 將篩選後的資料渲染至 HTML
+ * 將篩選後的資料渲染至 HTML (已對齊 SQL 資料庫欄位)
  * @param {Array} flowers 
  */
 function renderSeriesProducts(flowers) {
@@ -43,7 +56,7 @@ function renderSeriesProducts(flowers) {
     if (!productGrid) return;
 
     if (flowers.length === 0) {
-        productGrid.innerHTML = `<p>目前該系列尚無商品</p>`;
+        productGrid.innerHTML = `<p style="text-align:center; padding:50px; color:#999; width:100%;">目前該系列尚無商品 ✿</p>`;
         return;
     }
 
@@ -51,31 +64,34 @@ function renderSeriesProducts(flowers) {
     const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
 
     productGrid.innerHTML = flowers.map(flower => {
-        // 在這裡判斷該商品是否已被收藏
-        const isFavorited = wishlist.includes(flower.id);
+        // 判斷該商品是否已被收藏 (將 ProductID 轉為字串進行比對防錯)
+        const isFavorited = wishlist.includes(flower.ProductID.toString()) || wishlist.includes(flower.ProductID);
         const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
         const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
+
+        // 組裝出精確的縮圖路徑 (使用動態相對目錄編號)
+        const fullImagePath = `../image/flower/${flower.Category}/${flower.relativeIndex}-1.jpg`;
 
         return `
             <div class="item">
                 <div class="img-box">
-                    <a href="../product/index.html?id=${flower.id}">
-                        <img src="../image/flower/${flower.image_path}-1.jpg" alt="${flower.name}" onerror="this.src=''">
+                    <a href="../product/index.html?id=${flower.ProductID}">
+                        <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.src='../image/default.jpg'">
                     </a>
                 </div>
                 <div class="item-info">
                     <div class="info-top">
-                        <span class="tag">${flower.name}<br>[${flower.series}]</span>
+                        <span class="tag">${flower.ProductName}<br>[${flower.Series} 系列]</span>
                         <div class="item-actions">
-                            <button class="action-btn-circle heart-btn" data-id="${flower.id}">
+                            <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
                                 <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
                             </button>
-                            <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.name}', ${flower.price})">
+                            <button class="add-btn-circle" onclick="handleAddToCart(event, '${flower.ProductName}', ${flower.Price})">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <span class="price">NT$ ${flower.price.toLocaleString()}</span>
+                    <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
                 </div>
             </div>
         `;
