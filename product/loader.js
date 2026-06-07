@@ -1,62 +1,74 @@
 /**
- * 產品頁面自動載入器 - 修正版
-*/
+ * loader.js
+ * 功能：產品頁面自動載入器 - SQL 資料庫對接版
+ * 說明：串接 get_product_detail.jsp 載入商品，並對接 SQL 購物車與願望清單
+ */
 
 async function loadProductDetail() {
     const urlParams = new URLSearchParams(window.location.search);
-    const flowerId = urlParams.get('id');
+    const productId = urlParams.get('id'); // 獲取 URL 的 ProductID
 
-    if (!flowerId) {
+    if (!productId) {
         console.error("未找到產品 ID");
         return;
     }
 
     try {
-        const response = await fetch('../flowerData.json');
-        const flowerData = await response.json();
-        const flower = flowerData.find(f => f.id === flowerId);
+        // 從 get_product_detail.jsp 撈取特定商品資料
+        const response = await fetch(`get_product_detail.jsp?id=${productId}`);
+        const flower = await response.json();
 
-        if (flower) {
-            document.title = `${flower.name} | 花予祝願所`;
+        if (flower && flower.ProductID) {
+            document.title = `${flower.ProductName} | 花予祝願所`;
             updateTextContent(flower);
             initImageCarousel(flower);
-            syncHeartStatus(flowerId);
 
-            // 加入購物車按鈕
+            // 【愛心同步優化】為詳情頁的愛心按鈕設定 data-id，並同步資料庫收藏狀態
+            const heartBtn = document.querySelector('.heart-btn');
+            if (heartBtn) {
+                heartBtn.setAttribute('data-id', flower.ProductID);
+            }
+            if (typeof syncHeartStatus === "function") {
+                syncHeartStatus(flower.ProductID);
+            }
+
+            // 綁定「加入購物車」按鈕事件
             const addCartBtn = document.querySelector('.add-cart-btn');
             if (addCartBtn) {
                 addCartBtn.onclick = function () {
-                    // 1. 獲取數量輸入框的值
                     const quantityInput = document.querySelector('.quantity-row .input');
                     const count = parseInt(quantityInput.value) || 1; // 確保至少為 1
 
-                    if (count > flower.inventory) {
-                        alert("你把花買光了，最多" + flower.inventory + "，不要就拉倒。");
+                    if (count > flower.Quantity) {
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
                     } else if (typeof addToCart === "function") {
-                        for (let i = 0; i < count; i++) {
-                            addToCart(flower.name, flower.price);
-                        }
+                        // 【SQL驅動優化】直接呼叫一次 addToCart 並帶入 ProductID 與 選擇數量，不需再跑迴圈
+                        addToCart(flower.ProductID, count);
+                    } else {
+                        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
                     }
-
                 };
             }
 
-            // 立即購買按鈕
+            // 綁定「立即購買」按鈕事件
             const buyNowBtn = document.querySelector('.buy-btn');
             if (buyNowBtn) {
                 buyNowBtn.onclick = function () {
                     const quantityInput = document.querySelector('.quantity-row .input');
                     const count = parseInt(quantityInput.value) || 1;
 
-                    if (count > flower.inventory) {
-                        alert("你把花買光了，最多" + flower.inventory + "，不要就拉倒。");
+                    if (count > flower.Quantity) {
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
                     } else if (typeof addToCart === "function") {
-                        for (let i = 0; i < count; i++) {
-                            addToCart(flower.name, flower.price);
-                        }
-                        window.location.href = '../payment/index.html';
+                        // 1. 同樣改為直接帶入 ID 與數量傳給資料庫
+                        addToCart(flower.ProductID, count);
+                        // 2. 稍作延遲待購物車更新完畢後跳轉到結帳頁面
+                        setTimeout(() => {
+                            window.location.href = '../payment/index.jsp';
+                        }, 300);
+                    } else {
+                        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
                     }
-
                 };
             }
         } else {
@@ -67,38 +79,27 @@ async function loadProductDetail() {
     }
 }
 
-// 初始化商品圖片
+// 初始化商品圖片 (利用計算出的 relativeIndex 與 Category 定位正確圖片)
 function initImageCarousel(flower) {
-    const mainBox = document.querySelector('.main-img-box');
-    const thumbList = document.querySelector('.thumbnail-list');
-    if (!mainBox || !thumbList) return;
+    const imgBox = document.querySelector('.main-img-box');
+    if (!imgBox) return;
 
-    // 清空現有內容
-    mainBox.innerHTML = '';
-    thumbList.innerHTML = '';
+    const images = imgBox.querySelectorAll('img');
+    const dots = imgBox.querySelectorAll('.img-dots span');
 
-    // 假設每種商品有 2 張圖片
-    for (let i = 1; i <= 2; i++) {
-        const imgSrc = `../image/flower/${flower.image_path}-${i}.jpg`;
-        
-        // 建立大圖 (img 標籤)
-        const bigImg = document.createElement('img');
-        bigImg.src = imgSrc;
-        bigImg.classList.add('product-main-image');
-        bigImg.style.display = (i === 1) ? 'block' : 'none'; // 預設顯示第一張
-        mainBox.appendChild(bigImg);
+    images.forEach((img, index) => {
+        if (img) {
+            // 修正圖片路徑邏輯，確保能抓到對應編號的圖片
+            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
+            img.alt = `${flower.name}-${index + 1}`;
+            img.style.display = (index === 0) ? 'block' : 'none';
+        }
+    });
 
-        // 建立縮圖 (img 標籤)
-        const thumb = document.createElement('img');
-        thumb.src = imgSrc;
-        thumb.classList.add('thumb');
-        if (i === 1) thumb.classList.add('active');
-        
-        // 點擊縮圖切換功能
-        thumb.onclick = () => {
-            // 切換大圖顯示
-            mainBox.querySelectorAll('.product-main-image').forEach((img, idx) => {
-                img.style.display = (idx === i - 1) ? 'block' : 'none';
+    dots.forEach((dot, index) => {
+        dot.onclick = () => {
+            images.forEach((img, i) => {
+                if (img) img.style.display = (i === index) ? 'block' : 'none';
             });
             // 切換縮圖樣式
             thumbList.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
@@ -108,47 +109,45 @@ function initImageCarousel(flower) {
     }
 }
 
-// 更新商品內容
+// 更新商品文字內容
 function updateTextContent(flower) {
     let container = document.querySelector('.product-info .info-group');
     if (container) {
-        container.querySelector('.name').textContent = flower.name;
-        container.querySelector('.series').textContent = "【" + flower.series + "系列】";
-        container.querySelector('.price').textContent = "NT$ " + flower.price.toLocaleString();
+        container.querySelector('.name').textContent = flower.ProductName;
+        container.querySelector('.series').textContent = "【" + flower.Series + "系列】";
+        container.querySelector('.price').textContent = "NT$ " + flower.Price.toLocaleString();
         const descEl = container.querySelector('.desc');
         if (descEl) {
             descEl.style.whiteSpace = "pre-line";
-            descEl.textContent = "🕊️花語：" + flower.language + "\n🕊️商品理念：" + flower.idea;
+            descEl.textContent = "🕊️花語：" + flower.Language + "\n\n🕊️商品理念：" + flower.Idea;
         }
     }
 
     const invenEl = document.querySelector('.inventory');
-    if (invenEl) invenEl.textContent = "僅剩 " + flower.inventory + " 束";
+    if (invenEl) invenEl.textContent = "僅剩 " + flower.Quantity + " 束";
 
     // 細節與配送須知
     const leftBox = document.querySelector('.left-box');
     const rightBox = document.querySelector('.right-box');
 
-    let appreciationPeriod = flower.is_fresh ? "鮮花保存約 5～7 天" : "良好保存 1 年以上";
-    let methods = flower.is_fresh ? [
-        "<strong>訂購須知：</strong><br>鮮花受環境影響大，不建議長途配送。",
-        "<strong>避光避熱：</strong><br>應放置於通風涼爽處。",
-        "<strong>環境控制：</strong><br>避免大力碰撞與潮濕環境。",
-        "<strong>水分照護：</strong><br>澆水時需避開花瓣以避免水傷。若花瓣有乾枯泛黃或水傷，可輕輕將該瓣剝除。"
-    ] : [
-        "<strong>訂購須知：</strong><br>適合遠距離寄送。",
-        "<strong>環境控制：</strong><br>務必避免潮濕，防止大力碰撞。"
-    ];
+    let appreciationPeriod = flower.AppreciationPeriod;
+
+    // 將後端解析出的陣列轉換成條列清單項目
+    let methodsHtml = "";
+    if (flower.SaveMethods && flower.SaveMethods.length > 0) {
+        methodsHtml = flower.SaveMethods.map(m => `<li>${m}</li>`).join('');
+    } else {
+        methodsHtml = "<li>暫無保存與配送建議資訊。</li>";
+    }
 
     if (leftBox) {
         leftBox.innerHTML = `
-            <div><h3>▪️尺寸規格：</h3><p>${flower.size}</p></div>
-            <div><h3>▪️使用花材：</h3><p>${flower.material}</p></div>
+            <div><h3>▪️尺寸規格：</h3><p>${flower.Size}</p></div>
+            <div><h3>▪️使用花材：</h3><p>${flower.Material}</p></div>
             <div><h3>▪️鑑賞期：</h3><p>${appreciationPeriod}</p></div>
         `;
     }
     if (rightBox) {
-        const methodsHtml = methods.map(m => `<li>${m}</li>`).join('');
         rightBox.innerHTML = `<h3>▪️配送與訂購建議：</h3><ul>${methodsHtml}</ul>`;
     }
 }

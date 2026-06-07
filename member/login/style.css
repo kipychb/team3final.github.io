@@ -1,8 +1,8 @@
 /* --- 1. 全域與背景設定 --- */
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -13,17 +13,21 @@ body {
     justify-content: center;
     align-items: center;
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-    background-size: auto; 
-    padding: 20px; 
+    background-size: auto;
+    padding: 20px;
 }
 
 /* 2. 登入容器優化  */
+.login-errmsg {
+    color: #d87f7f;
+}
+
 .login-container {
     background-color: rgba(112, 88, 68, 0.9);
     padding: 35px 30px;
     border-radius: 15px;
-    width: 90%;          
-    max-width: 380px;   
+    width: 90%;
+    max-width: 380px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: #eeebe2;
@@ -51,7 +55,7 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 10px 12px; 
+    padding: 10px 12px;
     border: none;
     border-radius: 5px;
     background: #eeebe2;
@@ -71,16 +75,17 @@ body {
     cursor: pointer;
     transition: 0.3s;
     margin-top: 5px;
+
     &:hover {
         background-color: #a3866a;
-        transform: translateY(-2px); 
+        transform: translateY(-2px);
     }
 }
 
 /*  4. 底部連結 */
 .extra-links {
     margin-top: 20px;
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,19 +96,39 @@ body {
     text-decoration: none;
     opacity: 0.8;
     transition: 0.3s;
-    width: 70px; 
+    width: 70px;
 }
 
-.extra-links a:first-child { text-align: right; }
-.extra-links a:last-child { text-align: left; }
-.extra-links a:hover { opacity: 1; text-decoration: underline; }
-.extra-links span { color: #eeebe2; opacity: 0.5; margin: 0 5px; }
+.extra-links a:first-child {
+    text-align: right;
+}
+
+.extra-links a:last-child {
+    text-align: left;
+}
+
+.extra-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.extra-links span {
+    color: #eeebe2;
+    opacity: 0.5;
+    margin: 0 5px;
+}
 
 /* 返回連結 */
 .back-home {
-    position: absolute; top: 25px; left: 25px;
-    color: #877566; text-decoration: none; font-size: 20px; z-index: 1000;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    color: #877566;
+    text-decoration: none;
+    font-size: 20px;
+    z-index: 1000;
     transition: 0.3s ease;
+
     &:hover {
         color: #9d8768;
         left: 27.5px;

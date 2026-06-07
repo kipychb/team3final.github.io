@@ -1,5 +1,16 @@
-<!DOCTYPE html>
+<%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*"%>
+<%@include file="../utils/config.jsp" %>
 <html lang="zh-TW">
+
+<%
+    int MemberID = (int) session.getAttribute("mid");
+
+    String sql = "SELECT * FROM `member` WHERE MemberID = ?";
+    PreparedStatement pstmt = con.prepareStatement(sql);
+    pstmt.setInt(1, MemberID);
+    ResultSet rs = pstmt.executeQuery();
+    rs.next();
+%>
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +31,7 @@
         </div>
         <div class="nav-logo">會員中心</div>
         <div class="nav-right">
-            <a href="../wishlist/index.html" class="nav-icon">
+            <a href="../wishlist/index.jsp" class="nav-icon">
                 <i class="fa-solid fa-heart "></i>
             </a>
             <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
@@ -41,12 +52,12 @@
                 </div>
                 <span class="flower-label">訂單與紀錄</span>
             </div>
-            <div class="flower-item" onclick="switchSection('wishlist', this)">
+            <%-- <div class="flower-item" onclick="switchSection('wishlist', this)">
                 <div class="flower-icon-box">
                     <img src="image/3.png" alt="願望清單" class="flower-img">
                 </div>
                 <span class="flower-label">願望清單</span>
-            </div>
+            </div> --%>
             <div class="flower-item" onclick="switchSection('flower-search', this)">
                 <div class="flower-icon-box">
                     <img src="image/4.png" alt="花語查詢" class="flower-img">
@@ -62,13 +73,13 @@
                 <div class="info-list">
                     <div class="info-row">
                         <span class="info-label">會員等級</span>
-                        <span class="status-tag highlight">盛放會員</span>
+                        <span class="status-tag highlight"><%=rs.getString("Rank")%></span>
                     </div>
 
                     <div class="info-row">
                         <span class="info-label">真實姓名</span>
                         <div class="value-group">
-                            <span class="info-value" id="display-name">花小姐</span>
+                            <span class="info-value" id="display-name"><%=rs.getString("MemberName")%></span>
                             <input type="text" id="edit-name" class="edit-input" style="display:none;">
                         </div>
                     </div>
@@ -76,15 +87,15 @@
                     <div class="info-row">
                         <span class="info-label">出生日期</span>
                         <div class="value-group">
-                            <span class="info-value" id="display-birth">05 / 20</span>
-                            <input type="text" id="edit-birth" class="edit-input" style="display:none;">
+                            <span class="info-value" id="display-birth"><%=rs.getDate("BirthDay")%></span>
+                            <input type="date" id="edit-birth" class="edit-input" style="display:none;">
                         </div>
                     </div>
 
                     <div class="info-row">
                         <span class="info-label">聯絡信箱</span>
                         <div class="value-group">
-                            <span class="info-value" id="display-email">flower@example.com</span>
+                            <span class="info-value" id="display-email"><%=rs.getString("Email")%></span>
                             <input type="email" id="edit-email" class="edit-input" style="display:none;">
                         </div>
                     </div>
@@ -92,7 +103,7 @@
                     <div class="info-row">
                         <span class="info-label">手機號碼</span>
                         <div class="value-group">
-                            <span class="info-value" id="display-phone">0912-345-678</span>
+                            <span class="info-value" id="display-phone"><%=rs.getString("Phone")%></span>
                             <input type="tel" id="edit-phone" class="edit-input" style="display:none;">
                         </div>
                     </div>
@@ -106,33 +117,6 @@
             <div id="orders" class="section-block">
                 <h3 class="block-title">訂單與紀錄</h3>
                 <div class="list-container">
-                    <div class="order-card">
-                        <div class="order-header">
-                            <span class="order-id">#ORD-20251228</span>
-                            <span class="status-tag highlight">配送中</span>
-                        </div>
-                        <div class="order-body">
-                            <p class="order-item-link">
-                                品項：<a href="../product/index.html?id=love_in_bloom" class="item-name">摯愛Love in Bloom
-                                    [For Lover]</a> x 1
-                            </p>
-                            <p>金額：NT$ 2000</p>
-                        </div>
-                    </div>
-
-                    <div class="order-card">
-                        <div class="order-header">
-                            <span class="order-id">#ORD-20251105</span>
-                            <span class="status-tag">已完成</span>
-                        </div>
-                        <div class="order-body">
-                            <p class="order-item-link">
-                                品項：<a href="../product/index.html?id=slow_time" class="item-name">慢時Slow Time [For
-                                    Elders]</a> x 1
-                            </p>
-                            <p>金額：NT$ 1,800</p>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div id="wishlist" class="section-block">
@@ -162,7 +146,7 @@
     <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
-            <li><a href="../index.html">Home / 首頁</a></li>
+            <li><a href="../index.jsp">Home / 首頁</a></li>
             <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
             <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
             <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>

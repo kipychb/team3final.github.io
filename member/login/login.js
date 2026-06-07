@@ -29,6 +29,6 @@ function handleMemberClick() {
         window.location.href = "member/index.html";
     } else {
         // 未登入：去登入頁面
-        window.location.href = "member/login/index.html";
+        window.location.href = "member/login/index.jsp";
     }
 }

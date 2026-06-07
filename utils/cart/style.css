@@ -2,8 +2,9 @@
 .cart-sidebar {
     position: fixed;
     top: 0;
-    right: -350px;
-    width: 320px;
+    /* 1. 將寬度變寬，並對應調整隱藏時的 right 距離 */
+    right: -430px; 
+    width: 380px;  /* 寬度從 320px 放大到 380px，留出更多水平空間 */
     height: 100%;
     background: #eeebe2;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
@@ -30,6 +31,70 @@
     .items {
         flex: 1;
         overflow-y: auto;
+    }
+
+    /* 2. 購物車單一商品項目 (取代原本的行內 style) */
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        font-family: 'Noto Serif TC', serif;
+        gap: 15px; /* 左右區塊保持安全間距 */
+    }
+
+    /* 左側：商品名稱與數量包裹區 */
+    .item-info {
+        flex: 1;       /* 自動分配並佔滿剩餘空間 */
+        min-width: 0;  /* 關鍵：這可以讓內部的 text-overflow 省效，避免撐開版面 */
+        text-align: left;
+    }
+
+    /* 限制商品名稱的最大寬度，過長時自動變 ... */
+    .item-name {
+        font-weight: bold;
+        color: #705844;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* 名稱過長時自動顯示 ... */
+    }
+
+    /* 商品單價與數量 */
+    .item-meta {
+        font-size: 0.85rem;
+        color: #888;
+        margin-top: 4px;
+    }
+
+    /* 右側：價格與刪除按鈕包裹區 */
+    .item-price-action {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        white-space: nowrap; /* 關鍵：確保價格與垃圾桶絕對不會被擠壓換行 */
+        flex-shrink: 0;      /* 防止這個區塊被壓縮 */
+    }
+
+    /* 小計價格 */
+    .item-price {
+        font-weight: bold;
+        color: #705844;
+        font-size: 0.95rem;
+    }
+
+    /* 3. 垃圾桶圖標：改成深棕色與互動效果 */
+    .delete-icon {
+        color: #705844; /* 改為深棕色 */
+        cursor: pointer;
+        transition: color 0.2s, transform 0.2s;
+        padding: 4px; /* 增加好點擊的範圍 */
+
+        &:hover {
+            color: #b22222; /* 滑鼠懸停時變成優雅的暗紅色，提示刪除 */
+            transform: scale(1.15); /* 懸停時稍微放大，增加回饋感 */
+        }
     }
 
     .footer {
