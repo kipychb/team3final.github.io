@@ -39,7 +39,7 @@
                         <a href="product/index.html?id=love_in_bloom">
                             <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                         </a>
-                        <a href="product/index.html?id=semi_ripe_romance">
+                        <a href="member/benefits.jsp?id=semi_ripe_romance">
                             <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                         </a>
                         <a href="product/index.html?id=soft_blush">

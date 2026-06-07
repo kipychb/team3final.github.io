@@ -32,9 +32,19 @@
         <div class="nav-logo">會員中心</div>
         <div class="nav-right">
             <a href="../wishlist/index.jsp" class="nav-icon">
-                <i class="fa-solid fa-heart "></i>
+                <i class="fa-solid fa-heart"></i>
             </a>
             <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
+            
+            <% 
+                String userRank = (String) session.getAttribute("Rank");
+                if ("管理員".equals(userRank) || "Admin".equals(userRank)) { 
+            %>
+                <a href="../admin/index.jsp" 
+                style="margin-left: 15px; padding: 8px 18px; background:#d4380d; color:white; text-decoration:none; border-radius:6px; font-weight:bold;">
+                    ⚙️ 管理後台
+                </a>
+            <% } %>
         </div>
     </header>
 
