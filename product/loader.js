@@ -69,30 +69,43 @@ async function loadProductDetail() {
 
 // 初始化商品圖片
 function initImageCarousel(flower) {
-    const imgBox = document.querySelector('.main-img-box');
-    if (!imgBox) return;
+    const mainBox = document.querySelector('.main-img-box');
+    const thumbList = document.querySelector('.thumbnail-list');
+    if (!mainBox || !thumbList) return;
 
-    const images = imgBox.querySelectorAll('img');
-    const dots = imgBox.querySelectorAll('.img-dots span');
+    // 清空現有內容
+    mainBox.innerHTML = '';
+    thumbList.innerHTML = '';
 
-    images.forEach((img, index) => {
-        if (img) {
-            // 修正圖片路徑邏輯，確保能抓到對應編號的圖片
-            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
-            img.alt = `${flower.name}-${index + 1}`;
-            img.style.display = (index === 0) ? 'block' : 'none';
-        }
-    });
+    // 假設每種商品有 2 張圖片
+    for (let i = 1; i <= 2; i++) {
+        const imgSrc = `../image/flower/${flower.image_path}-${i}.jpg`;
+        
+        // 建立大圖 (img 標籤)
+        const bigImg = document.createElement('img');
+        bigImg.src = imgSrc;
+        bigImg.classList.add('product-main-image');
+        bigImg.style.display = (i === 1) ? 'block' : 'none'; // 預設顯示第一張
+        mainBox.appendChild(bigImg);
 
-    dots.forEach((dot, index) => {
-        dot.onclick = () => {
-            images.forEach((img, i) => {
-                if (img) img.style.display = (i === index) ? 'block' : 'none';
+        // 建立縮圖 (img 標籤)
+        const thumb = document.createElement('img');
+        thumb.src = imgSrc;
+        thumb.classList.add('thumb');
+        if (i === 1) thumb.classList.add('active');
+        
+        // 點擊縮圖切換功能
+        thumb.onclick = () => {
+            // 切換大圖顯示
+            mainBox.querySelectorAll('.product-main-image').forEach((img, idx) => {
+                img.style.display = (idx === i - 1) ? 'block' : 'none';
             });
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
+            // 切換縮圖樣式
+            thumbList.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
         };
-    });
+        thumbList.appendChild(thumb);
+    }
 }
 
 // 更新商品內容

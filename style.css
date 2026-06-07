@@ -3,7 +3,7 @@
 body {
     background-color: #eeebe2;
     color: #3a3a3a;
-    font-family: 'Noto Serif TC', serif;
+    font-family: "Cactus Classical Serif", serif;
     line-height: 1.6;
     background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
     background-size: auto; 
@@ -21,47 +21,52 @@ body {
 .navbar {
     display: flex; 
     align-items: center;
-    padding: 15px 25px;
-    background-color:#A3A69C; 
+    justify-content: space-between; 
+    padding: 15px 40px;
+    background-color: #f7f3f0; 
+    border-bottom: 1px solid #e5e0dc;
     position: sticky; 
-    top: 0; z-index: 1000;
+    top: 0; 
+    z-index: 1000;
 }
 
-.nav-left, .nav-right {
+/* 左側 Logo 區域 */
+.nav-logo { 
+    font-family: "WindSong", cursive;
+    font-weight:580;
+    font-style: normal;
+    font-size: 1.6rem; 
+    color:#a67a41;
+    text-align: left; /* 確保 Logo 靠左 */
+    white-space: nowrap;
+    
+}
+
+.nav-logo a {
+    color: #705844;
+    text-decoration: none;
+}
+
+.nav-right-group {
     display: flex;
     align-items: center;
-    width: 120px; 
+    gap: 20px; 
 }
 
-
-.nav-logo { 
-    font-weight: bold; 
-    font-size: 1.5rem; 
-    color:#eeebe2; 
-    display: flex; 
-    flex: 1; 
-    justify-content: center;
-    align-items: center;
+.nav-icon { 
+    font-size: 1.25rem; 
+    color: #705844;
+    cursor: pointer; 
+    transition: opacity 0.3s;
 }
-
-.nav-logo a,
-.nav-logo a:visited, 
-.nav-logo a:active, 
-.nav-logo a:hover {
-    color: #eeebe2;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.nav-icon { font-size: 1.2rem; color: #eeebe2; margin: 0 10px; cursor: pointer; }
+.nav-icon:hover { opacity: 0.6; }
 
 /* Banner */
 .banner { 
     width: 55%;
     height: 100%;
     overflow: hidden;
-    margin: 10px auto;
+    margin: 30px auto;
     position: relative;
 }
 
@@ -74,7 +79,7 @@ body {
 
 .banner-container a {
     width: 100%;
-    flex-shrink: 0; /* 確保 a 標籤不會被擠壓，維持 100% 寬度 */
+    flex-shrink: 0; 
     display: block;
     text-decoration: none;
 }
@@ -114,40 +119,77 @@ body {
 
 /* 心理測驗 */
 .quiz-intro {
-    display: flex; padding: 40px 20px; gap: 40px; align-items: center;
-    max-width: 1000px; margin: 0 auto;
+    display: flex; padding: 30px 20px; gap: 40px; align-items: center;
+    max-width: 1100px; margin: 20px auto;
 }
 .quiz-card {
-    flex: 0 0 300px;aspect-ratio: 1;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 15px;
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column; /* 讓內容垂直排列 */
+    align-items: center;    /* 水平居中 */
+    gap: 20px;  
+    border-bottom: 150px;
 }
-.quiz-card img { width: 100%; height: auto; margin-bottom: 15px;border: 1px solid #705844;}
 
+.quiz-card img { 
+    display: block; /* 移除底部間隙 */
+    width: 100%; 
+    height: auto; 
+    border-radius: 3px;
+    transition: transform 0.8s ease;
+}
+
+.quiz-card:hover img {
+    transform: scale(1.02); 
+}
+
+/* 文字區塊：確保按鈕對齊文字 */
+.quiz-text { 
+    flex: 1; 
+    text-align: left; 
+    color:#705844;
+}
+
+.quiz-text h2{
+    margin-bottom: 15px;
+    color:#3a3a3a;
+}
+
+/* 按鈕樣式：更有份量感 */
 .quiz-enter {
-    margin-top: auto; 
-    color: #A3A69C; border:1px solid #A3A69C; padding: 8px 30px; border-radius: 20px;
-    cursor: pointer; font-family: 'Noto Serif TC', serif; font-weight: 700;
+    margin-top: 30px;
+    padding: 8px 15px;
+    display: flex;
+    left: 100px;
+    background: transparent;
+    border: 1px solid #705844;
+    color: #705844;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 2px;
 }
 
-.quiz-enter:hover{
-    background-color: #A3A69C;
+/* 加入一點「進入」的過渡回饋 */
+.quiz-enter:hover {
+    background:#A3A69C;
     color: #eeebe2;
-    transform: translateY(2px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px#eeebe2;
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(112, 88, 68, 0.2);
 }
 
-.quiz-text { flex: 1; color: #3a3a3a; text-align: justify; }
-
-.quiz-text h2 { color: #705844; margin-bottom: 10px; }
+.quiz-enter:active {
+    transform: translateY(0); 
+}
 
 /* --- 產品集合區塊 Collection --- */
 .collection {
-    padding: 0px 0; /* 不要排太開，每個collection都已經會用divider區分了，不用再多一個空白區域區分 */
+    padding: 0px 0; 
 
     .section-title {
         text-align: center;
-        margin: 0 0 50px 0;
+        margin: 40px 0 50px 0;
         font-size: 1.4rem;
         color: #705844;
         position: relative;
@@ -166,39 +208,30 @@ body {
     }
 
     /* Grid 設定 */
-    .grid-3x2, .grid-2x3 {
-        gap: 20px;
+    .grid-3x2{
+        gap: 50px;
         display: grid;
-        padding: 0 20px;
+        padding: 10px 20px;
         margin: 0 auto;
     }
 
     .grid-3x2 {
         grid-template-columns: repeat(3, 1fr);
-        max-width: 1000px;
+        max-width: 1100px;
     }
 
-    .grid-2x3 {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px 50px;
-        max-width: 750px;
-    }
-
-    /* 單個商品項目 Item (合併最新樣式) */
     .item {
         text-align: left;
         transition: transform 0.3s ease;
-
         &:hover {
             transform: translateY(-5px);
         }
-
         .img-box {
-            width: 100%;
+            width: 90%;
             aspect-ratio: 1;
             border: 1px solid #A3A69C;
             overflow: hidden;
-
+            
             img {
                 width: 100%;
                 height: 100%;
@@ -306,7 +339,7 @@ body {
     display: flex;         
     align-items: center;    
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .about-us { 
@@ -326,8 +359,9 @@ body {
 }
 
 .about-link { 
-    font-size: 1.4rem; 
+    font-size: 0.5rem; 
     text-decoration: underline; 
+    font-family:"Cactus Classical Serif", serif;
     color: #705844; 
     display: block; 
     margin-bottom: 10px; 
@@ -458,8 +492,8 @@ input, textarea { padding: 10px; border: none; background: #eeebe2; font-family:
         margin: 0 auto !important; 
         padding: 10px 0 !important;
     }
-    /* --- 5. 商品網格改為 2 欄 --- */
-    .grid-3x2, .grid-2x3 {
+    
+    .grid-3x2 {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
     }

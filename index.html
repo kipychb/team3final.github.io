@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>花予祝願所</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -16,19 +21,15 @@
 
     <!-- 導覽列 -->
     <header class="navbar">
-        <div class="nav-left">
-            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
-            <i class="fa-solid fa-magnifying-glass nav-icon" id="search-trigger"></i>
-        </div>
         <div class="nav-logo">
-            <a href="about_us/index.html">花予祝願所</a>
+            <a href="about_us/index.html">Blooming Wish</a>
         </div>
-        <div class="nav-right">
-            <a href="wishlist/index.html">
-                <i class="fa-solid fa-heart nav-icon"></i>
-            </a>
+
+        <div class="nav-right-group">
+            <i class="fa-solid fa-magnifying-glass nav-icon" id="search-trigger"></i>
             <i class="fa-solid fa-user nav-icon" id="member-icon" onclick="handleMemberClick()"></i>
             <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
         </div>
     </header>
 
@@ -58,17 +59,20 @@
         <section class="quiz-intro">
             <div class="quiz-card">
                 <img src="quiz/image/background.jpg" alt="測驗封面">
-                <button class="quiz-enter" onclick="location.href='quiz/index.html'">enter</button>
             </div>
+
             <div class="quiz-text">
-                <h2>尋找命定花語</h2>
-                <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花 ✿</p>
-                <p>這不僅是一場測驗，更是一份給心靈的祝願！</p>
+                <h2>尋找您的命定花</h2>
+                <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花。<br>這不僅是一場測驗，更是一份給心靈的祝願！</p>
+
+                <button class="quiz-enter" onclick="location.href='quiz/index.html'">
+                    開始探索您的命定花
+                </button>
             </div>
         </section>
 
         <section class="collection">
-            <h3 class="section-title">鮮花推薦</h3>
+            <h3 class="section-title">鮮花推薦 Fresh flowers Recommended</h3>
             <div class="grid-3x2 fresh-flower">
                 <!-- JS 會自動填充內容 -->
             </div>
@@ -83,8 +87,8 @@
         </section>
 
         <section class="collection">
-            <h3 class="section-title">乾燥花推薦</h3>
-            <div class="grid-2x3 dried-flower">
+            <h3 class="section-title">乾燥花推薦 Dried flowers Recommended </h3>
+            <div class="grid-3x2 dried-flower">
                 <!-- JS 會自動填充內容 -->
             </div>
             <nav class="pagination-section">
@@ -98,7 +102,8 @@
         </section>
 
         <section class="collection">
-            <h3 class="section-title">認識花予</h3>
+            <h3 class="section-title">認識我們 About us
+            </h3>
             <div class="info-content">心意有歸處，祝願有花期 ⋆˚✿˖°</div>
         </section>
 
@@ -125,7 +130,7 @@
 
             <div class="form-wrapper">
                 <div class="contact-form">
-                    <h4 class="form-title">聯絡我們</h4>
+                    <h4 class="form-title">聯絡我們 Contact</h4>
                     <input type="text" placeholder="姓名">
                     <input type="text" placeholder="聯絡方式">
                     <textarea placeholder="留言內容" rows="4"></textarea>
@@ -142,7 +147,11 @@
 
     <!-- 主菜單 -->
     <div class="side-panel" id="side-menu">
-        <h2>分類選單</h2>
+        <div class="header">
+            <h2>分類選單</h2>
+            <i class="fa-solid fa-xmark" id="close-menu-btn"></i>
+        </div>
+
         <ul class="list">
             <li><a href="index.html">Home / 首頁</a></li>
             <li><a href="series/index.html?series=lover">For Lover 系列</a></li>

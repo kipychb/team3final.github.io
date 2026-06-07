@@ -1,21 +1,24 @@
-/**
- * 側邊選單控制 (Menu Panel)
- */
-
 const menuTrigger = document.getElementById('menu-trigger');
 const sideMenu = document.getElementById('side-menu');
+const closeMenuBtn = document.getElementById('close-menu-btn'); // 新增
 const overlay = document.getElementById('menu-overlay');
 const sideSearch = document.getElementById('side-search');
 
+// 開啟選單
 if (menuTrigger && sideMenu && overlay) {
     menuTrigger.addEventListener('click', (e) => {
         e.stopPropagation();
-
-        // 關閉搜尋面板
         if (sideSearch) sideSearch.classList.remove('active');
+        sideMenu.classList.add('active'); // 改用 add 確保狀態一致
+        overlay.classList.add('active');
+    });
+}
 
-        sideMenu.classList.toggle('active');
-        overlay.classList.toggle('active');
+// [新增] 關閉選單按鈕功能
+if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+        overlay.classList.remove('active');
     });
 }
 

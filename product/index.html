@@ -14,18 +14,13 @@
 
 <body>
     <header class="navbar">
-        <div class="nav-left">
-            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
-            <div style="position: relative; display: inline-block;">
-                <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
-                <span class="copy-tooltip" id="copy-toast">複製成功！</span>
-            </div>
-        </div>
+        <div class="nav-left"></div>
         <div class="nav-right">
             <a href="../wishlist/index.html">
                 <i class="fa-solid fa-heart nav-icon"></i>
             </a>
             <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
         </div>
     </header>
 
@@ -33,12 +28,8 @@
         <section class="product-main-flex">
             <section class="product-visual">
                 <div class="main-img-box border-box">
-                    <img class="product-main-image">
-                    <img class="product-main-image">
-                    <div class="img-dots">
-                        <span class="active"></span>
-                        <span></span>
-                    </div>
+                </div>
+                <div class="thumbnail-list">
                 </div>
             </section>
 
@@ -57,10 +48,19 @@
                             <input class="input" type="number" value="1" min="1">
                             <button class="btn" onclick="modifyQuantity(event, 1)">+</button>
                         </div>
-                        <div class="inventory">僅剩 30 束</div>
-                        <button class="heart-btn">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
+                        <div class="inventory">僅剩 5 束</div>
+                        <div class="row">
+                            <button class="heart-btn">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                            <button class="share-btn-inline" onclick="shareProduct()">
+                                <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
+                            </button>
+                            <div style="position: relative; display: inline-block;">
+                                <span class="copy-tooltip" id="copy-toast">複製成功！</span>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="btn-group">
                         <button class="add-cart-btn">加入購物車</button>
@@ -180,7 +180,6 @@
         </section>
     </main>
 
-    <!-- 側邊選單 -->
     <div class="side-panel" id="side-menu">
         <h2>分類選單</h2>
         <ul class="list">
@@ -193,7 +192,6 @@
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
 
-    <!-- 購物清單 -->
     <div id="cartSidebar" class="cart-sidebar">
         <div class="header">
             <h3>購物清單</h3>
@@ -207,7 +205,6 @@
     </div>
     <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-    <!-- Java Script 存放區 -->
     <script src="../wishlist/addWish.js"></script>
     <script src="../utils/side-menu/main.js"></script>
     <script src="../utils/cart/main.js"></script>
