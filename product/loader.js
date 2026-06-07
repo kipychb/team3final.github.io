@@ -89,9 +89,9 @@ function initImageCarousel(flower) {
 
     images.forEach((img, index) => {
         if (img) {
-            // 動態產生對應圖片位置，例如：../image/flower/fresh/1-1.jpg
-            img.src = `../image/flower/${flower.Category}/${flower.relativeIndex}-${index + 1}.jpg`;
-            img.alt = `${flower.ProductName}-${index + 1}`;
+            // 修正圖片路徑邏輯，確保能抓到對應編號的圖片
+            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
+            img.alt = `${flower.name}-${index + 1}`;
             img.style.display = (index === 0) ? 'block' : 'none';
         }
     });
@@ -101,10 +101,12 @@ function initImageCarousel(flower) {
             images.forEach((img, i) => {
                 if (img) img.style.display = (i === index) ? 'block' : 'none';
             });
-            dots.forEach(d => d.classList.remove('active'));
-            dot.classList.add('active');
+            // 切換縮圖樣式
+            thumbList.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
         };
-    });
+        thumbList.appendChild(thumb);
+    }
 }
 
 // 更新商品文字內容
