@@ -15,6 +15,7 @@
         if(rs.next()){
             session.setAttribute("email", rs.getString("Email"));
             session.setAttribute("mid", rs.getInt("MemberID"));
+            session.setAttribute("Rank", rs.getString("Rank"));
             con.close();
             response.sendRedirect("../index.jsp");
         }
