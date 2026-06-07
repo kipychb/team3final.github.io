@@ -20,7 +20,7 @@
             <!-- 導覽列 -->
             <header class="navbar">
                 <div class="nav-logo">
-                    <a href="about_us/index.html">Blooming Wish</a>
+                    <a href="about_us/index.jsp">Blooming Wish</a>
                 </div>
 
                 <div class="nav-right-group">
@@ -117,7 +117,7 @@
                     <div class="contact-top">
                         <div class="about-us">
                             <img src="image/logo.png" alt="logo" class="about-logo">
-                            <a href="about_us/index.html" class="about-link">關於我們</a>
+                            <a href="about_us/index.jsp" class="about-link">關於我們</a>
                         </div>
                         <div class="map-box">
                             <iframe
