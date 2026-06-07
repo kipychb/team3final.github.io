@@ -42,7 +42,7 @@
                     <a href="product/index.html?id=1">
                         <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                     </a>
-                    <a href="product/index.html?id=2">
+                    <a href="member/benefits.jsp?id=2">
                         <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                     </a>
                     <a href="product/index.html?id=3">
@@ -118,6 +118,7 @@
                     <div class="about-us">
                         <img src="image/logo.png" alt="logo" class="about-logo">
                         <a href="about_us/index.html" class="about-link">關於我們</a>
+                        <a href="member/benefits.jsp" class="about-link">會員優惠</a>
                     </div>
                     <div class="map-box">
                         <iframe
@@ -190,6 +191,45 @@
     <script src="banner.js"></script>
     <script src="collection.js"></script>
     <script src="search.js"></script>
+
+   <!-- Cookie 同意橫幅 -->
+<div id="cookie-banner" style="position:fixed; bottom:0; left:0; width:100%; background:linear-gradient(135deg, #333, #444); color:white; padding:18px 20px; text-align:center; display:none; z-index:9999; box-shadow:0 -4px 15px rgba(0,0,0,0.3); font-family:Arial, sans-serif;">
+    <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:15px;">
+        <span>
+            本網站使用 Cookie 來提升您的使用體驗與購物功能，繼續瀏覽即表示您同意我們的 
+            <a href="privacy.html" style="color:#ffd700; text-decoration:underline;">隱私權政策</a>。
+        </span>
+        
+        <div>
+            <button onclick="acceptCookie()" style="padding:10px 22px; margin:0 8px; background:#705844; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold;">
+                我同意
+            </button>
+            <button onclick="rejectCookie()" style="padding:10px 22px; margin:0 8px; background:#666; color:white; border:none; border-radius:6px; cursor:pointer;">
+                拒絕
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function acceptCookie() {
+    localStorage.setItem('cookieConsent', 'true');
+    document.getElementById('cookie-banner').style.display = 'none';
+}
+
+function rejectCookie() {
+    localStorage.setItem('cookieConsent', 'false');   // 記住已拒絕
+    document.getElementById('cookie-banner').style.display = 'none';
+    // 可選：這裡可以再加入不使用某些功能的提示
+}
+
+// 頁面載入時檢查
+window.onload = function() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookie-banner').style.display = 'block';
+    }
+};
+</script>
 </body>
 
 </html>
