@@ -1,218 +1,219 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*" %>
+    <!DOCTYPE html>
+    <html lang="zh-TW">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品頁 | 花予祝願所</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../utils/cart/style.css">
-    <link rel="stylesheet" href="../utils/side-menu/style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>商品頁 | 花予祝願所</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../utils/cart/style.css">
+        <link rel="stylesheet" href="../utils/side-menu/style.css">
+    </head>
 
-<body>
-    <header class="navbar">
-        <div class="nav-left"></div>
-        <div class="nav-right">
-            <a href="../wishlist/index.jsp">
-                <i class="fa-solid fa-heart nav-icon"></i>
-            </a>
-            <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
-            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
-        </div>
-    </header>
+    <body>
+        <header class="navbar">
+            <div class="nav-left"></div>
+            <div class="nav-right">
+                <a href="../wishlist/index.jsp">
+                    <i class="fa-solid fa-heart nav-icon"></i>
+                </a>
+                <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
+                <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
+            </div>
+        </header>
 
-    <main class="product-wrapper">
-        <section class="product-main-flex">
-            <section class="product-visual">
-                <div class="main-img-box border-box">
-                </div>
-                <div class="thumbnail-list">
-                </div>
-            </section>
+        <main class="product-wrapper">
+            <section class="product-main-flex">
+                <section class="product-visual">
+                    <div class="main-img-box border-box">
+                    </div>
+                    <div class="thumbnail-list">
+                    </div>
+                </section>
 
-            <section class="product-info">
-                <div class="info-group">
-                    <h1 class="name"></h1>
-                    <p class="series"></p>
-                    <p class="price"></p>
-                    <p class="desc"></p>
-                </div>
+                <section class="product-info">
+                    <div class="info-group">
+                        <h1 class="name"></h1>
+                        <p class="series"></p>
+                        <p class="price"></p>
+                        <p class="desc"></p>
+                    </div>
 
-                <div class="action-bar">
-                    <div class="quantity-row">
-                        <div class="selector border-box">
-                            <button class="btn" onclick="modifyQuantity(event, -1)">-</button>
-                            <input class="input" type="number" value="1" min="1">
-                            <button class="btn" onclick="modifyQuantity(event, 1)">+</button>
-                        </div>
-                        <div class="inventory">僅剩 5 束</div>
-                        <div class="row">
-                            <button class="heart-btn">
-                                <i class="fa-solid fa-heart"></i>
-                            </button>
-                            <button class="share-btn-inline" onclick="shareProduct()">
-                                <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
-                            </button>
-                            <div style="position: relative; display: inline-block;">
-                                <span class="copy-tooltip" id="copy-toast">複製成功！</span>
+                    <div class="action-bar">
+                        <div class="quantity-row">
+                            <div class="selector border-box">
+                                <button class="btn" onclick="modifyQuantity(event, -1)">-</button>
+                                <input class="input" type="number" value="1" min="1">
+                                <button class="btn" onclick="modifyQuantity(event, 1)">+</button>
                             </div>
+                            <div class="inventory">僅剩 5 束</div>
+                            <div class="row">
+                                <button class="heart-btn">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                                <button class="share-btn-inline" onclick="shareProduct()">
+                                    <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
+                                </button>
+                                <div style="position: relative; display: inline-block;">
+                                    <span class="copy-tooltip" id="copy-toast">複製成功！</span>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="btn-group">
-                        <button class="add-cart-btn">加入購物車</button>
-                        <button class="buy-btn">立即購買</button>
-                    </div>
+                        <div class="btn-group">
+                            <button class="add-cart-btn">加入購物車</button>
+                            <button class="buy-btn">立即購買</button>
+                        </div>
+                </section>
             </section>
-        </section>
 
-        <section class="bottom-details">
-            <div class="text-block notice">
-                <h3 class="line-title">商品細項</h3>
+            <section class="bottom-details">
+                <div class="text-block notice">
+                    <h3 class="line-title">商品細項</h3>
 
-                <ul class="tab-menu">
-                    <li class="tab-btn active" onclick="openTab(event, 'info')">商品資料</li>
-                    <li class="tab-btn" onclick="openTab(event, 'order')">訂購說明</li>
-                    <li class="tab-btn" onclick="openTab(event, 'shipping')">配送說明</li>
-                </ul>
+                    <ul class="tab-menu">
+                        <li class="tab-btn active" onclick="openTab(event, 'info')">商品資料</li>
+                        <li class="tab-btn" onclick="openTab(event, 'order')">訂購說明</li>
+                        <li class="tab-btn" onclick="openTab(event, 'shipping')">配送說明</li>
+                    </ul>
 
-                <div id="info" class="tab-content active">
-                    <div class="content-flex">
-                        <div class="left-box">
-                            <p id="tab-description">正在載入商品描述內容...</p>
+                    <div id="info" class="tab-content active">
+                        <div class="content-flex">
+                            <div class="left-box">
+                                <p id="tab-description">正在載入商品描述內容...</p>
+                            </div>
+                            <div class="right-box">
+                                <ul id="tab-specs">
+                                    <li>正在載入細項...</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="right-box">
-                            <ul id="tab-specs">
-                                <li>正在載入細項...</li>
-                            </ul>
+                    </div>
+
+                    <div id="order" class="tab-content">
+                        <div class="full-box">
+                            <div class="content-text">
+                                <ul>
+                                    <li>花禮/傢飾因分庫出貨，配送時間、配合貨運與計價方式皆可能不同，訂購前請務必詳閱配送須知。</li>
+                                    <li>請於送花日期前48小時前完成訂購。緊急訂購、特殊需求請至網站首頁聯絡我們。收到款項後訂單方成立與出貨。</li>
+                                    <li>更改訂單請於營業時間內電洽本公司專人服務，送達時間24小時內不得取消訂單。送達時間48小時-24小時前取消訂單，酌收訂購金額20%處理費。</li>
+                                    <li>下單成功後，如無特別情況，花予祝願所不會與您聯繫確認訂單。</li>
+                                    <li>若對商品或服務品質有瑕疵或疑問，請保持商品原狀並拍照備存，並於商品送達後24小時內與我們連絡。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="shipping" class="tab-content">
+                        <div class="full-box">
+                            <div class="content-text">
+                                <ul>
+                                    <li>單件商品限一位收件人簽收，若相同地址、不同簽收者則視為不同訂單。</li>
+                                    <li>每筆交易僅含一次配送費用，懇請確認收件資訊完整、是否能於選擇時間內簽收商品，<br>以免造成二次運送(含修改地址) 須負擔二次運費。</li>
+                                    <li>特殊節慶將可能無法指定上午/下午時段送達，我們將另行公告並於下訂後以信件通知。</li>
+                                </ul>
+
+                                <strong>1. 專人送達</strong>
+                                可選擇配送時段為：全日9-17時、13時前、下午13-17時。<br>
+                                台北地區滿2500元免運，未滿2500則需加收部份運費 (北投區除外)<br>
+                                新北市、北投區及外縣市地區 ，任消費金額可折抵該區部分運費。(運費詳見配送須知)<br>
+                                <strong>2. 宅配送達</strong>
+                                無論地區每件宅配費用350元。<br>
+                                配合廠商為黑貓宅急便，鮮花低溫冷藏。<br>
+                                ◎ 花禮宅配限制：<br>
+                                <ul class="shipping-limit">
+                                    <li>體積 30L*30W*40H 以下</li>
+                                    <li>含瓷器/易碎物品不可宅配</li>
+                                    <li>部分花材(如繡球、萬代蘭)因較不耐低溫，請允許設計師為您更換類似花材。</li>
+                                </ul>
+
+                                <strong>3. 來店自取</strong>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="order" class="tab-content">
-                    <div class="full-box">
-                        <div class="content-text">
-                            <ul>
-                                <li>花禮/傢飾因分庫出貨，配送時間、配合貨運與計價方式皆可能不同，訂購前請務必詳閱配送須知。</li>
-                                <li>請於送花日期前48小時前完成訂購。緊急訂購、特殊需求請至網站首頁聯絡我們。收到款項後訂單方成立與出貨。</li>
-                                <li>更改訂單請於營業時間內電洽本公司專人服務，送達時間24小時內不得取消訂單。送達時間48小時-24小時前取消訂單，酌收訂購金額20%處理費。</li>
-                                <li>下單成功後，如無特別情況，花予祝願所不會與您聯繫確認訂單。</li>
-                                <li>若對商品或服務品質有瑕疵或疑問，請保持商品原狀並拍照備存，並於商品送達後24小時內與我們連絡。</li>
-                            </ul>
+                <div class="text-block comment">
+                    <h3 class="line-title">顧客評價</h3>
+                    <div class="rating-container">
+                        <div class="average-rating">
+                            <span id="rating-score">4.8</span>
+                            <div class="stars-display" id="main-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
                         </div>
+
+                        <div class="user-rate-box">
+                            <p>為這份祝願評分：</p>
+                            <div class="star-rating-input">
+                                <i class="fa-solid fa-star" data-value="5"></i>
+                                <i class="fa-solid fa-star" data-value="4"></i>
+                                <i class="fa-solid fa-star" data-value="3"></i>
+                                <i class="fa-solid fa-star" data-value="2"></i>
+                                <i class="fa-solid fa-star" data-value="1"></i>
+                            </div>
+                            <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
+                            <button class="submit-btn" onclick="submitReview()">送出評論</button>
+                        </div>
+
+                        <div class="reviews-display-section">
+                            <div class="reviews-list" id="reviews-list">
+                                <p>評價載入中...</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </section>
 
-                <div id="shipping" class="tab-content">
-                    <div class="full-box">
-                        <div class="content-text">
-                            <ul>
-                                <li>單件商品限一位收件人簽收，若相同地址、不同簽收者則視為不同訂單。</li>
-                                <li>每筆交易僅含一次配送費用，懇請確認收件資訊完整、是否能於選擇時間內簽收商品，<br>以免造成二次運送(含修改地址) 須負擔二次運費。</li>
-                                <li>特殊節慶將可能無法指定上午/下午時段送達，我們將另行公告並於下訂後以信件通知。</li>
-                            </ul>
-
-                            <strong>1. 專人送達</strong>
-                            可選擇配送時段為：全日9-17時、13時前、下午13-17時。<br>
-                            台北地區滿2500元免運，未滿2500則需加收部份運費 (北投區除外)<br>
-                            新北市、北投區及外縣市地區 ，任消費金額可折抵該區部分運費。(運費詳見配送須知)<br>
-                            <strong>2. 宅配送達</strong>
-                            無論地區每件宅配費用350元。<br>
-                            配合廠商為黑貓宅急便，鮮花低溫冷藏。<br>
-                            ◎ 花禮宅配限制：<br>
-                            <ul class="shipping-limit">
-                                <li>體積 30L*30W*40H 以下</li>
-                                <li>含瓷器/易碎物品不可宅配</li>
-                                <li>部分花材(如繡球、萬代蘭)因較不耐低溫，請允許設計師為您更換類似花材。</li>
-                            </ul>
-
-                            <strong>3. 來店自取</strong>
-                        </div>
-                    </div>
+            <section class="addon-section">
+                <h3 class="line-title">類似商品</h3>
+                <div class="addon-grid" id="addon-grid-container">
+                    <p>載入中...</p>
                 </div>
-            </div>
+            </section>
+        </main>
 
-            <div class="text-block comment">
-                <h3 class="line-title">顧客評價</h3>
-                <div class="rating-container">
-                    <div class="average-rating">
-                        <span id="rating-score">4.8</span>
-                        <div class="stars-display" id="main-stars">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                        </div>
-                    </div>
-
-                    <div class="user-rate-box">
-                        <p>為這份祝願評分：</p>
-                        <div class="star-rating-input">
-                            <i class="fa-solid fa-star" data-value="5"></i>
-                            <i class="fa-solid fa-star" data-value="4"></i>
-                            <i class="fa-solid fa-star" data-value="3"></i>
-                            <i class="fa-solid fa-star" data-value="2"></i>
-                            <i class="fa-solid fa-star" data-value="1"></i>
-                        </div>
-                        <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
-                        <button class="submit-btn" onclick="submitReview()">送出評論</button>
-                    </div>
-
-                    <div class="reviews-display-section">
-                        <div class="reviews-list" id="reviews-list">
-                            <p>評價載入中...</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="addon-section">
-            <h3 class="line-title">類似商品</h3>
-            <div class="addon-grid" id="addon-grid-container">
-                <p>載入中...</p>
-            </div>
-        </section>
-    </main>
-
-    <div class="side-panel" id="side-menu">
-        <h2>分類選單</h2>
-        <ul class="list">
-            <li><a href="../index.jsp">Home / 首頁</a></li>
-            <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
-            <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
-            <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>
-            <li><a href="../series/index.html?series=elder">For Elders 系列</a></li>
-        </ul>
-    </div>
-    <div id="menu-overlay" class="menu-overlay"></div>
-
-    <div id="cartSidebar" class="cart-sidebar">
-        <div class="header">
-            <h3>購物清單</h3>
-            <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer;"></i>
+        <div class="side-panel" id="side-menu">
+            <h2>分類選單</h2>
+            <ul class="list">
+                <li><a href="../index.jsp">Home / 首頁</a></li>
+                <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
+                <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
+                <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>
+                <li><a href="../series/index.html?series=elder">For Elders 系列</a></li>
+            </ul>
         </div>
-        <div id="cartItems" class="items"></div>
-        <div class="footer">
-            <div class="total-row">總計: NT$&nbsp;<span id="cartTotal">0</span></div>
-            <button class="checkout-btn">前往結帳</button>
+        <div id="menu-overlay" class="menu-overlay"></div>
+
+        <div id="cartSidebar" class="cart-sidebar">
+            <div class="header">
+                <h3>購物清單</h3>
+                <i class="fa-solid fa-xmark" onclick="toggleCart()" style="cursor:pointer;"></i>
+            </div>
+            <div id="cartItems" class="items"></div>
+            <div class="footer">
+                <div class="total-row">總計: NT$&nbsp;<span id="cartTotal">0</span></div>
+                <button class="checkout-btn">前往結帳</button>
+            </div>
         </div>
-    </div>
-    <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+        <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-    <script src="../wishlist/addWish.js"></script>
-    <script src="../utils/side-menu/main.js"></script>
-    <script src="../utils/cart/main.js"></script>
-    <script src="loader.js"></script>
-    <script src="addon.js"></script>
-    <script src="review.js"></script>
-    <script src="share.js"></script>
-    <script src="miscellaneous.js"></script>
-</body>
+        <script src="../wishlist/addWish.js"></script>
+        <script src="../utils/side-menu/main.js"></script>
+        <script src="../utils/cart/main.js"></script>
+        <script src="loader.js"></script>
+        <script src="addon.js"></script>
+        <script src="review.js"></script>
+        <script src="share.js"></script>
+        <script src="miscellaneous.js"></script>
+    </body>
 
-</html>
+    </html>

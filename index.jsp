@@ -7,6 +7,11 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>花予祝願所</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap"
+                rel="stylesheet">
             <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap"
                 rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -20,7 +25,7 @@
             <!-- 導覽列 -->
             <header class="navbar">
                 <div class="nav-logo">
-                    <a href="about_us/index.jsp">Blooming Wish</a>
+                    <a href="../about_us/index.jsp">Blooming Wish</a>
                 </div>
 
                 <div class="nav-right-group">
@@ -30,6 +35,20 @@
                     <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
                 </div>
             </header>
+
+            <div class="marquee-container">
+                <div class="marquee-text">
+                    <span>⋆˚✿˖° 畢業季限定：把祝願送給那個努力過的自己！即日起至六月底，畢業花禮全館九折，留下最美的一刻 ⋆˚✿˖° 畢業快樂！ ⋆˚✿˖°°</span>
+                    <span>⋆˚✿˖° 心意有歸處，祝願有花期 ⋆˚✿˖°</span>
+                    <span>⋆˚✿˖° 畢業季限定：把祝願送給那個努力過的自己！即日起至六月底，畢業花禮全館九折，留下最美的一刻 ⋆˚✿˖° 畢業快樂！ ⋆˚✿˖°°</span>
+                    <span>⋆˚✿˖° 畢業季限定：把祝願送給那個努力過的自己！即日起至六月底，畢業花禮全館九折，留下最美的一刻 ⋆˚✿˖° 畢業快樂！ ⋆˚✿˖°°</span>
+
+
+                </div>
+            </div>
+
+            <section class="banner">
+            </section>
 
             <!-- 主要內容 -->
             <div class="main-content-blur" id="main-content">
@@ -147,9 +166,13 @@
 
             <!-- 主菜單 -->
             <div class="side-panel" id="side-menu">
-                <h2>分類選單</h2>
+                <div class="header">
+                    <h2>分類選單</h2>
+                    <i class="fa-solid fa-xmark" id="close-menu-btn"></i>
+                </div>
+
                 <ul class="list">
-                    <li><a href="index.jsp">Home / 首頁</a></li>
+                    <li><a href="index.html">Home / 首頁</a></li>
                     <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
                     <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
                     <li><a href="series/index.html?series=friend">For Friend 系列</a></li>

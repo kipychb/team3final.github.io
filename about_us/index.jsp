@@ -3,7 +3,6 @@
     <html lang="zh-TW">
 
     <head>
-        <base href="${pageContext.request.contextPath}/">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>關於我們 | 花予祝願所</title>
@@ -14,15 +13,14 @@
             rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="style.css">
-
+        <link rel="stylesheet" href="../about_us/style.css">
     </head>
 
     <body>
         <header class="navbar">
             <div class="nav-container">
                 <div class="nav-pic">
-                    <a href="../index.html"><i class="fa-solid fa-house nav-icon"></i></a>
+                    <a href="../index.jsp"><i class="fa-solid fa-house nav-icon"></i></a>
                 </div>
                 <div class="nav-logo">花予祝願所 <span class="nav-logo-e">Blooming Wish</span></div>
                 <div class="nav-placeholder"></div>
@@ -141,21 +139,6 @@
         <footer class="footer-simple">
             <p>© 2025 花予祝願所. All Rights Reserved.</p>
         </footer>
-
-        <!-- 分類選單 -->
-        <div class="side-panel" id="side-menu">
-            <h2>分類選單</h2>
-            <ul class="list">
-                <li><a href="../index.html">Home / 首頁</a></li>
-                <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
-                <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
-                <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>
-                <li><a href="../series/index.html?series=elder">For Elders 系列</a></li>
-            </ul>
-        </div>
-        <div id="menu-overlay" class="menu-overlay"></div>
-
-        <script src="../utils/side-menu/main.js"></script>
     </body>
 
     </html>
