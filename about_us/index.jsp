@@ -13,12 +13,10 @@
             rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="stylesheet" href="../about_us/style.css">
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-
-
         <header class="navbar">
             <a href="../index.jsp" class="back-home">
                 <i class="fa-solid fa-arrow-left"></i> 返回首頁

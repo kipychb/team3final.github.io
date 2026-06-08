@@ -19,10 +19,30 @@ body {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px 40px;
+    padding: 40px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/* 返回連結 */
+.back-home {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    color: #877566;
+    text-decoration: none;
+    font-size: 1.2rem;
+    z-index: 1000;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-home:hover {
+    color: #9d8768;
+    transform: translateX(-5px);
 }
 
 .nav-left {
@@ -59,7 +79,7 @@ body {
 /* --- 2. ABOUT US --- */
 .about-container {
     max-width: 1000px;
-    margin: 40px auto 40px; 
+    margin: 0px auto 40px; 
     padding: 0 20px;
 }
 
