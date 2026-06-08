@@ -62,7 +62,7 @@ function renderPage(selector, dataList, page) {
             html += `
                 <div class="item">
                     <div class="img-box">
-                        <a href="product/index.html?id=${flower.ProductID}">
+                        <a href="product/index.jsp?id=${flower.ProductID}">
                             <img src="${flower.imagePath}" alt="${flower.ProductName}" onerror="this.src=''">
                         </a>
                     </div>

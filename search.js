@@ -1,13 +1,9 @@
 /*
  * 搜尋欄控制 (Search Panel)
- * 負責處理搜尋邏輯、隨機推薦以及面板開關 (已串接 JSP 資料庫格式)
  */
 
 let flowerData = [];
 let hrefPrefix = "";
-const searchTrigger = document.getElementById('search-trigger');
-const searchInput = document.getElementById('searchInput');
-const suggestionsList = document.getElementById('search-suggestions');
 
 // 1. 導入即時資料庫商品資料
 async function initSearchData() {
@@ -20,83 +16,114 @@ async function initSearchData() {
             const response = await fetch('../get_products.jsp');
             flowerData = await response.json();
         } catch (error) {
-            console.error("搜尋資料載入失敗，請檢查 get_products.jsp 是否存在:", error);
+            console.error("搜尋資料載入失敗:", error);
         }
     }
 }
 
-// 2. 隨機推薦邏輯
+// 2. 顯示推薦與熱門搜尋
 function showRecommendations() {
+    const suggestionsList = document.getElementById('search-suggestions');
+    const searchInput = document.getElementById('searchInput');
     if (!suggestionsList) return;
-    suggestionsList.innerHTML = "<li style='font-size: 1rem; color: #705844; border: none; cursor: default;'>推薦商品：</li>";
+    
+    const hotKeywords = ["畢業花束", "永生花", "向日葵", "告白花禮"];
+    suggestionsList.innerHTML = ""; 
 
-    // 確保有資料才進行推薦
-    if (flowerData.length === 0) {
-        suggestionsList.innerHTML += "<li>載入中...</li>";
-        return;
-    }
+    const hotTitle = document.createElement('li');
+    hotTitle.textContent = "近期熱搜：";
+    hotTitle.style.cssText = "font-size: 0.9rem; color: #a3a69c; border: none; margin-top: 10px; cursor: default;";
+    suggestionsList.appendChild(hotTitle);
 
-    const shuffled = [...flowerData].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 7);
-
-    selected.forEach(flower => {
+    hotKeywords.forEach(keyword => {
         const li = document.createElement('li');
-        li.textContent = flower.ProductName;
-        // 使用新 ProductID 進行導向
-        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.ProductID;
+        li.textContent = keyword;
+        li.style.color = "#705844";
+        li.onclick = (e) => {
+            e.stopPropagation();
+            searchInput.value = keyword;
+            searchInput.dispatchEvent(new Event('input'));
+        };
         suggestionsList.appendChild(li);
     });
+
+    const recTitle = document.createElement('li');
+    recTitle.textContent = "推薦商品：";
+    recTitle.style.cssText = "font-size: 0.9rem; color: #a3a69c; border: none; margin-top: 20px; cursor: default;";
+    suggestionsList.appendChild(recTitle);
+
+    if (flowerData.length > 0) {
+        const shuffled = [...flowerData].sort(() => 0.5 - Math.random());
+        shuffled.slice(0, 5).forEach(flower => {
+            const li = document.createElement('li');
+            li.textContent = flower.ProductName;
+            li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.ProductID;
+            suggestionsList.appendChild(li);
+        });
+    }
 }
 
-// 3. 開關搜尋面板
-if (searchTrigger) {
-    searchTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        // 確保選單面板關閉
-        if (typeof sideMenu !== 'undefined' && sideMenu) sideMenu.classList.remove('active');
-
-        if (typeof sideSearch !== 'undefined' && sideSearch) sideSearch.classList.toggle('active');
-        if (typeof overlay !== 'undefined' && overlay) overlay.classList.toggle('active');
-
-        if (typeof sideSearch !== 'undefined' && sideSearch && sideSearch.classList.contains('active')) {
-            if (searchInput) {
-                searchInput.focus();
-                if (searchInput.value.trim() === "") {
-                    showRecommendations();
-                }
-            }
-        }
-    });
-}
-
-// 4. 即時搜尋監聽
-if (searchInput) {
-    searchInput.addEventListener('input', function () {
-        const query = this.value.trim().toLowerCase();
-        suggestionsList.innerHTML = "";
-
-        if (query.length > 0) {
-            // 比對商品名稱
-            const filtered = flowerData.filter(f => f.ProductName.toLowerCase().includes(query));
-            if (filtered.length > 0) {
-                filtered.forEach(f => {
-                    const li = document.createElement('li');
-                    li.textContent = f.ProductName;
-                    // 使用新 ProductID 進行導向
-                    li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.ProductID;
-                    suggestionsList.appendChild(li);
-                });
-            } else {
-                suggestionsList.innerHTML = "<li style='cursor: default;'>無匹配結果</li>";
-            }
-        } else {
-            showRecommendations();
-        }
-    });
-}
-
-// 初始化
-window.addEventListener('load', function () {
+// 初始化綁定
+document.addEventListener('DOMContentLoaded', () => {
     initSearchData();
+
+    const searchTrigger = document.getElementById('search-trigger');
+    const sideSearch = document.getElementById('side-search');
+    const searchInput = document.getElementById('searchInput');
+    const overlay = document.querySelector('.overlay');
+
+    // 1. 開關面板邏輯
+    if (searchTrigger) {
+        searchTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sideSearch.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+
+            if (sideSearch.classList.contains('active')) {
+                searchInput.focus();
+                if (searchInput.value.trim() === "") showRecommendations();
+            }
+        });
+    }
+
+    // 2. 全域點擊監聽 (點擊外部自動關閉)
+    document.addEventListener('click', (e) => {
+        if (sideSearch && sideSearch.classList.contains('active')) {
+            // 如果點擊目標不是搜尋框也不是按鈕，就關閉
+            if (!sideSearch.contains(e.target) && e.target !== searchTrigger) {
+                sideSearch.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+            }
+        }
+    });
+
+    // 3. 即時搜尋邏輯
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            const query = this.value.trim().toLowerCase();
+            const suggestionsList = document.getElementById('search-suggestions');
+            suggestionsList.innerHTML = "";
+
+            if (query.length > 0) {
+                const filtered = flowerData.filter(f => {
+                    const name = (f.ProductName || "").toLowerCase();
+                    const desc = (f.Description || "").toLowerCase();
+                    return name.includes(query) || desc.includes(query);
+                });
+
+                if (filtered.length > 0) {
+                    filtered.forEach(f => {
+                        const li = document.createElement('li');
+                        li.textContent = f.ProductName;
+                        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.ProductID;
+                        suggestionsList.appendChild(li);
+                    });
+                } else {
+                    suggestionsList.innerHTML = "<li style='cursor: default; padding:10px;'>找不到符合的商品</li>";
+                }
+            } else {
+                showRecommendations();
+            }
+        });
+    }
 });

@@ -106,7 +106,7 @@ function initImageCarousel(flower) {
             thumb.classList.add('active');
         };
         thumbList.appendChild(thumb);
-    }
+    })
 }
 
 // 更新商品文字內容

@@ -586,6 +586,17 @@ body {
     color: #3a3a3a; 
 }
 
+/* 搜尋面板建議區塊的樣式 */
+.suggestions li {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.suggestions li:hover {
+    background-color: #f8f0e8; /* 輕柔的奶茶色 hover 效果 */
+}
+
 @media (max-width: 768px) {
     /* --- 1. 導覽列*/
     .navbar {
