@@ -1,19 +1,28 @@
 /**
  * payment/submit.js
- * 功能：結帳頁面控制器 - SQL 資料庫對接版 (新增自動填寫會員資料功能)
- * 說明：即時載入會員 SQL 購物車內容，載入時自動取得並填入會員資料，支援一鍵建立訂單與完整防錯驗證
+ * 功能：結帳頁面控制器 - SQL 資料庫對接版
+ * 新增：優惠券載入、即時折扣計算、送出訂單時傳送 coupon_id
  */
 
-let checkoutCart = []; // 儲存自 get_checkout_cart.jsp 載入的項目
+let checkoutCart = [];
+let cartSubtotal = 0;
+const SHIPPING_FEE = 120;
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderCheckout();
+document.addEventListener('DOMContentLoaded', async () => {
+    await renderCheckout();
+    await loadCoupons();
     autoFillMemberInfo();
     autoFillDate();
+
+    const couponSelect = document.getElementById('coupon-select');
+    if (couponSelect) {
+        couponSelect.addEventListener('change', updateSummary);
+    }
 });
 
 function autoFillDate() {
     const dateInput = document.getElementById("order-date");
+    if (!dateInput) return;
 
     const today = new Date();
     const year = today.getFullYear();
@@ -25,9 +34,6 @@ function autoFillDate() {
     dateInput.min = formattedToday;
 }
 
-/**
- * 自動獲取並填寫會員資料 (Name & Phone)
- */
 async function autoFillMemberInfo() {
     const nameInput = document.getElementById('order-name');
     const phoneInput = document.getElementById('order-phone');
@@ -40,7 +46,6 @@ async function autoFillMemberInfo() {
         const result = await response.json();
 
         if (result.status === 'success') {
-            // 💡 若成功獲取資料，自動填入對應的欄位中
             nameInput.value = result.name || "";
             phoneInput.value = result.phone || "";
             addressInput.value = result.address || "";
@@ -52,14 +57,9 @@ async function autoFillMemberInfo() {
     }
 }
 
-/**
- * 1. 載入並渲染購物清單與總金額
- */
 async function renderCheckout() {
     const productList = document.getElementById('checkout-product-list');
-    const listSubtotal = document.getElementById('list-subtotal'); // 購物清單下方小計
-    const subtotalDisplay = document.getElementById('subtotal-val'); // 訂單資訊商品總額
-    const totalDisplay = document.getElementById('total-val');       // 最終總額
+    const listSubtotal = document.getElementById('list-subtotal');
 
     if (!productList) return;
 
@@ -69,20 +69,19 @@ async function renderCheckout() {
 
         if (checkoutCart.length === 0) {
             productList.innerHTML = '<p style="text-align:center; padding:50px; color:#999; font-family:\'Noto Serif TC\', serif;">購物車內目前沒有商品 ✿</p>';
+            cartSubtotal = 0;
             if (listSubtotal) listSubtotal.innerText = `NT$ 0`;
-            if (subtotalDisplay) subtotalDisplay.innerText = `NT$ 0`;
-            if (totalDisplay) totalDisplay.innerText = `NT$ 0`;
+            updateSummary();
             return;
         }
 
         productList.innerHTML = '';
-        let total = 0;
+        cartSubtotal = 0;
 
         checkoutCart.forEach(item => {
             const itemTotal = item.Price * item.Quantity;
-            total += itemTotal;
+            cartSubtotal += itemTotal;
 
-            // 動態組裝出與商品路徑對應的 relativeIndex 第一張縮圖
             const imagePath = `../image/flower/${item.Category}/${item.relativeIndex}-1.jpg`;
 
             productList.innerHTML += `
@@ -92,19 +91,14 @@ async function renderCheckout() {
                     </div>
                     <div class="prod-details">
                         <p class="name">${item.ProductName}</p>
-                        <p class="price">NT$ ${item.Price.toLocaleString()}</p>
+                        <p class="price">NT$ ${Number(item.Price).toLocaleString()}</p>
                     </div>
                     <span class="quantity">X${item.Quantity}</span>
                 </div>`;
         });
 
-        // 更新各個區塊的價格標籤
-        const formattedSubtotal = `NT$ ${total.toLocaleString()}`;
-        const formattedTotal = `NT$ ${(total + 120).toLocaleString()}`; // 商品總額 + 120 運費
-
-        if (listSubtotal) listSubtotal.innerText = formattedSubtotal;
-        if (subtotalDisplay) subtotalDisplay.innerText = formattedSubtotal;
-        if (totalDisplay) totalDisplay.innerText = formattedTotal;
+        if (listSubtotal) listSubtotal.innerText = `NT$ ${cartSubtotal.toLocaleString()}`;
+        updateSummary();
 
     } catch (error) {
         console.error("無法載入結帳商品清單:", error);
@@ -112,9 +106,64 @@ async function renderCheckout() {
     }
 }
 
-/**
- * 2. 提交訂單：連動資料庫交易寫入 (orders, order_detail)
- */
+async function loadCoupons() {
+    const couponSelect = document.getElementById('coupon-select');
+    const couponHint = document.getElementById('coupon-hint');
+
+    if (!couponSelect) return;
+
+    try {
+        const response = await fetch('get_coupon.jsp');
+        const coupons = await response.json();
+
+        couponSelect.innerHTML = '<option value="" data-amount="0">不使用優惠券</option>';
+
+        if (!Array.isArray(coupons) || coupons.length === 0) {
+            if (couponHint) couponHint.innerText = '目前沒有可用優惠券。';
+            updateSummary();
+            return;
+        }
+
+        coupons.forEach(coupon => {
+            couponSelect.innerHTML += `
+                <option value="${coupon.id}" data-amount="${coupon.amount}">
+                    NT$ ${Number(coupon.amount).toLocaleString()} 折價券
+                </option>`;
+        });
+
+        if (couponHint) couponHint.innerText = `目前有 ${coupons.length} 張可用優惠券。`;
+        updateSummary();
+
+    } catch (error) {
+        console.error('無法載入優惠券:', error);
+        if (couponHint) couponHint.innerText = '優惠券載入失敗，請稍後再試。';
+    }
+}
+
+function getSelectedDiscount() {
+    const couponSelect = document.getElementById('coupon-select');
+    if (!couponSelect) return 0;
+
+    const selectedOption = couponSelect.options[couponSelect.selectedIndex];
+    const amount = Number(selectedOption?.dataset?.amount || 0);
+    const maxDiscountTarget = cartSubtotal + SHIPPING_FEE;
+
+    return Math.min(amount, maxDiscountTarget);
+}
+
+function updateSummary() {
+    const subtotalDisplay = document.getElementById('subtotal-val');
+    const discountDisplay = document.getElementById('discount-val');
+    const totalDisplay = document.getElementById('total-val');
+
+    const discount = getSelectedDiscount();
+    const finalTotal = Math.max(cartSubtotal + SHIPPING_FEE - discount, 0);
+
+    if (subtotalDisplay) subtotalDisplay.innerText = `NT$ ${cartSubtotal.toLocaleString()}`;
+    if (discountDisplay) discountDisplay.innerText = `- NT$ ${discount.toLocaleString()}`;
+    if (totalDisplay) totalDisplay.innerText = `NT$ ${finalTotal.toLocaleString()}`;
+}
+
 async function submitOrder() {
     if (checkoutCart.length === 0) {
         alert("您的購物車內沒有商品，無法送出訂單喔！✿");
@@ -127,6 +176,7 @@ async function submitOrder() {
     const dateInput = document.getElementById('order-date');
     const addressInput = document.getElementById('order-address');
     const paymentSelect = document.getElementById('order-payment');
+    const couponSelect = document.getElementById('coupon-select');
 
     const name = nameInput ? nameInput.value.trim() : "";
     const phone = phoneInput ? phoneInput.value.trim() : "";
@@ -134,14 +184,13 @@ async function submitOrder() {
     const deliveryDate = dateInput ? dateInput.value.trim() : "";
     const address = addressInput ? addressInput.value.trim() : "";
     const paymentMethod = paymentSelect ? paymentSelect.value : "";
+    const couponId = couponSelect ? couponSelect.value : "";
 
-    // 顧客資料防呆驗證
     if (!name || !phone || !address || !paymentMethod) {
         alert("請完整填寫收件人姓名、電話、地址與付款方式！✿");
         return;
     }
 
-    // 將資料打包成 QueryString 格式
     const params = new URLSearchParams();
     params.append('name', name);
     params.append('phone', phone);
@@ -149,10 +198,11 @@ async function submitOrder() {
     params.append('delivery_date', deliveryDate);
     params.append('address', address);
     params.append('payment_method', paymentMethod);
+    params.append('coupon_id', couponId);
 
     try {
         const checkoutBtn = document.querySelector('.checkout-btn');
-        if (checkoutBtn) checkoutBtn.disabled = true; // 防止重複點擊
+        if (checkoutBtn) checkoutBtn.disabled = true;
 
         const response = await fetch('create_order.jsp', {
             method: 'POST',
@@ -165,23 +215,25 @@ async function submitOrder() {
         const result = await response.json();
 
         if (result.status === 'success') {
-            // 訂單建立成功：顯示成功 Overlay 並且顯示漂亮的流水號！
             const overlay = document.getElementById('successOverlay');
             const displayId = document.getElementById('order-id-display');
 
             if (displayId) {
-                displayId.innerText = result.order_number; // 顯示 ORD-2026xxxx 格式
+                displayId.innerText = result.order_number;
             }
 
             if (overlay) {
                 overlay.classList.add('active');
-                // 點擊背景可將其關閉
                 overlay.onclick = function (e) {
                     if (e.target === overlay) {
                         overlay.classList.remove('active');
                     }
                 };
             }
+        } else if (result.status === 'invalid_coupon') {
+            alert("優惠券無效或已使用，請重新選擇優惠券。✿");
+            await loadCoupons();
+            if (checkoutBtn) checkoutBtn.disabled = false;
         } else if (result.status === 'out_of_stock') {
             alert("結帳失敗：購物車中有商品庫存不足，請先調整購物車數量。✿");
             if (checkoutBtn) checkoutBtn.disabled = false;

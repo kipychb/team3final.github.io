@@ -109,34 +109,46 @@
                                     </div>
                                 </div>
 
-                                <div class="info-row">
+                                <div class="info-row coupon-row">
                                     <span class="info-label">我的優惠券</span>
 
-                                    <div class="value-group">
-                                        <button type="button" class="action-btn" onclick="toggleCouponBox()">
-                                            查看優惠券
-                                        </button>
+                                    <div class="coupon-area">
+                                        <div class="coupon-header" onclick="toggleCouponBox()">
+                                            <span>點擊查看 / 收合優惠券</span>
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </div>
 
-                                        <div id="coupon-box" style="display:none; margin-top:10px;">
+                                        <div id="coupon-box" class="coupon-box">
                                             <% String couponSql="SELECT * FROM member_coupons WHERE member_id = ?" ;
                                                 PreparedStatement couponPstmt=con.prepareStatement(couponSql);
                                                 couponPstmt.setInt(1, MemberID); ResultSet
                                                 couponRs=couponPstmt.executeQuery(); boolean hasCoupon=false; while
-                                                (couponRs.next()) { hasCoupon=true; %>
-                                                <div
-                                                    style="background:#fcfaf8; border:1px solid #c0a080; padding:8px 12px; border-radius:6px; margin-bottom:8px; color:#705844;">
-                                                    <i class="fa-solid fa-ticket"></i>
-                                                    $150 折價券
+                                                (couponRs.next()) { hasCoupon=true; String
+                                                couponStatus=couponRs.getString("status"); %>
+
+                                                <div class="coupon-card-member">
+                                                    <div class="coupon-card-left">
+                                                        <i class="fa-solid fa-gift coupon-icon"></i>
+                                                        <div>
+                                                            <p class="coupon-title">
+                                                                NT$ <%= couponRs.getInt("coupon_amount") %> 折價券
+                                                            </p>
+                                                            <p class="coupon-desc">結帳時可折抵使用</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <span class="coupon-status <%= couponStatus.equals(" 未使用")
+                                                        ? "status-available" : "status-used" %>">
+                                                        <%= couponStatus %>
+                                                    </span>
                                                 </div>
+
                                                 <% } if (!hasCoupon) { %>
-                                                    <span class="info-value" style="color:#A3A69C;">目前沒有可用優惠券</span>
+                                                    <div class="coupon-empty">目前沒有可用優惠券</div>
                                                     <% } couponRs.close(); couponPstmt.close(); %>
                                         </div>
                                     </div>
                                 </div>
-
-
-
 
                             </div>
 
@@ -216,10 +228,10 @@
                     function toggleCouponBox() {
                         var box = document.getElementById("coupon-box");
 
-                        if (box.style.display === "none") {
-                            box.style.display = "block";
-                        } else {
+                        if (box.style.display === "block") {
                             box.style.display = "none";
+                        } else {
+                            box.style.display = "block";
                         }
                     }
                 </script>

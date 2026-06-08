@@ -126,7 +126,7 @@
             <div class="benefits-container">
                 <h1 class="title">會員專屬優惠</h1>
                 <p class="subtitle">感謝您加入花予祝願所，一起享受美好的花禮生活!</p>
-                <div class="coupon-card" onclick="alert('優惠券已自動存入會員帳戶')">
+                <div class="coupon-card" onclick="claimCoupon()">
                     <h2>即日起新註冊會員</h2>
                     <span class="price-tag" style="color:#7b816c; font-size:2em">點擊領取 $150 元折價券</span>
                 </div>

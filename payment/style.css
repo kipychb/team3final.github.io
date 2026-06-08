@@ -14,7 +14,8 @@ body {
     display: flex; justify-content: space-between; align-items: center;
     padding: 15px 40px; background: #A3A69C; position: sticky; top: 0; z-index: 1000;
 }
-.nav-logo { color: #eeebe2; font-weight: bold; font-size: 1.2rem; flex: 1; text-align: center; }
+.nav-logo { color: #eeebe2; font-weight: bold; font-size: 1.2rem; flex: 1; text-align: center; letter-spacing: 5px;
+}
 .nav-icon { color: #eeebe2; font-size: 1.4rem; cursor: pointer; transition: 0.3s; }
 .nav-icon:hover { opacity: 0.7; transform: translateX(-3px); } /* 增加點擊動態感 */
 .home-link { text-decoration: none; display: flex; align-items: center; }
@@ -25,14 +26,14 @@ body {
     margin: 40px auto;
     padding: 0 20px;
 }
-
+/*
 .page-title {
     font-size: 1.5rem;
     color: #705844;
     text-align: center;
     margin-bottom: 40px;
     letter-spacing: 2px;
-}
+}*/
 
 /* 區塊卡片化設計 */
 .checkout-card, .form-section {
