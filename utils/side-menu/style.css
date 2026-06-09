@@ -50,7 +50,7 @@
     li {
         font-size: 1rem;
         color: #3a3a3a;
-        padding: 15px 0;
+        padding: 5px 0;
         border-bottom: 1px solid rgba(112, 88, 68, 0.2);
         cursor: pointer;
         transition: all 0.3s ease;
@@ -81,7 +81,7 @@
     border: 1px solid #705844;
     border-radius: 20px;
     padding: 8px 15px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 
     input {
         border: none;
@@ -102,16 +102,39 @@
     padding: 0;
     margin-top: 10px;
 
-    li {
-        font-size: 15px;
-        border-bottom: 1px solid #705844;
-        opacity: 0.8;
-        padding: 10px 0px;
+    /* 重點 */
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-        &:hover {
-            background-color: #e9e4d4;
-        }
-    }  
+/* 每筆搜尋結果 */
+.suggestions li {
+    font-size: 15px;
+    border-bottom: 1px solid #705844;
+    opacity: 0.8;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.suggestions li:hover {
+    background-color: #e9e4d4;
+    padding-left: 10px;
+}
+
+/* 捲軸美化 */
+.suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #c0a080;
+    border-radius: 20px;
 }
 
 /* --- 遮罩層 --- */

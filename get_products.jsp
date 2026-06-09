@@ -1,35 +1,17 @@
-<%@page contentType="application/json;charset=utf-8" language="java" import="java.sql.*"%>
-<%@include file="utils/config.jsp" %>
-[
-<%
-    // 從資料庫取得所有花卉商品，並依 ProductID 排序
-    String sql = "SELECT * FROM `product` ORDER BY `ProductID` ASC";
-    Statement stmt = con.createStatement();
-    ResultSet rs = stmt.executeQuery(sql);
-    boolean first = true;
-    while(rs.next()) {
-        if(!first) {
-            out.print(",");
-        }
-        first = false;
-        
-        int productID = rs.getInt("ProductID");
-        // 進行 JSON 字元跳脫防範格式破壞
-        String productName = rs.getString("ProductName").replace("\\", "\\\\").replace("\"", "\\\"");
-        String category = rs.getString("Category");
-        double price = rs.getDouble("Price");
-        int quantity = rs.getInt("Quantity");
-        String series = rs.getString("Series").replace("\\", "\\\\").replace("\"", "\\\"");
-%>
-    {
-        "ProductID": <%=productID%>,
-        "ProductName": "<%=productName%>",
-        "Category": "<%=category%>",
-        "Price": <%=price%>,
-        "Quantity": <%=quantity%>,
-        "Series": "<%=series%>"
-    }
-<%
-    }
-%>
-]
+<%@ page contentType="application/json;charset=utf-8" language="java" import="java.sql.*" %>
+    <%@ include file="utils/config.jsp" %>
+
+        <%! public String esc(String s) { if (s==null) return "" ; return s.replace("\\", "\\\\"
+            ).replace("\"", "\\\"").replace(" \r", "" ).replace("\n", "\\n" ); } %>
+
+            <% String
+                sql="SELECT ProductID, ProductName, Category, Price, Quantity, Series, Language, Idea, Material FROM product ORDER BY ProductID ASC"
+                ; PreparedStatement pstmt=con.prepareStatement(sql); ResultSet rs=pstmt.executeQuery(); out.print("[");
+                boolean first=true; while (rs.next()) { if (!first) { out.print(","); } first=false; out.print("{");
+                out.print("\"ProductID\":" + rs.getInt("ProductID") + "," ); out.print("\"ProductName\":\"" +
+                esc(rs.getString("ProductName")) + "\" ,"); out.print("\"Category\":\"" + esc(rs.getString("Category"))
+                + "\" ,"); out.print("\"Price\":" + rs.getDouble("Price") + "," ); out.print("\"Quantity\":" +
+                rs.getInt("Quantity") + "," ); out.print("\"Series\":\"" + esc(rs.getString("Series")) + "\" ,");
+                out.print("\"Language\":\"" + esc(rs.getString("Language")) + "\" ,"); out.print("\"Idea\":\"" +
+                esc(rs.getString("Idea")) + "\" ,"); out.print("\"Material\":\"" + esc(rs.getString("Material")) + "\"");
+    out.print(" }"); } out.print("]"); rs.close(); pstmt.close(); %>

@@ -10,14 +10,12 @@ async function initSearchData() {
     try {
         const response = await fetch('get_products.jsp');
         flowerData = await response.json();
+
+        console.log("商品資料：", flowerData);
+        console.log("商品數量：", flowerData.length);
+
     } catch (error) {
-        try {
-            hrefPrefix = "../";
-            const response = await fetch('../get_products.jsp');
-            flowerData = await response.json();
-        } catch (error) {
-            console.error("搜尋資料載入失敗:", error);
-        }
+        console.error(error);
     }
 }
 
@@ -27,7 +25,7 @@ function showRecommendations() {
     const searchInput = document.getElementById('searchInput');
     if (!suggestionsList) return;
     
-    const hotKeywords = ["畢業花束", "永生花", "向日葵", "告白花禮"];
+    const hotKeywords = ["#畢業花束", "#向日葵", "#朋友"];
     suggestionsList.innerHTML = ""; 
 
     const hotTitle = document.createElement('li');
@@ -57,7 +55,7 @@ function showRecommendations() {
         shuffled.slice(0, 5).forEach(flower => {
             const li = document.createElement('li');
             li.textContent = flower.ProductName;
-            li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.ProductID;
+            li.onclick = () => window.location.href = hrefPrefix + "product/index.jsp?id=" + flower.ProductID;
             suggestionsList.appendChild(li);
         });
     }
@@ -107,15 +105,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (query.length > 0) {
                 const filtered = flowerData.filter(f => {
                     const name = (f.ProductName || "").toLowerCase();
-                    const desc = (f.Description || "").toLowerCase();
-                    return name.includes(query) || desc.includes(query);
+                    const language = (f.Language || "").toLowerCase();
+                    const idea = (f.Idea || "").toLowerCase();
+                    const material = (f.Material || "").toLowerCase();
+                    const series = (f.Series || "").toLowerCase();
+                
+                    return (
+                        name.includes(query) ||
+                        language.includes(query) ||
+                        idea.includes(query) ||
+                        material.includes(query) ||
+                        series.includes(query)
+                    );
                 });
 
                 if (filtered.length > 0) {
                     filtered.forEach(f => {
                         const li = document.createElement('li');
                         li.textContent = f.ProductName;
-                        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.ProductID;
+                        li.onclick = () => window.location.href = hrefPrefix + "product/index.jsp?id=" + f.ProductID;
                         suggestionsList.appendChild(li);
                     });
                 } else {
