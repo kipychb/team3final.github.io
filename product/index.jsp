@@ -15,7 +15,12 @@
 
     <body>
         <header class="navbar">
-            <div class="nav-left"></div>
+            <div class="nav-left">
+                <a href="javascript:history.back()" class="home-link">
+                    <i class="fa-solid fa-chevron-left nav-icon"></i>
+                </a>
+            </div>
+
             <div class="nav-right">
                 <a href="../wishlist/index.jsp">
                     <i class="fa-solid fa-heart nav-icon"></i>

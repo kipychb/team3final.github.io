@@ -15,6 +15,20 @@ body {
     padding: 30px 25px; 
 }
 
+.back-home-btn {
+    background: #A3A69C;
+    color: #fff;
+    border: none;
+    padding: 12px 40px;
+    font-family: inherit;
+    cursor: pointer; 
+    transition: 0.3s;
+    border-radius: 4px;
+    }
+.back-home-btn:hover {
+    background: #705844;
+}
+
 .nav-right {
     display: flex;
     align-items: center;
