@@ -22,7 +22,7 @@
             </div>
 
             <div class="nav-right">
-                <a href="../wishlist/index.jsp">
+                <a href="../member/index.jsp?tab=wishlist">
                     <i class="fa-solid fa-heart nav-icon"></i>
                 </a>
                 <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
@@ -216,7 +216,7 @@
         </div>
         <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-        <script src="../wishlist/addWish.js"></script>
+        <script src="../utils/wishlist/addWish.js"></script>
         <script src="../utils/side-menu/main.js"></script>
         <script src="../utils/cart/main.js"></script>
         <script src="loader.js"></script>

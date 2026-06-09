@@ -107,47 +107,126 @@ async function loadMemberOrders() {
     }
 }
 
-// 3. 願望清單渲染 
-function renderMemberWishlist() {
-    const wishlist = JSON.parse(localStorage.getItem('myWishlist')) || [];
+/**
+ * 【重構功能】從資料庫讀取會員願望清單並渲染
+ */
+async function renderMemberWishlist() {
     const container = document.querySelector('#wishlist .list-container');
-
     if (!container) return;
 
-    if (wishlist.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding:30px; color:#999; width:100%;">目前沒有收藏的願望 ✿</p>';
-        return;
-    }
+    container.innerHTML = '<p style="text-align:center; padding:30px; color:#999; font-family:\'Noto Serif TC\', serif;">讀取您的願望清單中... ✿</p>';
 
-    container.innerHTML = wishlist.map((item, index) => `
-        <div class="wish-item-row">
-            <div class="wish-text">
-                <p class="wish-name">${item.name}</p>
-                <p class="wish-price">NT$ ${item.price.toLocaleString()}</p>
+    try {
+        // 從 ../utils/wishlist/get_wishlist.jsp 取得此會員在 SQL 中的收藏資料
+        const response = await fetch('../utils/wishlist/get_wishlist.jsp');
+        const wishlistedItems = await response.json();
+
+        if (wishlistedItems.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px; color:#999; font-family:\'Noto Serif TC\', serif; width:100%;">您的願望清單空空如也... ✿</p>';
+            return;
+        }
+
+        // 使用網格(Grid)或彈性盒(Flex)將卡片整齊排列
+        container.innerHTML = `
+            <div class="member-wishlist-grid">
+                ${wishlistedItems.map(item => {
+            const imagePath = `../image/flower/${item.Category}/${item.relativeIndex}-2.jpg`;
+            const productUrl = `../product/index.jsp?id=${item.ProductID}`;
+            return `
+                        <div class="member-wish-card">
+                            <div class="wish-img-box">
+                                <a href="${productUrl}">
+                                    <img src="${imagePath}" alt="${item.ProductName}" onerror="this.src='../image/default.jpg'">
+                                </a>
+                                <button class="wish-remove-btn" onclick="removeFromMemberWishlist('${item.ProductID}')" title="移除願望">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <div class="wish-info">
+                                <div class="wish-text">
+                                    <p class="wish-name">${item.ProductName}</p>
+                                    <p class="wish-series">${item.Series} 系列</p>
+                                    <p class="wish-price">NT$ ${item.Price.toLocaleString()}</p>
+                                </div>
+                                <div class="wish-actions">
+                                    <div class="share-wrapper" style="position: relative;">
+                                        <button class="wish-mini-btn share-btn" onclick="copyMemberProductLink('${productUrl}', this)" title="分享連結">
+                                            <i class="fa-solid fa-share-nodes"></i>
+                                        </button>
+                                        <span class="tooltip">複製成功！</span>
+                                    </div>
+                                    <button class="wish-mini-btn add-cart-btn" onclick="addToCartFromWishlist('${item.ProductID}', '${item.ProductName}')" title="加入購物車">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+        }).join('')}
             </div>
-            <button class="mini-add-btn" onclick="addToCartFromWishlist('${item.name}', ${item.price}, '${item.image}')">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-        </div>
-    `).join('');
+        `;
+    } catch (error) {
+        console.error("載入願望清單失敗:", error);
+        container.innerHTML = '<p style="text-align:center; padding:30px; color:#f00; font-family:\'Noto Serif TC\', serif;">載入願望清單失敗，請稍後再試。✿</p>';
+    }
 }
 
-// 4. 加入購物車功能 
-function addToCartFromWishlist(name, price, image) {
-    let cart = JSON.parse(localStorage.getItem('myCart')) || [];
-    const existingItem = cart.find(item => item.name === name);
+/**
+ * 【新功能】自願望清單移除商品 (直連後端資料庫)
+ */
+function removeFromMemberWishlist(productId) {
+    fetch(`../utils/wishlist/toggle_wishlist.jsp?product_id=${productId}`)
+        .then(response => response.text())
+        .then(result => {
+            if (result.trim() === 'removed') {
+                // 成功移除後，重新呼叫 render 刷新網頁
+                renderMemberWishlist();
+                if (typeof updateHeartIconsStatus === 'function') {
+                    updateHeartIconsStatus(); // 若前台有引入 addWish.js，同步愛心狀態
+                }
+            } else if (result.trim() === 'nologin') {
+                alert("登入逾時，請重新登入！");
+                window.location.href = 'login/index.jsp';
+            }
+        })
+        .catch(err => {
+            console.error("移除願望失敗:", err);
+            alert("網路異常，無法移除願望！");
+        });
+}
 
-    if (existingItem) {
-        existingItem.qty += 1;
-    } else {
-        cart.push({ name, price, image, qty: 1 });
+/**
+ * 【新功能】複製商品詳細頁面連結 (含 Tooltip)
+ */
+function copyMemberProductLink(url, btnElement) {
+    // 取得絕對網址
+    const fullUrl = window.location.origin + window.location.pathname.replace('member/index.jsp', '').replace('member/', '') + url.replace('../', '');
+
+    const tempInput = document.createElement('input');
+    tempInput.value = fullUrl;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    // 顯示「複製成功」提示
+    const tooltip = btnElement.parentElement.querySelector('.tooltip');
+    if (tooltip) {
+        tooltip.classList.add('show');
+        setTimeout(() => {
+            tooltip.classList.remove('show');
+        }, 1500);
     }
+}
 
-    localStorage.setItem('myCart', JSON.stringify(cart));
-    alert(`✿ 「${name}」已加入購物車 ✿`);
-
-    if (typeof updateCartUI === 'function') {
-        updateCartUI();
+// 4. 加入購物車功能 (連動資料庫驅動版購物車核心)
+function addToCartFromWishlist(productId, productName) {
+    if (typeof addToCart === 'function') {
+        // 調用 utils/cart/main.js 中的資料庫核心加入購物車方法
+        addToCart(productId, 1);
+    } else {
+        console.error("購物車核心模組 (utils/cart/main.js) 未成功載入！");
+        alert("購物車系統暫時發生異常，請稍後再試。✿");
     }
 }
 
@@ -245,3 +324,18 @@ function toggleCouponBox() {
         box.style.display = "none";
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab) {
+        // 尋找對應的 flower-item 元件，其 onclick 事件字串包含目標分頁名稱
+        const targetBtn = Array.from(document.querySelectorAll('.flower-item')).find(item => {
+            const attr = item.getAttribute('onclick');
+            return attr && attr.includes(`'${tab}'`);
+        });
+        if (targetBtn) {
+            switchSection(tab, targetBtn);
+        }
+    }
+});

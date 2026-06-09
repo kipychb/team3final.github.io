@@ -231,7 +231,7 @@
     <script src="../utils/side-menu/main.js"></script>
     <script src="main.js"></script>
     <script src="search.js"></script>
-    <script src="../wishlist/wishlist.js"></script>
+    <script src="../utils/wishlist/wishlist.js"></script>
     <script src="login/login.js"></script>
 
                 <script>

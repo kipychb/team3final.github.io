@@ -1,5 +1,5 @@
 <%@page contentType="application/json;charset=utf-8" language="java" import="java.sql.*"%>
-<%@include file="../utils/config.jsp" %>
+<%@include file="../config.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
     response.setContentType("application/json;charset=UTF-8");

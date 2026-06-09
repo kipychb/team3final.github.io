@@ -13,7 +13,7 @@ let dbWishlist = []; // 儲存自資料庫載入的已收藏 ProductID
 window.addEventListener('load', function () {
     Promise.all([
         fetch('get_products.jsp').then(res => res.json()),
-        fetch('wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => [])
+        fetch('utils/wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => [])
     ])
         .then(([products, wishlistIds]) => {
             dbWishlist = wishlistIds.map(Number);

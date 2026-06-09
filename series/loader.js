@@ -32,7 +32,7 @@ window.addEventListener('load', function () {
     // 3. 同時獲取商品清單與資料庫願望清單 (大幅縮短載入時間與解決生命週期時間差)
     Promise.all([
         fetch('../get_products.jsp').then(res => res.json()),
-        fetch('../wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => []) // 若未登入，則寬容回傳空陣列
+        fetch('../utils/wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => []) // 若未登入，則寬容回傳空陣列
     ])
         .then(([products, wishlistIds]) => {
             // 確保將所有的 ID 都轉成數值型態以便後續比對
@@ -85,7 +85,7 @@ function renderSeriesProducts(flowers) {
         return `
             <div class="item">
                 <div class="img-box">
-                    <a href="../product/index.html?id=${flower.ProductID}">
+                    <a href="../product/index.jsp?id=${flower.ProductID}">
                         <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.src='../image/default.jpg'">
                     </a>
                 </div>
