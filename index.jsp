@@ -9,11 +9,8 @@
             <title>花予祝願所</title>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link
-                href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap"
-                rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap"
-                rel="stylesheet">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <link rel="stylesheet" href="style.css">
             <link rel="stylesheet" href="utils/cart/style.css">
@@ -55,13 +52,13 @@
 
                 <section class="banner">
                     <div class="banner-container" id="bannerSlider">
-                        <a href="product/index.html?id=love_in_bloom">
+                        <a href="product/index.jsp?id=1">
                             <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                         </a>
-                        <a href="member/benefits.jsp?id=semi_ripe_romance">
+                        <a href="member/benefits.jsp">
                             <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                         </a>
-                        <a href="product/index.html?id=soft_blush">
+                        <a href="product/index.jsp?id=3">
                             <img src="image/banner/3.jpg" alt="廣告 3" class="banner-img">
                         </a>
                     </div>

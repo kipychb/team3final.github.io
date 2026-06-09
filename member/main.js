@@ -235,3 +235,13 @@ document.addEventListener('click', (e) => {
 function logout() {
     window.location.href = 'logout.jsp';
 }
+
+function toggleCouponBox() {
+    var box = document.getElementById("coupon-box");
+
+    if (box.style.display === "none") {
+        box.style.display = "block";
+    } else {
+        box.style.display = "none";
+    }
+}

@@ -60,12 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return `
                 <div class="result-item">
-                    <a href="../product/index.html?id=${flower.ProductID}" style="display: block; width: 60px; height: 60px; flex-shrink: 0;">
+                    <a href="../product/index.jsp?id=${flower.ProductID}" style="display: block; width: 60px; height: 60px; flex-shrink: 0;">
                         <img class="left-box" src="${fullImagePath}" onerror="this.src='../image/default.jpg'" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover;">
                     </a>
                     <div class="right-box" style="flex: 1;">
                         <h4 class="name">
-                            <a href="../product/index.html?id=${flower.ProductID}">
+                            <a href="../product/index.jsp?id=${flower.ProductID}">
                                 祝願花：${flower.ProductName}
                             </a>
                         </h4>

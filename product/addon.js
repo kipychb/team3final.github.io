@@ -70,7 +70,7 @@ function renderRecommendations(flowerData) {
 
         htmlContent += `
             <div class="item">
-                <a class="img border-box" href="index.html?id=${flower.ProductID}">
+                <a class="img border-box" href="index.jsp?id=${flower.ProductID}">
                     <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.src='../image/default.jpg'">
                 </a>
                 <div class="info-row">

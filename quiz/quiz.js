@@ -104,7 +104,7 @@ function showResult() {
         document.getElementById('rProdImg').src = recommendFlower.imagePath;
         document.getElementById('rProdName').innerText = recommendFlower.ProductName;
         document.getElementById('rProdPrice').innerText = "$" + recommendFlower.Price;
-        document.getElementById('rProdLink').href = "../product/index.html?id=" + res.product_id;
+        document.getElementById('rProdLink').href = "../product/index.jsp?id=" + res.product_id;
     }
 }
 

@@ -26,9 +26,9 @@ function showRecommendations() {
     const suggestionsList = document.getElementById('search-suggestions');
     const searchInput = document.getElementById('searchInput');
     if (!suggestionsList) return;
-    
+
     const hotKeywords = ["畢業花束", "永生花", "向日葵", "告白花禮"];
-    suggestionsList.innerHTML = ""; 
+    suggestionsList.innerHTML = "";
 
     const hotTitle = document.createElement('li');
     hotTitle.textContent = "近期熱搜：";
@@ -57,7 +57,7 @@ function showRecommendations() {
         shuffled.slice(0, 5).forEach(flower => {
             const li = document.createElement('li');
             li.textContent = flower.ProductName;
-            li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + flower.ProductID;
+            li.onclick = () => window.location.href = hrefPrefix + "product/index.jsp?id=" + flower.ProductID;
             suggestionsList.appendChild(li);
         });
     }
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     filtered.forEach(f => {
                         const li = document.createElement('li');
                         li.textContent = f.ProductName;
-                        li.onclick = () => window.location.href = hrefPrefix + "product/index.html?id=" + f.ProductID;
+                        li.onclick = () => window.location.href = hrefPrefix + "product/index.jsp?id=" + f.ProductID;
                         suggestionsList.appendChild(li);
                     });
                 } else {

@@ -1,6 +1,6 @@
 /**
  * loader.js
- * 功能：產品頁面自動載入器 - SQL 資料庫對接版
+ * 功能：產品頁面自動載入器 - SQL 資料庫對接版 (修復縮圖切換功能)
  * 說明：串接 get_product_detail.jsp 載入商品，並對接 SQL 購物車與願望清單
  */
 
@@ -40,7 +40,7 @@ async function loadProductDetail() {
                     const count = parseInt(quantityInput.value) || 1; // 確保至少為 1
 
                     if (count > flower.Quantity) {
-                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒 ✿");
                     } else if (typeof addToCart === "function") {
                         // 【SQL驅動優化】直接呼叫一次 addToCart 並帶入 ProductID 與 選擇數量，不需再跑迴圈
                         addToCart(flower.ProductID, count);
@@ -58,7 +58,7 @@ async function loadProductDetail() {
                     const count = parseInt(quantityInput.value) || 1;
 
                     if (count > flower.Quantity) {
-                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒");
+                        alert("你把花買光了，最多 " + flower.Quantity + " 束，不要就拉倒 ✿");
                     } else if (typeof addToCart === "function") {
                         // 1. 同樣改為直接帶入 ID 與數量傳給資料庫
                         addToCart(flower.ProductID, count);
@@ -79,34 +79,44 @@ async function loadProductDetail() {
     }
 }
 
-// 初始化商品圖片 (利用計算出的 relativeIndex 與 Category 定位正確圖片)
+// 初始化商品圖片 (修復 HTML 元素為空，並改為依設計動態生成 2 張主圖與 2 張點擊縮圖)
 function initImageCarousel(flower) {
     const imgBox = document.querySelector('.main-img-box');
+    const thumbList = document.querySelector('.thumbnail-list');
     if (!imgBox) return;
 
-    const images = imgBox.querySelectorAll('img');
-    const dots = imgBox.querySelectorAll('.img-dots span');
+    // 1. 動態生成主視覺大圖 (限制為 2 張)
+    imgBox.innerHTML = `
+        <img class="carousel-img" src="../image/flower/${flower.Category}/${flower.relativeIndex}-1.jpg" alt="${flower.ProductName}-1" style="display: block; width: 100%; height: 100%; object-fit: cover;">
+        <img class="carousel-img" src="../image/flower/${flower.Category}/${flower.relativeIndex}-2.jpg" alt="${flower.ProductName}-2" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+    `;
 
-    images.forEach((img, index) => {
-        if (img) {
-            // 修正圖片路徑邏輯，確保能抓到對應編號的圖片
-            img.src = `../image/flower/${flower.image_path}-${index + 1}.jpg`;
-            img.alt = `${flower.name}-${index + 1}`;
-            img.style.display = (index === 0) ? 'block' : 'none';
-        }
-    });
+    // 2. 於 .thumbnail-list 動態生成 2 個可點擊的縮圖，並綁定互鎖控制
+    if (thumbList) {
+        thumbList.innerHTML = `
+            <div class="thumb active" data-index="0" style="cursor: pointer;">
+                <img src="../image/flower/${flower.Category}/${flower.relativeIndex}-1.jpg" alt="縮圖 1" onerror="this.src='../image/default.jpg'">
+            </div>
+            <div class="thumb" data-index="1" style="cursor: pointer;">
+                <img src="../image/flower/${flower.Category}/${flower.relativeIndex}-2.jpg" alt="縮圖 2" onerror="this.src='../image/default.jpg'">
+            </div>
+        `;
 
-    dots.forEach((dot, index) => {
-        dot.onclick = () => {
-            images.forEach((img, i) => {
-                if (img) img.style.display = (i === index) ? 'block' : 'none';
-            });
-            // 切換縮圖樣式
-            thumbList.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        };
-        thumbList.appendChild(thumb);
-    })
+        const images = imgBox.querySelectorAll('.carousel-img');
+        const thumbs = thumbList.querySelectorAll('.thumb');
+
+        thumbs.forEach((thumb, index) => {
+            thumb.onclick = () => {
+                // 切換主大圖的顯示/隱藏狀態
+                images.forEach((img, i) => {
+                    if (img) img.style.display = (i === index) ? 'block' : 'none';
+                });
+                // 更新縮圖外框的 .active 樣式
+                thumbs.forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            };
+        });
+    }
 }
 
 // 更新商品文字內容
