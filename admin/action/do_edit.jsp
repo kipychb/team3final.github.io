@@ -14,6 +14,7 @@
     String category = request.getParameter("Category");
     String priceStr = request.getParameter("Price");
     String description = request.getParameter("Description");
+    String image = request.getParameter("Image"); // 💡 1. 接收前端傳過來的 Image 參數
 
     // 強力防護
     if (id == null || productName == null || productName.trim().isEmpty()) {
@@ -36,13 +37,15 @@
             return;
         }
 
-        String sql = "UPDATE product SET ProductName=?, Category=?, Price=?, Idea=? WHERE ProductID=?";
+        // 💡 2. SQL 指令補上 Image=?
+        String sql = "UPDATE product SET ProductName=?, Category=?, Price=?, Idea=?, Image=? WHERE ProductID=?";
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, productName.trim());
         pstmt.setString(2, category != null ? category.trim() : "fresh");
         pstmt.setInt(3, price);
         pstmt.setString(4, description != null ? description.trim() : "");
-        pstmt.setInt(5, Integer.parseInt(id));
+        pstmt.setString(5, (image != null && !image.trim().isEmpty()) ? image.trim() : null); // 💡 3. 將圖片值塞入（若留空就存 null）
+        pstmt.setInt(6, Integer.parseInt(id));
         
         int result = pstmt.executeUpdate();
         pstmt.close();

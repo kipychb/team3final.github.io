@@ -20,6 +20,7 @@
     String category = "fresh";
     int price = 0;
     String idea = "";
+    String image = "";
 
     try {
         if (con != null) {
@@ -33,6 +34,7 @@
                 category = rs.getString("Category");
                 price = rs.getInt("Price");
                 idea = rs.getString("Idea") != null ? rs.getString("Idea") : "";
+                image = rs.getString("Image") != null ? rs.getString("Image") : ""; // 💡 2. 從資料庫把 Image 讀取出來
             }
             rs.close();
             pstmt.close();
@@ -58,6 +60,7 @@
         分類: <input type="text" name="Category" value="<%= category %>" required><br><br>
         價格: <input type="number" name="Price" value="<%= price %>" required><br><br>
         描述: <textarea name="Description" rows="6" cols="60"><%= idea %></textarea><br><br>
+        產品圖片 (網址或本機檔名): <input type="text" name="Image" value="<%= image %>" style="width: 60%;" placeholder="例如：image_36d4ff.jpg 或 https://..."><br><br>
         
         <button type="submit">✅ 確認修改</button>
         <a href="index.jsp">← 返回後台</a>

@@ -22,14 +22,29 @@ window.addEventListener('load', function () {
             let driedCount = 0;
 
             products.forEach(flower => {
-                if (flower.Category === 'fresh') {
-                    freshCount++;
-                    flower.imagePath = `image/flower/fresh/${freshCount}-2.jpg`;
+                // 1. 檢查資料庫有沒有存圖片欄位 (flower.Image 或 flower.image，請注意大小寫，依據 get_products.jsp 回傳為主)
+                let dbImage = flower.Image || flower.image; 
+
+                if (dbImage && dbImage.trim() !== "") {
+                    // 如果是 http/https 開頭的網路圖片網址
+                    if (dbImage.startsWith("http://") || dbImage.startsWith("https://")) {
+                        flower.imagePath = dbImage;
+                    } else {
+                        // 如果是本機上傳的 UUID 圖片檔名，指向根目錄下的 images 資料夾
+                        flower.imagePath = "image/images/" + dbImage;
+                    }
                 } else {
-                    driedCount++;
-                    flower.imagePath = `image/flower/dried/${driedCount}-2.jpg`;
+                    // 2. 如果資料庫沒圖，才走原本的預設編號流水號圖片邏輯
+                    if (flower.Category === 'fresh') {
+                        freshCount++;
+                        flower.imagePath = `image/flower/fresh/${freshCount}-2.jpg`;
+                    } else {
+                        driedCount++;
+                        flower.imagePath = `image/flower/dried/${driedCount}-2.jpg`;
+                    }
                 }
             });
+
 
             allFresh = products.filter(f => f.Category === 'fresh').sort(() => 0.5 - Math.random()).slice(0, 12);
             allDried = products.filter(f => f.Category === 'dried').sort(() => 0.5 - Math.random()).slice(0, 12);

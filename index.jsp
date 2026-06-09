@@ -219,7 +219,7 @@
                     style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:15px;">
                     <span>
                         本網站使用 Cookie 來提升您的使用體驗與購物功能，繼續瀏覽即表示您同意我們的
-                        <a href="privacy.html" style="color:#705844; text-decoration:underline;">隱私權政策</a>。
+                        <a href="privacy.jsp" style="color:#705844; text-decoration:underline;">隱私權政策</a>。
                     </span>
 
                     <div>
