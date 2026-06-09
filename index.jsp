@@ -52,13 +52,13 @@
 
                 <section class="banner">
                     <div class="banner-container" id="bannerSlider">
-                        <a href="product/index.jsp?id=1">
+                        <a href="product/index.jsp?id=love_in_bloom">
                             <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                         </a>
                         <a href="member/benefits.jsp">
                             <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                         </a>
-                        <a href="product/index.jsp?id=3">
+                        <a href="product/index.jsp?id=soft_blush">
                             <img src="image/banner/3.jpg" alt="廣告 3" class="banner-img">
                         </a>
                     </div>
@@ -182,7 +182,7 @@
             <!-- 搜尋花朵 -->
             <div class="side-panel" id="side-search">
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="搜尋花朵...">
+                    <input type="text" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福...">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <ul id="search-suggestions" class="suggestions"></ul>

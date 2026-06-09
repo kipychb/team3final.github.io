@@ -12,11 +12,9 @@
     </head>
 
     <body>
-
         <a href="../../index.jsp" class="back-home">
             <i class="fa-solid fa-arrow-left"></i> 返回首頁
         </a>
-
         <div class="login-container">
             <div class="login-logo">花予祝願所</div>
 

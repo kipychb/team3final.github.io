@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商品分頁 | 花予祝願所</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../utils/cart/style.css">
     <link rel="stylesheet" href="../utils/side-menu/style.css">
 </head>
+
 <body>
 
     <!-- 導覽列 -->
     <header class="navbar">
-        <div class="left">
-            <i class="fa-solid fa-bars icon" id="menu-trigger"></i>
-            <i class="fa-solid fa-magnifying-glass icon" id="search-trigger"></i>
+        <div class="nav-left">
+            <a href="javascript:history.back()" class="home-link">
+                <i class="fa-solid fa-chevron-left nav-icon" style="color: #eeebe2;font-size: 1.2rem;"></i>
+            </a>
         </div>
-    
-        <div class="logo">花予祝願所</div>
-    
+        <div class="logo"></div>
         <div class="right">
             <a href="../wishlist/index.jsp" class="link">
                 <i class="fa-solid fa-heart icon"></i>
             </a>
-            <a href="../member/login/index.jsp" class="link">
-                <i class="fa-solid fa-user icon"></i>
-            </a>
             <i class="fa-solid fa-basket-shopping icon" onclick="toggleCart()"></i>
+            <i class="fa-solid fa-bars icon" id="menu-trigger"></i>
         </div>
     </header>
 
@@ -38,7 +42,7 @@
         <div class="product-grid">
             <div class="item">
                 <div class="img-box">
-                    <a href="../product/index.html?id=love_in_bloom">
+                    <a href="../product/index.jsp?id=love_in_bloom">
                         <img src="../image/flower/fresh/1-1.jpg" alt="摯愛 Love in Bloom" onerror="this.src=''">
                     </a>
                 </div>
@@ -62,7 +66,11 @@
 
     <!-- 主菜單 -->
     <div class="side-panel" id="side-menu">
-        <h2>分類選單</h2>
+        <div class="header">
+            <h2>分類選單</h2>
+            <i class="fa-solid fa-xmark" id="close-menu-btn"></i>
+        </div>
+
         <ul class="list">
             <li><a href="../index.jsp">Home / 首頁</a></li>
             <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
@@ -72,7 +80,7 @@
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
-    
+
     <!-- 搜尋花朵 -->
     <div class="side-panel" id="side-search">
         <div class="search-bar">
@@ -81,7 +89,7 @@
         </div>
         <ul id="search-suggestions" class="suggestions"></ul>
     </div>
-    
+
     <!-- 購物車 -->
     <div id="cartSidebar" class="cart-sidebar">
         <div class="header">
@@ -104,4 +112,5 @@
     <script src="../search.js"></script>
     <script src="loader.js"></script>
 </body>
+
 </html>

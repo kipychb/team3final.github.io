@@ -15,7 +15,12 @@
 
     <body>
         <header class="navbar">
-            <div class="nav-left"></div>
+            <div class="nav-left">
+                <a href="javascript:history.back()" class="home-link">
+                    <i class="fa-solid fa-chevron-left nav-icon"></i>
+                </a>
+            </div>
+
             <div class="nav-right">
                 <a href="../wishlist/index.jsp">
                     <i class="fa-solid fa-heart nav-icon"></i>
@@ -182,7 +187,11 @@
         </main>
 
         <div class="side-panel" id="side-menu">
-            <h2>分類選單</h2>
+            <div class="header">
+                <h2>分類選單</h2>
+                <i class="fa-solid fa-xmark" id="close-menu-btn"></i>
+            </div>
+
             <ul class="list">
                 <li><a href="../index.jsp">Home / 首頁</a></li>
                 <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
@@ -192,6 +201,7 @@
             </ul>
         </div>
         <div id="menu-overlay" class="menu-overlay"></div>
+
 
         <div id="cartSidebar" class="cart-sidebar">
             <div class="header">
