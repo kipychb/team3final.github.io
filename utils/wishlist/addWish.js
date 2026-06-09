@@ -78,13 +78,13 @@ function showToastMessage(message) {
  * 切換收藏狀態 (與資料庫對接)
  */
 function toggleWishlist(id, btn) {
-    // 【修正】修正根目錄（首頁）路徑抓取不到的問題。若不在子資料夾內，則路徑應指向 wishlist/
-    let basePath = "wishlist/";
+    // 【修正】修正根目錄（首頁）路徑抓取不到的問題。若不在子資料夾內，則路徑應指向 utils/wishlist/
+    let basePath = "utils/wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
-        basePath = "../wishlist/";
+        basePath = "../utils/wishlist/";
     } else if (window.location.pathname.includes('/member/')) {
-        basePath = "../wishlist/";
-    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "../utils/wishlist/";
+    } else if (window.location.pathname.includes('/utils/wishlist/')) {
         basePath = "";
     }
 
@@ -114,7 +114,7 @@ function toggleWishlist(id, btn) {
                 showToastMessage("此功能僅限會員使用，請先登入帳號 ✿");
                 setTimeout(() => {
                     let loginPath = "member/login/index.jsp";
-                    if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/') || window.location.pathname.includes('/wishlist/')) {
+                    if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/') || window.location.pathname.includes('/utils/wishlist/')) {
                         loginPath = "../member/login/index.jsp";
                     }
                     window.location.href = loginPath;
@@ -128,12 +128,12 @@ function toggleWishlist(id, btn) {
  * 載入頁面時同步愛心顏色
  */
 function updateHeartIconsStatus() {
-    let basePath = "wishlist/";
+    let basePath = "utils/wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
-        basePath = "../wishlist/";
+        basePath = "../utils/wishlist/";
     } else if (window.location.pathname.includes('/member/')) {
-        basePath = "../wishlist/";
-    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "../utils/wishlist/";
+    } else if (window.location.pathname.includes('/utils/wishlist/')) {
         basePath = "";
     }
 
@@ -178,10 +178,10 @@ function showHeartFeedback(btn, isAdded) {
 }
 
 function syncHeartStatus(id) {
-    let basePath = "wishlist/";
+    let basePath = "utils/wishlist/";
     if (window.location.pathname.includes('/product/') || window.location.pathname.includes('/series/')) {
-        basePath = "../wishlist/";
-    } else if (window.location.pathname.includes('/wishlist/')) {
+        basePath = "../utils/wishlist/";
+    } else if (window.location.pathname.includes('/utils/wishlist/')) {
         basePath = "";
     }
 

@@ -58,7 +58,7 @@ async function renderWishlist() {
         wishlistedItems.forEach((item) => {
             // 使用相對排序與分類還原出精準圖片路徑
             const imagePath = `../image/flower/${item.Category}/${item.relativeIndex}-2.jpg`;
-            const productUrl = `../product/index.html?id=${item.ProductID}`;
+            const productUrl = `../product/index.jsp?id=${item.ProductID}`;
 
             gridContainer.innerHTML += `
                 <div class="item">
@@ -117,7 +117,7 @@ function removeFromWishlist(productId) {
  */
 function copyProductLink(url, btnElement) {
     // 取得絕對網址，去除可能的相對符號
-    const fullUrl = window.location.origin + window.location.pathname.replace('wishlist/index.jsp', '') + url.replace('../', '');
+    const fullUrl = window.location.origin + window.location.pathname.replace('member/index.jsp?tab=wishlist', '') + url.replace('../', '');
 
     const tempInput = document.createElement('input');
     tempInput.value = fullUrl;

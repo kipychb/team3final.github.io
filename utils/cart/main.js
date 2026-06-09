@@ -27,7 +27,7 @@ function getMappingPath() {
     let apiPath = "utils/cart/";
     let rootLayer = "./";
 
-    if (path.includes('/product/') || path.includes('/series/') || path.includes('/member/') || path.includes('/wishlist/') || path.includes('/payment/')) {
+    if (path.includes('/product/') || path.includes('/series/') || path.includes('/member/') || path.includes('/utils/wishlist/') || path.includes('/payment/')) {
         apiPath = "../utils/cart/";
         rootLayer = "../";
     }

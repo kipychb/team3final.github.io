@@ -203,7 +203,7 @@
             <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
             <!-- Java Script 專區 -->
-            <script src="wishlist/addWish.js"></script>
+            <script src="utils/wishlist/addWish.js"></script>
             <script src="utils/cart/main.js"></script>
             <script src="utils/side-menu/main.js"></script>
             <script src="utils/title.js"></script>
