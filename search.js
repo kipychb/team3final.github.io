@@ -25,7 +25,7 @@ function showRecommendations() {
     const searchInput = document.getElementById('searchInput');
     if (!suggestionsList) return;
 
-    const hotKeywords = ["#畢業花束", "#向日葵", "#朋友"];
+    const hotKeywords = ["青春", "向日葵", "朋友"];
     suggestionsList.innerHTML = "";
 
     const hotTitle = document.createElement('li');
