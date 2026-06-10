@@ -56,13 +56,13 @@
 
                 <section class="banner">
                     <div class="banner-container" id="bannerSlider">
-                        <a href="product/index.jsp?id=love_in_bloom">
+                        <a href="product/index.jsp?id=1">
                             <img src="image/banner/1.jpg" alt="廣告 1" class="banner-img">
                         </a>
                         <a href="member/benefits.jsp">
                             <img src="image/banner/2.jpg" alt="廣告 2" class="banner-img">
                         </a>
-                        <a href="product/index.jsp?id=soft_blush">
+                        <a href="product/index.jsp?id=3">
                             <img src="image/banner/3.jpg" alt="廣告 3" class="banner-img">
                         </a>
                     </div>
