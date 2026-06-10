@@ -111,6 +111,7 @@
     "SaveMethods": <%=saveMethodsJson%>,
     "Language": "<%=language%>",
     "Idea": "<%=idea%>",
+<<<<<<< HEAD
     "relativeIndex": <%=relativeIndex%>,
     "Image": "<%=imageJson%>"
 }
@@ -128,5 +129,12 @@
         if (catPstmt != null) try { catPstmt.close(); } catch(Exception e){}
         if (rankRs != null) try { rankRs.close(); } catch(Exception e){}
         if (rankPstmt != null) try { rankPstmt.close(); } catch(Exception e){}
+=======
+    "relativeIndex": <%=relativeIndex%>
+}
+<%
+    } else {
+        out.print("{}");
+>>>>>>> 4afa724aed34f9362b12364f6b6984a4638bb257
     }
 %>

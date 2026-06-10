@@ -80,9 +80,12 @@ function renderRecommendations(flowerData) {
                         <span class="name">${flower.ProductName}</span>
                         <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
                     </div>
+<<<<<<< HEAD
                     <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
                         <i class="fa-solid fa-plus"></i>
                     </button>
+=======
+>>>>>>> 4afa724aed34f9362b12364f6b6984a4638bb257
                 </div>
             </div>
         `;
