@@ -1,0 +1,724 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #eeebe2;
+    color: #3a3a3a;
+    font-family: "Cactus Classical Serif", serif;
+    line-height: 1.6;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto; 
+}
+
+.main-content-blur {
+    transition: 0.3s;
+}
+.main-content-blur.active {
+    opacity: 0.4;
+    filter: grayscale(20%); 
+}
+
+/* 導覽列 */
+.navbar {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between; 
+    padding: 15px 40px;
+    background-color: #f7f3f0; 
+    border-bottom: 1px solid #e5e0dc;
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+}
+
+/* 左側 Logo 區域 */
+.nav-logo { 
+    font-family: "WindSong", cursive;
+    font-weight:580;
+    font-style: normal;
+    font-size: 1.6rem; 
+    color:#a67a41;
+    text-align: left; /* 確保 Logo 靠左 */
+    white-space: nowrap;
+    
+}
+
+.nav-logo a {
+    color: #705844;
+    text-decoration: none;
+}
+
+.nav-right-group {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.nav-icon { 
+    font-size: 1.25rem; 
+    color: #705844;
+    cursor: pointer; 
+    transition: opacity 0.3s;
+}
+.nav-icon:hover { opacity: 0.6; }
+
+.marquee-container {
+    width: 100%;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #7b7d75;
+    font-size: 0.9rem;
+    font-family: "Noto Serif TC", serif;
+    margin-bottom: -30px;
+    z-index: 1000;
+    white-space: nowrap; /* 確保文字不換行 */
+    position: relative; /* 確保內部元件定位正確 */
+}
+
+.marquee-text {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+    white-space: nowrap;
+}
+
+.marquee-text span {
+    margin-right: 35px; /* 文字間距 */
+}
+
+@keyframes marquee {
+    /* 直接從 0% 的位置開始，不要從畫面外進入 */
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+/* Banner */
+.banner { 
+    width: 55%;
+    height: 100%;
+    overflow: hidden;
+    margin: 20px auto;
+    position: relative;
+}
+
+.banner-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.banner-container a {
+    width: 100%;
+    flex-shrink: 0; 
+    display: block;
+    text-decoration: none;
+}
+
+.banner-img { 
+    width: 100%; 
+    height: 100%;
+   
+    border: 1px solid #A3A69C;
+    display: block; 
+    object-fit: cover;
+}
+
+.banner-dots {
+    display: flex;
+    justify-content: center;
+    
+    position: relative;
+    bottom: 20px;
+    
+    gap: 8px;
+    z-index: 100;
+
+    span { 
+        width: 8px; 
+        height: 8px;
+        background: #705844; 
+        border-radius: 50%;
+    
+        opacity: 0.5;
+        cursor: pointer;
+        &.active { 
+            opacity: 1; 
+        }
+    }
+}
+
+/* 心理測驗 */
+.quiz-intro {
+    display: flex; padding: 30px 20px; gap: 40px; align-items: center;
+    max-width: 1100px; margin: 20px auto;
+}
+.quiz-card {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column; /* 讓內容垂直排列 */
+    align-items: center;    /* 水平居中 */
+    gap: 20px;  
+    border-bottom: 150px;
+}
+
+.quiz-card img { 
+    display: block; /* 移除底部間隙 */
+    width: 100%; 
+    height: auto; 
+    border-radius: 3px;
+    transition: transform 0.8s ease;
+}
+
+.quiz-card:hover img {
+    transform: scale(1.02); 
+}
+
+/* 文字區塊：確保按鈕對齊文字 */
+.quiz-text { 
+    flex: 1; 
+    text-align: left; 
+    color:#705844;
+}
+
+.quiz-text h2{
+    margin-bottom: 15px;
+    color:#3a3a3a;
+}
+
+/* 按鈕樣式：更有份量感 */
+.quiz-enter {
+    margin-top: 30px;
+    padding: 8px 15px;
+    display: flex;
+    left: 100px;
+    background: transparent;
+    border: 1px solid #705844;
+    color: #705844;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 2px;
+}
+
+/* 加入一點「進入」的過渡回饋 */
+.quiz-enter:hover {
+    background:#A3A69C;
+    color: #eeebe2;
+    border: 1px#eeebe2;
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(112, 88, 68, 0.2);
+}
+
+.quiz-enter:active {
+    transform: translateY(0); 
+}
+
+/* --- 產品集合區塊 Collection --- */
+.collection {
+    padding: 0px 0; 
+
+    .section-title {
+        text-align: center;
+        margin: 40px 0 50px 0;
+        font-size: 1.4rem;
+        color: #705844;
+        position: relative;
+
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 20%;
+            height: 1px;
+            background: #705844;
+            opacity: 0.8;
+        }
+        &::before { left: 10%; }
+        &::after { right: 10%; }
+    }
+
+    /* Grid 設定 */
+    .grid-3x2{
+        gap: 50px;
+        display: grid;
+        padding: 10px 20px;
+        margin: 0 auto;
+    }
+
+    .grid-3x2 {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1100px;
+    }
+
+    .item {
+        text-align: left;
+        transition: transform 0.3s ease;
+        &:hover {
+            transform: translateY(-5px);
+        }
+        .img-box {
+            width: 98%;
+            aspect-ratio: 1;
+            border: 1px solid #A3A69C;
+            overflow: hidden;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .item-info {
+            margin-top: 10px;
+            padding-left: -50px;
+
+            .info-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                .tag {
+                    font-size: 1.05rem;
+                    color: #3a3a3a;
+                    font-weight: 500;
+                }
+
+                .item-actions {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    cursor: pointer;
+                    padding-right: 5px;
+
+                    .action-btn-circle, .add-btn-circle {
+                        background-color: transparent;
+                        border: 1px solid #A3A69C;
+                        color: #A3A69C;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        outline: none;
+                        transform: translateY(2px);
+                        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+                        i { font-size: 0.7rem; }
+
+                        &:hover {
+                            background-color: #A3A69C;
+                            color: #eeebe2;
+                            transform: translateY(2px) scale(1.1);
+                        }
+                    }
+
+                    .add-btn-circle:hover {
+                        transform: translateY(2px) scale(1.1) rotate(90deg);
+                    }
+                }
+            }
+
+            .price {
+                color: #c0a080;
+                font-weight: bold;
+                display: block;
+                margin-top: 4px;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    /* 分頁 pagination */
+    .pagination-section {
+        text-align: center;
+        margin: 60px 0;
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: #705844;
+
+            .page-arrow {
+                transition: 0.3s ease;
+                padding: 5px;
+                &:hover {
+                    color: #a67a41;
+                }
+                
+            }
+
+            .page-num {
+                cursor: pointer;
+                &.active {
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+.info-content {
+    color: #c0a080;
+    font-size: 1.1rem;
+    display: flex;         
+    align-items: center;    
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.about-us { 
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+
+.about-logo {
+    width: 200px; 
+    height: auto;
+    margin-bottom: 5px; 
+    object-fit: contain;
+    margin-left: 100px;
+}
+
+.about-link { 
+    font-size: 0.5rem; 
+    text-decoration: underline; 
+    font-family:"Cactus Classical Serif", serif;
+    color: #705844; 
+    display: block; 
+    margin-bottom: 10px; 
+    margin-left: 150px;
+    
+}
+
+
+/* 聯絡區塊 */
+.contact-section { 
+    padding: 40px 20px 0; 
+    margin-top: 30px; 
+    scroll-margin-top: 60px; 
+}
+
+.social-icons { 
+    text-align: center; font-size: 1.8rem; margin-bottom: 50px;
+    a { margin: 0 30px; cursor: pointer; color: #705844; }
+}
+
+.contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
+.about-us { flex: 1; }
+.about-link { font-size: 1.4rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
+.map-box { flex: 1; border: 1px solid #c0a080; aspect-ratio: 1.5; background: #eeebe2; }
+.map-placeholder { height: 90%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
+
+.login-container {
+    background-color: rgba(112, 88, 68, 0.9);
+    padding: 30px 35px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 380px; /* 完美契合多個填寫欄位寬度 */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #eeebe2;
+
+    .login-logo {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 統一的描述文字樣式 (重設密碼與註冊皆適用) */
+    .login-desc {
+        width: 85%;
+        margin: 0 auto 20px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #c9ad96;
+
+        /* 已驗證的信箱名稱 (密碼重設用) */
+        .reset-email {
+            color: #eeebe2;
+            font-weight: bold;
+        }
+    }
+
+    /* 後端回傳錯誤訊息樣式 */
+    .error-msg {
+        color: #d87f7f;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+
+            /* 必填欄位的紅色星號 */
+            .required {
+                color: #d87f7f;
+                margin-left: 2px;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eeebe2;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 0.95rem;
+        background-color: #c0a080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: #a3866a;
+            transform: translateY(-1px);
+        }
+    }
+
+    .back-links {
+        margin-top: 15px;
+        font-size: 0.8rem;
+
+        a {
+            color: #eeebe2;
+            text-decoration: none;
+            margin: 0 8px;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* 聯絡我們：表單背景區塊（巢狀寫法） */
+.form-wrapper {
+    background-color: #705844; 
+    opacity: 0.8;
+    padding: 30px;
+    max-width: 600px;
+    max-height: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+
+    /* 將排版與限制套用在聯絡我們表單上 */
+    .contact-form {
+        form {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 12px;
+            width: 100%;
+        }
+
+        .form-title { 
+            text-align: center; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            font-size: 1.4rem; 
+        }
+
+        input, textarea { 
+            padding: 10px; 
+            border: none; 
+            background: #eeebe2; 
+            font-family: 'Noto Serif TC', serif; 
+            font-size: 0.9rem; 
+            width: 100%; 
+        }
+
+        .submit-btn { 
+            margin-top: 20px; 
+            width: 120px; 
+            background: #c0a080; 
+            color: #fff; 
+            border: none; 
+            padding: 12px; 
+            cursor: pointer; 
+            font-family: 'Noto Serif TC', serif; 
+            font-size: 0.9rem; 
+            transition: 0.3s; 
+            border-radius: 10px; 
+
+            &:hover {
+                color: #3a3a3a; 
+            }
+        }
+    }
+}
+
+/* 頁腳底部 */
+.footer-bottom { 
+    text-align: center; 
+    padding: 20px 0; 
+    font-size: 0.75rem; 
+    opacity: 0.5; 
+    color: #3a3a3a; 
+}
+
+/* 搜尋面板建議區塊的樣式 */
+/* 搜尋建議清單 */
+.suggestions {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+
+    /* 重點 */
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 每筆搜尋結果 */
+.suggestions li {
+    font-size: 15px;
+    border-bottom: 1px solid #705844;
+    opacity: 0.8;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.suggestions li:hover {
+    background-color: #e9e4d4;
+    padding-left: 10px;
+}
+
+/* 捲軸美化 */
+.suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.suggestions::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.suggestions::-webkit-scrollbar-thumb {
+    background: #c0a080;
+    border-radius: 20px;
+}
+
+
+@media (max-width: 768px) {
+    /* --- 1. 導覽列*/
+    .navbar {
+        padding: 10px !important;
+        justify-content: space-between !important; 
+    }
+
+    .nav-left, .nav-right {
+        width: auto !important; 
+        flex: 0 0 auto !important;
+        gap: 0px !important; 
+    }
+
+    .nav-logo {
+        flex: 1 !important; /* 讓 Logo 佔據剩餘空間並置中 */
+        font-size: 1.3rem !important;
+        text-align: center !important;
+        margin: 0 10px !important;
+    }
+
+    /* --- 2. 圖片比例修復 */
+    .banner {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important; 
+        margin: 0 !important;
+        aspect-ratio: 16 / 9; 
+    }
+
+    .banner-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; 
+    }
+
+    /* --- 3. 修正心理測驗圖片與文字 --- */
+    .quiz-intro {
+        flex-direction: column !important; 
+        align-items: center !important;
+        padding: 20px 20px !important;
+        gap: 0 !important; 
+    }
+    .quiz-card {
+        width: 100% !important;
+        max-width: 250px !important;
+        margin-bottom: 20px !important; 
+    }
+    .quiz-card img {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+    }
+    .quiz-text {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .quiz-text h2 {
+        margin-top: 10px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .contact-top {
+        flex-direction: column !important;
+        gap: 50px !important; /* 增加關於我們跟地圖之間的距離 */
+        margin-bottom: 50px !important;
+    }
+    .map-box {
+        width: 100% !important;
+        height: 250px !important;
+    }
+
+    /* --- 4. 關於我們- */
+    .about-us {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .about-logo {
+        margin: 0 auto 20px !important; 
+        max-width: 160px !important;
+    }
+    .about-link {
+        margin: 0 auto !important; 
+        padding: 10px 0 !important;
+    }
+    
+    .grid-3x2 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+}

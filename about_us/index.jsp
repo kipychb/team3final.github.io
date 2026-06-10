@@ -1,0 +1,144 @@
+<%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*" %>
+    <!DOCTYPE html>
+    <html lang="zh-TW">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>關於我們 | 花予祝願所</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap"
+            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <header class="navbar">
+            <a href="../index.jsp" class="back-home">
+                <i class="fa-solid fa-arrow-left"></i> 返回首頁
+            </a>
+            <div class="nav-container">
+                <div class="nav-logo">花予祝願所 <span class="nav-logo-e">Blooming Wish</span></div>
+                <div class="nav-placeholder"></div>
+            </div>
+        </header>
+
+        <main class="about-container">
+            <section class="about-header">
+                <div class="title-line"></div>
+                <h2 class="section-title">ABOUT US</h2>
+                <div class="title-line"></div>
+            </section>
+
+            <section class="brand-vision">
+                <div class="brand-logo-main">
+                    <img src="../image/logo.png" alt="花予祝願所 Logo">
+                </div>
+                <div class="vision-content">
+                    <h3 class="vision-title">每一份真心，都值得被溫柔地傳遞</h3>
+                    <p class="intro-text">
+                        底部的花瓶，是由心臟與鳥所融合而成。
+                        心臟象徵人的真心與情感，是每一份祝福的起點；
+                        鳥，來自古代「傳遞訊息」的意象，代表將內心的情感與思念送達他人。
+                        盛放在其上的花朵，以星星的形式呈現，象徵願望、希望與指引。<br>
+                        願收到花的人，都能感受到這份溫暖 ☆
+                    </p>
+                </div>
+            </section>
+
+            <section class="team-garden">
+                <div class="flower-member">
+                    <div class="flower-info-box">
+                        <div class="flower-box">
+                            <img src="image/1.png" alt="賴又德" class="floating-flower">
+                        </div>
+                        <div class="name-tag">
+                            <h4 class="member-name">賴又德</h4>
+                            <p class="part">Layout / Animation Design</p>
+                        </div>
+                    </div>
+                    <div class="member-detail">
+                        <div class="member-thought">
+                            <i class="fa-solid fa-quote-left thought-icon"></i>
+                            <p>在「花予祝願所」專案中，我主要負責動畫與動態交互的開發。這段過程讓我體會到，好的動畫不只是裝飾，更是導引使用者情感的關鍵。我利用 CSS Transition 與
+                                Transform
+                                實作了側邊欄的滑入效果，並結合 JavaScript
+                                監聽滾動事件，讓商品元件在進入視野時以優雅的位移與漸變呈現，營造出品牌溫潤且療癒的視覺調性。開發過程中最具挑戰的是購物車動畫與圖片輪播系統。我必須精確控制動畫的時間曲線，確保動作流暢而不生硬，並解決多個動畫並發時的層級關係。透過反覆除錯與效能優化，我學會了如何平衡視覺美感與前端效能。這次作業讓我深刻理解到，細膩的動畫細節能大幅提升使用者體驗，讓靜態的網頁轉化為具有靈魂的動態藝術。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flower-member reverse">
+                    <div class="flower-info-box">
+                        <div class="flower-box">
+                            <img src="image/2.png" alt="洪憲緯" class="floating-flower">
+                        </div>
+                        <div class="name-tag">
+                            <h4 class="member-name">洪憲緯</h4>
+                            <p class="part">JavaScript / Interactive Logic</p>
+                        </div>
+                    </div>
+                    <div class="member-detail">
+                        <div class="member-thought">
+                            <i class="fa-solid fa-quote-left thought-icon"></i>
+                            <p>這次的期末專題讓我深刻體會到 JavaScript 的魅力，它能將平庸的靜態網頁變得活靈活現。在開發過程中，AI
+                                成了最強大的助手，只要指令清晰，就能省去大量撰寫基礎程式碼的時間。不過，我覺得這份專案的挑戰在於系統整合，要將會員、商品與購物車系統同時塞進同一個網站，非常考驗程式架構與整理技術。最後，網站上傳至Github上後，有超多路徑上的問題（因為網頁前綴的不同，導致有時候會跳轉到錯誤的網站而導致404），期末報告超多人有404的問題我看的是不亦樂乎ww
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flower-member">
+                    <div class="flower-info-box">
+                        <div class="flower-box">
+                            <img src="image/3.png" alt="卓恩多" class="floating-flower">
+                        </div>
+                        <div class="name-tag">
+                            <h4 class="member-name">卓恩多</h4>
+                            <p class="part">Picture / Content Structuring</p>
+                        </div>
+                    </div>
+                    <div class="member-detail">
+                        <div class="member-thought">
+                            <i class="fa-solid fa-quote-left thought-icon"></i>
+                            <p>我主要擔綱商品企劃的項目，針對每一款花卉單品撰寫專屬的產品理念，試圖透過感性的文字，在螢幕背後建立起花朵與顧客之間的情感連結，將產品從單純的植物轉化為情感的載體。而程式實踐的部分，我負責將這些文字與圖片轉譯為流暢的視覺體驗，讓長篇的商品描述在閱讀時具備良好的易讀性，使整體介面呈現出花店應有的優雅與寧靜調性。我學會了如何平衡視覺美感與使用者需求，不僅提升了前端與資訊架構的技能，更能從市場角度優化使用者體驗。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flower-member reverse">
+                    <div class="flower-info-box">
+                        <div class="flower-box">
+                            <img src="image/4.png" alt="陳柏妤" class="floating-flower">
+                        </div>
+                        <div class="name-tag">
+                            <h4 class="member-name">陳柏妤</h4>
+                            <p class="part">Frontend UI / CSS Design</p>
+                        </div>
+                    </div>
+                    <div class="member-detail">
+                        <div class="member-thought">
+                            <i class="fa-solid fa-quote-left thought-icon"></i>
+                            <p>在這次期末專案中，我負責前端設計，包括 HTML、CSS
+                                的版面排版、測驗功能的製作，以及手繪插圖的設計。透過修改程式碼就能即時改變畫面，並結合自己喜歡的主題風格，讓我能把想像轉化為實際呈現，也讓設計過程變得更加有趣。在製作過程中，我逐漸理解
+                                HTML 檔案與路徑結構的重要性，也更清楚 JavaScript 邏輯如何影響頁面導向與功能運作。與期中相比，我在 CSS
+                                排版與細節調整上有明顯進步，能更有效地控制間距、對齊與整體版面。整體而言，這次專案不只是完成一個網站，更讓我在技術與設計整合上有實質成長，也建立了更多面對問題與解決問題的信心。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer-simple">
+            <p>© 2025 花予祝願所. All Rights Reserved.</p>
+        </footer>
+    </body>
+
+    </html>

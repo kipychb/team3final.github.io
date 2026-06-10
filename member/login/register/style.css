@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #eeebe2;
+    font-family: 'Noto Serif TC', serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: auto;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    padding: 20px;
+}
+
+/* 巢狀結構開始 */
+.login-container {
+    background-color: rgba(112, 88, 68, 0.9);
+    padding: 30px 35px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 380px; /* 完美契合多個填寫欄位寬度 */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: #eeebe2;
+
+    .login-logo {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 統一的描述文字樣式 (重設密碼與註冊皆適用) */
+    .login-desc {
+        width: 85%;
+        margin: 0 auto 20px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #c9ad96;
+
+        /* 已驗證的信箱名稱 (密碼重設用) */
+        .reset-email {
+            color: #eeebe2;
+            font-weight: bold;
+        }
+    }
+
+    /* 後端回傳錯誤訊息樣式 */
+    .error-msg {
+        color: #d87f7f;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+
+            /* 必填欄位的紅色星號 */
+            .required {
+                color: #d87f7f;
+                margin-left: 2px;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #eeebe2;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Noto Serif TC', serif;
+        font-size: 0.95rem;
+        background-color: #c0a080;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: #a3866a;
+            transform: translateY(-1px);
+        }
+    }
+
+    .back-links {
+        margin-top: 15px;
+        font-size: 0.8rem;
+
+        a {
+            color: #eeebe2;
+            text-decoration: none;
+            margin: 0 8px;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* 返回連結 */
+.back-home {
+    position: absolute; 
+    top: 25px; 
+    left: 25px;
+    color: #877566; 
+    text-decoration: none; 
+    font-size: 20px; 
+    z-index: 1000;
+    transition: 0.3s ease;
+    
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
+}

@@ -1,0 +1,136 @@
+/* --- 1. 全域與背景設定 --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #eeebe2;
+    font-family: 'Noto Serif TC', serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
+    background-size: auto;
+    padding: 20px;
+}
+
+/* 2. 登入容器優化  */
+.login-errmsg {
+    color: #d87f7f;
+}
+
+.login-container {
+    background-color: rgba(112, 88, 68, 0.9);
+    padding: 35px 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: #eeebe2;
+    transition: transform 0.3s ease;
+}
+
+.login-logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+/*  3. 表單元件  */
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    background: #eeebe2;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 11px;
+    background-color: #c0a080;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Noto Serif TC', serif;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 5px;
+
+    &:hover {
+        background-color: #a3866a;
+        transform: translateY(-2px);
+    }
+}
+
+/*  4. 底部連結 */
+.extra-links {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.extra-links a {
+    color: #eeebe2;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s;
+    width: 70px;
+}
+
+.extra-links a:first-child {
+    text-align: right;
+}
+
+.extra-links a:last-child {
+    text-align: left;
+}
+
+.extra-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.extra-links span {
+    color: #eeebe2;
+    opacity: 0.5;
+    margin: 0 5px;
+}
+
+/* 返回連結 */
+.back-home {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    color: #877566;
+    text-decoration: none;
+    font-size: 20px;
+    z-index: 1000;
+    transition: 0.3s ease;
+
+    &:hover {
+        color: #9d8768;
+        left: 27.5px;
+    }
+}
