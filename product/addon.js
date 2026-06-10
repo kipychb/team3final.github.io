@@ -1,10 +1,10 @@
 /**
  * addon.js
- * 功能：根據當前頁面產品 ProductID 的系列 (Series) 進行相關推薦 (已對齊 SQL 資料庫規格)
+ * 功能：根據當前頁面產品 ProductID 的系列 (Series) 進行相關推薦 (已對齊 SQL 資料庫規格並修復破圖)
  */
 
 function loadAddonDetails() {
-    // 改為向對接資料庫的 get_products.jsp 請求即時資料
+    // 向對接資料庫的 get_products.jsp 請求即時資料
     fetch('../get_products.jsp')
         .then(response => response.json())
         .then(data => {
@@ -62,30 +62,43 @@ function renderRecommendations(flowerData) {
     // 4. 產生 HTML 字串
     let htmlContent = '';
     selected.forEach(flower => {
-        // 💡 關鍵修正：判斷是不是新上傳的 UUID 圖片，讓推薦區塊也能正確顯示
+        // 💡 萬能保底備用圖
+        const fallbackImg = "../image/flower/fresh/1-2.jpg";
         let fullImagePath = "";
-        if (flower.Image && flower.Image.trim() !== '' && flower.Image.includes('-')) {
-            fullImagePath = `../image/images/${flower.Image.trim()}`;
+
+        // 💡 關鍵路徑修正：判斷是不是新上傳的 UUID 圖片，讓推薦區塊也能正確看得到新圖！
+        if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
+            let imgUrl = flower.Image.trim();
+            
+            // 判斷是否為寫死的舊格式
+            if (imgUrl.indexOf('/') !== -1 || imgUrl.endsWith("-2.jpg")) {
+                if (imgUrl.indexOf('image/') === 0) {
+                    fullImagePath = "../" + imgUrl;
+                } else {
+                    fullImagePath = "../image/" + imgUrl;
+                }
+            } else {
+                // 新上傳的 UUID 圖片，一律存在 ../image/images/ 內
+                fullImagePath = `../image/images/${imgUrl}`;
+            }
         } else {
+            // 完全沒欄位時的舊流水號路徑
             fullImagePath = `../image/flower/${flower.Category}/${flower.relativeIndex}-2.jpg`;
         }
 
         htmlContent += `
             <div class="item">
                 <a class="img border-box" href="index.jsp?id=${flower.ProductID}">
-                    <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.src='../image/flower/fresh/1-2.jpg'">
+                    <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.onerror=null; this.src='${fallbackImg}';">
                 </a>
                 <div class="info-row">
                     <div class="text-group">
                         <span class="name">${flower.ProductName}</span>
                         <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
                     </div>
-<<<<<<< HEAD
-                    <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
+                    <button class="add-btn-circle" onclick="event.stopPropagation(); if(typeof addToCart === 'function'){ addToCart(${flower.ProductID}, 1); }else{ alert('購物車模組尚未載入'); }">
                         <i class="fa-solid fa-plus"></i>
                     </button>
-=======
->>>>>>> 4afa724aed34f9362b12364f6b6984a4638bb257
                 </div>
             </div>
         `;
@@ -97,4 +110,4 @@ function renderRecommendations(flowerData) {
 // 供主控端動態呼叫的初始化入口
 window.addEventListener('load', () => {
     loadAddonDetails();
-});
+}); 

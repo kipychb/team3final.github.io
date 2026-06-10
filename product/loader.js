@@ -1,6 +1,6 @@
 /**
  * loader.js
- * 功能：產品頁面自動載入器 - 解決 404 與 JSON 解析錯誤
+ * 功能：產品頁面自動載入器 - 徹底修正變數重複宣告與 JSON 防護
  */
 
 async function loadProductDetail() {
@@ -22,7 +22,14 @@ async function loadProductDetail() {
             return;
         }
 
+        // 💡 關鍵修正：這裡只宣告一次 flower 變數
         const flower = JSON.parse(textData);
+
+        // 💡 防禦機制：如果後端 Java 執行有抓到 Exception，直接在控制台攔截
+        if (flower.error) {
+            console.error("🚨 抓到了！後端 Java 執行報錯：", flower.error);
+            return;
+        }
 
         if (flower && flower.ProductID) {
             document.title = `${flower.ProductName} | 花予祝願所`;
@@ -48,7 +55,7 @@ async function loadProductDetail() {
             }
         }
     } catch (error) {
-        console.error("解析 JSON 失敗，兇手內容為:", error);
+        console.error("解析 JSON 失敗，錯誤內容為:", error);
     }
 }
 
@@ -61,7 +68,6 @@ function initImageCarousel(flower) {
     let imgPath2 = "";
     const fallbackImg = "../image/flower/fresh/1-2.jpg"; // 安全保底圖
 
-    // 🔍 修正 404 重點：強制新圖片加上 「../」 退回根目錄
     if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
         let imgUrl = flower.Image.trim();
         
@@ -74,7 +80,6 @@ function initImageCarousel(flower) {
                 imgPath2 = "../image/" + imgUrl;
             }
         } else {
-            // 確保路徑是 ../image/images/ 絕對不會變成 product/image/...
             imgPath1 = `../image/images/${imgUrl}`;
             imgPath2 = `../image/images/${imgUrl}`;
         }

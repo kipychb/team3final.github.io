@@ -1,5 +1,16 @@
 <%@page contentType="application/json;charset=utf-8" language="java" import="java.sql.*" %>
 <%@include file="../utils/config.jsp" %>
+<%! 
+    // 萬能全自動安全字串處理，確保絕對不會破壞 JSON 結構
+    public String cleanForJson(String s) { 
+        if (s == null) return ""; 
+        return s.replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\r", "")
+                .replace("\n", "\\n")
+                .replace("\t", "\\t"); 
+    } 
+%>
 <%
     request.setCharacterEncoding("UTF-8");
     response.setContentType("application/json;charset=utf-8");
@@ -17,9 +28,12 @@
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 
+    // 用一個全新的 StringBuilder 把所有輸出包起來，確保「出錯時絕不吐出畸形半截字串」
+    StringBuilder jsonResult = new StringBuilder();
+
     try {
         int targetID = Integer.parseInt(idStr.trim());
-        String category = "";
+        String category = "fresh"; 
         int relativeIndex = 1;
 
         // 1. 查詢分類
@@ -28,10 +42,10 @@
         catPstmt.setInt(1, targetID);
         catRs = catPstmt.executeQuery();
         if (catRs.next()) {
-            category = catRs.getString("Category");
-        } else {
-            out.print("{}");
-            return;
+            String tempCat = catRs.getString("Category");
+            if(tempCat != null && !tempCat.trim().isEmpty()) {
+                category = tempCat.trim();
+            }
         }
 
         // 2. 計算流水號
@@ -51,90 +65,73 @@
         rs = pstmt.executeQuery();
         
         if (rs.next()) {
-            String productName = rs.getString("ProductName");
-            if(productName == null) productName = "";
-            productName = productName.replace("\\", "\\\\").replace("\"", "\\\"");
-
+            String productName = cleanForJson(rs.getString("ProductName"));
             double price = rs.getDouble("Price");
             int quantity = rs.getInt("Quantity");
             
-            String series = rs.getString("Series");
-            if(series == null) series = "";
-            series = series.replace("\\", "\\\\").replace("\"", "\\\"");
-
-            String size = rs.getString("Size");
-            if(size == null) size = "";
-            size = size.replace("\\", "\\\\").replace("\"", "\\\"");
-
-            String material = rs.getString("Material");
-            if(material == null) material = "";
-            material = material.replace("\\", "\\\\").replace("\"", "\\\"");
-
-            String appreciationPeriod = rs.getString("AppreciationPeriod");
-            if(appreciationPeriod == null) appreciationPeriod = "";
-            appreciationPeriod = appreciationPeriod.replace("\\", "\\\\").replace("\"", "\\\"");
+            String series = cleanForJson(rs.getString("Series"));
+            if(series.isEmpty()) series = "Default";
+            
+            String size = cleanForJson(rs.getString("Size"));
+            String material = cleanForJson(rs.getString("Material"));
+            String appreciationPeriod = cleanForJson(rs.getString("AppreciationPeriod"));
             
             String imageRaw = rs.getString("Image");
-            String imageJson = (imageRaw != null) ? imageRaw.trim().replace("\\", "\\\\").replace("\"", "\\\"") : "";
+            String imageJson = (imageRaw != null) ? cleanForJson(imageRaw.trim()) : "";
 
+            // 修正：抽離區域函數呼叫，改用最安全的老派迴圈拼接
             String saveMethodsRaw = rs.getString("SaveMethods");
-            String saveMethodsJson = "[]";
-            if (saveMethodsRaw != null && !saveMethodsRaw.trim().isEmpty()) {
+            StringBuilder sbMethods = new StringBuilder("[");
+            if (saveMethodsRaw != null && !saveMethodsRaw.trim().isEmpty() && !saveMethodsRaw.trim().equalsIgnoreCase("null")) {
                 String[] methods = saveMethodsRaw.split("、");
-                StringBuilder sb = new StringBuilder("[");
                 for (int i = 0; i < methods.length; i++) {
-                    sb.append("\"").append(methods[i].replace("\\", "\\\\").replace("\"", "\\\"")).append("\"");
-                    if (i < methods.length - 1) sb.append(",");
+                    if(methods[i] != null) {
+                        String cleanMethod = methods[i].replace("\\", "\\\\").replace("\"", "\\\"").replace("\r", "").replace("\n", "\\n");
+                        sbMethods.append("\"").append(cleanMethod).append("\"");
+                        if (i < methods.length - 1) sbMethods.append(",");
+                    }
                 }
-                sb.append("]");
-                saveMethodsJson = sb.toString();
             }
+            sbMethods.append("]");
 
-            String language = rs.getString("Language");
-            if(language == null) language = "";
-            language = language.replace("\\", "\\\\").replace("\"", "\\\"");
+            String language = cleanForJson(rs.getString("Language"));
+            if(language.isEmpty()) language = "中文";
 
-            String idea = rs.getString("Idea");
-            if(idea == null) idea = "";
-            idea = idea.replace("\\", "\\\\").replace("\"", "\\\"");
-%>
-{
-    "ProductID": <%=targetID%>,
-    "ProductName": "<%=productName%>",
-    "Category": "<%=category%>",
-    "Price": <%=price%>,
-    "Quantity": <%=quantity%>,
-    "Series": "<%=series%>",
-    "Size": "<%=size%>",
-    "Material": "<%=material%>",
-    "AppreciationPeriod": "<%=appreciationPeriod%>",
-    "SaveMethods": <%=saveMethodsJson%>,
-    "Language": "<%=language%>",
-    "Idea": "<%=idea%>",
-<<<<<<< HEAD
-    "relativeIndex": <%=relativeIndex%>,
-    "Image": "<%=imageJson%>"
-}
-<%
+            String idea = cleanForJson(rs.getString("Idea"));
+
+            // 把所有的 JSON 組裝乾淨地塞進變數，不出錯才一併吐給前端
+            jsonResult.append("{")
+                      .append("\"ProductID\":").append(targetID).append(",")
+                      .append("\"ProductName\":\"").append(productName).append("\",")
+                      .append("\"Category\":\"").append(category).append("\",")
+                      .append("\"Price\":").append(price).append(",")
+                      .append("\"Quantity\":").append(quantity).append(",")
+                      .append("\"Series\":\"").append(series).append("\",")
+                      .append("\"Size\":\"").append(size).append("\",")
+                      .append("\"Material\":\"").append(material).append("\",")
+                      .append("\"AppreciationPeriod\":\"").append(appreciationPeriod).append("\",")
+                      .append("\"SaveMethods\":").append(sbMethods.toString()).append(",")
+                      .append("\"Language\":\"").append(language).append("\",")
+                      .append("\"Idea\":\"").append(idea).append("\",")
+                      .append("\"relativeIndex\":").append(relativeIndex).append(",")
+                      .append("\"Image\":\"").append(imageJson).append("\"")
+                      .append("}");
         } else {
-            out.print("{}");
+            jsonResult.append("{}");
         }
+        
+        // 成功執行完畢，正式輸出 JSON
+        out.print(jsonResult.toString());
+
     } catch (Exception e) {
-        // 如果真的出錯，吐出 JSON 格式的錯誤訊息，絕對不吐 DOCTYPE HTML！
-        out.print("{\"error\": \"" + e.getMessage().replace("\"", "\\\"") + "\"}");
+        // 全域攔截：即使萬一資料庫讀取斷線或出錯，保證吐出前端看得懂的標準 JSON
+        out.print("{\"error\": \"Java Error: " + e.toString().replace("\"", "\\\"") + "\"}");
     } finally {
-        if (rs != null) try { rs.close(); } catch(Exception e){}
-        if (pstmt != null) try { pstmt.close(); } catch(Exception e){}
-        if (catRs != null) try { catRs.close(); } catch(Exception e){}
-        if (catPstmt != null) try { catPstmt.close(); } catch(Exception e){}
-        if (rankRs != null) try { rankRs.close(); } catch(Exception e){}
-        if (rankPstmt != null) try { rankPstmt.close(); } catch(Exception e){}
-=======
-    "relativeIndex": <%=relativeIndex%>
-}
-<%
-    } else {
-        out.print("{}");
->>>>>>> 4afa724aed34f9362b12364f6b6984a4638bb257
+        try { if (rs != null) rs.close(); } catch(Exception e){}
+        try { if (pstmt != null) pstmt.close(); } catch(Exception e){}
+        try { if (catRs != null) catRs.close(); } catch(Exception e){}
+        try { if (catPstmt != null) catPstmt.close(); } catch(Exception e){}
+        try { if (rankRs != null) rankRs.close(); } catch(Exception e){}
+        try { if (rankPstmt != null) rankPstmt.close(); } catch(Exception e){}
     }
 %>
