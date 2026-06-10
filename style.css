@@ -616,7 +616,7 @@ body {
 
 /* 捲軸美化 */
 .suggestions::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .suggestions::-webkit-scrollbar-track {

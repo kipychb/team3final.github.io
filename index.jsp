@@ -3,7 +3,7 @@
         <!DOCTYPE html>
         <html lang="zh-TW">
 
-        
+
 
         <head>
             <meta charset="UTF-8">
@@ -11,8 +11,10 @@
             <title>花予祝願所</title>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
+            <link rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
+            <link rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <link rel="stylesheet" href="style.css">
             <link rel="stylesheet" href="utils/cart/style.css">
@@ -172,7 +174,7 @@
                 </div>
 
                 <ul class="list">
-                    <li><a href="index.html">Home / 首頁</a></li>
+                    <li><a href="index.jsp">Home / 首頁</a></li>
                     <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
                     <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
                     <li><a href="series/index.html?series=friend">For Friend 系列</a></li>
