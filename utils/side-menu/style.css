@@ -24,14 +24,19 @@
     align-items: center;
     padding-bottom: 15px;
     color: #705844;
-    font-size: 1.1rem;
+    
     border-bottom: 1.5px solid #A3A69C;
     margin-bottom: 20px;
 }
 
+.header h2{
+    font-size: 1.3rem;
+
+}
+
 .header i {
     cursor: pointer;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #705844;
     transition: 0.3s;
 }
