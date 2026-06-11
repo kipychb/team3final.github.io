@@ -2,9 +2,8 @@
 .cart-sidebar {
     position: fixed;
     top: 0;
-    /* 1. 將寬度變寬，並對應調整隱藏時的 right 距離 */
     right: -430px; 
-    width: 380px;  /* 寬度從 320px 放大到 380px，留出更多水平空間 */
+    width: 380px;  
     height: 100%;
     background: #eeebe2;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
