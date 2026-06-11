@@ -160,21 +160,30 @@
 
         <ul class="list">
             <li><a href="index.jsp">Home / 首頁</a></li>
-            <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
-            <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
-            <li><a href="series/index.html?series=friend">For Friend 系列</a></li>
-            <li><a href="series/index.html?series=elder">For Elders 系列</a></li>
+            <li><a href="series/index.jsp?series=lover">For Lover 系列</a></li>
+            <li><a href="series/index.jsp?series=myself">For Myself 系列</a></li>
+            <li><a href="series/index.jsp?series=friend">For Friend 系列</a></li>
+            <li><a href="series/index.jsp?series=elder">For Elders 系列</a></li>
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
 
     <!-- 搜尋花朵 -->
-    <div class="side-panel" id="side-search">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福...">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <ul id="search-suggestions" class="suggestions"></ul>
+    <%
+        String searchQ = request.getParameter("q");
+        boolean hasSearch = searchQ != null && !searchQ.trim().isEmpty();
+    %>
+    <div class="side-panel<%= hasSearch ? " active" : "" %>" id="side-search">
+        <form class="search-bar" id="search-form" action="index.jsp" method="get">
+            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福..."
+                   value="<%= hasSearch ? searchQ : "" %>">
+            <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+        <ul id="search-suggestions" class="suggestions">
+            <jsp:include page="search.jsp" />
+        </ul>
     </div>
 
     <!-- 購物清單 -->
@@ -195,11 +204,10 @@
     <jsp:include page="utils/cookie-banner.jsp" />
 
     <!-- Java Script 專區 -->
-    <script src="utils/wishlist/addWish.jsp"></script>
+    <jsp:include page="utils/wishlist/addWish.jsp" />
     <script src="utils/cart/main.jsp"></script>
     <script src="utils/side-menu/main.jsp"></script>
     <script src="member/login/login.jsp"></script>
-    <script src="search.jsp"></script>
     <script>
     // 助教不要扣分，我只是想藏彩蛋 🥺
         document.addEventListener('DOMContentLoaded', () => {

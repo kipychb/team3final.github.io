@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const resultsHtml = results.map(flower => {
-            const fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-1.jpg`;
+            const fullImagePath = flowerImg(flower.Image, 1);
 
             return `
                 <div class="result-item">

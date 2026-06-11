@@ -43,15 +43,17 @@
                 Map<String, Object> flower = rawList.get(i);
                 count++;
 
-                // 完美打通 get_products.jsp 新舊圖片路徑邏輯
                 String image = (String) flower.get("Image");
-                String imagePath = "";
-                if (image != null && !image.trim().isEmpty() && image.contains("-")) {
-                    // 新產品：UUID 圖片
-                    imagePath = "image/images/" + image.trim();
+                String imagePath;
+                if (image != null && !image.trim().isEmpty()) {
+                    String img = image.trim();
+                    if (img.matches("\\d+-1\\.jpg")) {
+                        imagePath = "image/flower/" + img.replace("-1.jpg", "-2.jpg");
+                    } else {
+                        imagePath = "image/flower/" + img;
+                    }
                 } else {
-                    // 舊產品：沿用原本固定的數字格式路徑
-                    imagePath = "image/flower/" + category + "/" + count + "-2.jpg";
+                    imagePath = "image/default.jpg";
                 }
                 flower.put("imagePath", imagePath);
                 productsList.add(flower);

@@ -15,7 +15,8 @@
     StringBuilder json = new StringBuilder("[");
     try {
         // 2. 獲取所有收藏
-        String sql = "SELECT p.* FROM `wishlist` w " +
+        String sql = "SELECT p.ProductID, p.ProductName, p.Category, p.Price, p.Series, p.Image " +
+                     "FROM `wishlist` w " +
                      "JOIN `product` p ON w.ProductID = p.ProductID " +
                      "WHERE w.MemberID = ? " +
                      "ORDER BY p.ProductID ASC";
@@ -30,27 +31,17 @@
             String productName = rs.getString("ProductName").replace("\\", "\\\\").replace("\"", "\\\"");
             String category = rs.getString("Category");
             double price = rs.getDouble("Price");
-            String series = rs.getString("Series").replace("\\", "\\\\").replace("\"", "\\\"");
+            String series = rs.getString("Series");
+            if (series == null) series = ""; else series = series.replace("\\", "\\\\").replace("\"", "\\\"");
+            String image = rs.getString("Image");
+            if (image == null) image = ""; else image = image.replace("\\", "\\\\").replace("\"", "\\\"");
 
-            // 3. 即時計算 Category 的 relativeIndex (確保圖片路徑正確)
-            int relativeIndex = 1;
-            String rankSql = "SELECT COUNT(*) AS `rank` FROM `product` WHERE `Category` = ? AND `ProductID` <= ?";
-            PreparedStatement rankPstmt = con.prepareStatement(rankSql);
-            rankPstmt.setString(1, category);
-            rankPstmt.setInt(2, productID);
-            ResultSet rankRs = rankPstmt.executeQuery();
-            if (rankRs.next()) {
-                relativeIndex = rankRs.getInt("rank");
-            }
-
-            if (!first) {
-                json.append(",");
-            }
+            if (!first) json.append(",");
             first = false;
 
             json.append(String.format(
-                "{\"ProductID\":%d, \"ProductName\":\"%s\", \"Category\":\"%s\", \"Price\":%.2f, \"Series\":\"%s\", \"relativeIndex\":%d}",
-                productID, productName, category, price, series, relativeIndex
+                "{\"ProductID\":%d,\"ProductName\":\"%s\",\"Category\":\"%s\",\"Price\":%.2f,\"Series\":\"%s\",\"Image\":\"%s\"}",
+                productID, productName, category, price, series, image
             ));
         }
     } catch (Exception e) {

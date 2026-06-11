@@ -184,7 +184,7 @@
             <div id="wishlist" class="section-block">
                 <h3 class="block-title">願望清單</h3>
                 <div class="list-container" id="simple-wishlist-container">
-                    <p class="empty-msg">您的願望清單空空如也...</p>
+                    <jsp:include page="../utils/wishlist/wishlist.jsp" />
                 </div>
             </div>
 
@@ -213,10 +213,10 @@
 
         <ul class="list">
             <li><a href="../index.jsp">Home / 首頁</a></li>
-            <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
-            <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
-            <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>
-            <li><a href="../series/index.html?series=elder">For Elders 系列</a></li>
+            <li><a href="../series/index.jsp?series=lover">For Lover 系列</a></li>
+            <li><a href="../series/index.jsp?series=myself">For Myself 系列</a></li>
+            <li><a href="../series/index.jsp?series=friend">For Friend 系列</a></li>
+            <li><a href="../series/index.jsp?series=elder">For Elders 系列</a></li>
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
@@ -238,7 +238,6 @@
     <!-- Java Script 存放區 -->
     <script src="../utils/cart/main.jsp"></script>
     <script src="../utils/side-menu/main.jsp"></script>
-    <script src="../utils/wishlist/wishlist.jsp"></script>
     <script src="main.jsp"></script>
     <script src="search.jsp"></script>
     <script src="login/login.jsp"></script>

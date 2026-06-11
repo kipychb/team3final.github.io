@@ -1,131 +1,107 @@
-<%@page contentType="text/javascript;charset=utf-8" language="java" %>
+<%@page contentType="text/html;charset=utf-8" language="java" import="java.sql.*,java.util.*" %>
+<%@include file="../utils/config.jsp" %>
+<%
+    String productIdStr = request.getParameter("id");
+    int currentId = 0;
+    try { currentId = Integer.parseInt(productIdStr); } catch (Exception ignore) {}
 
-/**
- * addon.js
- * 功能：根據當前頁面產品 ProductID 的系列 (Series) 進行相關推薦 (已對齊 SQL 資料庫規格並修復破圖)
- */
+    // 取得當前商品的 Series
+    String currentSeries = null;
+    try {
+        PreparedStatement ps = con.prepareStatement("SELECT `Series` FROM `product` WHERE `ProductID` = ?");
+        ps.setInt(1, currentId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) currentSeries = rs.getString("Series");
+        rs.close(); ps.close();
+    } catch (Exception ignore) {}
 
-let dbWishlist = [];
-
-function loadAddonDetails() {
-    // 💡 同步向對接資料庫的 get_products.jsp 與願望清單請求即時資料
-    Promise.all([
-        fetch('../get_products.jsp').then(response => response.json()),
-        fetch('../utils/wishlist/check_wishlist.jsp').then(response => response.json()).catch(() => [])
-    ])
-        .then(([data, wishlistIds]) => {
-            // 儲存自資料庫載入的已收藏 ProductID
-            dbWishlist = wishlistIds.map(Number);
-
-            let freshCount = 0;
-            let driedCount = 0;
-
-            data.forEach(flower => {
-                if (flower.Category === 'fresh') {
-                    freshCount++;
-                    flower.relativeIndex = freshCount;
-                } else {
-                    driedCount++;
-                    flower.relativeIndex = driedCount;
-                }
-            });
-            // 2. 進行相關推薦的渲染
-            renderRecommendations(data);
-        })
-        .catch(error => {
-            console.error('無法讀取花卉或願望清單資料庫:', error);
-        });
-};
-
-/**
- * 渲染相關推薦商品
- * @param {Array} flowerData 所有的花卉陣列 (來自資料庫)
- */
-function renderRecommendations(flowerData) {
-    const gridContainer = document.getElementById('addon-grid-container');
-    if (!gridContainer) return;
-
-    // 1. 取得當前 URL 的產品 ID (ProductID)
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentId = urlParams.get('id') || '1';
-
-    // 2. 找出跟當前商品同系列 (Series) 且非當前瀏覽的商品
-    const currentFlower = flowerData.find(f => f.ProductID.toString() === currentId);
-    let selected = [];
-
-    if (currentFlower) {
-        const related = flowerData.filter(f => f.Series === currentFlower.Series && f.ProductID.toString() !== currentId);
-        // 隨機打亂同系列產品
-        selected = related.sort(() => 0.5 - Math.random()).slice(0, 4);
-    }
-
-    // 3. 如果同系列不足 4 朵，用其他產品補足 (保底機制)
-    if (selected.length < 4) {
-        const remainingCount = 4 - selected.length;
-        const others = flowerData.filter(f => f.ProductID.toString() !== currentId && !selected.includes(f));
-        const additional = others.sort(() => 0.5 - Math.random()).slice(0, remainingCount);
-        selected = selected.concat(additional);
-    }
-
-    // 4. 產生 HTML 字串
-    let htmlContent = '';
-    selected.forEach(flower => {
-        // 💡 萬能保底備用圖
-        const fallbackImg = "../image/flower/fresh/1-2.jpg";
-        const isFavorited = dbWishlist.includes(Number(flower.ProductID));
-        const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
-        const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
-        let fullImagePath = "";
-
-        // 💡 關鍵路徑修正：判斷是不是新上傳的 UUID 圖片，讓推薦區塊也能正確看得到新圖！
-        if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
-            let imgUrl = flower.Image.trim();
-
-            // 判斷是否為寫死的舊格式
-            if (imgUrl.indexOf('/') !== -1 || imgUrl.endsWith("-2.jpg")) {
-                if (imgUrl.indexOf('image/') === 0) {
-                    fullImagePath = "../" + imgUrl;
-                } else {
-                    fullImagePath = "../image/" + imgUrl;
-                }
-            } else {
-                // 新上傳的 UUID 圖片，一律存在 ../image/images/ 內
-                fullImagePath = `../image/images/\${imgUrl}`;
+    // 同系列商品（排除自己），隨機取 4 筆
+    List<Map<String,Object>> items = new ArrayList<>();
+    if (currentSeries != null) {
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT `ProductID`, `ProductName`, `Price`, `Image` FROM `product` " +
+                "WHERE `Series` = ? AND `ProductID` <> ? ORDER BY RAND() LIMIT 4"
+            );
+            ps.setString(1, currentSeries);
+            ps.setInt(2, currentId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Map<String,Object> m = new HashMap<>();
+                m.put("id",    rs.getInt("ProductID"));
+                m.put("name",  rs.getString("ProductName"));
+                m.put("price", rs.getInt("Price"));
+                m.put("image", rs.getString("Image"));
+                items.add(m);
             }
+            rs.close(); ps.close();
+        } catch (Exception ignore) {}
+    }
+
+    // 同系列不足 4 筆時，隨機補其他商品
+    if (items.size() < 4) {
+        int need = 4 - items.size();
+        // 排除已選 ID 與自己
+        StringBuilder excludeIds = new StringBuilder(String.valueOf(currentId));
+        for (Map<String,Object> m : items) excludeIds.append(",").append(m.get("id"));
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT `ProductID`, `ProductName`, `Price`, `Image` FROM `product` " +
+                "WHERE `ProductID` NOT IN (" + excludeIds + ") ORDER BY RAND() LIMIT " + need
+            );
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Map<String,Object> m = new HashMap<>();
+                m.put("id",    rs.getInt("ProductID"));
+                m.put("name",  rs.getString("ProductName"));
+                m.put("price", rs.getInt("Price"));
+                m.put("image", rs.getString("Image"));
+                items.add(m);
+            }
+            rs.close(); ps.close();
+        } catch (Exception ignore) {}
+    }
+
+    for (Map<String,Object> item : items) {
+        int    pid   = (int) item.get("id");
+        String pname = (String) item.get("name");
+        int    price = (int) item.get("price");
+        String img   = (String) item.get("image");
+
+        // 圖片路徑邏輯：-1.jpg 格式取 -2.jpg；其他直接使用
+        String imgPath;
+        if (img != null && !img.trim().isEmpty() && img.trim().matches("\\d+-1\\.jpg")) {
+            imgPath = "../image/flower/" + img.trim().replace("-1.jpg", "-2.jpg");
+        } else if (img != null && !img.trim().isEmpty()) {
+            imgPath = "../image/flower/" + img.trim();
         } else {
-            // 完全沒欄位時的舊流水號路徑
-            fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-2.jpg`;
+            imgPath = "../image/default.jpg";
         }
 
-        htmlContent += `
-            <div class="item">
-                <a class="img border-box" href="index.jsp?id=\${flower.ProductID}">
-                    <img src="\${fullImagePath}" alt="\${flower.ProductName}" onerror="this.onerror=null; this.src='\${fallbackImg}';">
-                </a>
-                <div class="info-row">
-                    <div class="text-group">
-                        <span class="name">\${flower.ProductName}</span>
-                        <span class="price">NT$ \${flower.Price.toLocaleString()}</span>
-                    </div>
-                    <button class="action-btn-circle heart-btn" data-id="\${flower.ProductID}">
-                        <i class="\${heartIconClass} fa-heart" \${heartIconStyle}></i>
-                    </button>
-                    <button class="add-btn-circle" onclick="handleAddToCart(event, \${flower.ProductID})">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    });
-
-    gridContainer.innerHTML = htmlContent;
-
-    if (typeof updateHeartIconsStatus === 'function') {
-        updateHeartIconsStatus();
+        String priceStr = String.format("%,d", price);
+%>
+<div class="item">
+    <a class="img border-box" href="index.jsp?id=<%= pid %>">
+        <img src="<%= imgPath %>" alt="<%= pname %>" onerror="this.onerror=null; this.src='../image/default.jpg';">
+    </a>
+    <div class="info-row">
+        <div class="text-group">
+            <span class="name"><%= pname %></span>
+            <span class="price">NT$ <%= priceStr %></span>
+        </div>
+        <button class="action-btn-circle heart-btn" data-id="<%= pid %>">
+            <i class="fa-regular fa-heart"></i>
+        </button>
+        <button class="add-btn-circle" onclick="handleAddToCart(event, <%= pid %>)">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+</div>
+<%
     }
-}
-
-// 供主控端動態呼叫的初始化入口
-window.addEventListener('load', () => {
-    loadAddonDetails();
-});
+    if (items.isEmpty()) {
+%>
+<p style="text-align:center; padding:20px; color:#999;">目前沒有類似商品 ✿</p>
+<%
+    }
+%>
