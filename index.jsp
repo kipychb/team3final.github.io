@@ -9,14 +9,13 @@
     <title>花予祝願所</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="utils/cart/style.css">
     <link rel="stylesheet" href="utils/side-menu/style.css">
+    <link rel="icon" href="image/icon.ico">
 </head>
 
 <body>
@@ -199,7 +198,6 @@
     <script src="utils/wishlist/addWish.jsp"></script>
     <script src="utils/cart/main.jsp"></script>
     <script src="utils/side-menu/main.jsp"></script>
-    <script src="utils/title.jsp"></script>
     <script src="member/login/login.jsp"></script>
     <script src="search.jsp"></script>
     <script>
