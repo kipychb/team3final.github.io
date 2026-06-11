@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function handleAddToCart(event, productId) {
+    if (event) event.stopPropagation();
+    if (typeof addToCart === "function") {
+        addToCart(productId, 1);
+    } else {
+        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
+    }
+}
+
 function getMappingPath() {
     const path = window.location.pathname;
     let apiPath = "utils/cart/";

@@ -163,6 +163,10 @@
                             </div>
 
                 <div class="action-group">
+                    <% if (rs.getString("Rank") != null && rs.getString("Rank").trim().equals("管理員")) { %>
+                        <button class="action-btn" style="background-color: #705844; color: #fff;" onclick="location.href='../admin/index.jsp'">進入管理員頁面</button>
+                    <% } %>
+                    
                     <button class="action-btn" id="edit-btn" onclick="toggleEditMode()">修改個人資料</button>
                     <button class="action-btn logout-btn" onclick="logout()">登出帳號</button>
                 </div>

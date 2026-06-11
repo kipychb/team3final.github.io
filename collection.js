@@ -13,7 +13,7 @@ let dbWishlist = []; // 儲存自資料庫載入的已收藏 ProductID
 window.addEventListener('load', function () {
     Promise.all([
         fetch('get_products.jsp').then(res => res.json()),
-        fetch('wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => [])
+        fetch('utils/wishlist/check_wishlist.jsp').then(res => res.json()).catch(() => [])
     ])
         .then(([products, wishlistIds]) => {
             dbWishlist = wishlistIds.map(Number);
@@ -142,13 +142,6 @@ function setupPaginationEvents() {
         if (prevBtn) prevBtn.onclick = () => update(localPage - 1);
         if (nextBtn) nextBtn.onclick = () => update(localPage + 1);
     });
-}
-
-function handleAddToCart(event, productId) {
-    if (event) event.stopPropagation();
-    if (typeof addToCart === "function") {
-        addToCart(productId, 1); // 傳入 ID 與 數量 1
-    }
 }
 
 async function handleMemberClick() {

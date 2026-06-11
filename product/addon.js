@@ -3,14 +3,21 @@
  * 功能：根據當前頁面產品 ProductID 的系列 (Series) 進行相關推薦 (已對齊 SQL 資料庫規格並修復破圖)
  */
 
+let dbWishlist = [];
+
 function loadAddonDetails() {
-    // 向對接資料庫的 get_products.jsp 請求即時資料
-    fetch('../get_products.jsp')
-        .then(response => response.json())
-        .then(data => {
-            // 1. 在隨機篩選前，依原始順序動態計算每筆商品的 relativeIndex，確保舊圖片路徑正確
+    // 💡 同步向對接資料庫的 get_products.jsp 與願望清單請求即時資料
+    Promise.all([
+        fetch('../get_products.jsp').then(response => response.json()),
+        fetch('../utils/wishlist/check_wishlist.jsp').then(response => response.json()).catch(() => [])
+    ])
+        .then(([data, wishlistIds]) => {
+            // 儲存自資料庫載入的已收藏 ProductID
+            dbWishlist = wishlistIds.map(Number);
+
             let freshCount = 0;
             let driedCount = 0;
+
             data.forEach(flower => {
                 if (flower.Category === 'fresh') {
                     freshCount++;
@@ -20,12 +27,11 @@ function loadAddonDetails() {
                     flower.relativeIndex = driedCount;
                 }
             });
-
             // 2. 進行相關推薦的渲染
             renderRecommendations(data);
         })
         .catch(error => {
-            console.error('無法讀取花卉資料庫:', error);
+            console.error('無法讀取花卉或願望清單資料庫:', error);
         });
 };
 
@@ -64,12 +70,15 @@ function renderRecommendations(flowerData) {
     selected.forEach(flower => {
         // 💡 萬能保底備用圖
         const fallbackImg = "../image/flower/fresh/1-2.jpg";
+        const isFavorited = dbWishlist.includes(Number(flower.ProductID));
+        const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
+        const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
         let fullImagePath = "";
 
         // 💡 關鍵路徑修正：判斷是不是新上傳的 UUID 圖片，讓推薦區塊也能正確看得到新圖！
         if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
             let imgUrl = flower.Image.trim();
-            
+
             // 判斷是否為寫死的舊格式
             if (imgUrl.indexOf('/') !== -1 || imgUrl.endsWith("-2.jpg")) {
                 if (imgUrl.indexOf('image/') === 0) {
@@ -96,7 +105,10 @@ function renderRecommendations(flowerData) {
                         <span class="name">${flower.ProductName}</span>
                         <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
                     </div>
-                    <button class="add-btn-circle" onclick="event.stopPropagation(); if(typeof addToCart === 'function'){ addToCart(${flower.ProductID}, 1); }else{ alert('購物車模組尚未載入'); }">
+                    <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
+                        <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
+                    </button>
+                    <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -105,9 +117,14 @@ function renderRecommendations(flowerData) {
     });
 
     gridContainer.innerHTML = htmlContent;
+
+    // 如果你在 product 頁面也有引入 addWish.js，建議在這裡也呼叫一次以確保愛心點擊事件綁定成功
+    if (typeof updateHeartIconsStatus === 'function') {
+        updateHeartIconsStatus();
+    }
 }
 
 // 供主控端動態呼叫的初始化入口
 window.addEventListener('load', () => {
     loadAddonDetails();
-}); 
+});

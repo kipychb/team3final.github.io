@@ -112,16 +112,3 @@ function renderSeriesProducts(flowers) {
         updateHeartIconsStatus();
     }
 }
-
-/**
- * 中間接管函式：點擊加號按鈕，傳遞 ProductID 給 utils/cart/main.js
- */
-function handleAddToCart(event, productId) {
-    if (event) event.stopPropagation();
-    if (typeof addToCart === "function") {
-        // 直接傳入 ProductID 進行 SQL 寫入 (預設數量為 1)
-        addToCart(productId, 1);
-    } else {
-        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
-    }
-}
