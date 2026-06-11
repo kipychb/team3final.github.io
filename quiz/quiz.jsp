@@ -1,3 +1,5 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
+
 let flowerData = [];
 let quizData = [];
 
@@ -14,10 +16,10 @@ async function initSearchData() {
         flowerData.forEach(flower => {
             if (flower.Category === 'fresh') {
                 freshCount++;
-                flower.imagePath = `../image/flower/fresh/${freshCount}-2.jpg`;
+                flower.imagePath = `../image/flower/fresh/\${freshCount}-2.jpg`;
             } else {
                 driedCount++;
-                flower.imagePath = `../image/flower/dried/${driedCount}-2.jpg`;
+                flower.imagePath = `../image/flower/dried/\${driedCount}-2.jpg`;
             }
         });
     } catch (error) {

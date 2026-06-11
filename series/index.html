@@ -21,47 +21,25 @@
 
     <!-- 導覽列 -->
     <header class="navbar">
-        <div class="nav-left">
+        <div class="nav-left nav-icon">
             <a href="javascript:history.back()" class="home-link">
-                <i class="fa-solid fa-chevron-left nav-icon" style="color: #eeebe2;font-size: 1.2rem;"></i>
+                <i class="fa-solid fa-chevron-left nav-icon"></i>
             </a>
         </div>
         <div class="logo"></div>
-        <div class="right">
-            <a href="../member/index.jsp?tab=wishlist" class="link">
+        <div class="nav-right">
+            <a href="../member/index.jsp?tab=wishlist" class="link nav-icon">
                 <i class="fa-solid fa-heart icon"></i>
             </a>
-            <i class="fa-solid fa-basket-shopping icon" onclick="toggleCart()"></i>
-            <i class="fa-solid fa-bars icon" id="menu-trigger"></i>
+            <i class="fa-solid fa-basket-shopping nav-icon" onclick="toggleCart()"></i>
+            <i class="fa-solid fa-bars nav-icon" id="menu-trigger"></i>
         </div>
     </header>
 
     <main class="category-wrapper">
         <h3 class="section-title">［For Lover系列］</h3>
 
-        <div class="product-grid">
-            <div class="item">
-                <div class="img-box">
-                    <a href="../product/index.jsp?id=love_in_bloom">
-                        <img src="../image/flower/fresh/1-1.jpg" alt="摯愛 Love in Bloom" onerror="this.src=''">
-                    </a>
-                </div>
-                <div class="item-info">
-                    <div class="info-top">
-                        <span class="tag">摯愛 Love in Bloom<br>[For Lover 系列]</span>
-                        <div class="item-actions">
-                            <button class="action-btn-circle heart-btn" data-id="love_in_bloom">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-                            <button class="add-btn-circle" onclick="handleAddToCart(event, '摯愛 Love in Bloom', 2000)">
-                                <i class="fa-solid fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <span class="price">NT$ 2,000</span>
-                </div>
-            </div>
-        </div>
+        <div class="product-grid"></div>
     </main>
 
     <!-- 主菜單 -->
@@ -105,12 +83,11 @@
     <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
     <!-- Java Script 存放區 -->
-    <script src="../utils/wishlist/addWish.js"></script>
-    <script src="../utils/cart/main.js"></script>
-    <script src="../utils/side-menu/main.js"></script>
-    <!-- <script src="../collection.js"></script> -->
-    <script src="../search.js"></script>
-    <script src="loader.js"></script>
+    <script src="../utils/wishlist/addWish.jsp"></script>
+    <script src="../utils/cart/main.jsp"></script>
+    <script src="../utils/side-menu/main.jsp"></script>
+    <script src="../search.jsp"></script>
+    <script src="loader.jsp"></script>
 </body>
 
 </html>

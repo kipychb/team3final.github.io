@@ -216,14 +216,14 @@
         </div>
         <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-        <script src="../utils/wishlist/addWish.js"></script>
-        <script src="../utils/side-menu/main.js"></script>
-        <script src="../utils/cart/main.js"></script>
-        <script src="loader.js"></script>
-        <script src="addon.js"></script>
-        <script src="review.js"></script>
-        <script src="share.js"></script>
-        <script src="miscellaneous.js"></script>
+        <script src="../utils/wishlist/addWish.jsp"></script>
+        <script src="../utils/side-menu/main.jsp"></script>
+        <script src="../utils/cart/main.jsp"></script>
+        <script src="loader.jsp"></script>
+        <script src="addon.jsp"></script>
+        <script src="review.jsp"></script>
+        <script src="share.jsp"></script>
+        <script src="miscellaneous.jsp"></script>
     </body>
 
     </html>

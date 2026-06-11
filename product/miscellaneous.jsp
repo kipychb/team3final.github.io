@@ -1,3 +1,4 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
 
 function openTab(evt, tabName) {
     var i, tabContent, tabBtn;

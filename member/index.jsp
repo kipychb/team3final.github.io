@@ -3,6 +3,11 @@
 <html lang="zh-TW">
 
     <%
+        if (session.getAttribute("mid") == null) {
+            response.sendRedirect("login/index.jsp");
+            return;
+        }
+
         int MemberID = (int) session.getAttribute("mid");
         
         String sql = "SELECT * FROM `member` WHERE MemberID = ?";
@@ -116,57 +121,57 @@
                             </div>
                         </div>
 
-                                <div class="info-row coupon-row">
-                                    <span class="info-label">我的優惠券</span>
+                        <div class="info-row coupon-row">
+                            <span class="info-label">我的優惠券</span>
 
-                                    <div class="coupon-area">
-                                        <div class="coupon-header" onclick="toggleCouponBox()">
-                                            <span>點擊查看 / 收合優惠券</span>
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </div>
-
-                                        <div id="coupon-box" class="coupon-box">
-                                            <% String couponSql="SELECT * FROM member_coupons WHERE member_id = ?" ;
-                                                PreparedStatement couponPstmt=con.prepareStatement(couponSql);
-                                                couponPstmt.setInt(1, MemberID); ResultSet
-                                                couponRs=couponPstmt.executeQuery(); boolean hasCoupon=false; while
-                                                (couponRs.next()) { hasCoupon=true; String
-                                                couponStatus=couponRs.getString("status"); %>
-
-                                                <div class="coupon-card-member">
-                                                    <div class="coupon-card-left">
-                                                        <i class="fa-solid fa-gift coupon-icon"></i>
-                                                        <div>
-                                                            <p class="coupon-title">
-                                                                NT$ <%= couponRs.getInt("coupon_amount") %> 折價券
-                                                            </p>
-                                                            <p class="coupon-desc">結帳時可折抵使用</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <span class="coupon-status <%= couponStatus.equals(" 未使用")
-                                                        ? "status-available" : "status-used" %>">
-                                                        <%= couponStatus %>
-                                                    </span>
-                                                </div>
-
-                                                <% } if (!hasCoupon) { %>
-                                                    <div class="coupon-empty">目前沒有可用優惠券</div>
-                                                    <% } couponRs.close(); couponPstmt.close(); %>
-                                        </div>
-                                    </div>
+                            <div class="coupon-area">
+                                <div class="coupon-header" onclick="toggleCouponBox()">
+                                    <span>點擊查看 / 收合優惠券</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
                                 </div>
 
+                                <div id="coupon-box" class="coupon-box">
+                                    <% String couponSql="SELECT * FROM member_coupons WHERE member_id = ?" ;
+                                        PreparedStatement couponPstmt=con.prepareStatement(couponSql);
+                                        couponPstmt.setInt(1, MemberID); ResultSet
+                                        couponRs=couponPstmt.executeQuery(); boolean hasCoupon=false; while
+                                        (couponRs.next()) { hasCoupon=true; String
+                                    couponStatus=couponRs.getString("status"); %>
 
+                                    <div class="coupon-card-member">
+                                        <div class="coupon-card-left">
+                                            <i class="fa-solid fa-gift coupon-icon"></i>
+                                            <div>
+                                                <p class="coupon-title">
+                                                    NT$ <%= couponRs.getInt("coupon_amount") %> 折價券
+                                                </p>
+                                                <p class="coupon-desc">結帳時可折抵使用</p>
+                                            </div>
+                                        </div>
 
+                                        <span class="coupon-status <%= couponStatus.equals(" 未使用")
+                                        ? "status-available" : "status-used" %>">
+                                        <%= couponStatus %>
+                                    </span>
+                                </div>
 
+                                <% } if (!hasCoupon) { %>
+                                <div class="coupon-empty">目前沒有可用優惠券</div>
+                                <% } couponRs.close(); couponPstmt.close(); %>
                             </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
 
                 <div class="action-group">
                     <% if (rs.getString("Rank") != null && rs.getString("Rank").trim().equals("管理員")) { %>
-                        <button class="action-btn" style="background-color: #705844; color: #fff;" onclick="location.href='../admin/index.jsp'">進入管理員頁面</button>
+                    <button class="action-btn" style="background-color: #705844; color: #fff;" onclick="location.href='../admin/index.jsp'">進入管理員頁面</button>
                     <% } %>
-                    
+
                     <button class="action-btn" id="edit-btn" onclick="toggleEditMode()">修改個人資料</button>
                     <button class="action-btn logout-btn" onclick="logout()">登出帳號</button>
                 </div>
@@ -231,25 +236,25 @@
     <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
     <!-- Java Script 存放區 -->
-    <script src="../utils/cart/main.js"></script>
-    <script src="../utils/side-menu/main.js"></script>
-    <script src="main.js"></script>
-    <script src="search.js"></script>
-    <script src="../utils/wishlist/wishlist.js"></script>
-    <script src="login/login.js"></script>
+    <script src="../utils/cart/main.jsp"></script>
+    <script src="../utils/side-menu/main.jsp"></script>
+    <script src="../utils/wishlist/wishlist.jsp"></script>
+    <script src="main.jsp"></script>
+    <script src="search.jsp"></script>
+    <script src="login/login.jsp"></script>
 
-                <script>
-                    function toggleCouponBox() {
-                        var box = document.getElementById("coupon-box");
+    <script>
+        function toggleCouponBox() {
+            var box = document.getElementById("coupon-box");
+            
+            if (box.style.display === "none") {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
+    </script>
 
-                        if (box.style.display === "none") {
-                            box.style.display = "block";
-                        } else {
-                            box.style.display = "none";
-                        }
-                    }
-                </script>
-
-            </body>
+</body>
 
 </html>

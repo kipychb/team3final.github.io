@@ -1,5 +1,6 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
 /**
- * addWish.js
+ * addWish.jsp
  * 功能：點擊愛心按鈕，透過 JSP 將產品 ID 與會員 ID 儲存至資料庫的 wishlist table 中
  */
 
@@ -88,7 +89,8 @@ function toggleWishlist(id, btn) {
         basePath = "";
     }
 
-    fetch(`${basePath}toggle_wishlist.jsp?product_id=${id}`)
+    // 💡 使用 \${} 轉義以防止 JSP 將其誤判定為 JSP Expression Language (EL) 導致編譯失敗
+    fetch(`\${basePath}toggle_wishlist.jsp?product_id=\${id}`)
         .then(response => response.text())
         .then(result => {
             const res = result.trim();
@@ -137,7 +139,8 @@ function updateHeartIconsStatus() {
         basePath = "";
     }
 
-    fetch(`${basePath}check_wishlist.jsp`)
+    // 💡 轉義字串模板，維持原有 AJAX 同步功能
+    fetch(`\${basePath}check_wishlist.jsp`)
         .then(response => response.json())
         .then(wishlistIds => {
             const allHearts = document.querySelectorAll('.heart-btn');
@@ -147,11 +150,15 @@ function updateHeartIconsStatus() {
                 const id = btn.getAttribute('data-id');
                 const icon = btn.querySelector('i');
                 if (id && favoritedIds.includes(Number(id))) {
-                    icon.classList.replace('fa-regular', 'fa-solid');
-                    icon.style.color = "#c0a080";
+                    if (icon) {
+                        icon.classList.replace('fa-regular', 'fa-solid');
+                        icon.style.color = "#c0a080";
+                    }
                 } else {
-                    icon.classList.replace('fa-solid', 'fa-regular');
-                    icon.style.color = "";
+                    if (icon) {
+                        icon.classList.replace('fa-solid', 'fa-regular');
+                        icon.style.color = "";
+                    }
                 }
             });
         })
@@ -185,18 +192,21 @@ function syncHeartStatus(id) {
         basePath = "";
     }
 
-    fetch(`${basePath}check_wishlist.jsp`)
+    // 💡 轉義字串模板以順暢與 check_wishlist.jsp 動態連動
+    fetch(`\${basePath}check_wishlist.jsp`)
         .then(response => response.json())
         .then(wishlistIds => {
             const heartBtn = document.querySelector('.heart-btn');
             if (heartBtn) {
                 const icon = heartBtn.querySelector('i');
-                if (wishlistIds.map(Number).includes(Number(id))) {
-                    icon.classList.replace('fa-regular', 'fa-solid');
-                    icon.style.color = "#c0a080";
-                } else {
-                    icon.classList.replace('fa-solid', 'fa-regular');
-                    icon.style.color = "";
+                if (icon) {
+                    if (wishlistIds.map(Number).includes(Number(id))) {
+                        icon.classList.replace('fa-regular', 'fa-solid');
+                        icon.style.color = "#c0a080";
+                    } else {
+                        icon.classList.replace('fa-solid', 'fa-regular');
+                        icon.style.color = "";
+                    }
                 }
             }
         })

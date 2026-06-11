@@ -1,3 +1,5 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
+
 // 全域變數供評分功能使用
 let userScore = 0;
 
@@ -53,7 +55,7 @@ function loadAndRenderReviews(productId) {
     const reviewsList = document.getElementById("reviews-list");
     if (!reviewsList) return;
 
-    fetch(`get_reviews.jsp?product_id=${productId}`)
+    fetch(`get_reviews.jsp?product_id=\${productId}`)
         .then(response => response.json())
         .then(data => {
             // 更新頁面頂部的平均分數與星星顯示
@@ -104,12 +106,12 @@ function loadAndRenderReviews(productId) {
                 reviewItem.innerHTML = `
                     <div class="review-header">
                         <div class="reviewer-info">
-                        <span class="reviewer-name">${review.name}</span>
-                        <span class="review-date">${review.datetime}</span>
+                        <span class="reviewer-name">\${review.name}</span>
+                        <span class="review-date">\${review.datetime}</span>
                         </div>
-                        <div class="review-stars">${starsHtml}</div>
+                        <div class="review-stars">\${starsHtml}</div>
                     </div>
-                    <p class="review-text">${review.comment}</p>
+                    <p class="review-text">\${review.comment}</p>
                 `;
                 reviewsList.appendChild(reviewItem);
             });
@@ -151,7 +153,7 @@ function submitReview() {
         return;
     }
 
-    const payload = `product_id=${encodeURIComponent(productId)}&rating=${userScore}&contents=${encodeURIComponent(comment || "這則評論沒有留下文字。")}`;
+    const payload = `product_id=\${encodeURIComponent(productId)}&rating=\${userScore}&contents=\${encodeURIComponent(comment || "這則評論沒有留下文字。")}`;
 
     // 向 add_review.jsp 送出 POST 請求
     fetch('add_review.jsp', {
@@ -170,7 +172,7 @@ function submitReview() {
 
             // 使用 includes 進行更寬鬆、安全的配對，防止 JSP 空白字元干擾
             if (res.includes('success')) {
-                showToast(`感謝您的評論！\n評分：${userScore} 顆星`);
+                showToast(`感謝您的評論！\n評分：\${userScore} 顆星`);
 
                 // 重新載入最新評價（會自動更新平均分與星星）
                 loadAndRenderReviews(productId);
@@ -184,7 +186,7 @@ function submitReview() {
             } else {
                 // 自動擷取回傳的前 50 個字元，讓您知道資料庫是不是報錯（例如欄位對不上或 SQL 語法錯誤）
                 const errorMsg = res.substring(0, 50);
-                showToast(`送出失敗 (${errorMsg})，請確認輸入內容後再試 ✿`);
+                showToast(`送出失敗 (\${errorMsg})，請確認輸入內容後再試 ✿`);
             }
         })
         .catch(error => {

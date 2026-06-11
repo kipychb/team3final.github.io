@@ -1,23 +1,70 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" import="java.sql.*, java.util.*" %>
+<%@include file="utils/config.jsp" %>
+<%
+    // 優先從 request 屬性獲取連線，若無則使用 config.jsp 宣告的 con
+    Connection dbCon = (Connection) request.getAttribute("con");
+    if (dbCon == null) {
+        dbCon = con;
+    }
+
+    StringBuilder jsonBuilder = new StringBuilder();
+    jsonBuilder.append("[");
+
+    if (dbCon != null) {
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = dbCon.createStatement();
+            // 查詢所有商品需要的搜尋欄位
+            rs = stmt.executeQuery("SELECT ProductID, ProductName, Language, Idea, Material, Series FROM `product`");
+            boolean first = true;
+            while (rs.next()) {
+                if (!first) {
+                    jsonBuilder.append(",");
+                }
+                first = false;
+
+                String id = rs.getString("ProductID");
+                String name = rs.getString("ProductName");
+                String language = rs.getString("Language");
+                String idea = rs.getString("Idea");
+                String material = rs.getString("Material");
+                String series = rs.getString("Series");
+
+                // 防呆並過濾掉會破壞 JSON 格式的特殊字元
+                name = (name == null) ? "" : name.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+                language = (language == null) ? "" : language.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+                idea = (idea == null) ? "" : idea.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+                material = (material == null) ? "" : material.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+                series = (series == null) ? "" : series.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "");
+
+                jsonBuilder.append("{")
+                           .append("\"ProductID\":\"").append(id).append("\",")
+                           .append("\"ProductName\":\"").append(name).append("\",")
+                           .append("\"Language\":\"").append(language).append("\",")
+                           .append("\"Idea\":\"").append(idea).append("\",")
+                           .append("\"Material\":\"").append(material).append("\",")
+                           .append("\"Series\":\"").append(series).append("\"")
+                           .append("}");
+            }
+        } catch (Exception e) {
+            out.println("// 資料庫讀取失敗: " + e.getMessage());
+        } finally {
+            if (rs != null) try { rs.close(); } catch(Exception e){}
+            if (stmt != null) try { stmt.close(); } catch(Exception e){}
+        }
+    }
+    jsonBuilder.append("]");
+%>
+
 /*
- * 搜尋欄控制 (Search Panel)
+ * search.jsp
+ * 搜尋欄控制 (Search Panel) - 伺服器端 SSR 方案
  */
 
-let flowerData = [];
+// 由 JSP 直接注入所有商品資料，免除前端 Fetch 網路延遲
+let flowerData = <%= jsonBuilder.toString() %>;
 let hrefPrefix = "";
-
-// 1. 導入即時資料庫商品資料
-async function initSearchData() {
-    try {
-        const response = await fetch('get_products.jsp');
-        flowerData = await response.json();
-
-        console.log("商品資料：", flowerData);
-        console.log("商品數量：", flowerData.length);
-
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 // 2. 顯示推薦與熱門搜尋
 function showRecommendations() {
@@ -63,7 +110,7 @@ function showRecommendations() {
 
 // 初始化綁定
 document.addEventListener('DOMContentLoaded', () => {
-    initSearchData();
+    // 由於商品資料已在伺服器端載入完畢，這裡直接執行事件綁定
 
     const searchTrigger = document.getElementById('search-trigger');
     const sideSearch = document.getElementById('side-search');

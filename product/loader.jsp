@@ -1,3 +1,5 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
+
 /**
  * loader.js
  * 功能：產品頁面自動載入器 - 徹底修正變數重複宣告與 JSON 防護
@@ -13,7 +15,7 @@ async function loadProductDetail() {
     }
 
     try {
-        const response = await fetch(`get_product_detail.jsp?id=${productId}`);
+        const response = await fetch(`get_product_detail.jsp?id=\${productId}`);
         const textData = await response.text(); // 先以文字讀取，防止崩潰
 
         // 檢查是不是被吐了 HTML 網頁
@@ -27,12 +29,12 @@ async function loadProductDetail() {
 
         // 💡 防禦機制：如果後端 Java 執行有抓到 Exception，直接在控制台攔截
         if (flower.error) {
-            console.error("🚨 抓到了！後端 Java 執行報錯：", flower.error);
+            console.error("後端 Java 執行報錯：", flower.error);
             return;
         }
 
         if (flower && flower.ProductID) {
-            document.title = `${flower.ProductName} | 花予祝願所`;
+            document.title = `\${flower.ProductName} | 花予祝願所`;
             updateTextContent(flower);
             initImageCarousel(flower);
 
@@ -70,7 +72,7 @@ function initImageCarousel(flower) {
 
     if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
         let imgUrl = flower.Image.trim();
-        
+
         if (imgUrl.indexOf('/') !== -1 || imgUrl.endsWith("-2.jpg")) {
             if (imgUrl.indexOf('image/') === 0) {
                 imgPath1 = "../" + imgUrl.replace("-2.jpg", "-1.jpg");
@@ -80,28 +82,28 @@ function initImageCarousel(flower) {
                 imgPath2 = "../image/" + imgUrl;
             }
         } else {
-            imgPath1 = `../image/images/${imgUrl}`;
-            imgPath2 = `../image/images/${imgUrl}`;
+            imgPath1 = `../image/images/\${imgUrl}`;
+            imgPath2 = `../image/images/\${imgUrl}`;
         }
     } else {
         let idx = flower.relativeIndex || 1;
         let cat = flower.Category || "fresh";
-        imgPath1 = `../image/flower/${cat}/${idx}-1.jpg`;
-        imgPath2 = `../image/flower/${cat}/${idx}-2.jpg`;
+        imgPath1 = `../image/flower/\${cat}/\${idx}-1.jpg`;
+        imgPath2 = `../image/flower/\${cat}/\${idx}-2.jpg`;
     }
 
     imgBox.innerHTML = `
-        <img class="carousel-img" src="${imgPath1}" alt="${flower.ProductName}-1" style="display: block; width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='${fallbackImg}';">
-        <img class="carousel-img" src="${imgPath2}" alt="${flower.ProductName}-2" style="display: none; width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='${fallbackImg}';">
+        <img class="carousel-img" src="\${imgPath1}" alt="\${flower.ProductName}-1" style="display: block; width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='\${fallbackImg}';">
+        <img class="carousel-img" src="\${imgPath2}" alt="\${flower.ProductName}-2" style="display: none; width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='\${fallbackImg}';">
     `;
 
     if (thumbList) {
         thumbList.innerHTML = `
             <div class="thumb active" data-index="0" style="cursor: pointer;">
-                <img src="${imgPath1}" alt="縮圖 1" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                <img src="\${imgPath1}" alt="縮圖 1" onerror="this.onerror=null; this.src='\${fallbackImg}';">
             </div>
             <div class="thumb" data-index="1" style="cursor: pointer;">
-                <img src="${imgPath2}" alt="縮圖 2" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                <img src="\${imgPath2}" alt="縮圖 2" onerror="this.onerror=null; this.src='\${fallbackImg}';">
             </div>
         `;
 
@@ -141,20 +143,20 @@ function updateTextContent(flower) {
 
     let methodsHtml = "";
     if (flower.SaveMethods && flower.SaveMethods.length > 0) {
-        methodsHtml = flower.SaveMethods.map(m => `<li>${m}</li>`).join('');
+        methodsHtml = flower.SaveMethods.map(m => `<li>\${m}</li>`).join('');
     } else {
         methodsHtml = "<li>暫無保存與配送建議資訊。</li>";
     }
 
     if (leftBox) {
         leftBox.innerHTML = `
-            <div><h3>▪️尺寸規格：</h3><p>${flower.Size || "通用規格"}</p></div>
-            <div><h3>▪️使用花材：</h3><p>${flower.Material || "精選花材"}</p></div>
-            <div><h3>▪️鑑賞期：</h3><p>${flower.AppreciationPeriod || "視保存狀況而定"}</p></div>
+            <div><h3>▪️尺寸規格：</h3><p>\${flower.Size || "通用規格"}</p></div>
+            <div><h3>▪️使用花材：</h3><p>\${flower.Material || "精選花材"}</p></div>
+            <div><h3>▪️鑑賞期：</h3><p>\${flower.AppreciationPeriod || "視保存狀況而定"}</p></div>
         `;
     }
     if (rightBox) {
-        rightBox.innerHTML = `<h3>▪️配送與訂購建議：</h3><ul>${methodsHtml}</ul>`;
+        rightBox.innerHTML = `<h3>▪️配送與訂購建議：</h3><ul>\${methodsHtml}</ul>`;
     }
 }
 

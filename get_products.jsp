@@ -11,7 +11,6 @@
 %>
 
 <% 
-    // 💡 關鍵：在 SELECT 後面加上了 Image 欄位
     String sql = "SELECT ProductID, ProductName, Category, Price, Quantity, Series, Language, Idea, Material, Image FROM product ORDER BY ProductID ASC"; 
     
     PreparedStatement pstmt = con.prepareStatement(sql); 

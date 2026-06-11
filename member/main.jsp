@@ -1,6 +1,5 @@
-// member/main.js
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
 
-// 2. 切換分頁邏輯 
 function switchSection(id, element) {
     // 切換選單按鈕樣式
     document.querySelectorAll('.flower-item').forEach(item => item.classList.remove('active'));
@@ -59,15 +58,26 @@ async function loadMemberOrders() {
 
             // 渲染商品詳情細項
             const detailsHtml = order.Details.map(detail => {
-                const imgPath = `../image/flower/${detail.Category}/${detail.relativeIndex}-1.jpg`;
+                // 💡 修正：動態相容新 UUID 圖片與舊 indexed 圖片路徑，並移除路徑多餘空格
+                let imgPath = `../image/default.jpg`;
+                if (detail.Image && detail.Image.trim() !== '') {
+                    if (detail.Image.includes('-')) {
+                        imgPath = `../image/images/\${detail.Image.trim()}`;
+                    } else {
+                        imgPath = `../image/flower/\${detail.Category}/\${detail.relativeIndex}-1.jpg`;
+                    }
+                } else if (detail.Category && detail.relativeIndex) {
+                    imgPath = `../image/flower/\${detail.Category}/\${detail.relativeIndex}-1.jpg`;
+                }
+
                 return `
                     <div class="order-product-row" style="display: flex; gap: 15px; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 12px;">
-                        <img src="${imgPath}" alt="${detail.ProductName}" onerror="this.src='../image/default.jpg'" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
+                        <img src="\${imgPath}" alt="\${detail.ProductName}" onerror="this.src='../image/default.jpg'" style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
                         <div style="flex: 1;">
-                            <p style="font-weight: bold; color: #705844; margin: 0;">${detail.ProductName}</p>
-                            <p style="font-size: 0.85rem; color: #888; margin: 4px 0 0 0;">NT$ ${detail.Price.toLocaleString()} &times; ${detail.Quantity}</p>
+                            <p style="font-weight: bold; color: #705844; margin: 0;">\${detail.ProductName}</p>
+                            <p style="font-size: 0.85rem; color: #888; margin: 4px 0 0 0;">NT$ \${detail.Price.toLocaleString()} &times; \${detail.Quantity}</p>
                         </div>
-                        <span style="font-weight: bold; color: #705844;">NT$ ${detail.Subtotal.toLocaleString()}</span>
+                        <span style="font-weight: bold; color: #705844;">NT$ \${detail.Subtotal.toLocaleString()}</span>
                     </div>
                 `;
             }).join('');
@@ -77,24 +87,24 @@ async function loadMemberOrders() {
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eae1d8; padding-bottom: 10px; margin-bottom: 15px;">
                         <div>
                             <span style="font-size: 0.85rem; color: #888;">訂單編號：</span>
-                            <span style="font-weight: bold; color: #705844;">${order.OrderNumber}</span>
+                            <span style="font-weight: bold; color: #705844;">\${order.OrderNumber}</span>
                         </div>
-                        <span class="${statusClass}" style="padding: 4px 10px; border-radius: 20px; font-size: 0.85rem;">${order.OrderStatus}</span>
+                        <span class="\${statusClass}" style="padding: 4px 10px; border-radius: 20px; font-size: 0.85rem;">\${order.OrderStatus}</span>
                     </div>
                     
                     <!-- 商品明細列表 -->
                     <div class="order-products">
-                        ${detailsHtml}
+                        \${detailsHtml}
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; font-size: 0.9rem; color: #666;">
                         <div>
-                            <p style="margin: 0;">訂購日期：${order.OrderDate}</p>
-                            <p style="margin: 4px 0 0 0;">付款方式：${displayPayment}</p>
+                            <p style="margin: 0;">訂購日期：\${order.OrderDate}</p>
+                            <p style="margin: 4px 0 0 0;">付款方式：\${displayPayment}</p>
                         </div>
                         <div style="text-align: right;">
                             <span style="font-size: 0.85rem; color: #888;">總金額 (含運費)：</span>
-                            <span style="font-size: 1.2rem; font-weight: bold; color: #705844;">NT$ ${order.TotalAmount.toLocaleString()}</span>
+                            <span style="font-size: 1.2rem; font-weight: bold; color: #705844;">NT$ \${order.TotalAmount.toLocaleString()}</span>
                         </div>
                     </div>
                 </div>
@@ -129,40 +139,51 @@ async function renderMemberWishlist() {
         // 使用網格(Grid)或彈性盒(Flex)將卡片整齊排列
         container.innerHTML = `
             <div class="member-wishlist-grid">
-                ${wishlistedItems.map(item => {
-            const imagePath = `../image/flower/${item.Category}/${item.relativeIndex}-2.jpg`;
-            const productUrl = `../product/index.jsp?id=${item.ProductID}`;
-            return `
+                \${wishlistedItems.map(item => {
+                    // 💡 修正：移除路徑中的所有多餘空格，並加入 UUID 新圖片格式解析
+                    let imagePath = `../image/default.jpg`;
+                    if (item.Image && item.Image.trim() !== '') {
+                        if (item.Image.includes('-')) {
+                            imagePath = `../image/images/\${item.Image.trim()}`;
+                        } else {
+                            imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-2.jpg`;
+                        }
+                    } else if (item.Category && item.relativeIndex) {
+                        imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-2.jpg`;
+                    }
+
+                    const productUrl = `../product/index.jsp?id=\${item.ProductID}`;
+                    return `
                         <div class="member-wish-card">
                             <div class="wish-img-box">
-                                <a href="${productUrl}">
-                                    <img src="${imagePath}" alt="${item.ProductName}" onerror="this.src='../image/default.jpg'">
+                                <a href="\${productUrl}">
+                                    <img src="\${imagePath}" alt="\${item.ProductName}" onerror="this.src='../image/default.jpg'">
                                 </a>
-                                <button class="wish-remove-btn" onclick="removeFromMemberWishlist('${item.ProductID}')" title="移除願望">
+                                <button class="wish-remove-btn" onclick="removeFromMemberWishlist('\${item.ProductID}')" title="移除願望">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
                             <div class="wish-info">
                                 <div class="wish-text">
-                                    <p class="wish-name">${item.ProductName}</p>
-                                    <p class="wish-series">${item.Series} 系列</p>
-                                    <p class="wish-price">NT$ ${item.Price.toLocaleString()}</p>
+                                    <p class="wish-name">\${item.ProductName}</p>
+                                    <p class="wish-series">\${item.Series} 系列</p>
+                                    <p class="wish-price">NT$ \${item.Price.toLocaleString()}</p>
                                 </div>
                                 <div class="wish-actions">
                                     <div class="share-wrapper" style="position: relative;">
-                                        <button class="wish-mini-btn share-btn" onclick="copyMemberProductLink('${productUrl}', this)" title="分享連結">
+                                        <button class="wish-mini-btn share-btn" onclick="copyMemberProductLink('\${productUrl}', this)" title="分享連結">
                                             <i class="fa-solid fa-share-nodes"></i>
                                         </button>
                                         <span class="tooltip">複製成功！</span>
                                     </div>
-                                    <button class="wish-mini-btn add-cart-btn" onclick="addToCartFromWishlist('${item.ProductID}', '${item.ProductName}')" title="加入購物車">
+                                    <button class="wish-mini-btn add-cart-btn" onclick="addToCartFromWishlist('\${item.ProductID}', '\${item.ProductName}')" title="加入購物車">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     `;
-        }).join('')}
+                }).join('')}
             </div>
         `;
     } catch (error) {
@@ -175,14 +196,15 @@ async function renderMemberWishlist() {
  * 【新功能】自願望清單移除商品 (直連後端資料庫)
  */
 function removeFromMemberWishlist(productId) {
-    fetch(`../utils/wishlist/toggle_wishlist.jsp?product_id=${productId}`)
+    // 💡 修正：移除 fetch 路徑中的所有多餘空格，防止瀏覽器發送錯亂的 404 URL 請求
+    fetch(`../utils/wishlist/toggle_wishlist.jsp?product_id=\${productId}`)
         .then(response => response.text())
         .then(result => {
             if (result.trim() === 'removed') {
                 // 成功移除後，重新呼叫 render 刷新網頁
                 renderMemberWishlist();
                 if (typeof updateHeartIconsStatus === 'function') {
-                    updateHeartIconsStatus(); // 若前台有引入 addWish.js，同步愛心狀態
+                    updateHeartIconsStatus();
                 }
             } else if (result.trim() === 'nologin') {
                 alert("登入逾時，請重新登入！");
@@ -222,10 +244,10 @@ function copyMemberProductLink(url, btnElement) {
 // 4. 加入購物車功能 (連動資料庫驅動版購物車核心)
 function addToCartFromWishlist(productId, productName) {
     if (typeof addToCart === 'function') {
-        // 調用 utils/cart/main.js 中的資料庫核心加入購物車方法
+        // 調用 utils/cart/main.jsp 中的資料庫核心加入購物車方法
         addToCart(productId, 1);
     } else {
-        console.error("購物車核心模組 (utils/cart/main.js) 未成功載入！");
+        console.error("購物車核心模組 (utils/cart/main.jsp) 未成功載入！");
         alert("購物車系統暫時發生異常，請稍後再試。✿");
     }
 }
@@ -261,12 +283,13 @@ function toggleEditMode() {
         const emailVal = document.getElementById('edit-email').value;
         const phoneVal = document.getElementById('edit-phone').value;
 
+        // 💡 修正：移除 POST body 中變數等號前後的多餘空格，確保變數鍵值對傳遞格式正確
         fetch('update_profile.jsp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `name=${encodeURIComponent(nameVal)}&birth=${encodeURIComponent(birthVal)}&email=${encodeURIComponent(emailVal)}&phone=${encodeURIComponent(phoneVal)}`
+            body: `name=\${encodeURIComponent(nameVal)}&birth=\${encodeURIComponent(birthVal)}&email=\${encodeURIComponent(emailVal)}&phone=\${encodeURIComponent(phoneVal)}`
         })
             .then(response => response.text())
             .then(result => {
@@ -332,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 尋找對應的 flower-item 元件，其 onclick 事件字串包含目標分頁名稱
         const targetBtn = Array.from(document.querySelectorAll('.flower-item')).find(item => {
             const attr = item.getAttribute('onclick');
-            return attr && attr.includes(`'${tab}'`);
+            return attr && attr.includes(`'\${tab}'`);
         });
         if (targetBtn) {
             switchSection(tab, targetBtn);

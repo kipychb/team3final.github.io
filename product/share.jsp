@@ -1,3 +1,4 @@
+<%@page contentType = "text/javascript;charset=utf-8" language = "java" %>
 
 document.addEventListener('DOMContentLoaded', () => {
     const shareBtn = document.getElementById('share-btn');

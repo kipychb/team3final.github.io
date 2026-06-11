@@ -1,3 +1,5 @@
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
+
 const menuTrigger = document.getElementById('menu-trigger');
 const sideMenu = document.getElementById('side-menu');
 const closeMenuBtn = document.getElementById('close-menu-btn'); // 新增

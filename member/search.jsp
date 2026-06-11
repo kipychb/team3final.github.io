@@ -1,3 +1,5 @@
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
+
 /**
  * search.js
  * 功能：花語搜尋功能 - SQL 資料庫驅動版
@@ -56,20 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const resultsHtml = results.map(flower => {
-            const fullImagePath = `../image/flower/${flower.Category}/${flower.relativeIndex}-1.jpg`;
+            const fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-1.jpg`;
 
             return `
                 <div class="result-item">
-                    <a href="../product/index.jsp?id=${flower.ProductID}" style="display: block; width: 60px; height: 60px; flex-shrink: 0;">
-                        <img class="left-box" src="${fullImagePath}" onerror="this.src='../image/default.jpg'" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover;">
+                    <a href="../product/index.jsp?id=\${flower.ProductID}" style="display: block; width: 60px; height: 60px; flex-shrink: 0;">
+                        <img class="left-box" src="\${fullImagePath}" onerror="this.src='../image/default.jpg'" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover;">
                     </a>
                     <div class="right-box" style="flex: 1;">
                         <h4 class="name">
-                            <a href="../product/index.jsp?id=${flower.ProductID}">
-                                祝願花：${flower.ProductName}
+                            <a href="../product/index.jsp?id=\${flower.ProductID}">
+                                祝願花：\${flower.ProductName}
                             </a>
                         </h4>
-                        <p class="language">花語：${flower.Language || "暫無花語介紹 ✿"}</p>
+                        <p class="language">花語：\${flower.Language || "暫無花語介紹 ✿"}</p>
                     </div>
                 </div>
             `;

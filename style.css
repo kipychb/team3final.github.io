@@ -91,58 +91,83 @@ body {
     100% { transform: translateX(-50%); } 
 }
 
-/* Banner */
+/* --- 輪播圖 --- */
+/* Banner 主外層容器 */
 .banner { 
     width: 55%;
     height: 100%;
     overflow: hidden;
     margin: 20px auto;
     position: relative;
-}
 
-.banner-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    transition: transform 0.6s ease-in-out;
-}
+    /* JSP 專用外層：繼承父層寬度並隱藏溢出 */
+    .banner-wrapper-jsp {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
 
-.banner-container a {
-    width: 100%;
-    flex-shrink: 0; 
-    display: block;
-    text-decoration: none;
-}
+    /* 舊版與新版輪播圖片動態容器 */
+    .banner-container,
+    .banner-container-jsp {
+        display: flex; /* 強制橫向排列 */
+        width: auto;              /* 移除 100%，允許內部子元素將總寬度正常撐開 (如 300%) */
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* 平滑流暢的滑動曲線 */
 
-.banner-img { 
-    width: 100%; 
-    height: 100%;
-   
-    border: 1px solid #A3A69C;
-    display: block; 
-    object-fit: cover;
-}
+        /* 輪播超連結項目 */
+        a {
+            display: block;
+            width: 100%;   /* 讓每一張圖佔滿外層的 100% 寬度 */
+            flex-shrink: 0; /* 防止圖片被 flex 壓縮擠在同一畫面 */
+            text-decoration: none;
+        }
 
-.banner-dots {
-    display: flex;
-    justify-content: center;
-    
-    position: relative;
-    bottom: 20px;
-    
-    gap: 8px;
-    z-index: 100;
+        /* 輪播圖片本體 */
+        img,
+        .banner-img { 
+            width: 100%; 
+            height: auto;
+            display: block; 
+            object-fit: cover;
+            border: 1px solid #A3A69C;
+        }
+    }
 
-    span { 
-        width: 8px; 
-        height: 8px;
-        background: #705844; 
-        border-radius: 50%;
-    
-        opacity: 0.5;
-        cursor: pointer;
-        &.active { 
-            opacity: 1; 
+    /* 舊版與新版導覽點點群組 */
+    .banner-dots,
+    .banner-dots-jsp {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        position: absolute; /* 改為絕對定位，完美壓在圖片上方 */
+        bottom: 15px;       /* 距離圖片底部 15px */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+
+        /* 點點項目設定 */
+        span,
+        .dot { 
+            width: 12px; 
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5); /* 預設半透明白 */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+            /* 相容舊版 banner-dots span 的顏色與不透明度增強 */
+            opacity: 0.8; 
+
+            /* 作用中狀態 (支援 .active 類別) */
+            &.active { 
+                background: #ffffff;
+                width: 24px;       /* 作用中時稍微拉長，更有現代感 */
+                border-radius: 6px;
+                opacity: 1;
+            }
         }
     }
 }
@@ -632,93 +657,99 @@ body {
 @media (max-width: 768px) {
     /* --- 1. 導覽列*/
     .navbar {
-        padding: 10px !important;
-        justify-content: space-between !important; 
+        padding: 10px;
+        justify-content: space-between; 
     }
 
     .nav-left, .nav-right {
-        width: auto !important; 
-        flex: 0 0 auto !important;
-        gap: 0px !important; 
+        width: auto; 
+        flex: 0 0 auto;
+        gap: 0px; 
     }
 
     .nav-logo {
-        flex: 1 !important; /* 讓 Logo 佔據剩餘空間並置中 */
-        font-size: 1.3rem !important;
-        text-align: center !important;
-        margin: 0 10px !important;
+        flex: 1; /* 讓 Logo 佔據剩餘空間並置中 */
+        font-size: 1.3rem;
+        text-align: center;
+        margin: 0 10px;
     }
 
     /* --- 2. 圖片比例修復 */
     .banner {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important; 
-        margin: 0 !important;
+        width: 100%;
+        max-width: 100%;
+        height: auto; 
+        margin: 0;
         aspect-ratio: 16 / 9; 
+        
+        /* 確保 RWD 手機版時，輪播容器寬度與動畫依然受控 */
+        .banner-container,
+        .banner-container-jsp {
+            width: 300% !important;
+        }
     }
 
     .banner-img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important; 
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
     }
 
     /* --- 3. 修正心理測驗圖片與文字 --- */
     .quiz-intro {
-        flex-direction: column !important; 
-        align-items: center !important;
-        padding: 20px 20px !important;
-        gap: 0 !important; 
+        flex-direction: column; 
+        align-items: center;
+        padding: 20px 20px;
+        gap: 0; 
     }
     .quiz-card {
-        width: 100% !important;
-        max-width: 250px !important;
-        margin-bottom: 20px !important; 
+        width: 100%;
+        max-width: 250px;
+        margin-bottom: 20px; 
     }
     .quiz-card img {
-        width: 100% !important;
-        height: auto !important;
+        width: 100%;
+        height: auto;
         display: block;
     }
     .quiz-text {
-        text-align: center !important;
-        width: 100% !important;
+        text-align: center;
+        width: 100%;
     }
     .quiz-text h2 {
-        margin-top: 10px !important;
-        font-size: 1.3rem !important;
+        margin-top: 10px;
+        font-size: 1.3rem;
     }
 
     .contact-top {
-        flex-direction: column !important;
-        gap: 50px !important; /* 增加關於我們跟地圖之間的距離 */
-        margin-bottom: 50px !important;
+        flex-direction: column;
+        gap: 50px; /* 增加關於我們跟地圖之間的距離 */
+        margin-bottom: 50px;
     }
     .map-box {
-        width: 100% !important;
-        height: 250px !important;
+        width: 100%;
+        height: 250px;
     }
 
     /* --- 4. 關於我們- */
     .about-us {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        text-align: center !important;
-        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
     }
     .about-logo {
-        margin: 0 auto 20px !important; 
-        max-width: 160px !important;
+        margin: 0 auto 20px; 
+        max-width: 160px;
     }
     .about-link {
-        margin: 0 auto !important; 
-        padding: 10px 0 !important;
+        margin: 0 auto; 
+        padding: 10px 0;
     }
     
     .grid-3x2 {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }

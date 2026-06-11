@@ -1,3 +1,4 @@
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
 /**
  * loader.js (series/loader.js)
  * 功能：系列商品頁面自動載入器 - SQL 資料庫對接版
@@ -80,34 +81,33 @@ function renderSeriesProducts(flowers) {
         const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
 
         // 組裝出精確的縮圖路徑 (使用動態相對目錄編號)
-        const fullImagePath = `../image/flower/${flower.Category}/${flower.relativeIndex}-1.jpg`;
+        const fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-1.jpg`;
 
         return `
             <div class="item">
                 <div class="img-box">
-                    <a href="../product/index.jsp?id=${flower.ProductID}">
-                        <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.src='../image/default.jpg'">
+                    <a href="../product/index.jsp?id=\${flower.ProductID}">
+                        <img src="\${fullImagePath}" alt="\${flower.ProductName}" onerror="this.src='../image/default.jpg'">
                     </a>
                 </div>
                 <div class="item-info">
                     <div class="info-top">
-                        <span class="tag">${flower.ProductName}<br>[${flower.Series} 系列]</span>
+                        <span class="tag">\${flower.ProductName}<br>[\${flower.Series} 系列]</span>
                         <div class="item-actions">
-                            <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
-                                <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
+                            <button class="action-btn-circle heart-btn" data-id="\${flower.ProductID}">
+                                <i class="\${heartIconClass} fa-heart" \${heartIconStyle}></i>
                             </button>
-                            <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
+                            <button class="add-btn-circle" onclick="handleAddToCart(event, \${flower.ProductID})">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
+                    <span class="price">NT$ \${flower.Price.toLocaleString()}</span>
                 </div>
             </div>
         `;
     }).join('');
 
-    // 【修正】動態 HTML 生成完畢後，立刻通知 addWish.js 更新愛心點擊監聽與樣式
     if (typeof updateHeartIconsStatus === 'function') {
         updateHeartIconsStatus();
     }

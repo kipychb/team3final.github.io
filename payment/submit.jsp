@@ -1,3 +1,5 @@
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
+
 /**
  * payment/submit.js
  * 功能：結帳頁面控制器 - SQL 資料庫對接版
@@ -29,7 +31,7 @@ function autoFillDate() {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
 
-    const formattedToday = `${year}-${month}-${day}`;
+    const formattedToday = `\${year}-\${month}-\${day}`;
     dateInput.value = formattedToday;
     dateInput.min = formattedToday;
 }
@@ -82,22 +84,22 @@ async function renderCheckout() {
             const itemTotal = item.Price * item.Quantity;
             cartSubtotal += itemTotal;
 
-            const imagePath = `../image/flower/${item.Category}/${item.relativeIndex}-1.jpg`;
+            const imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-1.jpg`;
 
             productList.innerHTML += `
                 <div class="product-item" style="font-family:'Noto Serif TC', serif;">
                     <div class="prod-img">
-                        <img src="${imagePath}" alt="${item.ProductName}" onerror="this.src='../image/default.jpg'">
+                        <img src="\${imagePath}" alt="\${item.ProductName}" onerror="this.src='../image/default.jpg'">
                     </div>
                     <div class="prod-details">
-                        <p class="name">${item.ProductName}</p>
-                        <p class="price">NT$ ${Number(item.Price).toLocaleString()}</p>
+                        <p class="name">\${item.ProductName}</p>
+                        <p class="price">NT$ \${Number(item.Price).toLocaleString()}</p>
                     </div>
-                    <span class="quantity">X${item.Quantity}</span>
+                    <span class="quantity">X\${item.Quantity}</span>
                 </div>`;
         });
 
-        if (listSubtotal) listSubtotal.innerText = `NT$ ${cartSubtotal.toLocaleString()}`;
+        if (listSubtotal) listSubtotal.innerText = `NT$ \${cartSubtotal.toLocaleString()}`;
         updateSummary();
 
     } catch (error) {
@@ -126,12 +128,12 @@ async function loadCoupons() {
 
         coupons.forEach(coupon => {
             couponSelect.innerHTML += `
-                <option value="${coupon.id}" data-amount="${coupon.amount}">
-                    NT$ ${Number(coupon.amount).toLocaleString()} 折價券
+                <option value="\${coupon.id}" data-amount="\${coupon.amount}">
+                    NT$ \${Number(coupon.amount).toLocaleString()} 折價券
                 </option>`;
         });
 
-        if (couponHint) couponHint.innerText = `目前有 ${coupons.length} 張可用優惠券。`;
+        if (couponHint) couponHint.innerText = `目前有 \${coupons.length} 張可用優惠券。`;
         updateSummary();
 
     } catch (error) {
@@ -159,9 +161,9 @@ function updateSummary() {
     const discount = getSelectedDiscount();
     const finalTotal = Math.max(cartSubtotal + SHIPPING_FEE - discount, 0);
 
-    if (subtotalDisplay) subtotalDisplay.innerText = `NT$ ${cartSubtotal.toLocaleString()}`;
-    if (discountDisplay) discountDisplay.innerText = `- NT$ ${discount.toLocaleString()}`;
-    if (totalDisplay) totalDisplay.innerText = `NT$ ${finalTotal.toLocaleString()}`;
+    if (subtotalDisplay) subtotalDisplay.innerText = `NT$ \${cartSubtotal.toLocaleString()}`;
+    if (discountDisplay) discountDisplay.innerText = `- NT$ \${discount.toLocaleString()}`;
+    if (totalDisplay) totalDisplay.innerText = `NT$ \${finalTotal.toLocaleString()}`;
 }
 
 async function submitOrder() {

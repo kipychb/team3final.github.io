@@ -1,3 +1,5 @@
+<%@page contentType="text/javascript;charset=utf-8" language="java" %>
+
 /**
  * addon.js
  * 功能：根據當前頁面產品 ProductID 的系列 (Series) 進行相關推薦 (已對齊 SQL 資料庫規格並修復破圖)
@@ -88,27 +90,27 @@ function renderRecommendations(flowerData) {
                 }
             } else {
                 // 新上傳的 UUID 圖片，一律存在 ../image/images/ 內
-                fullImagePath = `../image/images/${imgUrl}`;
+                fullImagePath = `../image/images/\${imgUrl}`;
             }
         } else {
             // 完全沒欄位時的舊流水號路徑
-            fullImagePath = `../image/flower/${flower.Category}/${flower.relativeIndex}-2.jpg`;
+            fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-2.jpg`;
         }
 
         htmlContent += `
             <div class="item">
-                <a class="img border-box" href="index.jsp?id=${flower.ProductID}">
-                    <img src="${fullImagePath}" alt="${flower.ProductName}" onerror="this.onerror=null; this.src='${fallbackImg}';">
+                <a class="img border-box" href="index.jsp?id=\${flower.ProductID}">
+                    <img src="\${fullImagePath}" alt="\${flower.ProductName}" onerror="this.onerror=null; this.src='\${fallbackImg}';">
                 </a>
                 <div class="info-row">
                     <div class="text-group">
-                        <span class="name">${flower.ProductName}</span>
-                        <span class="price">NT$ ${flower.Price.toLocaleString()}</span>
+                        <span class="name">\${flower.ProductName}</span>
+                        <span class="price">NT$ \${flower.Price.toLocaleString()}</span>
                     </div>
-                    <button class="action-btn-circle heart-btn" data-id="${flower.ProductID}">
-                        <i class="${heartIconClass} fa-heart" ${heartIconStyle}></i>
+                    <button class="action-btn-circle heart-btn" data-id="\${flower.ProductID}">
+                        <i class="\${heartIconClass} fa-heart" \${heartIconStyle}></i>
                     </button>
-                    <button class="add-btn-circle" onclick="handleAddToCart(event, ${flower.ProductID})">
+                    <button class="add-btn-circle" onclick="handleAddToCart(event, \${flower.ProductID})">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -118,7 +120,6 @@ function renderRecommendations(flowerData) {
 
     gridContainer.innerHTML = htmlContent;
 
-    // 如果你在 product 頁面也有引入 addWish.js，建議在這裡也呼叫一次以確保愛心點擊事件綁定成功
     if (typeof updateHeartIconsStatus === 'function') {
         updateHeartIconsStatus();
     }

@@ -1,4 +1,6 @@
-// utils/cart/main.js
+<%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
+
+// utils/cart/main.jsp
 /**
  * 功能：SQL 資料驅動版購物車核心
  * 說明：適應無 CartID、以 MemberID & ProductID 為複合主鍵之 cart 資料表
@@ -20,6 +22,56 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = root + 'payment/index.jsp';
         };
     }
+
+    // 💡 新增：綁定商品詳情頁的「立即購買」按鈕事件
+    const buyBtn = document.querySelector('.buy-btn');
+    if (buyBtn) {
+        buyBtn.onclick = function (e) {
+            e.preventDefault();
+            
+            // 1. 取得當前詳情頁的商品 ID (從 URL 參數獲取)
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (!productId) {
+                alert("【前端錯誤】無法取得商品 ID！");
+                return;
+            }
+
+            // 2. 獲取當前選擇的數量
+            const qtyInput = document.querySelector('.selector.border-box .input');
+            let qty = 1;
+            if (qtyInput) {
+                qty = parseInt(qtyInput.value) || 1;
+            }
+
+            // 3. 呼叫「立即購買」專屬執行函式
+            executeBuyNow(productId, qty);
+        };
+    }
+
+    // 💡 新增：綁定商品詳情頁的「加入購物車」按鈕 (讓詳情頁的加入購物車按鈕能正常連動自訂數量)
+    const detailAddCartBtn = document.querySelector('.add-cart-btn');
+    if (detailAddCartBtn) {
+        detailAddCartBtn.onclick = function (e) {
+            e.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (!productId) {
+                alert("【前端錯誤】無法取得商品 ID！");
+                return;
+            }
+
+            const qtyInput = document.querySelector('.selector.border-box .input');
+            let qty = 1;
+            if (qtyInput) {
+                qty = parseInt(qtyInput.value) || 1;
+            }
+
+            addToCart(productId, qty);
+        };
+    }
 });
 
 function handleAddToCart(event, productId) {
@@ -27,7 +79,7 @@ function handleAddToCart(event, productId) {
     if (typeof addToCart === "function") {
         addToCart(productId, 1);
     } else {
-        console.error("找不到 addToCart 函式，請確認 utils/cart/main.js 已正確載入。");
+        console.error("找不到 addToCart 函式，請確認 utils/cart/main.jsp 已正確載入。");
     }
 }
 
@@ -49,7 +101,8 @@ function getMappingPath() {
 function loadCartFromDB() {
     const { apiPath } = getMappingPath();
 
-    fetch(`${apiPath}get_cart.jsp`)
+    // 💡 修正：使用 \${} 避免與 JSP EL 表達式衝突
+    fetch(`\${apiPath}get_cart.jsp`)
         .then(res => res.json())
         .then(data => {
             cart = data;
@@ -73,7 +126,8 @@ function addToCart(productId, qty = 1) {
         return;
     }
 
-    fetch(`${apiPath}add_to_cart.jsp?product_id=${productId}&qty=${qty}`)
+    // 💡 修正：使用 \${} 避免與 JSP EL 表達式衝突，確保 apiPath、productId 與 qty 能在瀏覽器端正確解析
+    fetch(`\${apiPath}add_to_cart.jsp?product_id=\${productId}&qty=\${qty}`)
         .then(res => res.text())
         .then(result => {
             const res = result.trim();
@@ -95,12 +149,44 @@ function addToCart(productId, qty = 1) {
 }
 
 /**
+ * 💡 新增：立即購買專用核心執行函式
+ * 動作：加入購物車後不彈出側邊欄，而是直接導向至支付結帳頁
+ */
+function executeBuyNow(productId, qty = 1) {
+    const { apiPath, rootLayer } = getMappingPath();
+
+    if (!productId || productId === "undefined" || productId === "null") {
+        alert("【前端錯誤】傳遞的 ProductID 無效！");
+        return;
+    }
+
+    fetch(`\${apiPath}add_to_cart.jsp?product_id=\${productId}&qty=\${qty}`)
+        .then(res => res.text())
+        .then(result => {
+            const res = result.trim();
+            if (res === 'success') {
+                // 加入成功，直接導向結帳頁面
+                window.location.href = rootLayer + 'payment/index.jsp';
+            } else if (res === 'nologin') {
+                alert("請先登入會員，才能使用購買功能喔！✿");
+                window.location.href = rootLayer + "member/login/index.jsp";
+            } else {
+                alert("【後端錯誤】加入購物車失敗！\n後端回傳訊息：" + res);
+            }
+        })
+        .catch(err => {
+            console.error("立即購買 Fetch 錯誤:", err);
+            alert("網路請求失敗，請檢查主機連線。");
+        });
+}
+
+/**
  * 3. 從購物車刪除商品 (改為傳遞 productId)
  */
 function removeFromCart(productId) {
     const { apiPath } = getMappingPath();
 
-    fetch(`${apiPath}remove_from_cart.jsp?product_id=${productId}`)
+    fetch(`\${apiPath}remove_from_cart.jsp?product_id=\${productId}`)
         .then(res => res.text())
         .then(result => {
             if (result.trim() === 'success') {
@@ -145,17 +231,18 @@ function updateCartUI() {
         const itemTotal = item.Price * item.Quantity;
         total += itemTotal;
 
+        // 💡 修正：所有模板字面量內部的變數都必須使用 \${}
         list.innerHTML += `
             <div class="cart-item">
                 <div class="item-info">
-                    <div class="item-name" title="${item.ProductName}">${item.ProductName}</div>
+                    <div class="item-name" title="\${item.ProductName}">\${item.ProductName}</div>
                     <div class="item-meta">
-                        NT$ ${item.Price.toLocaleString()} &times; ${item.Quantity}
+                        NT$ \${item.Price.toLocaleString()} &times; \${item.Quantity}
                     </div>
                 </div>
                 <div class="item-price-action">
-                    <span class="item-price">NT$ ${itemTotal.toLocaleString()}</span>
-                    <i class="fa-solid fa-trash delete-icon" onclick="removeFromCart(${item.ProductID})" title="移除商品"></i>
+                    <span class="item-price">NT$ \${itemTotal.toLocaleString()}</span>
+                    <i class="fa-solid fa-trash delete-icon" onclick="removeFromCart(\${item.ProductID})" title="移除商品"></i>
                 </div>
             </div>
         `;
