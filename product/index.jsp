@@ -56,8 +56,8 @@
                             </div>
                             <div class="inventory">僅剩 5 束</div>
                             <div class="row">
-                                <button class="heart-btn">
-                                    <i class="fa-solid fa-heart"></i>
+                                <button class="heart-btn" data-id="<%= request.getParameter("id") != null ? request.getParameter("id") : "" %>">
+                                    <i class="fa-regular fa-heart"></i>
                                 </button>
                                 <button class="share-btn-inline" onclick="shareProduct()">
                                     <i class="fa-solid fa-share-nodes nav-icon" id="share-btn"></i>
@@ -144,36 +144,7 @@
                 <div class="text-block comment">
                     <h3 class="line-title">顧客評價</h3>
                     <div class="rating-container">
-                        <div class="average-rating">
-                            <span id="rating-score">4.8</span>
-                            <div class="stars-display" id="main-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star-half-stroke"></i>
-                            </div>
-                        </div>
-
-                        <div class="user-rate-box">
-                            <p>為這份祝願評分：</p>
-                            <div class="star-rating-input">
-                                <i class="fa-solid fa-star" data-value="5"></i>
-                                <i class="fa-solid fa-star" data-value="4"></i>
-                                <i class="fa-solid fa-star" data-value="3"></i>
-                                <i class="fa-solid fa-star" data-value="2"></i>
-                                <i class="fa-solid fa-star" data-value="1"></i>
-                            </div>
-                            <textarea id="comment-input" placeholder="分享您的感受..."></textarea>
-                            <button class="submit-btn" onclick="submitReview()">送出評論</button>
-                        </div>
-
-                        <div class="reviews-display-section">
-                            <div class="reviews-list" id="reviews-list">
-                                <p>評價載入中...</p>
-                            </div>
-                        </div>
-
+                        <jsp:include page="review.jsp" />
                     </div>
                 </div>
             </section>
@@ -181,7 +152,7 @@
             <section class="addon-section">
                 <h3 class="line-title">類似商品</h3>
                 <div class="addon-grid" id="addon-grid-container">
-                    <p>載入中...</p>
+                    <jsp:include page="addon.jsp" />
                 </div>
             </section>
         </main>
@@ -194,10 +165,10 @@
 
             <ul class="list">
                 <li><a href="../index.jsp">Home / 首頁</a></li>
-                <li><a href="../series/index.html?series=lover">For Lover 系列</a></li>
-                <li><a href="../series/index.html?series=myself">For Myself 系列</a></li>
-                <li><a href="../series/index.html?series=friend">For Friend 系列</a></li>
-                <li><a href="../series/index.html?series=elder">For Elders 系列</a></li>
+                <li><a href="../series/index.jsp?series=lover">For Lover 系列</a></li>
+                <li><a href="../series/index.jsp?series=myself">For Myself 系列</a></li>
+                <li><a href="../series/index.jsp?series=friend">For Friend 系列</a></li>
+                <li><a href="../series/index.jsp?series=elder">For Elders 系列</a></li>
             </ul>
         </div>
         <div id="menu-overlay" class="menu-overlay"></div>
@@ -216,12 +187,27 @@
         </div>
         <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-        <script src="../utils/wishlist/addWish.jsp"></script>
+        <jsp:include page="../utils/wishlist/addWish.jsp" />
         <script src="../utils/side-menu/main.jsp"></script>
         <script src="../utils/cart/main.jsp"></script>
         <script src="loader.jsp"></script>
-        <script src="addon.jsp"></script>
-        <script src="review.jsp"></script>
+        <%-- 評論送出後的 Toast 提示 --%>
+        <%
+            String reviewStatus = request.getParameter("review");
+        %>
+        <% if (reviewStatus != null) { %>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            <% if ("success".equals(reviewStatus)) { %>
+            if (typeof showToastMessage === 'function') showToastMessage('感謝您的評論！✿');
+            <% } else if ("nologin".equals(reviewStatus)) { %>
+            if (typeof showToastMessage === 'function') showToastMessage('此功能僅限會員使用，請先登入帳號 ✿');
+            <% } else if ("error".equals(reviewStatus)) { %>
+            if (typeof showToastMessage === 'function') showToastMessage('送出失敗，請確認輸入內容後再試 ✿');
+            <% } %>
+        });
+        </script>
+        <% } %>
         <script src="share.jsp"></script>
         <script src="miscellaneous.jsp"></script>
     </body>

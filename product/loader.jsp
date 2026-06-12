@@ -40,7 +40,7 @@ async function loadProductDetail() {
 
             const heartBtn = document.querySelector('.heart-btn');
             if (heartBtn) heartBtn.setAttribute('data-id', flower.ProductID);
-            if (typeof syncHeartStatus === "function") syncHeartStatus(flower.ProductID);
+            if (typeof updateHeartIconsStatus === "function") updateHeartIconsStatus();
 
             // 購物車按鈕綁定
             const addCartBtn = document.querySelector('.add-cart-btn');
@@ -66,31 +66,9 @@ function initImageCarousel(flower) {
     const thumbList = document.querySelector('.thumbnail-list');
     if (!imgBox) return;
 
-    let imgPath1 = "";
-    let imgPath2 = "";
-    const fallbackImg = "../image/flower/fresh/1-2.jpg"; // 安全保底圖
-
-    if (flower.Image && flower.Image.trim() !== '' && flower.Image.trim() !== 'null') {
-        let imgUrl = flower.Image.trim();
-
-        if (imgUrl.indexOf('/') !== -1 || imgUrl.endsWith("-2.jpg")) {
-            if (imgUrl.indexOf('image/') === 0) {
-                imgPath1 = "../" + imgUrl.replace("-2.jpg", "-1.jpg");
-                imgPath2 = "../" + imgUrl;
-            } else {
-                imgPath1 = "../image/" + imgUrl.replace("-2.jpg", "-1.jpg");
-                imgPath2 = "../image/" + imgUrl;
-            }
-        } else {
-            imgPath1 = `../image/images/\${imgUrl}`;
-            imgPath2 = `../image/images/\${imgUrl}`;
-        }
-    } else {
-        let idx = flower.relativeIndex || 1;
-        let cat = flower.Category || "fresh";
-        imgPath1 = `../image/flower/\${cat}/\${idx}-1.jpg`;
-        imgPath2 = `../image/flower/\${cat}/\${idx}-2.jpg`;
-    }
+    const fallbackImg = "../image/default.jpg";
+    const imgPath1 = flowerImg(flower.Image, 1);
+    const imgPath2 = flowerImg(flower.Image, 2);
 
     imgBox.innerHTML = `
         <img class="carousel-img" src="\${imgPath1}" alt="\${flower.ProductName}-1" style="display: block; width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='\${fallbackImg}';">

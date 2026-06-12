@@ -39,19 +39,6 @@ window.addEventListener('load', function () {
             // 確保將所有的 ID 都轉成數值型態以便後續比對
             dbWishlist = wishlistIds.map(Number);
 
-            // 在篩選與裁剪前，先依據資料庫原始順序動態計算每筆商品的 relativeIndex，確保圖片路徑精準無誤
-            let freshCount = 0;
-            let driedCount = 0;
-            products.forEach(flower => {
-                if (flower.Category === 'fresh') {
-                    freshCount++;
-                    flower.relativeIndex = freshCount;
-                } else {
-                    driedCount++;
-                    flower.relativeIndex = driedCount;
-                }
-            });
-
             // 篩選出該系列的所有產品
             const seriesFlowers = products.filter(flower => flower.Series === targetSeriesName);
 
@@ -80,8 +67,7 @@ function renderSeriesProducts(flowers) {
         const heartIconClass = isFavorited ? 'fa-solid' : 'fa-regular';
         const heartIconStyle = isFavorited ? 'style="color: #c0a080;"' : '';
 
-        // 組裝出精確的縮圖路徑 (使用動態相對目錄編號)
-        const fullImagePath = `../image/flower/\${flower.Category}/\${flower.relativeIndex}-1.jpg`;
+        const fullImagePath = flowerImg(flower.Image, 1);
 
         return `
             <div class="item">

@@ -6,6 +6,16 @@
  * 新增：優惠券載入、活動折扣計算、送出訂單時傳送 coupon_id、當月壽星提示
  */
 
+function flowerImg(image, variant, prefix) {
+    prefix = prefix !== undefined ? prefix : '../';
+    if (!image || image === 'null' || image.trim() === '') return prefix + 'image/default.jpg';
+    const img = image.trim();
+    if (/^\d+-1\.jpg$/.test(img)) {
+        return prefix + 'image/flower/' + img.replace('-1.jpg', '-' + variant + '.jpg');
+    }
+    return prefix + 'image/flower/' + img;
+}
+
 let checkoutCart = [];
 let cartSubtotal = 0;
 const SHIPPING_FEE = 120;
@@ -110,7 +120,7 @@ async function renderCheckout() {
             const itemTotal = item.Price * item.Quantity;
             cartSubtotal += itemTotal;
 
-            const imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-1.jpg`;
+            const imagePath = flowerImg(item.Image, 1);
 
             productList.innerHTML += `
                 <div class="product-item" style="font-family:'Noto Serif TC', serif;">

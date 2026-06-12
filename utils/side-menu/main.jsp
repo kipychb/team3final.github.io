@@ -1,5 +1,21 @@
 <%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
 
+// 搜尋面板開關
+const searchTrigger = document.getElementById('search-trigger');
+if (searchTrigger) {
+    searchTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const panel = document.getElementById('side-search');
+        const ov = document.getElementById('menu-overlay');
+        if (panel) {
+            panel.classList.toggle('active');
+            if (ov) ov.classList.toggle('active', panel.classList.contains('active'));
+            const input = document.getElementById('searchInput');
+            if (panel.classList.contains('active') && input) input.focus();
+        }
+    });
+}
+
 const menuTrigger = document.getElementById('menu-trigger');
 const sideMenu = document.getElementById('side-menu');
 const closeMenuBtn = document.getElementById('close-menu-btn'); // 新增
