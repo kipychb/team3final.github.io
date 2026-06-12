@@ -36,9 +36,9 @@ try {
     }
 
     String insertSql =
-        "INSERT INTO member " +
-        "(MemberName, Email, Password, Phone, Address, Rank, Birthday) " +
-        "VALUES (?, ?, ?, ?, ?, '可悲會員', ?)";
+    "INSERT INTO `member` " +
+    "(`MemberName`, `Email`, `Password`, `Phone`, `Address`, `Rank`, `Birthday`) " +
+    "VALUES (?, ?, ?, ?, ?, '一級會員', ?)";
 
     PreparedStatement insertPstmt = con.prepareStatement(insertSql);
     insertPstmt.setString(1, username);
