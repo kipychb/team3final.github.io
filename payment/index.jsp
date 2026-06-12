@@ -75,6 +75,7 @@
 
         <section class="form-section">
             <h3 class="section-subtitle">優惠券</h3>
+            <div id="birthday-gift-box"></div>
             <div class="input-group">
                 <select id="coupon-select">
                     <option value="" data-amount="0">不使用優惠券</option>
@@ -82,6 +83,8 @@
                 <p class="coupon-hint" id="coupon-hint">系統會自動載入您尚未使用的優惠券。</p>
             </div>
         </section>
+
+        
 
         <section class="form-section">
             <h3 class="section-subtitle">訂單資訊</h3>

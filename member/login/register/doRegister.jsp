@@ -8,13 +8,18 @@
     String password = request.getParameter("password");
     String phone = request.getParameter("phone");
     String address = request.getParameter("address");
+    String birthday = request.getParameter("birthday");
 
     // 1. 基本防呆驗證
-    if (username == null || email == null || password == null || 
-        username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
-        response.sendRedirect("index.jsp?error=fail");
-        return;
-    }
+    if (username == null ||
+    email == null ||
+    password == null ||
+    birthday == null ||
+
+    username.trim().isEmpty() ||
+    email.trim().isEmpty() ||
+    password.trim().isEmpty() ||
+    birthday.trim().isEmpty())
 
     try {
         // 2. 檢查電子郵件是否重複註冊
@@ -33,13 +38,17 @@
         }
 
         // 3. 寫入資料庫：Birthday 給予預設值 '2025-01-01'，Rank 給予預設值 '可悲會員' 
-        String insertSql = "INSERT INTO `member` (`MemberName`, `Email`, `Password`, `Phone`, `Address`, `Rank`, `Birthday`) VALUES (?, ?, ?, ?, ?, '可悲會員', '2025-01-01')";
+       String insertSql =
+        "INSERT INTO member " +
+        "(MemberName, Email, Password, Phone, Address, Rank, Birthday) " +
+        "VALUES (?, ?, ?, ?, ?, '可悲會員', ?)";
         PreparedStatement insertPstmt = con.prepareStatement(insertSql);
         insertPstmt.setString(1, username);
         insertPstmt.setString(2, email);
         insertPstmt.setString(3, password);
         insertPstmt.setString(4, (phone == null || phone.trim().isEmpty()) ? null : phone);
         insertPstmt.setString(5, (address == null || address.trim().isEmpty()) ? null : address);
+        insertPstmt.setString(6, birthday);
 
         int rows = insertPstmt.executeUpdate();
         insertPstmt.close();

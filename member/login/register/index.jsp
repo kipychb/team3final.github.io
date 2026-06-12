@@ -38,6 +38,10 @@
                 <label>確認密碼 <span class="required">*</span></label>
                 <input type="password" id="confirm_password" placeholder="請再次輸入密碼" required>
             </div>
+            <div class="form-group">
+                <label>生日 <span class="required">*</span></label>
+                <input type="date" name="birthday" required>
+            </div>
             
             <!-- 選填欄位 -->
             <div class="form-group">

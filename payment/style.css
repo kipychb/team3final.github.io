@@ -222,6 +222,17 @@ input:focus, textarea:focus, select:focus {
     letter-spacing: 1px;
 }
 
+.birthday-gift{
+    background:#f8f3e8;
+    border:1px solid #c0a080;
+    color:#705844;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+    text-align:center;
+    font-size:14px;
+}
+
 /* 響應式 */
 @media (max-width: 600px) {
     .checkout-wrapper { padding: 0 15px; }

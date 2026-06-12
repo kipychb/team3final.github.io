@@ -3,7 +3,7 @@
 /**
  * payment/submit.js
  * 功能：結帳頁面控制器 - SQL 資料庫對接版
- * 新增：優惠券載入、即時折扣計算、送出訂單時傳送 coupon_id
+ * 新增：優惠券載入、活動折扣計算、送出訂單時傳送 coupon_id、當月壽星提示
  */
 
 let checkoutCart = [];
@@ -51,11 +51,37 @@ async function autoFillMemberInfo() {
             nameInput.value = result.name || "";
             phoneInput.value = result.phone || "";
             addressInput.value = result.address || "";
+
+            // 當月壽星贈品提示
+            const birthday = result.birthday || result.Birthday || "";
+            showBirthdayGift(birthday);
+
         } else if (result.status === 'nologin') {
             console.log("使用者未登入或 Session 已過期，不進行自動填寫。");
         }
     } catch (error) {
         console.error("無法自動獲取會員預填資訊:", error);
+    }
+}
+
+function showBirthdayGift(birthday) {
+    const giftBox = document.getElementById('birthday-gift-box');
+    if (!giftBox || !birthday) return;
+
+    const birthDate = new Date(birthday);
+    if (isNaN(birthDate.getTime())) return;
+
+    const birthMonth = birthDate.getMonth() + 1;
+    const currentMonth = new Date().getMonth() + 1;
+
+    if (birthMonth === currentMonth) {
+        giftBox.innerHTML = `
+            <div class="birthday-gift">
+                🎁 本月壽星禮遇：贈送品牌提袋一份
+            </div>
+        `;
+    } else {
+        giftBox.innerHTML = "";
     }
 }
 
@@ -142,15 +168,43 @@ async function loadCoupons() {
     }
 }
 
-function getSelectedDiscount() {
+function getSelectedDiscount(maxDiscountTarget) {
     const couponSelect = document.getElementById('coupon-select');
     if (!couponSelect) return 0;
 
     const selectedOption = couponSelect.options[couponSelect.selectedIndex];
     const amount = Number(selectedOption?.dataset?.amount || 0);
-    const maxDiscountTarget = cartSubtotal + SHIPPING_FEE;
 
     return Math.min(amount, maxDiscountTarget);
+}
+
+function getTotalQuantity() {
+    return checkoutCart.reduce((sum, item) => {
+        return sum + Number(item.Quantity || 0);
+    }, 0);
+}
+
+function getEventDiscountInfo() {
+    const totalQuantity = getTotalQuantity();
+
+    let rate = 0.9;
+    let label = "全店花束 9 折";
+
+    if (totalQuantity >= 2) {
+        rate = 0.8;
+        label = "購買兩件花束 8 折";
+    }
+
+    const discountedSubtotal = Math.round(cartSubtotal * rate);
+    const eventDiscount = cartSubtotal - discountedSubtotal;
+
+    return {
+        totalQuantity,
+        rate,
+        label,
+        discountedSubtotal,
+        eventDiscount
+    };
 }
 
 function updateSummary() {
@@ -158,12 +212,31 @@ function updateSummary() {
     const discountDisplay = document.getElementById('discount-val');
     const totalDisplay = document.getElementById('total-val');
 
-    const discount = getSelectedDiscount();
-    const finalTotal = Math.max(cartSubtotal + SHIPPING_FEE - discount, 0);
+    const eventInfo = getEventDiscountInfo();
+    const couponDiscount = getSelectedDiscount(eventInfo.discountedSubtotal + SHIPPING_FEE);
 
-    if (subtotalDisplay) subtotalDisplay.innerText = `NT$ \${cartSubtotal.toLocaleString()}`;
-    if (discountDisplay) discountDisplay.innerText = `- NT$ \${discount.toLocaleString()}`;
-    if (totalDisplay) totalDisplay.innerText = `NT$ \${finalTotal.toLocaleString()}`;
+    const finalTotal = Math.max(
+        eventInfo.discountedSubtotal + SHIPPING_FEE - couponDiscount,
+        0
+    );
+
+    if (subtotalDisplay) {
+        subtotalDisplay.innerText = `NT$ \${cartSubtotal.toLocaleString()}`;
+    }
+
+    if (discountDisplay) {
+        let discountText = `\${eventInfo.label}：- NT$ \${eventInfo.eventDiscount.toLocaleString()}`;
+
+        if (couponDiscount > 0) {
+            discountText += `｜優惠券折抵：- NT$ \${couponDiscount.toLocaleString()}`;
+        }
+
+        discountDisplay.innerText = discountText;
+    }
+
+    if (totalDisplay) {
+        totalDisplay.innerText = `NT$ \${finalTotal.toLocaleString()}`;
+    }
 }
 
 async function submitOrder() {
