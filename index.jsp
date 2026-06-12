@@ -175,7 +175,7 @@
     %>
     <div class="side-panel<%= hasSearch ? " active" : "" %>" id="side-search">
         <form class="search-bar" id="search-form" action="index.jsp" method="get">
-            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福..."
+            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：玫瑰"
                    value="<%= hasSearch ? searchQ : "" %>">
             <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
                 <i class="fa-solid fa-magnifying-glass"></i>

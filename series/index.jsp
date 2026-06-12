@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=30">
     <link rel="stylesheet" href="../utils/cart/style.css">
     <link rel="stylesheet" href="../utils/side-menu/style.css">
 </head>
@@ -64,7 +64,7 @@
     %>
     <div class="side-panel<%= hasSearch ? " active" : "" %>" id="side-search">
         <form class="search-bar" id="search-form" action="../index.jsp" method="get">
-            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福..."
+            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：玫瑰"
                    value="<%= hasSearch ? searchQ : "" %>">
             <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
                 <i class="fa-solid fa-magnifying-glass"></i>
