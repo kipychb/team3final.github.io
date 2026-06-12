@@ -17,6 +17,7 @@
 
 <div class="login-container">
         <div class="login-logo">加入花予</div>
+        
         <p class="login-desc">成為會員，收藏您的命定花語</p>
         
         <form action="doRegister.jsp" method="post" onsubmit="return validateForm()">

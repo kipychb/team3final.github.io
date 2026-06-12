@@ -29,13 +29,18 @@
     } 
 
     try { 
-        String cartSql = "SELECT c.ProductID, c.Quantity, p.Price, p.Quantity AS Stock FROM cart c JOIN product p ON c.ProductID = p.ProductID WHERE c.MemberID = ?";
+        String cartSql =
+        "SELECT c.ProductID, c.Quantity, p.Price, p.Quantity AS Stock, p.Category " +
+        "FROM cart c JOIN product p ON c.ProductID = p.ProductID " +
+        "WHERE c.MemberID = ?";
         PreparedStatement cartPstmt = con.prepareStatement(cartSql);
         cartPstmt.setInt(1, memberID);
         ResultSet cartRs = cartPstmt.executeQuery();
         
         ArrayList<int[]> items = new ArrayList<int[]>();
         double subtotal = 0;
+        int driedQty = 0;
+        double driedSubtotal = 0;
         boolean outOfStock = false;
 
         while (cartRs.next()) {
@@ -50,6 +55,12 @@
 
             subtotal += price * qty;
             items.add(new int[]{pid, qty, price});
+            String category = cartRs.getString("Category");
+
+            if("dried".equals(category)){
+                driedQty += qty;
+                driedSubtotal += price * qty;
+            }
         }
 
         cartRs.close();
@@ -69,23 +80,15 @@
 
         double shippingFee = 120;
         double discountAmount = 0;
-        // 活動折扣
-        int totalQuantity = 0;
 
-        for (int[] item : items) {
-            totalQuantity += item[1];
+        // 全館花束 9 折
+        double activityDiscount = subtotal * 0.1;
+
+        // 乾燥花任選兩件再 95 折
+        if (driedQty >= 2) {
+            activityDiscount += driedSubtotal * 0.05;
         }
 
-        double activityDiscount = 0;
-
-        // 兩件以上 8 折
-        if (totalQuantity >= 2) {
-            activityDiscount = subtotal * 0.2;
-        }
-        // 否則全店 9 折
-        else {
-            activityDiscount = subtotal * 0.1;
-        }
 
         if (couponId > 0) {
             String couponSql = "SELECT coupon_amount FROM member_coupons WHERE id = ? AND member_id = ? AND status = '未使用'";

@@ -233,6 +233,30 @@ input:focus, textarea:focus, select:focus {
     font-size:14px;
 }
 
+#discount-val {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.discount-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.discount-line span {
+    color: #705844;
+}
+
+.discount-line strong {
+    color: #705844;
+    font-weight: 600;
+}
+
+
 /* 響應式 */
 @media (max-width: 600px) {
     .checkout-wrapper { padding: 0 15px; }

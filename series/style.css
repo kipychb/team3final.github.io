@@ -18,7 +18,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 25px;
+    padding: 20px 25px;
     width: 100%;
     background-color: transparent;
 
@@ -71,8 +71,8 @@ body {
 
 /* --- 3. 容器佈局 --- */
 .category-wrapper {
-    max-width: 800px;
-    margin: 40px auto;
+    max-width: 900px;
+    margin: -20px auto;
     padding: 0 5%;
 
     .section-title { 
