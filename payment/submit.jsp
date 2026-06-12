@@ -87,7 +87,7 @@ function showBirthdayGift(birthday) {
     if (birthMonth === currentMonth) {
         giftBox.innerHTML = `
             <div class="birthday-gift">
-                🎁 本月壽星禮遇：贈送品牌提袋一份
+                 本月壽星加碼：贈送霧面質感透明提袋一份
             </div>
         `;
     } else {

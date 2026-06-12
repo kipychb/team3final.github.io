@@ -69,6 +69,23 @@
 
         double shippingFee = 120;
         double discountAmount = 0;
+        // 活動折扣
+        int totalQuantity = 0;
+
+        for (int[] item : items) {
+            totalQuantity += item[1];
+        }
+
+        double activityDiscount = 0;
+
+        // 兩件以上 8 折
+        if (totalQuantity >= 2) {
+            activityDiscount = subtotal * 0.2;
+        }
+        // 否則全店 9 折
+        else {
+            activityDiscount = subtotal * 0.1;
+        }
 
         if (couponId > 0) {
             String couponSql = "SELECT coupon_amount FROM member_coupons WHERE id = ? AND member_id = ? AND status = '未使用'";
@@ -93,12 +110,11 @@
             couponPstmt.close();
         }
 
-        double totalAmount = subtotal + shippingFee - discountAmount;
-
-        if (totalAmount < 0) { 
-            totalAmount = 0;
-        } 
-
+        double totalAmount =
+        subtotal
+        - activityDiscount
+        + shippingFee
+        - discountAmount;
         String insertOrderSql = "INSERT INTO orders (MemberID, OrderDate, OrderType, TotalAmount, OrderStatus) VALUES (?, CURDATE(), ?, ?, '已付款')";
         PreparedStatement orderPstmt = con.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS);
         orderPstmt.setInt(1, memberID);
