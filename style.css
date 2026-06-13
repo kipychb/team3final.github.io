@@ -697,35 +697,92 @@ body {
 
 /* 搜尋面板建議區塊的樣式 */
 /* 搜尋建議清單 */
+
+/* 搜尋建議清單 */
 .suggestions {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
-
-    /* 重點 */
-    max-height: 500px;
+    margin-top: 18px;
+    max-height: calc(100vh - 130px);
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* 每筆搜尋結果 */
-.suggestions li {
-    font-size: 15px;
-    border-bottom: 1px solid #705844;
-    opacity: 0.8;
-    padding: 10px 0;
-    cursor: pointer;
-    transition: 0.3s;
+/* 分類標題 */
+.suggestion-label {
+    border-bottom: none !important;
+    padding: 8px 0 10px !important;
+    font-weight:bold;
+    color: #54554f;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: default;
 }
 
-.suggestions li:hover {
-    background-color: #e9e4d4;
-    padding-left: 10px;
+/* 熱搜區塊 */
+.suggestion-hot-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid rgba(112, 88, 68, 0.25) !important;
+    padding: 6px 0 18px !important;
+    cursor: default;
+}
+
+/* 熱搜 tag */
+.suggestion-hot {
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid #c0a080;
+    border-radius: 999px;
+    color: #705844;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.suggestion-hot:hover {
+    background: #A3A69C;
+    color: #eeebe2;
+    border-color: #A3A69C;
+    transform: translateY(-1px);
+}
+
+/* 推薦商品 / 搜尋結果 */
+.suggestion-product {
+    padding: 13px 4px !important;
+    border-bottom: 1px solid rgba(112, 88, 68, 0.25) !important;
+    font-size: 0.9rem;
+    color: #705844;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.suggestion-product:hover {
+    background: rgba(192, 160, 128, 0.12);
+    padding-left: 10px !important;
+}
+
+/* 商品名稱 */
+.suggestion-product-name {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #705844;
+}
+
+/* 提示文字 */
+.suggestion-info {
+    padding: 14px 4px !important;
+    color: #A3A69C;
+    font-size: 0.9rem;
+    border-bottom: none !important;
+    cursor: default;
 }
 
 /* 捲軸美化 */
 .suggestions::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
 }
 
 .suggestions::-webkit-scrollbar-track {
@@ -734,9 +791,8 @@ body {
 
 .suggestions::-webkit-scrollbar-thumb {
     background: #c0a080;
-    border-radius: 20px;
+    border-radius: 99px;
 }
-
 
 @media (max-width: 768px) {
     /* --- 1. 導覽列*/

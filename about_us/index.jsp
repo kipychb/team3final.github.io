@@ -58,7 +58,7 @@
                         </div>
                         <div class="name-tag">
                             <h4 class="member-name">賴又德</h4>
-                            <p class="part">Layout / Animation Design</p>
+                            <p class="part">JSP / System Development</p>
                         </div>
                     </div>
                     <div class="member-detail">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="name-tag">
                             <h4 class="member-name">洪憲緯</h4>
-                            <p class="part">JSP / Interactive Logic</p>
+                            <p class="part">JSP / Database Development</p>
                         </div>
                     </div>
                     <div class="member-detail">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="name-tag">
                             <h4 class="member-name">陳柏妤</h4>
-                            <p class="part">Frontend UI / CSS Design</p>
+                            <p class="part">Frontend UI / UX Design</p>
                         </div>
                     </div>
                     <div class="member-detail">
