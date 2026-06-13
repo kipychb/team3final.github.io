@@ -10,7 +10,7 @@
     if (q.isEmpty()) {
         String[] hotKeywords = {"青春", "向日葵", "朋友"};
 %>
-<li class="suggestion-label">近期熱搜：</li>
+<li class="suggestion-label" style="font-weight: bold;">近期熱搜：</li>
 <%
         for (String kw : hotKeywords) {
 %>
@@ -21,7 +21,7 @@
 <%
         }
 %>
-<li class="suggestion-label" style="margin-top:20px;">推薦商品：</li>
+<li class="suggestion-label" style="margin-top:20px; font-weight: bold;">推薦商品：</li>
 <%
         Statement stmt = null;
         ResultSet rs = null;
