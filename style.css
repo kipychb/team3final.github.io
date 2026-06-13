@@ -606,6 +606,86 @@ body {
     }
 }
 
+/* 隱私權政策頁面 */
+.privacy-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 50px 60px;
+    background: #f7f3f0;
+    border: 1px solid #e5e0dc;
+    border-radius: 4px;
+    line-height: 1.9;
+    font-family: "Cactus Classical Serif", serif;
+}
+
+.privacy-container h1 {
+    color: #705844;
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    font-weight: normal;
+}
+
+.privacy-container h2 {
+    color: #705844;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    font-weight: normal;
+    border-bottom: 1px solid #c0a080;
+    padding-bottom: 8px;
+    opacity: 0.85;
+}
+
+.privacy-container p {
+    font-size: 0.95rem;
+    color: #3a3a3a;
+    margin-bottom: 8px;
+}
+
+.privacy-container ul {
+    color: #3a3a3a;
+    padding-left: 22px;
+    font-size: 0.95rem;
+}
+
+.privacy-container li {
+    margin-bottom: 6px;
+}
+
+.privacy-container .update-note {
+    margin-top: 40px;
+    text-align: center;
+    color: #A3A69C;
+    font-size: 0.85rem;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 26px;
+    background: transparent;
+    border: 1px solid #705844;
+    color: #705844;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+    font-family: "Cactus Classical Serif", serif;
+}
+
+.back-btn:hover {
+    background: #705844;
+    color: #eeebe2;
+}
+
+.back-btn-wrap {
+    text-align: center;
+    margin-top: 10px;
+}
+
 /* 頁腳底部 */
 .footer-bottom { 
     text-align: center; 

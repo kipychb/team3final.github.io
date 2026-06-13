@@ -77,7 +77,7 @@
                         </div>
                         <div class="name-tag">
                             <h4 class="member-name">洪憲緯</h4>
-                            <p class="part">JavaScript / Interactive Logic</p>
+                            <p class="part">JSP / Interactive Logic</p>
                         </div>
                     </div>
                     <div class="member-detail">
@@ -102,7 +102,7 @@
                     <div class="member-detail">
                         <div class="member-thought">
                             <i class="fa-solid fa-quote-left thought-icon"></i>
-                            <p>恩多
+                            <p>
                                 這次我們小組選擇延續上學期的網站作為專案主題，在原有基礎上進一步優化與完善系統功能。與上學期相比，這次最大的收穫是加入了後端程式設計，讓網站不再只是靜態頁面，而是能夠與資料庫連接，實現資料新增、查詢、修改與刪除等功能，使整個網站架構更加完整。
                                 在專案製作過程中，我深刻體會到完成一個完整網站所需要的能力遠比想像中更多。除了前端介面的設計與排版之外，還必須理解後端程式邏輯、資料庫管理、系統整合以及錯誤排除等技術。這讓我意識到自己還有許多需要學習與精進的地方。
                                 此外，在團隊合作中我也學習到如何與組員分工協調、討論功能需求以及共同解決技術上的困難。

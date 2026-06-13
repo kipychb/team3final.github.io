@@ -209,6 +209,45 @@
     <script src="utils/side-menu/main.jsp"></script>
     <script src="member/login/login.jsp"></script>
     <script>
+    // 搜尋面板：live AJAX search + #tag 支援
+    (function () {
+        const input = document.getElementById('searchInput');
+        const list  = document.getElementById('search-suggestions');
+        const form  = document.getElementById('search-form');
+        if (!input || !list || !form) return;
+
+        let timer;
+
+        function fetchSuggestions(q) {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fetch('search.jsp?q=' + encodeURIComponent(q))
+                    .then(function (r) { return r.text(); })
+                    .then(function (html) { list.innerHTML = html; })
+                    .catch(function () {});
+            }, 200);
+        }
+
+        // 供 search.jsp 內的熱搜標籤呼叫
+        window.doSearch = function (q) {
+            input.value = q;
+            fetchSuggestions(q);
+        };
+
+        // 輸入時即時搜尋
+        input.addEventListener('input', function () {
+            fetchSuggestions(this.value.trim());
+        });
+
+        // 攔截 Enter / 提交，不重新載頁面
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            fetchSuggestions(input.value.trim());
+        });
+    })();
+    </script>
+
+    <script>
     // 助教不要扣分，我只是想藏彩蛋 🥺
         document.addEventListener('DOMContentLoaded', () => {
             const randomChance = Math.random();

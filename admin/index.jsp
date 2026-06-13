@@ -23,7 +23,8 @@
 
     <div class="admin-actions">
         <a href="product_add.jsp" class="admin-btn btn-primary">＋ 上架新產品</a>
-        <a href="order.jsp"       class="admin-btn btn-secondary">≡ 瀏覽所有訂單</a>
+        <a href="order.jsp"        class="admin-btn btn-secondary">≡ 瀏覽所有訂單</a>
+        <a href="contact.jsp"     class="admin-btn btn-accent">✉ 聯絡我們留言</a>
         <a href="../index.jsp"    class="admin-btn btn-neutral">⌂ 返回前台首頁</a>
     </div>
 
