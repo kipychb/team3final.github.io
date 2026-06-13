@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v2">
     <link rel="stylesheet" href="utils/cart/style.css">
     <link rel="stylesheet" href="utils/side-menu/style.css">
     <link rel="icon" href="image/icon.ico">
@@ -64,7 +64,7 @@
                 <h2>尋找您的命定花</h2>
                 <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花。<br>這不僅是一場測驗，更是一份給心靈的祝願！</p>
 
-                <button class="quiz-enter" onclick="location.href='quiz/index.html'">
+                <button class="quiz-enter" onclick="location.href='quiz/index.jsp'">
                     開始探索您的命定花
                 </button>
             </div>
@@ -122,8 +122,8 @@
             <div class="contact-top">
                 <div class="about-us">
                     <img src="image/logo.png" alt="logo" class="about-logo">
-                    <a href="about_us/index.jsp" class="about-link">關於我們</a>
-                    <a href="member/benefits.jsp" class="about-link">會員優惠</a>
+                    <a href="about_us/index.jsp" class="about-link">★ 關於我們</a>
+                    <a href="member/benefits.jsp" class="about-link">★ 會員優惠</a>
                 </div>
                 <div class="map-box">
                     <iframe

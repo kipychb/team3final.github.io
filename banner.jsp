@@ -8,19 +8,19 @@
     
     Map<String, String> b1 = new HashMap<>();
     b1.put("link", "product/index.jsp?id=1");
-    b1.put("img", "image/banner/1.jpg");
+    b1.put("img", "image/banner/1.JPG");
     b1.put("alt", "廣告 1");
     banners.add(b1);
     
     Map<String, String> b2 = new HashMap<>();
-    b2.put("link", "member/benefits.jsp");
+    b2.put("link", "product/index.jsp?id=3");
     b2.put("img", "image/banner/2.jpg");
     b2.put("alt", "廣告 2");
     banners.add(b2);
     
     Map<String, String> b3 = new HashMap<>();
-    b3.put("link", "product/index.jsp?id=3");
-    b3.put("img", "image/banner/3.jpg");
+    b3.put("link", "member/benefits.jsp");
+    b3.put("img", "image/banner/3.JPG");
     b3.put("alt", "廣告 3");
     banners.add(b3);
 

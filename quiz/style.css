@@ -7,6 +7,7 @@
 
 body {
     background-color: #EEEBE2; 
+    background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
     font-family: 'Noto Serif TC', serif;
     display: flex;
     justify-content: center;
@@ -19,7 +20,7 @@ body {
 .test-container {
     width: 100%;
     max-width: 500px;
-    height: 100vh;      
+    height: 80vh;      
     background: #877566; 
     display: flex;
     flex-direction: column;
@@ -154,7 +155,7 @@ body {
 .result-page {
     width: 100%; height: 100%;
     background-color: #877566; color: #EEEBE2;
-    padding: 30px 25px;
+    padding: 50px 25px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

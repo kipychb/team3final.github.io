@@ -175,7 +175,7 @@ body {
 /* 心理測驗 */
 .quiz-intro {
     display: flex; padding: 30px 20px; gap: 40px; align-items: center;
-    max-width: 1100px; margin: 20px auto;
+    max-width: 1100px; margin: 20px auto;position: relative;
 }
 .quiz-card {
     flex: 0 0 40%;
@@ -188,7 +188,7 @@ body {
 
 .quiz-card img { 
     display: block; /* 移除底部間隙 */
-    width: 100%; 
+    width: 90%; 
     height: auto; 
     border-radius: 3px;
     transition: transform 0.8s ease;
@@ -200,8 +200,10 @@ body {
 
 /* 文字區塊：確保按鈕對齊文字 */
 .quiz-text { 
-    flex: 1; 
-    text-align: left; 
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
     color:#705844;
 }
 
@@ -222,6 +224,9 @@ body {
     cursor: pointer;
     transition: all 0.4s ease;
     letter-spacing: 2px;
+    position: absolute;
+    right: 125px;
+    bottom: 30px;
 }
 
 /* 加入一點「進入」的過渡回饋 */
@@ -407,18 +412,18 @@ body {
 .about-logo {
     width: 200px; 
     height: auto;
-    margin-bottom: 5px; 
+    margin-bottom: 0px; 
     object-fit: contain;
     margin-left: 100px;
 }
 
 .about-link { 
-    font-size: 0.5rem; 
+    font-size: 0.4rem; 
     text-decoration: underline; 
     font-family:"Cactus Classical Serif", serif;
     color: #705844; 
     display: block; 
-    margin-bottom: 10px; 
+    margin-bottom: 3px; 
     margin-left: 150px;
     
 }
@@ -438,9 +443,9 @@ body {
 
 .contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
 .about-us { flex: 1; }
-.about-link { font-size: 1.4rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
+.about-link { font-size: 1.3rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
 .map-box { flex: 1; border: 1px solid #c0a080; aspect-ratio: 1.5; background: #eeebe2; }
-.map-placeholder { height: 90%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
+.map-placeholder { height: 100%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
 
 .login-container {
     background-color: rgba(112, 88, 68, 0.9);

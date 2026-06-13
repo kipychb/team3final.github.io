@@ -48,3 +48,24 @@ if (overlay) {
         overlay.classList.remove('active');
     });
 }
+
+// 點擊搜尋面板外部關閉搜尋
+document.addEventListener('click', (e) => {
+
+    const panel = document.getElementById('side-search');
+    const trigger = document.getElementById('search-trigger');
+
+    if (!panel) return;
+
+    if (
+        panel.classList.contains('active') &&
+        !panel.contains(e.target) &&
+        (!trigger || !trigger.contains(e.target))
+    ) {
+        panel.classList.remove('active');
+
+        if (overlay) {
+            overlay.classList.remove('active');
+        }
+    }
+});
