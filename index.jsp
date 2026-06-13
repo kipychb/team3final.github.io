@@ -167,8 +167,7 @@
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
-
-    <!-- 搜尋花朵 -->
+<!-- 搜尋花朵 -->
     <%
         String searchQ = request.getParameter("q");
         boolean hasSearch = searchQ != null && !searchQ.trim().isEmpty();
@@ -176,15 +175,55 @@
     <div class="side-panel<%= hasSearch ? " active" : "" %>" id="side-search">
         <form class="search-bar" id="search-form" action="index.jsp" method="get">
             <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：玫瑰"
-                   value="<%= hasSearch ? searchQ : "" %>">
+                value="<%= hasSearch ? searchQ : "" %>">
             <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
+
         <ul id="search-suggestions" class="suggestions">
             <jsp:include page="search.jsp" />
         </ul>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('search-suggestions');
+        const searchForm = document.getElementById('search-form');
+
+        if (!searchInput || !suggestions) return;
+
+        let timer = null;
+
+        async function loadSearchResult(keyword) {
+            try {
+                const response = await fetch('search.jsp?q=' + encodeURIComponent(keyword));
+                const html = await response.text();
+                suggestions.innerHTML = html;
+            } catch (error) {
+                suggestions.innerHTML = '<li style="cursor:default; padding:10px;">搜尋載入失敗，請稍後再試</li>';
+            }
+        }
+
+        searchInput.addEventListener('input', function () {
+            const keyword = this.value.trim();
+
+            clearTimeout(timer);
+
+            timer = setTimeout(function () {
+                loadSearchResult(keyword);
+            }, 200);
+        });
+
+        if (searchForm) {
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                loadSearchResult(searchInput.value.trim());
+            });
+        }
+    });
+    </script>
 
     <!-- 購物清單 -->
     <div id="cartSidebar" class="cart-sidebar">
