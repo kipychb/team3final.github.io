@@ -175,7 +175,7 @@ body {
 /* 心理測驗 */
 .quiz-intro {
     display: flex; padding: 30px 20px; gap: 40px; align-items: center;
-    max-width: 1100px; margin: 20px auto;
+    max-width: 1100px; margin: 20px auto;position: relative;
 }
 .quiz-card {
     flex: 0 0 40%;
@@ -188,7 +188,7 @@ body {
 
 .quiz-card img { 
     display: block; /* 移除底部間隙 */
-    width: 100%; 
+    width: 90%; 
     height: auto; 
     border-radius: 3px;
     transition: transform 0.8s ease;
@@ -200,8 +200,10 @@ body {
 
 /* 文字區塊：確保按鈕對齊文字 */
 .quiz-text { 
-    flex: 1; 
-    text-align: left; 
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
     color:#705844;
 }
 
@@ -215,7 +217,6 @@ body {
     margin-top: 30px;
     padding: 8px 15px;
     display: flex;
-    left: 100px;
     background: transparent;
     border: 1px solid #705844;
     color: #705844;
@@ -223,6 +224,9 @@ body {
     cursor: pointer;
     transition: all 0.4s ease;
     letter-spacing: 2px;
+    position: absolute;
+    right: 125px;
+    bottom: 30px;
 }
 
 /* 加入一點「進入」的過渡回饋 */
@@ -408,18 +412,18 @@ body {
 .about-logo {
     width: 200px; 
     height: auto;
-    margin-bottom: 5px; 
+    margin-bottom: 0px; 
     object-fit: contain;
     margin-left: 100px;
 }
 
 .about-link { 
-    font-size: 0.5rem; 
+    font-size: 0.4rem; 
     text-decoration: underline; 
     font-family:"Cactus Classical Serif", serif;
     color: #705844; 
     display: block; 
-    margin-bottom: 10px; 
+    margin-bottom: 3px; 
     margin-left: 150px;
     
 }
@@ -439,9 +443,9 @@ body {
 
 .contact-top { display: flex; gap: 40px; max-width: 1000px; margin: 0 auto 40px; align-items: flex-start; }
 .about-us { flex: 1; }
-.about-link { font-size: 1.4rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
+.about-link { font-size: 1.3rem; text-decoration: underline; color: #705844; display: block; margin-bottom: 10px; }
 .map-box { flex: 1; border: 1px solid #c0a080; aspect-ratio: 1.5; background: #eeebe2; }
-.map-placeholder { height: 90%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
+.map-placeholder { height: 100%; display: flex; justify-content: center; align-items: center; background: #eee; font-size: 0.9rem; }
 
 .login-container {
     background-color: rgba(112, 88, 68, 0.9);
@@ -602,6 +606,86 @@ body {
     }
 }
 
+/* 隱私權政策頁面 */
+.privacy-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 50px 60px;
+    background: #f7f3f0;
+    border: 1px solid #e5e0dc;
+    border-radius: 4px;
+    line-height: 1.9;
+    font-family: "Cactus Classical Serif", serif;
+}
+
+.privacy-container h1 {
+    color: #705844;
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    font-weight: normal;
+}
+
+.privacy-container h2 {
+    color: #705844;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    font-weight: normal;
+    border-bottom: 1px solid #c0a080;
+    padding-bottom: 8px;
+    opacity: 0.85;
+}
+
+.privacy-container p {
+    font-size: 0.95rem;
+    color: #3a3a3a;
+    margin-bottom: 8px;
+}
+
+.privacy-container ul {
+    color: #3a3a3a;
+    padding-left: 22px;
+    font-size: 0.95rem;
+}
+
+.privacy-container li {
+    margin-bottom: 6px;
+}
+
+.privacy-container .update-note {
+    margin-top: 40px;
+    text-align: center;
+    color: #A3A69C;
+    font-size: 0.85rem;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px 26px;
+    background: transparent;
+    border: 1px solid #705844;
+    color: #705844;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+    font-family: "Cactus Classical Serif", serif;
+}
+
+.back-btn:hover {
+    background: #705844;
+    color: #eeebe2;
+}
+
+.back-btn-wrap {
+    text-align: center;
+    margin-top: 10px;
+}
+
 /* 頁腳底部 */
 .footer-bottom { 
     text-align: center; 
@@ -613,35 +697,92 @@ body {
 
 /* 搜尋面板建議區塊的樣式 */
 /* 搜尋建議清單 */
+
+/* 搜尋建議清單 */
 .suggestions {
     list-style: none;
     padding: 0;
-    margin-top: 10px;
-
-    /* 重點 */
-    max-height: 500px;
+    margin-top: 18px;
+    max-height: calc(100vh - 130px);
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* 每筆搜尋結果 */
-.suggestions li {
-    font-size: 15px;
-    border-bottom: 1px solid #705844;
-    opacity: 0.8;
-    padding: 10px 0;
-    cursor: pointer;
-    transition: 0.3s;
+/* 分類標題 */
+.suggestion-label {
+    border-bottom: none !important;
+    padding: 8px 0 10px !important;
+    font-weight:bold;
+    color: #54554f;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: default;
 }
 
-.suggestions li:hover {
-    background-color: #e9e4d4;
-    padding-left: 10px;
+/* 熱搜區塊 */
+.suggestion-hot-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid rgba(112, 88, 68, 0.25) !important;
+    padding: 6px 0 18px !important;
+    cursor: default;
+}
+
+/* 熱搜 tag */
+.suggestion-hot {
+    display: inline-block;
+    padding: 5px 12px;
+    border: 1px solid #c0a080;
+    border-radius: 999px;
+    color: #705844;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.suggestion-hot:hover {
+    background: #A3A69C;
+    color: #eeebe2;
+    border-color: #A3A69C;
+    transform: translateY(-1px);
+}
+
+/* 推薦商品 / 搜尋結果 */
+.suggestion-product {
+    padding: 13px 4px !important;
+    border-bottom: 1px solid rgba(112, 88, 68, 0.25) !important;
+    font-size: 0.9rem;
+    color: #705844;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.suggestion-product:hover {
+    background: rgba(192, 160, 128, 0.12);
+    padding-left: 10px !important;
+}
+
+/* 商品名稱 */
+.suggestion-product-name {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #705844;
+}
+
+/* 提示文字 */
+.suggestion-info {
+    padding: 14px 4px !important;
+    color: #A3A69C;
+    font-size: 0.9rem;
+    border-bottom: none !important;
+    cursor: default;
 }
 
 /* 捲軸美化 */
 .suggestions::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
 }
 
 .suggestions::-webkit-scrollbar-track {
@@ -650,9 +791,8 @@ body {
 
 .suggestions::-webkit-scrollbar-thumb {
     background: #c0a080;
-    border-radius: 20px;
+    border-radius: 99px;
 }
-
 
 @media (max-width: 768px) {
     /* --- 1. 導覽列*/

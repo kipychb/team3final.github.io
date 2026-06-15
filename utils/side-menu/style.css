@@ -22,9 +22,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     color: #705844;
-    
     border-bottom: 1.5px solid #A3A69C;
     margin-bottom: 20px;
 }
@@ -36,7 +35,7 @@
 
 .header i {
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #705844;
     transition: 0.3s;
 }
@@ -49,11 +48,11 @@
 .list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin-top: -10px;
 }
 
 .list li {
-    font-size: 1.1rem;
+    font-size: 1.025rem;
     color: #3a3a3a;
     padding: 12px 0;
     border-bottom: 1px solid rgba(112, 88, 68, 0.2);
@@ -137,6 +136,87 @@
 .suggestions::-webkit-scrollbar-thumb {
     background: #c0a080;
     border-radius: 20px;
+}
+
+/* 搜尋建議：分類標籤 */
+.suggestions .suggestion-label {
+    font-size: 0.78rem;
+    color: #A3A69C;
+    letter-spacing: 1px;
+    cursor: default;
+    border-bottom: none;
+    padding: 10px 0 4px;
+    opacity: 1;
+}
+
+.suggestions .suggestion-label:hover {
+    background: none;
+    padding-left: 0;
+}
+
+/* 熱搜標籤群組列 */
+.suggestions .suggestion-hot-wrap {
+    border-bottom: none;
+    padding: 4px 0 10px;
+    cursor: default;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.suggestions .suggestion-hot-wrap:hover {
+    background: none;
+    padding-left: 0;
+}
+
+/* 單個熱搜 chip */
+.suggestion-hot {
+    display: inline-block;
+    padding: 3px 11px;
+    border: 1px solid #c0a080;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    color: #705844;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suggestion-hot:hover {
+    background: #c0a080;
+    color: #eeebe2;
+}
+
+/* 一般搜尋結果列 */
+.suggestions .suggestion-product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+/* 商品名稱（截斷超長文字） */
+.suggestion-product-name {
+    font-size: 0.92rem;
+    color: #3a3a3a;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+
+/* 提示訊息（找不到 / 錯誤） */
+.suggestions .suggestion-info {
+    cursor: default;
+    color: #A3A69C;
+    font-size: 0.88rem;
+    padding: 12px 0;
+}
+
+.suggestions .suggestion-info:hover {
+    background: none;
+    padding-left: 0;
 }
 
 /* 遮罩 */

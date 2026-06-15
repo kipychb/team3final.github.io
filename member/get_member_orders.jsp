@@ -48,7 +48,7 @@
             ));
 
             // 3. 聯表查詢該訂單下的所有商品明細與 relativeIndex 圖片路徑所需欄位
-            String detailSql = "SELECT od.ProductID, od.Quantity, od.Price, od.Subtotal, p.ProductName, p.Category " +
+            String detailSql = "SELECT od.ProductID, od.Quantity, od.Price, od.Subtotal, p.ProductName, p.Category, p.Image " +
                                "FROM `order_detail` od " +
                                "JOIN `product` p ON od.ProductID = p.ProductID " +
                                "WHERE od.OrderID = ?";
@@ -64,28 +64,16 @@
                 double subtotal = detailRs.getDouble("Subtotal");
                 String productName = detailRs.getString("ProductName").replace("\\", "\\\\").replace("\"", "\\\"");
                 String category = detailRs.getString("Category");
+                String image = detailRs.getString("Image");
+                if (image == null) image = "";
+                else image = image.replace("\\", "\\\\").replace("\"", "\\\"");
 
-                // 即時計算 Category 的 relativeIndex (確保圖片路徑正確)
-                int relativeIndex = 1;
-                String rankSql = "SELECT COUNT(*) AS `rank` FROM `product` WHERE `Category` = ? AND `ProductID` <= ?";
-                PreparedStatement rankPstmt = con.prepareStatement(rankSql);
-                rankPstmt.setString(1, category);
-                rankPstmt.setInt(2, productID);
-                ResultSet rankRs = rankPstmt.executeQuery();
-                if (rankRs.next()) {
-                    relativeIndex = rankRs.getInt("rank");
-                }
-                rankRs.close();
-                rankPstmt.close();
-
-                if (!firstDetail) {
-                    json.append(",");
-                }
+                if (!firstDetail) json.append(",");
                 firstDetail = false;
 
                 json.append(String.format(
-                    "{\"ProductID\":%d, \"Quantity\":%d, \"Price\":%.2f, \"Subtotal\":%.2f, \"ProductName\":\"%s\", \"Category\":\"%s\", \"relativeIndex\":%d}",
-                    productID, quantity, price, subtotal, productName, category, relativeIndex
+                    "{\"ProductID\":%d,\"Quantity\":%d,\"Price\":%.2f,\"Subtotal\":%.2f,\"ProductName\":\"%s\",\"Category\":\"%s\",\"Image\":\"%s\"}",
+                    productID, quantity, price, subtotal, productName, category, image
                 ));
             }
             detailRs.close();

@@ -1,5 +1,15 @@
 <%@ page contentType = "text/javascript;charset=utf-8" language = "java" %>
 
+function flowerImg(image, variant, prefix) {
+    prefix = prefix !== undefined ? prefix : '../';
+    if (!image || image === 'null' || image.trim() === '') return prefix + 'image/default.jpg';
+    const img = image.trim();
+    if (/^\d+-1\.jpg$/.test(img)) {
+        return prefix + 'image/flower/' + img.replace('-1.jpg', '-' + variant + '.jpg');
+    }
+    return prefix + 'image/flower/' + img;
+}
+
 function switchSection(id, element) {
     // 切換選單按鈕樣式
     document.querySelectorAll('.flower-item').forEach(item => item.classList.remove('active'));
@@ -59,16 +69,7 @@ async function loadMemberOrders() {
             // 渲染商品詳情細項
             const detailsHtml = order.Details.map(detail => {
                 // 💡 修正：動態相容新 UUID 圖片與舊 indexed 圖片路徑，並移除路徑多餘空格
-                let imgPath = `../image/default.jpg`;
-                if (detail.Image && detail.Image.trim() !== '') {
-                    if (detail.Image.includes('-')) {
-                        imgPath = `../image/images/\${detail.Image.trim()}`;
-                    } else {
-                        imgPath = `../image/flower/\${detail.Category}/\${detail.relativeIndex}-1.jpg`;
-                    }
-                } else if (detail.Category && detail.relativeIndex) {
-                    imgPath = `../image/flower/\${detail.Category}/\${detail.relativeIndex}-1.jpg`;
-                }
+                const imgPath = flowerImg(detail.Image, 1);
 
                 return `
                     <div class="order-product-row" style="display: flex; gap: 15px; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 12px;">
@@ -141,16 +142,7 @@ async function renderMemberWishlist() {
             <div class="member-wishlist-grid">
                 \${wishlistedItems.map(item => {
                     // 💡 修正：移除路徑中的所有多餘空格，並加入 UUID 新圖片格式解析
-                    let imagePath = `../image/default.jpg`;
-                    if (item.Image && item.Image.trim() !== '') {
-                        if (item.Image.includes('-')) {
-                            imagePath = `../image/images/\${item.Image.trim()}`;
-                        } else {
-                            imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-2.jpg`;
-                        }
-                    } else if (item.Category && item.relativeIndex) {
-                        imagePath = `../image/flower/\${item.Category}/\${item.relativeIndex}-2.jpg`;
-                    }
+                    const imagePath = flowerImg(item.Image, 2);
 
                     const productUrl = `../product/index.jsp?id=\${item.ProductID}`;
                     return `

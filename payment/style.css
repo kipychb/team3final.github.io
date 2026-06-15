@@ -222,6 +222,41 @@ input:focus, textarea:focus, select:focus {
     letter-spacing: 1px;
 }
 
+.birthday-gift{
+    background:#f8f3e8;
+    border:1px solid #c0a080;
+    color:#705844;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+    text-align:center;
+    font-size:14px;
+}
+
+#discount-val {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.discount-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.discount-line span {
+    color: #705844;
+}
+
+.discount-line strong {
+    color: #705844;
+    font-weight: 600;
+}
+
+
 /* 響應式 */
 @media (max-width: 600px) {
     .checkout-wrapper { padding: 0 15px; }

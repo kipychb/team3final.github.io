@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Fugaz+One&family=Homemade+Apple&family=Lavishly+Yours&family=Londrina+Sketch&family=Noto+Sans+TC:wght@100..900&family=Pinyon+Script&family=WindSong:wght@400;500&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v3">
     <link rel="stylesheet" href="utils/cart/style.css">
     <link rel="stylesheet" href="utils/side-menu/style.css">
     <link rel="icon" href="image/icon.ico">
@@ -64,7 +64,7 @@
                 <h2>尋找您的命定花</h2>
                 <p>在忙碌的生活中，透過直覺的選擇，發現此刻最契合您靈魂的那朵花。<br>這不僅是一場測驗，更是一份給心靈的祝願！</p>
 
-                <button class="quiz-enter" onclick="location.href='quiz/index.html'">
+                <button class="quiz-enter" onclick="location.href='quiz/index.jsp'">
                     開始探索您的命定花
                 </button>
             </div>
@@ -122,8 +122,8 @@
             <div class="contact-top">
                 <div class="about-us">
                     <img src="image/logo.png" alt="logo" class="about-logo">
-                    <a href="about_us/index.jsp" class="about-link">關於我們</a>
-                    <a href="member/benefits.jsp" class="about-link">會員優惠</a>
+                    <a href="about_us/index.jsp" class="about-link">★ 關於我們</a>
+                    <a href="member/benefits.jsp" class="about-link">★ 會員優惠</a>
                 </div>
                 <div class="map-box">
                     <iframe
@@ -160,22 +160,70 @@
 
         <ul class="list">
             <li><a href="index.jsp">Home / 首頁</a></li>
-            <li><a href="series/index.html?series=lover">For Lover 系列</a></li>
-            <li><a href="series/index.html?series=myself">For Myself 系列</a></li>
-            <li><a href="series/index.html?series=friend">For Friend 系列</a></li>
-            <li><a href="series/index.html?series=elder">For Elders 系列</a></li>
+            <li><a href="series/index.jsp?series=lover">For Lover 系列</a></li>
+            <li><a href="series/index.jsp?series=myself">For Myself 系列</a></li>
+            <li><a href="series/index.jsp?series=friend">For Friend 系列</a></li>
+            <li><a href="series/index.jsp?series=elder">For Elders 系列</a></li>
         </ul>
     </div>
     <div id="menu-overlay" class="menu-overlay"></div>
+<!-- 搜尋花朵 -->
+    <%
+        String searchQ = request.getParameter("q");
+        boolean hasSearch = searchQ != null && !searchQ.trim().isEmpty();
+    %>
+    <div class="side-panel<%= hasSearch ? " active" : "" %>" id="side-search">
+        <form class="search-bar" id="search-form" action="index.jsp" method="get">
+            <input type="text" name="q" id="searchInput" placeholder="可輸入花材、花語或對象，如：玫瑰"
+                value="<%= hasSearch ? searchQ : "" %>">
+            <button type="submit" style="background:none; border:none; cursor:pointer; padding:0;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
 
-    <!-- 搜尋花朵 -->
-    <div class="side-panel" id="side-search">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="可輸入花材、花語或對象，如：向日葵、告白、祝福...">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <ul id="search-suggestions" class="suggestions"></ul>
+        <ul id="search-suggestions" class="suggestions">
+            <jsp:include page="search.jsp" />
+        </ul>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const suggestions = document.getElementById('search-suggestions');
+        const searchForm = document.getElementById('search-form');
+
+        if (!searchInput || !suggestions) return;
+
+        let timer = null;
+
+        async function loadSearchResult(keyword) {
+            try {
+                const response = await fetch('search.jsp?q=' + encodeURIComponent(keyword));
+                const html = await response.text();
+                suggestions.innerHTML = html;
+            } catch (error) {
+                suggestions.innerHTML = '<li style="cursor:default; padding:10px;">搜尋載入失敗，請稍後再試</li>';
+            }
+        }
+
+        searchInput.addEventListener('input', function () {
+            const keyword = this.value.trim();
+
+            clearTimeout(timer);
+
+            timer = setTimeout(function () {
+                loadSearchResult(keyword);
+            }, 200);
+        });
+
+        if (searchForm) {
+            searchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                loadSearchResult(searchInput.value.trim());
+            });
+        }
+    });
+    </script>
 
     <!-- 購物清單 -->
     <div id="cartSidebar" class="cart-sidebar">
@@ -195,11 +243,49 @@
     <jsp:include page="utils/cookie-banner.jsp" />
 
     <!-- Java Script 專區 -->
-    <script src="utils/wishlist/addWish.jsp"></script>
+    <jsp:include page="utils/wishlist/addWish.jsp" />
     <script src="utils/cart/main.jsp"></script>
     <script src="utils/side-menu/main.jsp"></script>
     <script src="member/login/login.jsp"></script>
-    <script src="search.jsp"></script>
+    <script>
+    // 搜尋面板：live AJAX search + #tag 支援
+    (function () {
+        const input = document.getElementById('searchInput');
+        const list  = document.getElementById('search-suggestions');
+        const form  = document.getElementById('search-form');
+        if (!input || !list || !form) return;
+
+        let timer;
+
+        function fetchSuggestions(q) {
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fetch('search.jsp?q=' + encodeURIComponent(q))
+                    .then(function (r) { return r.text(); })
+                    .then(function (html) { list.innerHTML = html; })
+                    .catch(function () {});
+            }, 200);
+        }
+
+        // 供 search.jsp 內的熱搜標籤呼叫
+        window.doSearch = function (q) {
+            input.value = q;
+            fetchSuggestions(q);
+        };
+
+        // 輸入時即時搜尋
+        input.addEventListener('input', function () {
+            fetchSuggestions(this.value.trim());
+        });
+
+        // 攔截 Enter / 提交，不重新載頁面
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            fetchSuggestions(input.value.trim());
+        });
+    })();
+    </script>
+
     <script>
     // 助教不要扣分，我只是想藏彩蛋 🥺
         document.addEventListener('DOMContentLoaded', () => {

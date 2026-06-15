@@ -13,13 +13,13 @@
     banners.add(b1);
     
     Map<String, String> b2 = new HashMap<>();
-    b2.put("link", "member/benefits.jsp");
+    b2.put("link", "product/index.jsp?id=3");
     b2.put("img", "image/banner/2.jpg");
     b2.put("alt", "廣告 2");
     banners.add(b2);
     
     Map<String, String> b3 = new HashMap<>();
-    b3.put("link", "product/index.jsp?id=3");
+    b3.put("link", "member/benefits.jsp");
     b3.put("img", "image/banner/3.jpg");
     b3.put("alt", "廣告 3");
     banners.add(b3);

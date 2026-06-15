@@ -50,5 +50,11 @@
     } catch (Exception e) {
         e.printStackTrace();
         out.print("error: " + e.getMessage());
+        return;
+    }
+
+    String redirect = request.getParameter("redirect");
+    if (redirect != null && !redirect.trim().isEmpty()) {
+        response.sendRedirect(redirect);
     }
 %>

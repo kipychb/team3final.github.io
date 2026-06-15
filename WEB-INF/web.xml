@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- 讓 do_add.jsp 可以使用 request.getPart() 處理 multipart/form-data 上傳 -->
+    <servlet>
+        <servlet-name>doAddProduct</servlet-name>
+        <jsp-file>/admin/action/do_add.jsp</jsp-file>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>      <!-- 單檔最大 10MB -->
+            <max-request-size>20971520</max-request-size> <!-- 整個請求最大 20MB -->
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doAddProduct</servlet-name>
+        <url-pattern>/admin/action/do_add.jsp</url-pattern>
+    </servlet-mapping>
+
+</web-app>

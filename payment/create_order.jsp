@@ -29,13 +29,18 @@
     } 
 
     try { 
-        String cartSql = "SELECT c.ProductID, c.Quantity, p.Price, p.Quantity AS Stock FROM cart c JOIN product p ON c.ProductID = p.ProductID WHERE c.MemberID = ?";
+        String cartSql =
+        "SELECT c.ProductID, c.Quantity, p.Price, p.Quantity AS Stock, p.Category " +
+        "FROM cart c JOIN product p ON c.ProductID = p.ProductID " +
+        "WHERE c.MemberID = ?";
         PreparedStatement cartPstmt = con.prepareStatement(cartSql);
         cartPstmt.setInt(1, memberID);
         ResultSet cartRs = cartPstmt.executeQuery();
         
         ArrayList<int[]> items = new ArrayList<int[]>();
         double subtotal = 0;
+        int driedQty = 0;
+        double driedSubtotal = 0;
         boolean outOfStock = false;
 
         while (cartRs.next()) {
@@ -50,6 +55,12 @@
 
             subtotal += price * qty;
             items.add(new int[]{pid, qty, price});
+            String category = cartRs.getString("Category");
+
+            if("dried".equals(category)){
+                driedQty += qty;
+                driedSubtotal += price * qty;
+            }
         }
 
         cartRs.close();
@@ -69,6 +80,15 @@
 
         double shippingFee = 120;
         double discountAmount = 0;
+
+        // 全館花束 9 折
+        double activityDiscount = subtotal * 0.1;
+
+        // 乾燥花任選兩件再 95 折
+        if (driedQty >= 2) {
+            activityDiscount += driedSubtotal * 0.05;
+        }
+
 
         if (couponId > 0) {
             String couponSql = "SELECT coupon_amount FROM member_coupons WHERE id = ? AND member_id = ? AND status = '未使用'";
@@ -93,12 +113,11 @@
             couponPstmt.close();
         }
 
-        double totalAmount = subtotal + shippingFee - discountAmount;
-
-        if (totalAmount < 0) { 
-            totalAmount = 0;
-        } 
-
+        double totalAmount =
+        subtotal
+        - activityDiscount
+        + shippingFee
+        - discountAmount;
         String insertOrderSql = "INSERT INTO orders (MemberID, OrderDate, OrderType, TotalAmount, OrderStatus) VALUES (?, CURDATE(), ?, ?, '已付款')";
         PreparedStatement orderPstmt = con.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS);
         orderPstmt.setInt(1, memberID);

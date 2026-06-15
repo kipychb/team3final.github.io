@@ -19,10 +19,10 @@
             <style>
                 /* 容器：與主站的卡片風格一致 */
                 .benefits-container {
-                    max-width: 750px;
-                    height: 650px;
-                    margin: 30px auto;
-                    padding: 40px;
+                    max-width: 700px;
+                    height: 600px;
+                    margin: 70px auto 30px auto;
+                    padding: 30px;
                     background-color: #f7f3f0;
                     /* 使用主站導覽列背景色 */
                     border: 1px solid #e5e0dc;
@@ -147,7 +147,6 @@
                     <p style="font-size:1.2em;">免費升級贈送：</p>
                     <ul style="font-size:1.15em; line-height:2;">
                         <li>「質感霧面透明提袋」一份</li>
-                        <li>「精美祝福卡」一份</li>
                     </ul>
                 </div>
 

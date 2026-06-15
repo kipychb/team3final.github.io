@@ -6,55 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>隱私權政策 | 花予祝願所</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .privacy-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            line-height: 1.8;
-        }
-        .privacy-container h1 {
-            color: #705844;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.2em;
-        }
-        .privacy-container h2 {
-            color: #A3A69C;
-            margin-top: 35px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        .privacy-container p {
-            font-size: 1.05em;
-            color: #444;
-        }
-        .privacy-container ul {
-            color: #444;
-            padding-left: 20px;
-        }
-        .privacy-container li {
-            margin-bottom: 8px;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 12px 28px;
-            background: #705844;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-        .back-btn:hover {
-            background: #8B6F5E;
-        }
-    </style>
+
 </head>
-<body style="background:#f8f5f0; font-family: 'Arial', sans-serif;">
+<body>
 
     <div class="privacy-container">
         <h1>🌸 隱私權政策</h1>
@@ -98,11 +52,9 @@
             // 動態獲取當前年份，讓頁面更新時間自動保持在最新狀態
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         %>
-        <p style="margin-top:40px; text-align:center; color:#666;">
-            最後更新日期：<%= currentYear %>年6月
-        </p>
+        <p class="update-note">最後更新日期：<%= currentYear %>年6月</p>
 
-        <div style="text-align:center;">
+        <div class="back-btn-wrap">
             <a href="index.jsp" class="back-btn">← 返回首頁</a>
         </div>
     </div>

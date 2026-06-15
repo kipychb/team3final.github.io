@@ -17,12 +17,12 @@
 
 <div class="login-container">
         <div class="login-logo">加入花予</div>
-        <!-- 1. 將行內樣式改為 class="login-desc" -->
+        
         <p class="login-desc">成為會員，收藏您的命定花語</p>
         
         <form action="doRegister.jsp" method="post" onsubmit="return validateForm()">
             <div class="form-group">
-                <!-- 2. 將紅星改為 class="required" -->
+                
                 <label>使用者名稱 <span class="required">*</span></label>
                 <input type="text" name="username" id="username" placeholder="例如：花小編" required>
             </div>
@@ -37,6 +37,10 @@
             <div class="form-group">
                 <label>確認密碼 <span class="required">*</span></label>
                 <input type="password" id="confirm_password" placeholder="請再次輸入密碼" required>
+            </div>
+            <div class="form-group">
+                <label>生日 <span class="required">*</span></label>
+                <input type="date" name="birthday" required>
             </div>
             
             <!-- 選填欄位 -->

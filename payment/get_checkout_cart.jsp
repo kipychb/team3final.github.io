@@ -15,7 +15,7 @@
     StringBuilder json = new StringBuilder("[");
     try {
         // 2. 聯表查詢 (JOIN) 購物車項目、商品資訊與分類
-        String sql = "SELECT c.ProductID, c.Quantity, p.ProductName, p.Price, p.Category " +
+        String sql = "SELECT c.ProductID, c.Quantity, p.ProductName, p.Price, p.Category, p.Image " +
                      "FROM `cart` c " +
                      "JOIN `product` p ON c.ProductID = p.ProductID " +
                      "WHERE c.MemberID = ? " +
@@ -32,28 +32,16 @@
             String productName = rs.getString("ProductName").replace("\\", "\\\\").replace("\"", "\\\"");
             double price = rs.getDouble("Price");
             String category = rs.getString("Category");
+            String image = rs.getString("Image");
+            if (image == null) image = "";
+            else image = image.replace("\\", "\\\\").replace("\"", "\\\"");
 
-            // 3. 即時計算 Category 的 relativeIndex (確保縮圖路徑正確)
-            int relativeIndex = 1;
-            String rankSql = "SELECT COUNT(*) AS `rank` FROM `product` WHERE `Category` = ? AND `ProductID` <= ?";
-            PreparedStatement rankPstmt = con.prepareStatement(rankSql);
-            rankPstmt.setString(1, category);
-            rankPstmt.setInt(2, productID);
-            ResultSet rankRs = rankPstmt.executeQuery();
-            if (rankRs.next()) {
-                relativeIndex = rankRs.getInt("rank");
-            }
-            rankRs.close();
-            rankPstmt.close();
-
-            if (!first) {
-                json.append(",");
-            }
+            if (!first) json.append(",");
             first = false;
 
             json.append(String.format(
-                "{\"ProductID\":%d, \"Quantity\":%d, \"ProductName\":\"%s\", \"Price\":%.2f, \"Category\":\"%s\", \"relativeIndex\":%d}",
-                productID, quantity, productName, price, category, relativeIndex
+                "{\"ProductID\":%d,\"Quantity\":%d,\"ProductName\":\"%s\",\"Price\":%.2f,\"Category\":\"%s\",\"Image\":\"%s\"}",
+                productID, quantity, productName, price, category, image
             ));
         }
         rs.close();
