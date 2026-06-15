@@ -66,8 +66,8 @@
                 // 使用 UUID 生成唯一檔名，防止重名覆蓋
                 savedFileName = UUID.randomUUID().toString() + fileExt;
 
-                // 決定儲存路徑：儲存到網域根目錄下的 images 資料夾中
-                String savePath = request.getServletContext().getRealPath("image/images");
+                // 決定儲存路徑：儲存到網域根目錄下的 image/flower 資料夾中
+                String savePath = request.getServletContext().getRealPath("image/flower");
                 File fileSaveDir = new File(savePath);
                 if (!fileSaveDir.exists()) {
                     fileSaveDir.mkdir(); // 自動建立 images 資料夾
